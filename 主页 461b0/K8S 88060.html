@@ -1,0 +1,672 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>K8S</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="88060fad-e59c-4f70-bd7d-eaa616bcb482" class="page sans"><header><img class="page-cover-image" src="K8S%2088060/kubernetes-2.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://www.clipartkey.com/mpngs/m/200-2005438_kubernetes-logo-kubernetes-logo-svg.png"/></div><h1 class="page-title">K8S</h1></header><div class="page-body"><figure id="80a8d7c1-d241-43a0-83f9-1d61f9d674f3" class="link-to-page"><a href="K8S%2088060/%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%2080a8d.html"><span class="icon">👺</span>常用命令</a></figure><h1 id="f0421916-cbf4-4c27-ad4a-358d42ae34a0" class="">未阅文章</h1><div id="6d42f58e-6ec9-4f23-b1ad-6b44035df71b" class="column-list"><div id="f5ab0db0-936c-44bb-bdef-adc8f1d1e91f" style="width:50%" class="column"><figure id="7feb1fd1-dd29-45be-b1f3-96be7d2af599"><a href="https://mp.weixin.qq.com/s/xyqqCo0qRgAR7vd6NzeQQQ" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Pod 拓扑分布约束使用及调度原理</div><div class="bookmark-description">在 k8s 集群调度中，&quot;亲和性&quot;相关的概念本质上都是控制 Pod 如何被调度 - 堆叠或是打散。目前 k8s 提供了 podAffinity 以及 podAntiAffinity 两个特性对 Pod 在不同拓扑域的分布进行了一些控制，podAffinity 可以将无数个 Pod 调度到特定的某一个拓扑域，这是堆叠的体现；podAntiAffinity 则可以控制一个拓扑域只存在一个 Pod，这是打散的体现。但这两种情况都太极端了，在不少场景下都无法达到理想的效果，例如为了实现容灾和高可用，将业务 Pod 尽可能均匀的分布在不同可用区就很难实现。 PodTopologySpread 特性的提出正是为了对 Pod 的调度分布提供更精细的控制，以提高服务可用性以及资源利用率， PodTopologySpread 由 EvenPodsSpread 特性门所控制，在 v1.16 版本第一次发布，并在 v1.18 版本进入 beta 阶段默认启用。再了解这个插件是如何实现之前，我们首先需要搞清楚这个特性是如何使用的。 在 Pod 的 Spec 规范中新增了一个 topologySpreadConstraints 字段： 由于这个新增的字段是在 Pod spec 层面添加，因此更高层级的控制 (Deployment、DaemonSet、StatefulSet) 也能使用 PodTopologySpread</div></div><div class="bookmark-href"><img src="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico" class="icon bookmark-icon"/>https://mp.weixin.qq.com/s/xyqqCo0qRgAR7vd6NzeQQQ</div></div><img src="http://mmbiz.qpic.cn/mmbiz_jpg/z9BgVMEm7YvkuBhLgIzPUJnmsdd8aBPmkfzCjZu0xhbKIjGwwYBqASTCqHueiazHXb5cxMywib2vwkw1IL6m5pZQ/0?wx_fmt=jpeg" class="bookmark-image"/></a></figure></div><div id="624ce37d-c2b1-47d0-aac0-8f303b44d09c" style="width:50%" class="column"><figure id="6e34e7d8-ac40-41a4-a22e-9b6ea43e5e0f"><a href="https://mp.weixin.qq.com/s/Rxq4cTIq-5AIC-k1DWYAMQ" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Kubernetes 原生 CI/CD 构建框架 Argo 详解！</div><div class="bookmark-description">在计算机中， 流水线是把一个重复的过程分解为若干个子过程，使每个子过程与其他子过程并行进行的技术，也叫 Pipeline 。由于这种 s工作方式与工厂中的生产流水线十分相似， 因此也被称为流水线技术。从本质上讲，流水线技术是一种时间并行技术。 以&quot;构建镜像&quot;过程为例： 在每一次构建镜像中，我们都需要拉下代码仓库中的代码，进行代码编译，构建镜像，最后推往镜像仓库。在每一次代码更改过后，这一过程都是不变的。使用流水线工具可以极大的提升这一过程的效率，只需要进行简单的配置便可以轻松的完成重复性的工作。这样的过程也被称之为 CI。 上图流程中使用的是 Jenkins。Jenkins 作为老牌流水线框架被大家所熟知。在云原生时代，Jenkins 推出了 Jenkins X 作为基于 Kubernetes 的新一代流水线，另外云原生时代还 诞生了两大流水线框架-- Argo 和 Tekton。本文就详细介绍了 Argo 的相关内容。 《Kubernetes 原生 CI/CD 构建框架 Tekton 详解！》 详细介绍了 Tekton 的相关内容。 Argo Workflows 是一个开源的容器原生的工作流引擎，可在 Kubernetes 上编排并行作业。Argo Workflows 实现为 Kubernetes CRD。 Argo 基于 Kubernetes，可以直接使用 kubectl 安装，安装的组件主要包括了一些 CRD 以及对应的 controller</div></div><div class="bookmark-href"><img src="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico" class="icon bookmark-icon"/>https://mp.weixin.qq.com/s/Rxq4cTIq-5AIC-k1DWYAMQ</div></div><img src="http://mmbiz.qpic.cn/mmbiz_jpg/1e9ia4YcKpMMsLQQtYoofT2Iw8QHicichqUUptmBbtVHjV3U3ZsTlLYvFsIce4ZzN2zqeBDHp0HAWkseEf7RZncnA/0?wx_fmt=jpeg" class="bookmark-image"/></a></figure></div></div><div id="f2c82a41-5978-4abf-9ec7-5c679e3cba37" class="column-list"><div id="30b2c447-1848-4dcf-ad48-88926a76c26d" style="width:50%" class="column"><figure id="2ec54048-7161-45f8-a4cf-77f4931fb795"><a href="https://www.cnblogs.com/tylerzhou/p/11049050.html" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">kubectl技巧之通过jsonpath截取属性</div><div class="bookmark-description">前面一节我们介绍了使用go-template截取属性,go-template功能非常强大,可以定义变量,使用流程控制等,这是jsonpath所不具备的.然而,jsonpth使用的时候更为灵活.通过上一节我们发现,我们想要找到某个具体属性,必须从最外层一层层向内找到具体属性,这对于嵌套层次非常深的yaml对象来说操作是非常繁琐的.而使用jsonpath只需要知道顶层对象,然后可以省略中间的对象,递归查找直接找到我们想要的属性,这在很多时候对我们在不清楚对象的层次但是清楚知道某个属性名称的时候获取这个属性的值是非常有帮助的.并且jsonpath可以使用下标索引数组对象,这在实际工作中也是非常有帮助的(比如虽然pod里可以包含多个containers,但是很多时候一个pod里只有一个container,使用go-template我们为了找到这个对象需要写一个遍历表达式,而使用jsonpath可以直接取第0个对象,省去了写循环的麻烦),还有一点很重要的是jsonpath是一个标准,这对于熟悉jsonpath的开发者来说使用起来方便很多. jsonpath模板使用一对花括号({})把jsonpath表达式包含在里面( go-template 是双花括号).除了标准jsonpath语法外,kubernetes jsonpath模板还额外支持以下语法: $操作符是可选的因为表达式默认总是从根节点开始选择 对象通过它的 String() 函数打印输出出来 假如有以下JSON字符串 { &quot;kind&quot;: &quot;List&quot;, &quot;items&quot;:[ { &quot;kind&quot;:&quot;None&quot;, &quot;metadata&quot;:{&quot;name&quot;:&quot;127.0.0.1&quot;}, &quot;status&quot;:{ &quot;capacity&quot;:{&quot;cpu&quot;:&quot;4&quot;}, &quot;addresses&quot;:[{&quot;type&quot;: &quot;LegacyHostIP&quot;, &quot;address&quot;:&quot;127.0.0.1&quot;}] } }, { &quot;kind&quot;:&quot;None&quot;, &quot;metadata&quot;:{&quot;name&quot;:&quot;127.0.0.2&quot;}, &quot;status&quot;:{ &quot;capacity&quot;:{&quot;cpu&quot;:&quot;8&quot;}, &quot;addresses&quot;:[ {&quot;type&quot;: &quot;LegacyHostIP&quot;, &quot;address&quot;:&quot;127.0.0.2&quot;}, {&quot;type&quot;: &quot;another&quot;, &quot;address&quot;:&quot;127.0.0.3&quot;} ] } } ], &quot;users&quot;:[ { &quot;name&quot;: &quot;myself&quot;, &quot;user&quot;: {} }, { &quot;name&quot;: &quot;e2e&quot;, &quot;user&quot;: {&quot;username&quot;: &quot;admin&quot;, &quot;password&quot;: &quot;secret&quot;} } ] } 使用jsonpath示例 kubectl get pods -o json kubectl get pods -o=jsonpath=&#x27;{@}&#x27; kubectl get pods -o=jsonpath=&#x27;{.items[0]}&#x27; kubectl get pods -o=jsonpath=&#x27;{.items[0].metadata.name}&#x27; kubectl get pods -o=jsonpath=&#x27;{range .items[*]}{.metadata.name}{&quot;\t&quot;}{.status.startTime}{&quot;\n&quot;}{end}&#x27; 如果对象是集合类型,需要使用range关键字开始,以end关键字结果,同前面一节go-template类似.</div></div><div class="bookmark-href"><img src="https://www.cnblogs.com/favicon.ico" class="icon bookmark-icon"/>https://www.cnblogs.com/tylerzhou/p/11049050.html</div></div></a></figure></div><div id="991e72ef-2581-489a-93f8-7c957b6a9e7c" style="width:50%" class="column"><figure id="658cf92f-5a39-4aad-bd09-15ed5eaefc6b"><a href="https://mp.weixin.qq.com/s/O3fJF5aZuxPOKa7lIjrHnQ" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">将 Kubernetes 证书文件全部清空了咋办？在线等！</div><div class="bookmark-description">Kubernetes 是一个很牛很牛的平台，Kubernetes 的架构可以让你轻松应对各种故障，今天我们将来破坏我们的集群、删除证书，然后再想办法恢复我们的集群，进行这些危险的操作而不会对已经运行的服务造成宕机。 如果你真的想要执行接下来的操作，还是建议别在生产环境去折腾，虽然理论上不会造成服务宕机，但是如果出现了问题， 可千万别骂我~~~ 我们知道 Kubernetes 的控制平面是由几个组件组成的： etcd：作为整个集群的数据库使用 kube-apiserver：集群的 API 服务 kube-controller-manager：整个集群资源的控制操作 kube-scheduler：核心调度器 kubelet：是运行在节点上用来真正管理容器的组件 这些组件都由一套针对客户端和服务端的 TLS 证书保护，用于组件之间的认证和授权，大部分情况下它们并不是直接存储在 Kubernetes 的数据库中的，而是以普通文件的形式存在。 # tree /etc/kubernetes/pki/ /etc/kubernetes/pki/├── apiserver.crt├── apiserver-etcd-client.crt├── apiserver-etcd-client.key├── apiserver.key├── apiserver-kubelet-client.crt├── apiserver-kubelet-client.key├── ca.crt├── ca.key├── CTNCA.pem├── etcd│ ├── ca.crt│ ├── ca.key│ ├── healthcheck-client.crt│ ├── healthcheck-client.key│ ├── peer.crt│ ├── peer.key│ ├── server.crt│ └── server.key├──</div></div><div class="bookmark-href"><img src="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico" class="icon bookmark-icon"/>https://mp.weixin.qq.com/s/O3fJF5aZuxPOKa7lIjrHnQ</div></div><img src="http://mmbiz.qpic.cn/mmbiz_jpg/z9BgVMEm7YuR7RFZkibnV1qfCRQ4qvPESwMibgltXpjAdicsP0DuShjF09RryU1yQ5GN285vphMibZgplBpsASfdmQ/0?wx_fmt=jpeg" class="bookmark-image"/></a></figure></div></div><figure id="a01098e6-f764-452c-bb2f-eb99449b4f95"><a href="https://mp.weixin.qq.com/s/V3ZpTSit03s2VW5bbgKcXw" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Docker镜像优化：从1.16GB到22.4MB</div><div class="bookmark-description">Docker 是一个供软件开发人员和系统管理员使用容器构建、运行和与分享应用程序的平台。容器是在独立环境中运行的进程，它运行在自己的文件系统上，该文件系统是使用 docker 镜像构建的。镜像中包含运行应用程序所需的一切（编译后的代码、依赖项、库等等）。镜像使用 Dockerfile 文件定义。 术语 dockerization 或 containerization 通常用于定义创建 Docker 容器的过程。 因为容器具备如下优点，所以很受欢迎： 灵活性：即使是最复杂的应用程序也可以容器化。 轻量化：容器共享主机内核，使得它们远比虚拟机高效。 便携性：可以做到本地编译，到处运行。 松耦合：容器自我封装，一个容器被替换或升级不会打断别的容器。 安全性：容器对进程进行了严格的限制和隔离，而无需用户进行任何配置。 在这篇文章中，我将重点讨论如何优化 Docker 镜像以使其轻量化。 让我们从一个示例开始，在该示例中，我们构建了一个 React 应用程序并将其容器化。运行 npx 命令并创建 Dockerfile 之后，我们得到了如图 1 所示的文件结构。 如果我们构建一个基础的 Dockerfile（如下所示），我们最终会得到一个 1.16 GB 的镜像： 图 2：镜像的初始大小为 1.16GB 在 Docker Hub（公共 Docker 仓库）中，有一些镜像可供下载，每个镜像都有不同的特征和大小。 通常，相较于基于其他 Linux 发行版（例如 Ubuntu）的镜像，基于 Alpine 或</div></div><div class="bookmark-href"><img src="https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico" class="icon bookmark-icon"/>https://mp.weixin.qq.com/s/V3ZpTSit03s2VW5bbgKcXw</div></div><img src="http://mmbiz.qpic.cn/mmbiz_jpg/NW4iaKVI4GNPiacb6oIeaZ82wMic0yv2Qj9ghHicf0Z3rN32C930Ht8QRSLF3l3rzsY9zR7osNZ8ic6NibKzOSuuyIvQ/0?wx_fmt=jpeg" class="bookmark-image"/></a></figure><hr id="bcfbedf8-1161-44df-847b-53e02d257bd4"/><p id="e4401ea2-9989-468f-ba2b-91211dd08a27" class="">
+</p><figure id="52f9914f-b840-4b21-9ab7-e5985d20c71b"><a href="https://craignewtondev.medium.com/how-to-fix-kubernetes-namespace-deleting-stuck-in-terminating-state-5ed75792647e" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How to fix - Kubernetes namespace deleting stuck in Terminating state</div><div class="bookmark-description">So AWS launched their hosted Kubernetes called EKS (Elastic Kubernetes Service) last year and we merrily jumped onboard and deployed most of our services in the months since then. Everything was looking great and working amazing until I started doing some cleanup on the platform.</div></div><div class="bookmark-href">https://craignewtondev.medium.com/how-to-fix-kubernetes-namespace-deleting-stuck-in-terminating-state-5ed75792647e</div></div><img src="https://miro.medium.com/max/1200/1*_rwzWxa9NgJXzIdhU4i0cg.jpeg" class="bookmark-image"/></a><figcaption>删除namespace时卡住无法删除的解决办法</figcaption></figure><p id="6da85732-5f4b-43f4-8def-ae4444e8f06b" class="">
+</p><div id="295a0496-2618-4108-9cdc-cd5947c08fbf" class="collection-content"><h4 class="collection-title">K8S基础知识</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="ae76cce1-b50f-461e-b367-c07ec21a0fc9"><td class="cell-title"><a href="K8S%2088060/K8S%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20295a0/Pod%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%20ae76c.html">Pod状态管理</a></td><td class="cell-jOC:"><time>@April 9, 2021 11:36 AM</time></td><td class="cell-|GP\"></td></tr><tr id="a9ac1408-a46e-447e-9977-d28de3ebff11"><td class="cell-title"><a href="K8S%2088060/K8S%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20295a0/%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1.html">认证, 授权和准入</a></td><td class="cell-jOC:"><time>@April 23, 2021 8:39 PM</time></td><td class="cell-|GP\"></td></tr><tr id="2f8e0444-f028-45af-b9da-c77917fa7c47"><td class="cell-title"><a href="K8S%2088060/K8S%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20295a0/%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6%202f8e0.html">准入控制</a></td><td class="cell-jOC:"><time>@April 6, 2021 7:33 PM</time></td><td class="cell-|GP\"></td></tr><tr id="0fc16720-c43c-47d7-9356-121412d8389e"><td class="cell-title"><a href="K8S%2088060/K8S%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20295a0/Volume,PVC%200fc16.html"><span class="icon">🌗</span>Volume,PVC 与 PV</a></td><td class="cell-jOC:"><time>@April 25, 2021 11:27 PM</time></td><td class="cell-|GP\"></td></tr><tr id="a5436b1d-a742-48cb-9107-9b79eaa49557"><td class="cell-title"><a href="K8S%2088060/K8S%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20295a0/%E6%9F%A5%E7%9C%8BK8S%E8%B5%84%E6%BA%90%E7%9A%84%E5%91%BD%E4%BB%A4%20a5436.html">查看K8S资源的命令</a></td><td class="cell-jOC:"><time>@July 21, 2021 11:37 AM</time></td><td class="cell-|GP\"></td></tr></tbody></table></div><div id="87a8d355-5c7f-41d5-b320-f9b992701175" class="collection-content"><h4 class="collection-title">微服务</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="624c0f8d-c63d-48af-a66f-a856754c49aa"><td class="cell-title"><a href="K8S%2088060/%E5%BE%AE%E6%9C%8D%E5%8A%A1%2087a8d/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%98%AF%E4%BB%80%E4%B9%88%20624c0.html"><span class="icon">💸</span>微服务是什么?</a></td><td class="cell-CuE&lt;"><time>@March 21, 2021 12:47 AM</time></td><td class="cell-DK\`"><span class="selected-value select-value-color-purple">未完成</span></td></tr><tr id="ebea7890-ee6d-47d4-acc9-86ff016a9597"><td class="cell-title"><a href="K8S%2088060/%E5%BE%AE%E6%9C%8D%E5%8A%A1%2087a8d/%E5%9C%A8K8S%E5%B9%B3%E5%8F%B0%E9%83%A8%E7%BD%B2Sp%20ebea7.html">在K8S平台部署Spring Cloud微服务项目</a></td><td class="cell-CuE&lt;"><time>@March 21, 2021 12:47 AM</time></td><td class="cell-DK\`"></td></tr></tbody></table></div><p id="e1438752-0fed-4538-b01d-21734dba556e" class="">
+</p><div id="3beb210b-221a-4834-925f-a0f789bc4e41" class="collection-content"><h4 class="collection-title">重要组件</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="52452726-238f-42a2-9466-b3e597bff95a"><td class="cell-title"><a href="K8S%2088060/%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6%203beb2/Helm3%2052452.html">Helm3</a></td><td class="cell-eQHz"><time>@March 21, 2021 10:34 PM</time></td><td class="cell-z{SW"></td><td class="cell-r|Sz"><span class="selected-value select-value-color-orange">chart</span><span class="selected-value select-value-color-pink">helm</span></td></tr><tr id="797b5886-f989-4511-81d9-c310af864820"><td class="cell-title"><a href="K8S%2088060/%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6%203beb2/Cert-Manag%20797b5.html">Cert-Manager</a></td><td class="cell-eQHz"><time>@March 23, 2021 4:25 PM</time></td><td class="cell-z{SW"></td><td class="cell-r|Sz"><span class="selected-value select-value-color-red">未完成</span></td></tr><tr id="ba1b6e47-3959-4f68-a09d-5b2568b8eec4"><td class="cell-title"><a href="K8S%2088060/%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6%203beb2/%E8%B0%83%E5%BA%A6%20ba1b6.html">调度</a></td><td class="cell-eQHz"><time>@March 29, 2021 9:54 AM</time></td><td class="cell-z{SW"></td><td class="cell-r|Sz"><span class="selected-value select-value-color-red">未完成</span></td></tr><tr id="8b41a62f-3673-4330-b242-35024ed75392"><td class="cell-title"><a href="K8S%2088060/%E9%87%8D%E8%A6%81%E7%BB%84%E4%BB%B6%203beb2/Operator%E5%92%8CC%208b41a.html">Operator和CRD</a></td><td class="cell-eQHz"><time>@April 27, 2021 6:44 PM</time></td><td class="cell-z{SW"></td><td class="cell-r|Sz"></td></tr></tbody></table></div><p id="4801bf29-3062-4cf8-b306-8fb3828fdab7" class="">
+</p><div id="c652c72f-aeef-4a52-9acd-61b5b642314d" class="collection-content"><h4 class="collection-title">网络</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="c640e924-260d-444f-bb5d-9a5856122e88"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/Calico%20c640e.html">Calico</a></td><td class="cell-pwys"><time>@July 19, 2021 9:26 AM</time></td><td class="cell-{Djj"></td></tr><tr id="510f9f12-8bf8-471e-8ce1-220fc63a1187"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/CoreDNS%20510f9.html">CoreDNS</a></td><td class="cell-pwys"><time>@April 25, 2021 10:09 PM</time></td><td class="cell-{Djj"></td></tr><tr id="fa372f01-b521-4ee7-9f7f-d02976a56e8d"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/Ingress%20Ng%20fa372.html">Ingress Nginx</a></td><td class="cell-pwys"><time>@April 5, 2021 9:11 PM</time></td><td class="cell-{Djj"></td></tr><tr id="1f892e8e-0510-457f-94d6-65f8fbbf0e4b"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/service%E4%B8%8Eku%201f892.html">service与kube-proxy</a></td><td class="cell-pwys"><time>@April 30, 2021 4:58 PM</time></td><td class="cell-{Djj"></td></tr><tr id="53f76986-5e22-45fa-b9fb-6c33727464b5"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/Weave%20Net%2053f76.html"><img class="icon" src="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/Weave%20Net%2053f76/5a3da579-43d8-45a4-a315-cc84147574f3weave-logo-512.png"/>Weave Net</a></td><td class="cell-pwys"><time>@April 7, 2021 5:25 PM</time></td><td class="cell-{Djj"></td></tr><tr id="c7d44d74-4041-44ce-af16-92a41ca85802"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/%E7%BD%91%E7%BB%9C%E7%AD%96%E7%95%A5%20c7d44.html">网络策略</a></td><td class="cell-pwys"><time>@July 19, 2021 10:52 AM</time></td><td class="cell-{Djj"><span class="selected-value select-value-color-green">未完成</span></td></tr><tr id="04d59429-b24b-46c5-8d49-ce9c9959c093"><td class="cell-title"><a href="K8S%2088060/%E7%BD%91%E7%BB%9C%20c652c/Untitled%2004d59.html">Untitled</a></td><td class="cell-pwys"><time>@October 22, 2021 10:37 AM</time></td><td class="cell-{Djj"></td></tr></tbody></table></div><p id="e1fce1c6-9229-4b04-bdb5-9eee5f216d16" class="">
+</p><div id="250ee38e-6553-48cf-9322-f8635e650afe" class="collection-content"><h4 class="collection-title">日志与监控</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="3b0729ba-77ab-470f-94ad-f4939f0d6a73"><td class="cell-title"><a href="K8S%2088060/%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7%20250ee/Prometheus%203b072.html"><img class="icon" src="K8S%2088060/%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7%20250ee/Prometheus%203b072/1200px-Prometheus_software_logo.svg.png"/>Prometheus</a></td><td class="cell-|Gpf"><time>@April 22, 2021 6:10 PM</time></td><td class="cell-r&lt;E^"></td></tr><tr id="4ca151f7-0883-43bd-b281-eed4eefeb383"><td class="cell-title"><a href="K8S%2088060/%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7%20250ee/ECK(Elasti%204ca15.html">ECK(Elasticsearch Cloud on Kubernetes)</a></td><td class="cell-|Gpf"><time>@July 17, 2021 9:59 AM</time></td><td class="cell-r&lt;E^"></td></tr><tr id="ddcac10f-eaa3-4077-aec5-ee42d8c6972c"><td class="cell-title"><a href="K8S%2088060/%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7%20250ee/FluentD%20ddcac.html">FluentD</a></td><td class="cell-|Gpf"><time>@July 17, 2021 12:04 PM</time></td><td class="cell-r&lt;E^"></td></tr><tr id="91c99e75-b2ab-4c44-8130-c42f34e5a1b6"><td class="cell-title"><a href="K8S%2088060/%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7%20250ee/Docker%E6%97%A5%E5%BF%97%2091c99.html">Docker日志</a></td><td class="cell-|Gpf"><time>@July 21, 2021 8:17 AM</time></td><td class="cell-r&lt;E^"></td></tr><tr id="5068ed1a-d43b-4c38-b100-bf5d458e48a7"><td class="cell-title"><a href="K8S%2088060/%E6%97%A5%E5%BF%97%E4%B8%8E%E7%9B%91%E6%8E%A7%20250ee/dashboard%205068e.html">dashboard</a></td><td class="cell-|Gpf"><time>@September 14, 2021 10:03 PM</time></td><td class="cell-r&lt;E^"></td></tr></tbody></table></div><p id="76e6497e-e52f-43bb-8006-b846fef3296b" class="">
+</p><p id="0f6a2c0f-7e4e-40a4-a02c-062b5b1a1307" class="">
+</p><p id="b89e4510-a3f5-47df-84be-0fcea865c29c" class="">
+</p><div id="1194f60c-5b95-4963-9c33-29cf735f9945" class="collection-content"><h4 class="collection-title">K8S部署</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="ac316ead-5253-45b2-9762-051c654cfd87"><td class="cell-title"><a href="K8S%2088060/K8S%E9%83%A8%E7%BD%B2%201194f/Kubeadm%E9%83%A8%E7%BD%B2%20ac316.html"><img class="icon" src="K8S%2088060/K8S%E9%83%A8%E7%BD%B2%201194f/Kubeadm%E9%83%A8%E7%BD%B2%20ac316/kubeadm.png"/>Kubeadm部署</a></td><td class="cell-wli|"><time>@April 15, 2021 7:56 PM</time></td><td class="cell-lM&gt;a"></td></tr><tr id="058c39f0-0017-4b27-8f4a-684fbff13f63"><td class="cell-title"><a href="K8S%2088060/K8S%E9%83%A8%E7%BD%B2%201194f/%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%AE%89%E8%A3%85K8S%20058c3.html">二进制安装K8S</a></td><td class="cell-wli|"><time>@April 15, 2021 8:02 PM</time></td><td class="cell-lM&gt;a"></td></tr><tr id="b2035934-fb73-4e0f-8e6e-861d90ca1a0b"><td class="cell-title"><a href="K8S%2088060/K8S%E9%83%A8%E7%BD%B2%201194f/%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96%20b2035.html">系统初始化</a></td><td class="cell-wli|"><time>@June 26, 2021 3:38 PM</time></td><td class="cell-lM&gt;a"></td></tr><tr id="0fdc06bd-0861-42d2-905c-883bc9e1c324"><td class="cell-title"><a href="K8S%2088060/K8S%E9%83%A8%E7%BD%B2%201194f/kubeadm%E9%83%A8%E7%BD%B2%E9%AB%98%200fdc0.html">kubeadm部署高可用集群</a></td><td class="cell-wli|"><time>@July 27, 2021 4:48 PM</time></td><td class="cell-lM&gt;a"></td></tr></tbody></table></div><p id="ef12ed1a-6487-4b3a-9eac-e8cab342c5d5" class="">
+</p><p id="553cf6f2-917c-4256-a505-b4fa7eb47c8d" class="">
+</p><div id="24357423-ff02-42fa-a458-0105006509e8" class="collection-content"><h4 class="collection-title">Docker</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="cf1d6784-b6c3-4b71-9ca8-91069f56e964"><td class="cell-title"><a href="K8S%2088060/Docker%2024357/Dockerfile%20cf1d6.html"><span class="icon">🐋</span>Dockerfile</a></td><td class="cell-rHT["><time>@March 21, 2021 4:44 PM</time></td><td class="cell-:Ktj"></td></tr><tr id="1c2c4fc4-2bc1-42bc-9fd8-283c04d58a6f"><td class="cell-title"><a href="K8S%2088060/Docker%2024357/Docker%201c2c4.html"><span class="icon">🐳</span>Docker</a></td><td class="cell-rHT["><time>@March 21, 2021 8:32 PM</time></td><td class="cell-:Ktj"></td></tr><tr id="81381e7a-eddc-4e2d-81f5-7974ef725bfc"><td class="cell-title"><a href="K8S%2088060/Docker%2024357/Alpine%20Lin%2081381.html">Alpine Linux</a></td><td class="cell-rHT["><time>@March 21, 2021 8:53 PM</time></td><td class="cell-:Ktj"></td></tr><tr id="7b4398e6-1c45-46bb-9792-29702bd6886f"><td class="cell-title"><a href="K8S%2088060/Docker%2024357/docker-com%207b439.html"><span class="icon">🐙</span>docker-compose</a></td><td class="cell-rHT["><time>@March 21, 2021 9:40 PM</time></td><td class="cell-:Ktj"></td></tr><tr id="58ad1756-1227-47aa-8e21-cc224856105e"><td class="cell-title"><a href="K8S%2088060/Docker%2024357/Containerd%2058ad1.html"><span class="icon">📦</span>Containerd</a></td><td class="cell-rHT["><time>@March 22, 2021 5:52 PM</time></td><td class="cell-:Ktj"></td></tr></tbody></table></div><p id="f57709f2-7224-4de8-929a-3d804f7b65eb" class="">
+</p><p id="bb59519b-3828-4ade-8a76-d918fd157104" class="">
+</p><div id="79633e49-785d-4ecc-9816-06fa0254b8cd" class="collection-content"><h4 class="collection-title">K8S存储</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="db6a8290-1e13-4fca-9527-e5a4d475628a"><td class="cell-title"><a href="K8S%2088060/K8S%E5%AD%98%E5%82%A8%2079633/GlusterFS%20db6a8.html">GlusterFS</a></td><td class="cell-Hy}D"><time>@March 21, 2021 10:35 PM</time></td><td class="cell-zCTo"></td></tr><tr id="59fba13f-a802-4ec9-a4de-c5782ffc1931"><td class="cell-title"><a href="K8S%2088060/K8S%E5%AD%98%E5%82%A8%2079633/Ceph%2059fba.html"><img class="icon" src="K8S%2088060/K8S%E5%AD%98%E5%82%A8%2079633/Ceph%2059fba/images.png"/>Ceph</a></td><td class="cell-Hy}D"><time>@March 21, 2021 10:35 PM</time></td><td class="cell-zCTo"></td></tr></tbody></table></div><p id="7823a500-c781-42ad-bc5f-7f5728c4ecb9" class="">
+</p><p id="7fa4c151-1c65-455a-ab71-a3a21a5acf84" class="">
+</p><p id="b2a65567-06cf-4272-b7a4-42a0e03f6e77" class="">
+</p></div></article></body></html>

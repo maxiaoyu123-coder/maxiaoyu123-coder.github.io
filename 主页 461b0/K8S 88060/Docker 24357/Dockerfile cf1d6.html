@@ -1,0 +1,806 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Dockerfile</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="cf1d6784-b6c3-4b71-9ca8-91069f56e964" class="page sans"><header><img class="page-cover-image" src="Dockerfile%20cf1d6/dockerfile-930x600.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🐋</span></div><h1 class="page-title">Dockerfile</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 21, 2021 4:44 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="2e10b293-efb9-4628-bebf-b72520108d81" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8234d80a-dbf5-4d80-81f2-def4a3e0dee7"><strong>使用Dockerfile构建镜像</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc89e6ab-9886-42f5-b673-48c184f525eb"><strong>步骤1</strong>: <strong>创建一个目录, </strong>这个目录就是<strong>构建环境.</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#197ec491-2f4b-4991-b316-da72b33f7a78"><strong>步骤2</strong>: 编辑Dockerfile文件</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7a1299a5-72c4-48c2-8c69-5c917ee270b6">步骤3: <strong>docker build构建新镜像</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d4fb9f11-ca04-4a84-af4f-116c51974c08">步骤4: <strong>共享和发布镜像</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#de99ff99-9451-4f16-9f3b-2925cf53dba7"><strong>Dockerfile指令</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#19cb3d95-789b-4734-952c-bfe605da4baa"><strong>CMD</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2a0abef7-f761-4b26-94ce-ae7ffae3b46d"><strong>ENTRYPOINT</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e4263c4b-91e7-4bae-b483-30ab5a139d28"><strong>WORKDIR</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9a15db89-4427-4118-b2e0-dd1ffcbaad32"><strong>ENV</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5afaefe8-74ff-42bc-80e2-5e824b40e4f4"><strong>USER</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6343c887-1e0a-4e30-a123-b4711505074c"><strong>VOLUME</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dcfe53a7-3773-43f7-949f-49993b023dcd"><strong>ADD</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#aeae5f64-03dd-44e5-8f6d-84751635a513"><strong>COPY</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#09f79cdc-5a9a-4c8a-96ab-2c5368a6512e"><strong>LABEL</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c01758c9-1d87-4c70-85de-4ace190bb6fd"><strong>STOPSIGNAL(跳过)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d47b8259-40fc-43e9-ba56-43cace9f391f"><strong>ARG</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#82900873-7160-427b-ba40-c1403e6a31cb"><strong>ONBUILD(看到这了)</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4196e044-540e-4499-a54e-1bc06a3f17f1"><strong>多阶段镜像构建技术</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#92efae4f-fa1b-4d06-8b85-f2f952cb825a"><strong>实现</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#60b542ce-9938-4555-9c60-fc6c85f8b32c">shell form与 exec form区别总结</a></div></nav><hr id="8bc631a8-76fb-42b4-84c0-454a730f826b"/><h1 id="8234d80a-dbf5-4d80-81f2-def4a3e0dee7" class="block-color-blue_background"><strong>使用Dockerfile构建镜像</strong></h1><p id="89eadf20-9354-4acd-b810-ddfde1885360" class="">Dockerfile使用基于<strong>DSL</strong>(Domain Specific Language)语法的指令来构建Docker镜像, <strong>Dockerfile优点是更具备可重复性,透明性以及幂等性.</strong></p><p id="0e1e58fd-7a14-43ce-8359-03b0eb3874f5" class="">
+</p><h3 id="dc89e6ab-9886-42f5-b673-48c184f525eb" class="block-color-blue_background"><strong>步骤1</strong>: <strong>创建一个目录, </strong>这个目录就是<strong>构建环境.</strong></h3><p id="b001e1d1-b408-406d-87fc-36d98560e16e" class="">Docker会在构建镜像时将目录中的文件和子目录上传到Docker守护进程. 这样Docker守护进程就能直接访问用户希望在镜像中存储的任何代码,文件或者其他数据.</p><pre id="e67489a5-3ef3-4d1f-bd88-0faba6b00341" class="code code-wrap"><code> [root@web02 ~]# mkdir static_web
+ [root@web02 ~]# cd static_web/
+ [root@web02 static_web]# touch Dockerfile</code></pre><p id="2b54e064-9fc6-42ec-9ad5-456fe8598d28" class="">
+</p><h3 id="197ec491-2f4b-4991-b316-da72b33f7a78" class="block-color-blue_background"><strong>步骤2</strong>: 编辑Dockerfile文件</h3><p id="81ca21ea-b350-428e-b015-9bba56759c61" class="">该Dockerfile由一系列指令和参数组成. 每条指令都必须<strong>大写</strong>, 且后面要<strong>跟随一个参数</strong>, 比如<code>FROM ubuntu:14.04</code>. Dockerfile中的指令上到下逐个执行, 所以应该根据需要合理安排指令的顺序.</p><pre id="0043b96f-facf-4c81-b3f3-22612fa65698" class="code code-wrap"><code> [root@web02 static_web]# vim Dockerfile
+ FROM ubuntu:14.04
+ MAINTAINER maxiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+ RUN apt-get update &amp;&amp; apt-get install -y nginx
+ RUN echo &#x27;Hi, I am in your container&#x27; \
+     &gt;/usr/share/nginx/html/index.html
+ EXPOSE 80</code></pre><p id="2f37b403-3806-4bc0-b106-5038e9fbb96d" class=""><strong>每条指令都会创建一个新的镜像层并进行提交</strong>. Docker大体上按照如下流程执行Dockerfile中的指令:</p><ul id="b1c63610-bd86-4395-ab02-6adfdd95b8cb" class="bulleted-list"><li style="list-style-type:disc">Docker从基础镜像运行一个容器.</li></ul><ul id="063a7750-f92a-4141-b137-732d417fff36" class="bulleted-list"><li style="list-style-type:disc">执行一条指令, 对容器做出修改.</li></ul><ul id="ea225d54-a5d6-45f9-bb23-4be452b43c6f" class="bulleted-list"><li style="list-style-type:disc">执行类似<code>docker commit</code>的操作, 提交一个新的镜像层.</li></ul><ul id="24edc106-f381-4c90-8919-84bc538366df" class="bulleted-list"><li style="list-style-type:disc">Docker在基于刚提交的镜像运行一个新容器.</li></ul><ul id="f546de6e-4ea5-4469-8990-90f952c9b44b" class="bulleted-list"><li style="list-style-type:disc">执行Dockerfile中的下一条指令, 直到所有指令都执行完毕.</li></ul><p id="58982e76-93dc-41f5-8aa1-39e2db45ef1b" class="">如果Dockerfile由于某些原因没有正常结束, 那么用户将得到一个可以使用的镜像. 这对调试非常有帮助: 可以基于该镜像运行一个具备交互功能的容器, 使用最后创建的镜像对指令为什么会失败进行调查.</p><p id="6c81a15e-fe21-4550-8996-dc282fc3db7e" class="">
+</p><h3 id="7a1299a5-72c4-48c2-8c69-5c917ee270b6" class="block-color-blue_background">步骤3: <strong>docker build构建新镜像</strong></h3><p id="a5c4fdbe-8fe6-4b2e-a41d-476cf36da86b" class="">执行<code>docker build</code>命令时, Dockerfile中的所有指令都会执行且提交, 在该命令成功结束后返回一个新镜像.</p><p id="9dc2fcb1-410a-44b0-b0d0-62a5ac076d51" class=""><strong>指定</strong><code><strong>-t</strong></code><strong>选项来为新镜像设置了仓库和名称</strong>, 本例中仓库为<code>maxiaoyu</code>, 镜像名为<code>static_web</code>. 强烈建议为镜像设置合适的名字以方便追踪和管理, 也可以为镜像设置一个标签, 使用方法为&quot;镜像名:标签&quot;.</p><pre id="93ef2410-effc-4af7-b3a1-b708c9518dbe" class="code code-wrap"><code> [root@web02 static_web]# docker build -t=&quot;maxiaoyu/static_web&quot; .
+ Sending build context to Docker daemon 2.048 kB
+ Step 1/5 : FROM ubuntu:14.04
+  ---&gt; 2c5e00d77a67
+ Step 2/5 : MAINTAINER maxiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+  ---&gt; Using cache
+  ---&gt; 136e266d732a
+ Step 3/5 : RUN apt-get update &amp;&amp; apt-get install -y nginx
+  ---&gt; Running in 9fadc4f0a0b2
+ ......
+ Removing intermediate container 9fadc4f0a0b2
+ Step 4/5 : RUN echo &#x27;Hi, I am in your container&#x27;&gt;/usr/share/nginx/html/index.html
+  ---&gt; Running in 2e6a1cebdc59
+  ---&gt; e52811450d5e
+ Removing intermediate container 2e6a1cebdc59
+ Step 5/5 : EXPOSE 80
+  ---&gt; Running in 64f64c521c2f
+  ---&gt; 8fa670127b5d
+ Removing intermediate container 64f64c521c2f
+ Successfully built 8fa670127b5d</code></pre><p id="5c129d74-1e16-4f51-9757-4c04f2426d11" class="">可以指定一个Git仓库的源地址来指定Dockerfile的位置, 下面的示例是从Git仓库构建Docker镜像, 这里Docker假设在这里Git仓库的根目录下存在Dockerfile文件.</p><pre id="c7d9d86d-59c2-4b64-9f58-e6111f80fd04" class="code code-wrap"><code> docker build -t=&quot;maxiaoyu/static_web:v1&quot; git@github.com:jamtur01/docker-static_web</code></pre><p id="eb93ad60-f5ae-461a-8317-1ef73c4f5507" class="">再回到docker build过程. 可以看到构建上下文已经上传到了Docker守护进程, 如上面代码清单所示.</p><pre id="3fa1513d-eb5a-40da-8a98-fccb4ecc9413" class="code code-wrap"><code> Sending build context to Docker daemon 2.048 kB</code></pre><p id="8cc4d2af-e38e-4e1e-b2a7-cc91fae8ac20" class="">之后, 可以看到Dockerfile中的每条指令会被顺序执行, 而且作为构建结果,返回了新镜像ID, 即<code>Successfully built 8fa670127b5d</code>. 构建的每一步及其对应指令都会独立运行, 并且在输出最终镜像ID之前, Docker会提交每步的构建结果.</p><blockquote id="769c7f34-ff54-48e6-800e-da5401fbe232" class="">如果在目录下存在.dockerignore文件, 那么该文件的内容会被按行进行分隔, 每行都是一条文件过滤匹配模式. 这非常像.gitigonore文件. 该文件用来设置哪些文件不会被当作构建上下文的一部分, 因此可以防止它们被上传到Docker守护进行中去. 该文件中模式的匹配规则采用Go语言中的filepath.</blockquote><p id="9199d88c-e3fe-4238-a44c-399870bb1798" class=""><strong>补充: 什么是构建缓存</strong></p><p id="22053a17-c84f-4b5e-83d3-b66104c23ee7" class="">每一步的构建过程都会将结果提交为镜像, 它会将之前的镜像层看作缓存.实际上, 当之前的构建步骤没有变化时,再次构建,Docker会直接从最近一步的缓存开始. 构建缓存节省了大量时间. 如果真的在第一步到第三步之间做了什么修改, Docker则会从第一条发生了变化的指令开始.</p><p id="4f699326-34de-4cab-893d-4e2f19909d53" class="">然而, 有时候需要确保构建过程不会使用缓存. 比如, 如果已经缓存了前面的第三步, 即<code>apt-get update</code>, 那么Docker将不会再次刷新APT包的缓存. 要想略过缓存功能, 可以使用<code>docker build</code>的<code>--no-cache</code>标志.</p><pre id="82c358f4-d654-4c2d-9b3a-05bb5b902ae6" class="code code-wrap"><code> docker build --no-cache -t=&quot;maxiaoyu/static_web&quot;
+ Sending build context to Docker daemon 2.048 kB
+ Step 1/5 : FROM ubuntu:14.04
+  ---&gt; 2c5e00d77a67
+ Step 2/5 : MAINTAINER maxiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+  ---&gt; Running in aa67e9261e7c
+  ---&gt; cb6fe08b4e1b
+ Removing intermediate container aa67e9261e7c #删除缓存
+ Step 3/5 : RUN apt-get update &amp;&amp; apt-get install -y nginx
+  ---&gt; Running in ae3fb09a98a0
+ </code></pre><p id="522f1718-f0dd-4a9d-aeef-8e9c61787b5f" class="">
+</p><h3 id="d4fb9f11-ca04-4a84-af4f-116c51974c08" class="block-color-blue_background">步骤4: <strong>共享和发布镜像</strong></h3><p id="051be235-94f6-4ad1-a04d-a83cd9b3618a" class="">构建镜像中很重要的一环就是如何共享和发布镜像. 可以将镜像推送到Docker HUb或者用户自己的私有Registery中. 为了完成这项工作, 需要先在Docker Hub上创建一个账号<a href="https://hub.docker.com/signup">https://hub.docker.com/signup</a>.</p><p id="b620a167-7cb4-4656-9e0b-46d359b24e7b" class="">注册完毕后就可以测试刚才注册的账号是否能正常使用工作了.</p><pre id="d36900f6-d65c-4cdd-8959-0f77d32f9cc4" class="code code-wrap"><code> [root@web02 ~]# docker login
+ Login with your Docker ID to push and pull images from Docker Hub. If you don&#x27;t have a Docker ID, head over to https://hub.docker.com to create one.
+ Username: maxiaoyula
+ Password: maxiaoyu!23
+ Login Succeeded</code></pre><p id="b23e8d57-2ceb-404d-b5c6-3709c51fd4a5" class="">这条命令会完成登陆到Docker HUb的工作, 并将认证信息保存起来一共后面使用. 可以使用<code>docker logout</code>命令从registery服务器退出.</p><p id="030b3cfa-2e48-458d-b947-932dd55cf24a" class="">1.7.0之前个人认证信息保存在$HOME/.dockercfg文件中, 1.7.0开始, 变为$HOME/.docker/config.json.</p><hr id="8ca6687d-78a3-47c2-9efd-1118ebbfd030"/><h1 id="de99ff99-9451-4f16-9f3b-2925cf53dba7" class="block-color-blue_background"><strong>Dockerfile指令</strong></h1><p id="07e369df-0712-4c84-ba27-3ca4d0b10f4a" class="">如<code>FROM</code>,<code>RUN</code>和的其他指令包括<code>CMD</code>,<code>ENTRYPOINT</code>,<code>ADD</code>,<code>COPY</code>,<code>VOLUME</code>,<code>WORKDIR</code>,<code>USER</code>,<code>ONBUILD</code>,<code>LABEL</code> ,<code>STOPSIGNAL</code>,<code>ARG</code>,<code>ENV</code>,<code>EXPOSE</code>等.</p><p id="8cbfe542-3035-47c4-97c6-933e15ba1788" class="">在<a href="http://docs.docker.com/reference/builder/">http://docs.docker.com/reference/builder/</a>查看指令清单.</p><p id="2636a2bf-9965-4d3f-8e8a-e505db6ecea9" class="">
+</p><h2 id="19cb3d95-789b-4734-952c-bfe605da4baa" class="block-color-blue_background"><strong>CMD</strong></h2><p id="77f118d1-1a8e-4a8c-a264-f0263b965458" class=""><strong>CMD指令用于指定一个容器启动时要运行的命令.</strong></p><p id="4100ae25-947c-4159-8784-6b5ebdea63e4" class=""><code>CMD</code>是告诉容器被启动时要运行的命令. 和<code>docker run</code>命令启动容器时指定要运行的命令非常类似. </p><pre id="07b9fbbb-6152-4733-9d6b-9fb46495d4f4" class="code code-wrap"><code> docker run -i -t maxiaoyu/static_web /bin/true</code></pre><p id="d5510e9f-ddb1-4765-822f-a4b50bd210df" class="">可以认为上面代码所示的命令和在Dockerfile中使用的CMD指令是等效的. CMD指令示例如下:</p><pre id="31107b64-a7a3-4f6b-a395-8507de820e82" class="code code-wrap"><code> CMD [&quot;/bin/true&quot;]</code></pre><p id="e718f690-65af-468e-9a93-184edb159ea4" class="">当然也可以为要运行的命令指定参数, 将<code>-l</code>选项传递给<code>/bin/bash</code>命令.要运行的命令是存放在一个数组结构中.  <strong>官方推荐使用以数组来设置要执行的命令</strong>.</p><pre id="dacd9dee-5cc3-4a42-b914-75e7ca3b53a6" class="code code-wrap"><code> CMD [&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;ls -l&quot;]</code></pre><p id="7bc14ef2-4fd6-49d9-8a7f-76c250b5db66" class=""><strong>使用</strong><code><strong>docker run</strong></code><strong>命令可以覆盖CMD指令</strong>. 如果我们在<code>Dockerfile</code>里指定了<code>CMD</code>指令, 而同时在<code>docker run</code>命令行中也指定要运行的命令,命令行中指定的命令会覆盖Docerfile中的<code>CMD</code>指令.</p><pre id="c9862230-df64-4532-95c0-2823bf3792d4" class="code code-wrap"><code> [root@web02 simple_sh]# docker run -it maxiaoyu/test /bin/ps
+    PID TTY          TIME CMD
+      1 ?        00:00:00 ps</code></pre><p id="39e2f09c-6a7e-413d-88c1-2b2969baa929" class=""><strong>在Dockerfile中只能指定一条CMD指令.</strong> 如指定多条CMD指令, 也只有最后一条CMD指令会被使用. 如果向在启动容器时运行多个进程或者多条命令, 可以考虑使用类型Supervisor这样的服务器管理工具.</p><h2 id="2a0abef7-f761-4b26-94ce-ae7ffae3b46d" class="block-color-blue_background"><strong>ENTRYPOINT</strong></h2><p id="5f5189f0-fcbe-419f-96b1-7370f59cd70a" class="">和<code>CMD</code>指令非常相似, 区别是什么呢? <code>docker run</code>命令可以覆盖<code>CMD</code>指令. 而有时我们希望容器将按照我们期望的那样去工作, 这时候<code>CMD</code>就不太适合了. 而<code>ENTRYPOINT</code>指令提供的命令则在启动容器时不被覆盖. <strong>实际上, </strong><code><strong>docker run</strong></code><strong>命令行中指定的任何命令都会被当作参数再次传递给</strong><code><strong>ENTRYPOINT</strong></code><strong>指令中的命令.</strong></p><p id="8bd85995-9f78-4036-911b-a7c4bebaef5a" class="">指定<code>ENTRYPOINT</code>指令</p><pre id="09d7d06d-bf0d-4874-9db8-0a0fe91c9ec9" class="code code-wrap"><code> FROM ubuntu:14.04
+ MAINTAINER maxiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+ RUN apt-get update &amp;&amp; apt-get install -y nginx
+ RUN echo &#x27;Hi, I am in your container&#x27; \
+     &gt;/usr/share/nginx/html/index.html
+ ENTRYPOINT [&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;/usr/sbin/nginx&quot;]
+ EXPOSE 80</code></pre><p id="2e80486b-b030-4064-9cb3-f9e5438dc5d0" class="">现在将<code>ENTRYPOINT</code>设置为<code>ENTRYPOINT</code>[&quot;/usr/sbin/nginx&quot;], 重新构建镜像, 然后, <code>maxiaoyu/static_web</code>镜像启动一个新容器.指定了<code>-g &quot;daemon off;&quot;</code>参数, 这个参数会传递给ENTRPOINT指定中的命令, 在这里该命令为<code>/usr/sbin/nginx -g &quot;daemon off&quot;;</code>.</p><p id="269f21e8-fc6d-4d7b-86b2-0faa15ff5b22" class=""><strong>使用</strong><code><strong>ENTRYPOINT</strong></code><strong>可以搭配</strong><code><strong>CMD</strong></code><strong>指令.</strong></p><pre id="b580251f-9d76-4a37-b431-6b2562d40418" class="code code-wrap"><code> FROM ubuntu:14.04
+ MAINTAINER maxiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+ RUN apt-get update &amp;&amp; apt-get install -y nginx
+ RUN echo &#x27;Hi, I am in your container&#x27; \
+     &gt;/usr/share/nginx/html/index.html
+ ENTRYPOINT [&quot;/usr/sbin/nginx&quot;]
+ CMD [&quot;-h&quot;]
+ EXPOSE 80</code></pre><p id="a723d23e-ef37-40e2-90ac-9bc455ecbd48" class="">此时当我们<strong>启动一个容器</strong>时, 任何在命令行中指定的参数都会被传递给Nginx守护进程. 比如, 我们可以指定<code>-g &quot;daemon off&quot;;</code>参数让Nginx守护进程以前台方式运行,结果如下:</p><figure id="282bce67-f8d2-4e12-be9c-972febe164fc" class="image"><a href="Dockerfile%20cf1d6/1575508438144.png"><img style="width:748px" src="Dockerfile%20cf1d6/1575508438144.png"/></a></figure><p id="e2361d4c-50cb-49e2-af3e-8b31c6d271a4" class="">如果在启动容器时不指定任何参数, 则在CMD指令中指定 -h参数会被传递给Nginx守护进程, 即Nginx服务器以<code>/usr/sbin/nginx -h</code>的方式启动, 改名了用来显示Nginx的帮助信息, 结果如下:</p><figure id="0d94b9f7-ce29-4c7a-b202-6b67c8252322" class="image"><a href="Dockerfile%20cf1d6/1575508401541.png"><img style="width:701px" src="Dockerfile%20cf1d6/1575508401541.png"/></a></figure><p id="08943eb3-d8fb-410a-b641-a7a4e508e408" class="">如此<strong>我们可以构建这样一个镜像, 该镜像既可以运行一个默认的命令, 同时它也支持通过</strong><code><strong>docker run</strong></code><strong>命令行为该指令指定可覆盖的选项或者标志.</strong></p><blockquote id="43cdca9f-f8d8-4560-927b-511a85acf5b4" class="">提示如果确实需要, 用户也可以在运行时通过docker run的--entrypoint选项覆盖ENTRYPOINT指令.</blockquote><hr id="5dbe0b0d-a564-48a5-a9f4-cb3898dc35bf"/><h2 id="e4263c4b-91e7-4bae-b483-30ab5a139d28" class="block-color-blue_background"><strong>WORKDIR</strong></h2><p id="852c26c5-4867-4fad-a6db-484a962cf40b" class=""><code>WORKDIR</code>指令用来在从镜像创建一个新容器时, 在容器内部设置一个工作目录, ENTRYPOINT和/或CMD指定的程序会在这个目录下执行.</p><p id="9bd56dd2-9606-425b-ba8d-d8bc7d0083d6" class="">我们可以使用该指令<strong>为Dockerfile中后续的一系列指令设置工作目录, 也可以为最终的容器设置工作目录</strong>. 比如, 我们可以为特定的指令设置不同的工作目录.</p><pre id="b28296b1-b111-4757-bbfd-d260f6ee447a" class="code code-wrap"><code> WORKDIR /opt/webapp/db
+ RUN bundle install
+ WORKDIR /opt/webapp
+ ENTRYPOINT [&quot;rackup&quot;]</code></pre><p id="39116842-e227-42fa-951c-1cafd98f2668" class="">这里, 我们<strong>将工作目录切换</strong>为<code>/opt/webapp/db</code>后运行了<code>bundle install</code>命令, 之后又将工作目录设置为<code>/opt/webapp</code>, 最后设置<code>ENTRYPOINT</code>指令来启动rackup命令.</p><p id="91543732-9ac3-4d9b-a485-da085286510e" class="">可以通过<code>-w</code>选项在运行时覆盖工作目录, 如下所示:</p><pre id="a9d4b22a-5ac3-4b43-b65f-f2f51f08b16d" class="code code-wrap"><code> docker run -ti -w /var/log ubuntu pwd
+ /var/log</code></pre><p id="9670758e-21d7-4d9c-8891-bdb49ce926d9" class="">该命令会将容器内的工作目录设置为/var/log</p><hr id="c8551bf2-46a8-4703-ba01-9dfd32f79ca5"/><h2 id="9a15db89-4427-4118-b2e0-dd1ffcbaad32" class=""><strong>ENV</strong></h2><p id="e8d1e267-9acd-4077-80a7-dd7cdd33f1c7" class=""><strong>ENV指令用来在镜像构建过程中设置环境变量.</strong></p><pre id="be7bd9b0-f9ad-4ee7-8f98-fe398bf28edd" class="code code-wrap"><code> ENV RVM_PATH /home/rvm/</code></pre><p id="d553804a-eda9-4e34-af50-080e1e33444a" class="">这个新的环境变量可以在后续的任何RUN指令中使用, 这就如同在命令前面指定了环境变量前缀一下, 如下所示:</p><pre id="33a62d2d-178a-4cae-9ddb-1fb885a10f60" class="code code-wrap"><code> RUN gem install unicorn</code></pre><p id="cbb84f96-582f-4824-81b2-a168ee12f364" class="">该指令会以如下所示的方式执行</p><pre id="e7de3998-8a8c-4883-80da-8c0ad9fb1cec" class="code code-wrap"><code> RVM_PATH=/home/rvm/  gem install unicorn</code></pre><p id="36713d2c-3d95-42c7-844f-2449ac71cb28" class="">可以在ENV指令中指定单个环境变量, 或者, 从Docker1.4开始可以向下面所示那样指定多个变量.</p><pre id="5c0fb606-8d39-4721-bfe5-b4df837f6945" class="code code-wrap"><code> ENV RVM_PATH=/home/rvm RVM_ARCHFLAGS=&quot;-arch i386&quot;</code></pre><p id="67611622-1900-4c8d-b679-94d21087fa3a" class="">也可以在其他指令中使用这些环境变量, 如下所示:</p><pre id="1d03d110-6f74-4270-a16f-18a54d391e9f" class="code code-wrap"><code> ENV TARGET_DIR /etc
+ WORKDIR $TARGET_DIR
+ CMD [&quot;pwd&quot;]</code></pre><p id="fe599af7-947f-4047-a311-0a6acf246fa8" class="">在这里我们设定了一个新的环境变量<code>TARGET_DIR</code>,并在<code>WORKDIR</code>中使用了它的值.因此实际上<code>workdir</code>指令的值会被设为<code>/etc</code>.</p><pre id="fde56b02-2518-48eb-984b-ef912e7e9f31" class="code code-wrap"><code> [root@web02 simple_sh]# docker run -i -t maxiaoyu/test
+ /etc</code></pre><blockquote id="259ce08f-11bf-4c47-857c-42bde90da5aa" class="">注意如果需要, 可以通过在环境变量前加上一个反斜线进行转义.</blockquote><p id="7e63a17b-742d-4b7e-b359-e3a6751a9926" class="">这些环境变量也会被持久保存到从我们的镜像创建的任何容器中. 所以, 如果我们在使用<code>ENV RVM_PATH/home/rvm/</code>指令构建的容器中运行<code>env</code>命令, 将会看到下面的结果</p><figure id="d78da91c-239c-4a12-acac-7877dbdd35bd" class="image"><a href="Dockerfile%20cf1d6/1575511325619.png"><img style="width:571px" src="Dockerfile%20cf1d6/1575511325619.png"/></a></figure><p id="7d2fb130-ef94-45d4-9415-46ff52f0ef4f" class="">也可以使用<code>docker run</code>命令行的<code>-e</code>标志来传递环境变量.  从下面的示例, 可以看到, 在容器中<code>WEB_PORT</code>环境变量被设为了8080.</p><figure id="5e56a890-4573-4526-a892-e804137d84b8" class="image"><a href="Dockerfile%20cf1d6/1575511709874.png"><img style="width:812px" src="Dockerfile%20cf1d6/1575511709874.png"/></a></figure><hr id="13c874e5-85fc-4c66-8398-5107284db1a2"/><h2 id="5afaefe8-74ff-42bc-80e2-5e824b40e4f4" class=""><strong>USER</strong></h2><p id="95807353-bcf8-4f45-a093-b174ae1e2750" class=""><code>USER</code>指令用来指定该镜像会以什么样的用户去运行, 如下所示:</p><pre id="45591df2-cec6-4ce1-a89a-6e947e2a142e" class="code code-wrap"><code> USER nginx</code></pre><p id="d6a08164-2cea-4cc4-9377-17e25628dc1a" class="">基于该镜像启动的容器会以nginx用户的身份来运行, 我们可以指定用户名或UID以及组或GID, 甚至两者的结合, 如下所示, 指定USER和GROUP的各种组合</p><pre id="b1f4e497-c94b-4e5d-9024-37035dd87199" class="code code-wrap"><code> USER user
+ USER user:group
+ USER uid
+ USER uid:gid
+ USER user:gid
+ USER uid:group</code></pre><p id="37643516-8eb9-4c6d-bec5-e3dace2dea0e" class="">也可以在<code>docker run</code>命令中通过<code>-u</code>选项覆盖该指令指定的值.</p><p id="a2fd444e-990a-4308-a0f8-b70dcf8f0b4e" class="">通过下面示例, 演示USER指令的用法</p><pre id="182cdadc-37e1-4073-bd2c-e1a6b47bd5d7" class="code code-wrap"><code> #修改Dockerfile
+ [root@web02 simple_sh]# vim Dockerfile
+ FROM ubuntu:14.04
+ MAINTAINER Ma Xiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+ ENV REFRESHED_AT 20191204
+ RUN [&quot;useradd&quot;, &quot;nginx&quot;] #创建用户
+ USER nginx   #通过USER指令, 切换到nginx用户身份
+ CMD [&quot;whoami&quot;] #查看当前用户身份
+ 
+ #构建
+ [root@web02 simple_sh]# docker build -t=&quot;maxiaoyu/test&quot; .
+ 
+ #运行容器
+ [root@web02 simple_sh]# docker run -t -i maxiaoyu/test
+ nginx</code></pre><hr id="0d4f34de-bf5e-4252-b423-c8537630ea99"/><h2 id="6343c887-1e0a-4e30-a123-b4711505074c" class=""><strong>VOLUME</strong></h2><p id="8621b5f2-e589-4d01-a51c-72c7cbd9ee1e" class="">VOLUME为基于此镜像创建的任何容器创建卷.  <strong>一个卷是可以存在于一个或者多个容器内的特定的目录</strong>, 这个目录可以<strong>绕过联合文件系统</strong>, 并提供如下共享数据或者对数据进行持久化的功能.</p><ul id="1b0394b2-a295-41ca-b095-1c15f26506ff" class="bulleted-list"><li style="list-style-type:disc">卷可以在容器间共享和重用.</li></ul><ul id="ff5a39f3-73d7-4b9c-8a57-7ea6ab0dc8f8" class="bulleted-list"><li style="list-style-type:disc">一个容器并不是一定要和其他其他容器<strong>共享</strong>卷.</li></ul><ul id="81d045a3-78df-489d-9a84-6d763a1ccba6" class="bulleted-list"><li style="list-style-type:disc">对卷的修改是立时生效的.</li></ul><ul id="8f1c4094-172e-4cd1-8b76-8bb46663b358" class="bulleted-list"><li style="list-style-type:disc">对卷的修改不会对更新镜像产生影响.</li></ul><ul id="a32e2c42-8530-4280-a491-00f526dce6ed" class="bulleted-list"><li style="list-style-type:disc">卷会一直存在直到没有任何容器再使用它.</li></ul><p id="cd5ebde7-8b10-4af4-9966-43fe162b25b5" class="">卷功能让我们可以<strong>将数据(如源代码), 数据库或者其他内容添加到镜像中而不是将这些内容提交到镜像中</strong>, 并且允许我们再多个容器间共享这些内容. 我们可以利用此功能来测试容器和内部的应用程序代码, 管理日志, 或者处理容器内部的数据库.</p><pre id="d7014a4d-d8c1-4edc-aabf-89ff4b96a04e" class="code code-wrap"><code>#为容器创建一个名为/opt/project的挂载点.
+VOLUME [&quot;/opt/project&quot;]
+
+#也可以通过指定数组的方式指定多个卷, 如下所示:
+VOLUME [&quot;/opt/project&quot;, &quot;/data&quot;]</code></pre><p id="e58dac46-b878-4d99-a24f-a342f3b42963" class="">
+</p><blockquote id="d074e449-4bda-467a-a81d-bb5bbf15ee81" class="">如果现在对卷功能很好奇, 也可以在http://docs.docker.com/userguide/dockervolumes/读到更多关于卷的信息.</blockquote><hr id="c3c0eaa9-bc81-44e7-abec-9aac86af33ab"/><h2 id="dcfe53a7-3773-43f7-949f-49993b023dcd" class=""><strong>ADD</strong></h2><p id="46f49c59-e759-43ec-93b7-50336f4b7fba" class=""><strong>ADD指令用来将构建环境下的文件和目录复制到镜像中, 注意, 不能对构建目录之外的文件进行ADD操作.</strong></p><p id="19ff597c-6747-4385-9903-e3f741a66e18" class=""><strong>源文件参数可以是一个URL, 或者文件名或目录,目的地址参数以/结尾是目录不是以/结尾是文件.</strong></p><p id="a02d65d7-5aa8-4489-8f08-ff0320460c94" class=""><strong>可以自动解压归档文件.</strong></p><p id="c2ca4842-009c-4808-8217-2e227241f752" class=""><strong>目的位置不存在,会创建全路径,UID/GID是0,权限是755</strong></p><p id="16d8e223-10e3-4571-aa31-2e1998f97da9" class=""><strong>使Dockerfile中的后续指令都不能继续使用之前的构建缓存</strong></p><p id="eb3ee879-8dd5-4d2b-8ed7-79c2cc786ed9" class="">比如, 在安装一个应用程序时. ADD指令需要源文件和目的文件两个参数,如下所示, ADD指令将software.lic文件复制到镜像中的<code>/opt/application/</code>目录下.</p><pre id="69ab3126-ef7f-495c-8f77-328e5a7631a8" class="code code-wrap"><code> ADD software.lic /opt/application/software.lic</code></pre><p id="b7ddc69b-1ca0-4e57-ba7a-a2b08a5b79bd" class="">在ADD时, 通过目的地址参数末尾的字符来判断文件源是目录还是文件.以/结尾是目录,不是以/结尾是文件.</p><p id="6beb61b8-aac1-4e7d-9d01-dec3f5d0c276" class="">文件源也可以使用URL的格式</p><pre id="1beb0b00-653a-40a6-b266-cf5c10729ee6" class="code code-wrap"><code> ADD http://wordpress.org/lastest.zip /root/wordpress.zip</code></pre><p id="3687ddaf-9d6a-4eee-a593-f286502c92f5" class="">如果将一个归档文件(合法的规范当文件包括 gzip, bzip2, xz)指定为源文件, Docker会自动将文档文件解开(unpack). 如下,条命令会将归档文件<code>lastest.tar.gz</code>揭开到<code>/var/www/wordpress/</code>目录下,行为和使用<code>-x</code>选项的<code>tar</code>命令一样.</p><pre id="0cf4c291-69b9-45d1-be0f-ef7a8389cf3b" class="code code-wrap"><code> ADD lastest.tar.gz /var/www/wordpress/</code></pre><p id="9ac984ab-e93a-4c43-8b35-d5e678a9579c" class="">Docker解开归档文件的: 该指令执行后的输出是原目的目录已经存在的内容加上归档文件中的内容. 如果目的位置的目录下已经存在了和归档文件同名的文件或者目录, 那么目的位置中的文件或者目录不会被覆盖.</p><p id="81b71a1d-0e6f-402f-a90e-b170b24b1b2a" class="">最后, 如果目的位置不存在的话, Docker将会为我们创建这个全路径, 包括路径中的任何目录. 新创建的文件和目录的模式为0755, 并且UID和GID都是0.</p><p id="0d6ca0a9-9fd1-406c-8cdb-0770627f4f49" class="">ADD指令将会使&quot;构建缓存&quot;变得无效, 这一点非常重要. 如果使用ADD指令向镜像添加一个文件或者目录, 那么这将使Dockerfile中的后续指令都不能继续使用之前的构建缓存.</p><hr id="e8d4d080-1fa3-4e43-a6d2-4ab2f3bd4869"/><h2 id="aeae5f64-03dd-44e5-8f6d-84751635a513" class="block-color-blue_background"><strong>COPY</strong></h2><p id="d183c8bc-8135-48c1-a642-abcdd4b18749" class=""><strong>类似ADD,但不做文件提取和解压的工作.</strong><strong>可复制目录或文件,包括元数据</strong></p><p id="5da07463-b374-4217-b9b5-2b0bd76c0c9a" class=""><strong>目的位置不存在,会创建全路径,UID/GID是0</strong></p><p id="abe5a993-1b8a-4061-83ae-29288244a7a2" class=""><strong>不能复制到该构建目录之外的任何文件</strong></p><p id="635110ed-4d92-4f0e-845d-af1a0bd62979" class=""><strong>COPY指令的目的位置则必须是容器内部的一个绝对路径.</strong></p><p id="2e787e70-2dab-48b0-8bf0-c3fd98e3cbca" class="">使用如下,这条指令将会把本地<code>conf.d/</code>目录中的文件复制到<code>/etc/apache2/</code>目录中.</p><pre id="9429e5f0-44ce-4d5a-a7dc-2a834c1f4945" class="code code-wrap"><code> COPY conf.d/ /etc/apache2/</code></pre><p id="8b343c08-03dd-4277-933c-eca436e65064" class="">不能复制到该目录之外的任何文件,因为构建环境将会上传到Docker守护进程, 而复制是在Docker进程进程中的及逆行的. 任何位于构建环境之外的东西都是不可用的.</p><p id="ee208595-a2c2-48c7-9d8a-b28bf23085ba" class="">任何由该指令创建的文件或者目录的UID和GID都会设置为0.</p><p id="344b8ee9-776c-4de8-814b-d0043f950282" class="">如果源路径是一个目录, 那么这个目录将整个被复制到容器中, 包括文件系统元数据.如果源文件为任何类型的文件, 则该文件会随同元数据一起被复制.</p><p id="263eed09-5564-4212-8728-24e46737ab5e" class="">如果目的位置不存在, Docker将会自动创建所有需要的目录结构, 就像<code>mdkir -p</code>命令那样.</p><hr id="c9af658a-3ad5-4037-ba15-bf7b1a52b7a7"/><h2 id="09f79cdc-5a9a-4c8a-96ab-2c5368a6512e" class="block-color-blue_background"><strong>LABEL</strong></h2><p id="907f16d0-d5ce-4083-8b90-374d85130494" class="">LABEL指令用于为Docker镜像添加元数据(作为描述信息). 元数据以键值对的形式展现. 我们可以看一个例子, 如下所示:</p><figure id="2671f955-d4ae-40a2-8c40-6c9adb8da957" class="image"><a href="Dockerfile%20cf1d6/1575516713290.png"><img style="width:561px" src="Dockerfile%20cf1d6/1575516713290.png"/></a></figure><p id="96339f2d-9bc5-4deb-be55-667905ed69aa" class="">LABEL指令以label=&quot;value&quot;的形式出现. 可以在每一条指令中指定一个元数据, 或者指定多个元数据, 不同的元数据之间用空格分隔. 推荐将所有的元数据都放到一条LABEL指令中, 以防止不同的元数据指令创建过多镜像层. 可以通过<code>docker inspect</code>命令来查看Docker镜像中的标签信息.</p><pre id="13fa52ff-f181-404f-b8e5-e317fe618a92" class="code code-wrap"><code> [root@web02 simple_sh]# docker inspect  a2543d390494
+ ......
+             &quot;Labels&quot;: {
+                 &quot;location&quot;: &quot;New York&quot;,
+                 &quot;role&quot;: &quot;Web Server&quot;,
+                 &quot;type&quot;: &quot;Data Center&quot;,
+                 &quot;version&quot;: &quot;1.0&quot;
+             }
+ ......</code></pre><p id="7d31e179-43b0-44b2-84c4-0ebc63451de6" class="">这里我们可以看到前面的LABEL指令定义的元数据信息.</p><hr id="fe9e5ba2-8da7-4390-8964-77e6cc6eff16"/><h2 id="c01758c9-1d87-4c70-85de-4ace190bb6fd" class=""><strong>STOPSIGNAL(跳过)</strong></h2><p id="38cfbb6c-8edb-41e5-90f1-a0e0849b96c1" class="">STOPSIGNAL指令用来设置停止容器时发送什么系统调用信号给容器. 这个信号必须是内核系统调用表中合法的数, 如9, 或者SIGNAME格式中的信号名称, 如SIGKILL.</p><blockquote id="eb08d29f-f735-414f-a125-08a9d71f6804" class="">STOPSIGNAL指令是在1.9版本中引入的.</blockquote><hr id="31e4dfdc-dbb3-4dad-864b-cc599e37c1d7"/><h2 id="d47b8259-40fc-43e9-ba56-43cace9f391f" class=""><strong>ARG</strong></h2><p id="0ed5930f-a5a3-4e6b-90bb-e8661e7174e5" class="">ARG定义&quot;<strong>在docker build命令运行时传递给构建运行时的变量</strong>&quot;, 我们只需在构建时使用<code>--build-arg</code>选项即可. 用户只能在Dockerfile文件中定义过的参数.</p><p id="80502e10-e25d-40db-b331-a466e425d4b0" class="">添加ARG指令, 如下所示:</p><pre id="f42430f8-fb7b-4853-863b-63f4013bc835" class="code code-wrap"><code> ARG build
+ ARG webapp_user=user</code></pre><p id="e5dcbbf3-3b94-4200-8e27-0dfcb8c4090e" class="">上面两个例子中第二条ARG指令设置了一个默认值, 如果构建时没有为该参数指定值, 就会使用这个默认值, 下面我们就来看看如何在docker build中使用这些参数.</p><pre id="0fe7b317-581d-4c96-9076-3a230740168c" class="code code-wrap"><code> docker build --build-arg build=1234 -t maxiaoyu/test .</code></pre><p id="6d5d13de-184a-422b-ab41-1b8feb4761be" class="">这里构建maxiaoyu/test镜像时, build变量将会设置为1234, 而webapp_user变量则会集成设置的默认值user.</p><hr id="d1f93dbf-8718-4278-b8df-c4667cb3c280"/><h2 id="82900873-7160-427b-ba40-c1403e6a31cb" class=""><strong>ONBUILD(看到这了)</strong></h2><p id="466576c5-ba75-4a30-8270-72963bcc403f" class="">ONBUILD指令能为镜像添加触发器(trigger). 当一个镜像被用作其他镜像的基础镜像时(比如用户的镜像需要从某未准备好的位置添加源代码, 或者用户需要执行特定于构建镜像的环境的构建脚本), 该镜像中的触发器将会被执行</p><p id="ba60afad-a208-4e03-80c5-833fcf5742da" class="">触发器会在构建过程中插入新指令, 我们可以认为这些指令是紧跟在FROM之后指定的. 触发器可以是任何构建指令, 如下所示:</p><pre id="5133d1b0-cf91-42f3-a79e-d71aa3404c22" class="code code-wrap"><code> ONBUILD ADD . /app/src
+ ONBUILD RUN cd /app/src &amp;&amp; make</code></pre><p id="b6fc8373-e3aa-4b33-9355-51e3bf7f8447" class="">上面的代码将会在创建的镜像中加入ONBUILD触发器, ONBUILD指令可以在镜像上运行<code>docker inspect</code>命令来查看. 如代码清单</p><pre id="2b6f656e-d823-435f-91b6-2ce306b167d8" class="code code-wrap"><code> docker inspect ac05ec83ea6a
+ .....
+             &quot;OnBuild&quot;: [
+                 &quot;ADD . /app/src&quot;,
+                 &quot;RUN cd /app/src &amp;&amp; make&quot;
+             ],
+ 
+ .....</code></pre><p id="4eced7a1-ae8a-4896-ad65-3d0d4207e9fa" class="">比如, 我们为Apache2镜像构建一个全新的Dockerfile, 该镜像名为maxiaoyu/apache2, 如下所示:</p><pre id="78fb48ea-73b7-4824-b7b2-a8a0eac9d307" class="code code-wrap"><code> FROM ubuntu:14.04
+ MAINTAINER Ma Xiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+ RUN apt-get update &amp;&amp; apt-get install -y apache2
+ ENV APACHE_RUN_USER www-data
+ ENV APACHE_RUN_GROUP www-data
+ ENV APACHE_LOG_DIR /var/log/apache2
+ ONBUILD ADD . /var/www/
+ EXPOSE 80
+ ENTRYPOINT [&quot;/usr/sbin/apache2&quot;]
+ CMD [&quot;-D&quot;, &quot;FOREGROUND&quot;]</code></pre><p id="4d0f099e-a605-45f8-aa85-ddd1f57ff03f" class="">现在我们就来构建该镜像, 如下所示:</p><pre id="50b29693-c6ea-4b32-a9fc-f4c294acbabb" class="code code-wrap"><code> docker build -t=&quot;maxiaoyu/apache2:webserver&quot; .
+ .......
+ Step 7/10 : ONBUILD add . /var/www/
+  ---&gt; Running in b8bdd04908cc
+  ---&gt; 52a372cb8867
+  .....</code></pre><p id="b45a1fbb-0e44-41a0-8369-5bd8f7a69a97" class="">在新构建的镜像中包含一条ONBUILD指令, 该指令会使用ADD指令将构建环境所在的目录下的内容全部添加到镜像中/var/www目录下. 我们可以轻而易举地将这Dockerfile作为一个通用的Web应用程序的模板, 可以基于这个模板来构建Web应用程序.</p><p id="21560bac-69cf-4677-b897-75e7323a6b55" class="">我们可以通过构建一个名为webapp的镜像来看看如何使用镜像模板功能. 它的Dockerfile如下所示:</p><pre id="5d3544e0-4110-4c71-b589-5b0db0aa7e26" class="code code-wrap"><code> FROM maxiaoyu/apache2
+ MAINTAINER Ma Xiaoyu &quot;xiao_yu_ma@hotmail.com&quot;
+ ENV APPLICATION_NAME webapp
+ ENV ENVIROMENT development
+ </code></pre><p id="090b29fb-f6cb-40cb-b500-59bc4de9983d" class="">让我们看看构建这个镜像时将会发生什么事情.</p><figure id="94b8d7af-4150-4c3d-9375-725c5973e463" class="image"><a href="file://C:/Users/dell/AppData/Roaming/Typora/typora-user-images/1575519827653.png?lastModify=1616316457"><img src="file://C:/Users/dell/AppData/Roaming/Typora/typora-user-images/1575519827653.png?lastModify=1616316457"/></a></figure><p id="237f4f44-731d-4c5a-bb78-5e269ad2911b" class="">可以清楚地看到, 在FROM指令之后, Docker插入了一条ADD指令, 这条ADD指令就是在ONBUILD触发器中指定的. 执行完该ADD指令后, Docker才会继续执行构建文件的后续指令, 这种机制使我每次都会将本地源代码添加到镜像, 就像上面我们做到	的呐样, 也支持我为不同的应用程序进行一些特定的配置或者设置构建信息. 这时, 可以将maxiaoyu/maxiaoyu2当作一个镜像模板功能.</p><p id="2fa964c0-44cd-4b57-b98d-b0adc1d84cb8" class="">ONBUILD触发器会按照在父镜像中指定的顺序执行, 并且只能被继承依次(也就是说只能在紫荆想中执行, 而不会在孙子镜像中执行).如果再基于<code>maxiaoyu/webapp</code>构建一个镜像, 则新镜像是<code>maxiaoyu/apache2</code>的孙子镜像, 因此在该镜像的构建过程中. ONBUILD触发器是不会被执行的.</p><blockquote id="c1e940e1-29f8-4776-b261-b548f98105b8" class="">注意:这里好几条指令是不能用在ONBUILD指令中的, 包括FROM, MAINTAINER和ONBUILD本身. 之所以这么规定是为了防止在Dockerfile构建过程中产生递归调用的问题.</blockquote><hr id="c08abd53-9f04-4907-9925-4bfbfd2d4509"/><h1 id="4196e044-540e-4499-a54e-1bc06a3f17f1" class=""><strong>多阶段镜像构建技术</strong></h1><p id="76858a64-adf9-4975-a8b8-d8631f8d75c3" class="">多阶段镜像构建可以通过一个Dockerfile，一次性地、更容易地<strong>构建出size较小的image</strong>，体验良好并且更容易接入CI/CD等自动化系统。</p><ul id="de8815d4-af26-4903-a298-878dad05b6a1" class="bulleted-list"><li style="list-style-type:disc">支持Multi-stage build的Dockerfile在以往的多个build阶段之间建立内在连接，让后一个阶段构建可以使用前一个阶段构建的产物，形成一条构建阶段的chain；</li></ul><ul id="3c4a86de-e279-43ee-b2d4-247dacc17e6b" class="bulleted-list"><li style="list-style-type:disc">Multi-stages build的最终结果仅产生一个image，避免产生冗余的多个临时images或临时容器对象，这正是我们所需要的：我们只要结果。</li></ul><p id="65bb94cd-5c8c-409b-8787-b62862d4aedc" class="">多阶段构建仅在Docker 17.05及之后的版本中才能得到支持。</p><p id="89981a7e-33d7-4f5c-91c6-06973d166c01" class="">下面显示了多阶段镜像构建的效果. v2采用了多阶段构建,精简了仅100M的空间.</p><pre id="f0d8f53d-38f2-4a5c-bd70-6d59c80dd0a8" class="code code-wrap"><code> redis-5.0.7         v2                  28fa10e7fdfb        4 seconds ago       231MB
+ redis-5.0.7         v1                  7409144dda9e        About an hour ago   329MB</code></pre><h3 id="92efae4f-fa1b-4d06-8b85-f2f952cb825a" class=""><strong>实现</strong></h3><p id="6a9629a3-b3ad-4939-a2c6-4b5dc321d3ad" class="">下面操作分为了两个阶段. 第一个阶段负责编译redis并在/usr/local/redis目录下生成编译结果. 第二阶段拷贝第一阶段的编译结果. 因为第二阶段的镜像是纯净的,空间更小,将redis编译结果拿来即可使用.这就是多阶段镜像构建技术的核心思想.</p><p id="13347091-c9c4-4f18-a59b-6e548980e52e" class="">下面多阶段镜像构建的核心命令是第一阶段<code>FROM</code>命令和第二阶段<code>FROM</code>命令及<code>COPY</code>命令</p><pre id="caff944e-65b8-4c8e-9605-a31e1b2f3101" class="code code-wrap"><code> FROM ubuntu:14.04 as builder
+ COPY sources.list /etc/apt/
+ COPY redis-5.0.7.tar.gz /root/
+ RUN apt-get update \
+     &amp;&amp; apt-get -yqq install make gcc \
+     &amp;&amp; cd /root &amp;&amp; tar xf redis-5.0.7.tar.gz \
+     &amp;&amp; cd redis-5.0.7 &amp;&amp; make &amp;&amp; make PREFIX=/usr/local/redis install \
+     &amp;&amp; apt-get -yqq remove make gcc \
+     &amp;&amp; apt-get clean all \
+     &amp;&amp; cd / &amp;&amp; rm -rf /root/redis-5.0.7*
+ 
+ FROM ubuntu:14.04
+ COPY --from=builder /usr/local/redis /usr/local/
+ RUN mkdir -p /opt/redis/conf/ \
+     &amp;&amp; mkdir /opt/redis/pid \
+     &amp;&amp; mkdir /opt/redis/log \
+     &amp;&amp; mkdir /data/
+ COPY redis.conf /opt/redis/conf/
+ EXPOSE 6379
+ CMD [&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;redis-server /opt/redis/conf/redis.conf&quot;]
+ #build-essential</code></pre><h1 id="60b542ce-9938-4555-9c60-fc6c85f8b32c" class="">shell form与 exec form区别总结</h1><ol type="1" id="6e9077ad-c39f-4618-8fd0-85b0ee927760" class="numbered-list" start="1"><li>格式  shell form: <code>&lt;command&gt;</code>, exec form: <code>[&quot;命令&quot;, &quot;参数1&quot;, &quot;参数2&quot;]</code></li></ol><ol type="1" id="c8036651-c0af-4d52-900a-626260eb395d" class="numbered-list" start="2"><li>RUN, CMD, ENTRYPOINT都可使用shell form和exec form<p id="4f770dad-b601-44fa-81bd-07fad352f451" class="">建议RUN用shell form；CMD和ENTRYPOINT用exec form</p></li></ol><ol type="1" id="b2433a06-9450-41f5-9f4a-f2a09bd65f07" class="numbered-list" start="3"><li>shell form 交给shell运行，在某些情况会造成不良后果；exec form采用<code>[]</code>，程序直接运行，不作为shell子程序</li></ol><ol type="1" id="a5d7b350-1598-4045-a982-e17fce665855" class="numbered-list" start="4"><li>shell form是shell语句，故可用shell命令的特性如变量替换/命令链(&amp;&amp;或/)/重定向/管道<p id="3b094fbe-4b52-4de7-bc57-a7faca7a6588" class="">exec form是直接执行命令，不经过shell，故不可用以上shell特性。<div class="indented"><p id="d9c30a05-81bd-4bb6-9edf-0816e5ba0bd0" class="">补充：无法引用shell环境变量，如需要则加入<code>/bin/sh -c</code>，如<code>[&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;echo ${TEST}&quot;]</code>，指明交给shell处理则可引用变量</p></div></p></li></ol><ol type="1" id="16a8ac82-bb0d-4dc0-8a39-a157eca3a2b7" class="numbered-list" start="5"><li>exec form格式： <code>[&quot;命令&quot;, &quot;参数1&quot;, &quot;参数2&quot;]</code>  👁️‍🗨️记住必须双引号. 例:<code>ENTRYPOINT [&quot;sh&quot;, &quot;test.sh&quot;]</code> :<ul id="c2755c2f-6933-4bd8-bc6d-119e6d6bc763" class="bulleted-list"><li style="list-style-type:disc"><code>[&quot;sh&quot;, &quot;test.sh&quot;]</code> 第一进程是<code>&quot;sh test.sh&quot;</code>; </li></ul><ul id="9ed8d86f-f5a1-429c-a348-1081a62234b4" class="bulleted-list"><li style="list-style-type:disc"><code>[&quot;/bin/sh&quot;,&quot;-c&quot;, &quot;sh test.sh&quot;]</code>第一进程是<code>&quot;/bin/sh&quot;,&quot;-c&quot;, &quot;sh test.sh</code>，第二进程才是<code>&quot;sh test.sh&quot;</code></li></ul><ul id="6c859497-573b-46a5-bb13-ebe2a50165e1" class="bulleted-list"><li style="list-style-type:disc">后者有个例外：alpine镜像，[&quot;/bin/sh&quot;,&quot;-c&quot;,&quot;sh test.sh&quot;] 第一进程是“<code>sh test.sh</code>”，原因：<ul id="b1dc7a7e-8077-4c67-b31a-09a40ce8594c" class="bulleted-list"><li style="list-style-type:circle">这是ash的作用，alpine的/bin/sh实际是ash(busybox )，当执行程序是/bin/sh, 它就会被后面的<code>sh test.sh</code>命令替换，第一进程是<code>sh test.sh</code>，而不会创建一个子进程<code>sh test.sh</code></li></ul></li></ul></li></ol><p id="f8d435fe-68ba-4ee5-abf3-da6adfe2705f" class="">
+</p></div></article></body></html>

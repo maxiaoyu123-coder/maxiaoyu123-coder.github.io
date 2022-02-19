@@ -1,0 +1,725 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Kubeadm部署</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ac316ead-5253-45b2-9762-051c654cfd87" class="page sans"><header><img class="page-cover-image" src="Kubeadm%E9%83%A8%E7%BD%B2%20ac316/kubeadm_logo.png" style="object-position:center 33.89%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Kubeadm%E9%83%A8%E7%BD%B2%20ac316/kubeadm.png"/></div><h1 class="page-title">Kubeadm部署</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 15, 2021 7:56 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="2c9abaf7-e322-46ba-9525-23ac664123ba" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8ea362a8-0d74-439a-810b-c14117e2d85e">部署前准备工作</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2e3295f8-4cb6-42a9-ac2c-76c9b578c44a"><strong>一. 所有节点安装docker和kubeadm</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6a54604a-595c-4ce8-899d-c0b86c791e7e"><strong>二. 部署Master节点</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c08300ff-fb85-428f-9297-1944ce5d0221">命令补全</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3ccd0818-5dca-42a9-b2f2-1f24ddfcf361"><strong>三.部署worker节点</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#989fa6d9-ac3b-41fe-a071-1853f8407727"><strong>五.部署容器存储持久化插件(可选安装)</strong></a></div></nav><h1 id="8ea362a8-0d74-439a-810b-c14117e2d85e" class="block-color-blue_background">部署前准备工作</h1><div id="e7c59774-5d27-4456-b75a-b3ad677fc5cd" class="collection-content"><h4 class="collection-title">Copy of K8S硬件配置</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>服务器名称</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>CPU/MEM</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesSelect"><path d="M7,13 C10.31348,13 13,10.31371 13,7 C13,3.68629 10.31348,1 7,1 C3.68652,1 1,3.68629 1,7 C1,10.31371 3.68652,13 7,13 Z M3.75098,5.32278 C3.64893,5.19142 3.74268,5 3.90869,5 L10.09131,5 C10.25732,5 10.35107,5.19142 10.24902,5.32278 L7.15771,9.29703 C7.07764,9.39998 6.92236,9.39998 6.84229,9.29703 L3.75098,5.32278 Z"></path></svg></span>地址</th></tr></thead><tbody><tr id="1a465de6-cf11-48d0-a31a-fdecbe6fac15"><td class="cell-title"><a href="Kubeadm%E9%83%A8%E7%BD%B2%20ac316/Copy%20of%20K8%20e7c59/k8s-master%201a465.html">k8s-master01</a></td><td class="cell-h\ec">2核/4G</td><td class="cell-ZC^:"><span class="selected-value select-value-color-green">自定义</span></td></tr><tr id="8fe7fe4d-5991-45f9-8258-7eca25eb94f3"><td class="cell-title"><a href="Kubeadm%E9%83%A8%E7%BD%B2%20ac316/Copy%20of%20K8%20e7c59/k8s-node01%208fe7f.html">k8s-node01</a></td><td class="cell-h\ec">2核/2G</td><td class="cell-ZC^:"><span class="selected-value select-value-color-green">自定义</span></td></tr></tbody></table></div><p id="78b47c3f-be02-4823-ad41-2072dbf98405" class="">下面的kubadm安装会涉及的实践目标:</p><ul id="092601b1-8714-442b-bf05-01f9c24a0a08" class="bulleted-list"><li style="list-style-type:disc">在所有节点上安装 Docker 和 kubeadm；</li></ul><ul id="8b2ca718-8e86-47d4-b8f7-856f47fdb797" class="bulleted-list"><li style="list-style-type:disc">部署 Kubernetes Master；</li></ul><ul id="135fa8cf-5e40-4420-a241-2f592164e0b3" class="bulleted-list"><li style="list-style-type:disc">部署容器网络插件；</li></ul><ul id="e43ec150-0403-46ee-9a0f-1234df433e0d" class="bulleted-list"><li style="list-style-type:disc">部署 Kubernetes Worker；</li></ul><ul id="873dc3f6-67c2-4e39-a953-7208dc0768b9" class="bulleted-list"><li style="list-style-type:disc">部署 Dashboard 可视化插件；</li></ul><ul id="901ff2f5-b01d-46d2-adee-e603709db7cb" class="bulleted-list"><li style="list-style-type:disc">部署容器存储插件。</li></ul><blockquote id="5df1ff76-7aa2-4b13-861c-8a395e8afc4a" class="">注意: 以下安装的是K8S 1.19版本, 不同的版本在安装上有多处差异, 所以下面的配置可能不适用于其他版本的安装.</blockquote><h2 id="2e3295f8-4cb6-42a9-ac2c-76c9b578c44a" class=""><strong>一. 所有节点安装docker和kubeadm</strong></h2><p id="d995a26f-524f-4ecf-85dd-b49a909b3655" class="">1.安装K8S的YUM源</p><pre id="2265d740-4ea2-4b0c-b74f-d0bb7b1a591a" class="code code-wrap"><code>cat &gt;/etc/yum.repos.d/kubernetes.repo &lt;&lt;EOF 
+[kubernetes]
+name=kubernetes
+baseurl=http://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enable=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=http://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg http://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF</code></pre><p id="fa7ce277-e5f3-4042-ad63-c61468bf0584" class="">2.安装docker</p><pre id="e00c93f1-22e5-4f16-9980-48203dcac95a" class="code"><code>#安装docker
+yum install -y yum-utils
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum remove -y docker docker-common docker-selinux docker-engine
+yum list docker-ce --showduplicates
+yum install -y docker-ce-18.09.9
+mkdir /etc/docker
+cat&gt;/etc/docker/daemon.json&lt;&lt;EOF
+{
+        &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;],
+        &quot;exec-opts&quot;:[&quot;native.cgroupdriver=systemd&quot;]
+}
+EOF
+systemctl daemon-reload
+systemctl enable --now docker
+
+
+注意：
+1.Linux8无法直接安装containerd.io
+2.需要把docker设置为开机自启，否则后面执行kubeadm init时会报错
+3.启动docker后报错：Your kernel does not support cgroup blkio weight_device
+原因是kernel版本过高，建议使用长期维护的4.4版本内核</code></pre><p id="38598a1e-b61c-4522-9242-d788ff00f860" class="">选项<code>&quot;exec-opts&quot;:[&quot;native.cgroupdriver=systemd&quot;]</code>是将docker的cgroupdriver设置为systemd。cgroup driver（也叫cgroup manager）为进程创建cgroups，有两个cgroup driver：systemd和cgroupfs，systemd除了是init system外也可以扮演cgroup driver。建议采用一种cgroup driver，否则可能会导致节点不稳定，所以kubelet和docker都设置为systemd。</p><figure id="106a4674-d204-4c7f-a34f-58ae887c3cf8"><a href="https://github.com/kubernetes/kubeadm/issues/1394" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Change default cgroup driver to systemd and verify parity w/docker on preflight · Issue #1394 · kubernetes/kubeadm</div><div class="bookmark-description">Default installs of docker still use cgroupfs and most of our supported userbase is on systemd systems, we should change the defaults and update instructions. New Installs: 1 - Update the instructions for installation of docker to use --...</div></div><div class="bookmark-href"><img src="https://github.com/favicon.ico" class="icon bookmark-icon"/>https://github.com/kubernetes/kubeadm/issues/1394</div></div><img src="https://opengraph.githubassets.com/634b343d87a45eb6e658a3959ed1efd64e4cd61918301b4e3fd4b85c59ba29ee/kubernetes/kubeadm/issues/1394" class="bookmark-image"/></a></figure><p id="ab392e96-b04a-4506-ac1d-b1d56dd4c322" class="">
+</p><p id="ebe30cf4-09d9-42c7-bb31-298877390c4e" class="">3. 安装kubelet，kubectl，kubeadm</p><pre id="2bcd74f7-c82a-4d02-8c4d-7d8cdc475960" class="code code-wrap"><code>yum install kubelet-1.18.13 kubeadm-1.18.13 kubectl-1.18.13 </code></pre><p id="25efe1e6-5535-472e-bba0-e720dc08c45d" class="">疑问:K8S1.19版本中经过验证的可兼容docker版本有哪些?**</p><ol type="1" id="67f53bcd-a75e-49c8-b92d-ad0089804dc9" class="numbered-list" start="4"><li>启动kubelet</li></ol><pre id="51370bda-e214-428a-92a4-e3e544d9f4c2" class="code code-wrap"><code>systemctl enable --now kubelet</code></pre><h2 id="6a54604a-595c-4ce8-899d-c0b86c791e7e" class=""><strong>二. 部署Master节点</strong></h2><p id="a9bc268d-1699-4232-b694-bde10dedd7d5" class="">1.导出kubeadm默认配置</p><pre id="ce734d5c-c760-4910-9c0e-c41e3fb1d8fd" class="code code-wrap"><code> $ kubeadm config print init-defaults &gt;kubeadm-init.yml</code></pre><p id="ee43d092-c15e-4b91-9f5b-c7fe73d65530" class="">2.编辑默认配置</p><pre id="c8378096-3182-4e1d-bf26-5cb71c3f01e8" class="code code-wrap"><code>$ vim kubeadm-init.yml
+#修改advertiseAddress: 填入主节点网卡地址.
+#修改kubernetesVersion: 修改K8S版本，根据情况填入
+#修改imageRepository:  这是K8S组件的镜像源,默认k8s.gcr.io，如需拉取镜像替换为registry.cn-hangzhou.aliyuncs.com/k8sos，避免从国外拉取</code></pre><p id="d3ef6e68-3b09-454b-ac76-9031fe0db60d" class="">通过配置文件, 你可以定制符合自己需要的K8S.</p><blockquote id="6bb4cd2f-dd76-4d7b-9d24-6ed53355665e" class="">kubernetesVersion: &quot;v1.18.13&quot;表示你要安装K8S 1.18.13版本</blockquote><p id="3b7a00d4-5bb7-45c4-8be6-a12784cac1b7" class="">4.开始安装</p><pre id="6a76187e-486d-4843-bef7-74dbcb3fcea3" class="code code-wrap"><code> kubeadm init --config kubeadm-init.yml | tee kubeadm-init.log</code></pre><p id="4da0e148-a458-48f4-baa3-201cea91efaa" class=""><code>| tee kubeadm-init.log</code>用于保存安装过程中输出的信息, 这些信息后面还需要用到.</p><p id="c6f7903a-b106-4694-a814-2211305d1967" class="">5.复制安全配置文件</p><p id="b65453c0-abd0-43a4-85f1-7ed0e1c40264" class="">安装快结束时kubeadm会输出下面这些命令, 复制粘贴即可.</p><pre id="5e4d9d1f-cdaa-4f1a-91dd-6bfa3e04be81" class="code code-wrap"><code> mkdir -p $HOME/.kube
+ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+ sudo chown $(id -u):$(id -g) $HOME/.kube/config</code></pre><p id="6ff99222-85d1-48f6-9c6b-6e3283df10e5" class="">这些配置命令的目的是：Kubernetes 集群默认需要加密方式访问。所以，这几条命令，就是将刚刚部署生成的 Kubernetes 集群的安全配置文件，保存到当前用户的.kube 目录下，kubectl 默认会使用这个目录下的授权信息访问 Kubernetes 集群。如果不这么做的话，我们每次都需要通过 export KUBECONFIG 环境变量告诉 kubectl 这个安全配置文件的位置。</p><p id="5e1915d3-883b-4620-8c6c-cdc043de13f4" class="">6.安装网络插件</p><p id="e66d2fde-1625-4bab-bba6-1f1068f28706" class="">因为未部署任何网络插件,所以Master节点的状态是NotReady. 通过下面命令我们可以看到Master NotReady以及处于NotReady的原因.</p><pre id="8362a73b-d044-4e80-9f0f-7c37b7c688d3" class="code code-wrap"><code> $ kubectl get nodes
+ 
+ NAME      STATUS     ROLES     AGE       VERSION
+ master    NotReady   master    1d        v1.11.1
+ 
+ 
+ $ kubectl describe node master
+ 
+ ...
+ Conditions:
+ ...
+ 
+ Ready   False ... KubeletNotReady  runtime network not ready: NetworkReady=false reason:NetworkPluginNotReady message:docker: network plugin is not ready: cni config uninitialized</code></pre><p id="06db1ba2-e0bc-415e-98b0-079d4fe44c16" class="">开始安装网络插件</p><pre id="722ce7ee-f341-49c5-954c-c018e91b77bb" class="code code-wrap"><code>kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &#x27;\n&#x27;)&quot;</code></pre><p id="e530c441-4cb7-49cf-8648-b8a1e54710f2" class="">成功安装后检查,此时所有pod进入ready状态, Master部署完成.</p><pre id="8f1c053f-d541-480e-bdd8-d086361fe2ba" class="code code-wrap"><code>[root@k8s-master01 ~]# kubectl get pod -n kube-system
+NAME                                   READY   STATUS    RESTARTS   AGE
+coredns-7dcc599b9f-6fr94               1/1     Running   0          47h
+coredns-7dcc599b9f-ktsqr               1/1     Running   0          47h
+etcd-k8s-master01                      1/1     Running   0          47h
+kube-apiserver-k8s-master01            1/1     Running   0          47h
+kube-controller-manager-k8s-master01   1/1     Running   6          47h
+kube-proxy-bdczc                       1/1     Running   0          47h
+kube-proxy-r7nnw                       1/1     Running   0          47h
+kube-scheduler-k8s-master01            1/1     Running   7          47h
+weave-net-glcts                        2/2     Running   0          44h
+weave-net-ls2dk                        2/2     Running   0          44h
+
+##如果不确定namespace, 使用这个命令.
+kubectl get ns</code></pre><blockquote id="c8ebb1de-6e0d-46e3-ab21-ce7d2db8e34f" class="">注意: kube-system 是 Kubernetes 项目预留的系统 Pod 的工作空间（Namepsace，注意它并不是 Linux Namespace，它只是 Kubernetes 划分不同工作空间的单位）</blockquote><p id="40f815c3-b418-433b-b7c1-2c9a8858d3c1" class="">可以看到，所有的系统 Pod 都成功启动了，而刚刚部署的 Weave 网络插件则在 kube-system 下面新建了一个名叫 weave-net-glcts的 Pod，一般来说，这些 Pod 就是容器网络插件在每个节点上的控制组件。</p><h2 id="c08300ff-fb85-428f-9297-1944ce5d0221" class="">命令补全</h2><pre id="4ef657e5-a814-44ef-aacc-dbb3b8fbc959" class="code code-wrap"><code>yum install -y bash-completion
+source /usr/share/bash-completion/bash_completion
+
+source &lt;(kubectl completion bash)
+echo &quot;source &lt;(kubectl completion bash)&quot; &gt;&gt; ~/.bashrc</code></pre><h2 id="3ccd0818-5dca-42a9-b2f2-1f24ddfcf361" class=""><strong>三.部署worker节点</strong></h2><p id="cd0ddfd0-1f1d-4dd5-a3f6-ffbfa1da390d" class="">一条指令即可, 主节点快安装完成时输出了这条指令, 已经保存在kubeadm-init.log中, 将该指令粘贴到work节点即可完成部署. 类似下面这条命令</p><pre id="ce127d79-297b-43fd-88db-99841e31fd6f" class="code code-wrap"><code>kubeadm join 10.19.34.10:6443 --token ceaud0.7oq973s1fb2jxp5i     --discovery-token-ca-cert-hash sha256:95617f87ba51c87abc545847b19e6561011f988442563d1612ed316ca70ecc70</code></pre><blockquote id="6dc8d81d-5eee-4f2e-95d2-bf2ee22dd187" class="">如果出现&quot;error execution phase kubelet-start: error uploading crisocket: timed out waiting for the condition&quot;, 请先输入这条命令&quot;kubeadm reset&quot;然后再次尝试.</blockquote><p id="5a2bc5aa-da2b-4ff2-835f-a189e0fe386f" class="">
+</p><h2 id="989fa6d9-ac3b-41fe-a071-1853f8407727" class=""><strong>五.部署容器存储持久化插件(可选安装)</strong></h2><p id="ace900c3-2724-4151-8b38-2be3cf80291c" class="">如果你在某一台机器上启动的一个容器，显然无法看到其他机器上的容器在它们的数据卷里写入的文件。这是容器最典型的特征之一：无状态。</p><p id="3c6e5dcc-a6cb-47e4-8974-1b9b816c2a8e" class="">而容器的持久化存储，就是用来保存容器存储状态的重要手段：存储插件会在容器里挂载一个基于网络或者其他机制的远程数据卷，使得在容器里创建的文件，实际上是保存在远程存储服务器上，或者以分布式的方式保存在多个节点上，而与当前宿主机没有任何绑定关系。这样，无论你在其他哪个宿主机上启动新的容器，都可以请求挂载指定的持久化存储卷，从而访问到数据卷里保存的内容。这就是“持久化”的含义。</p><p id="7f28e982-c74a-4208-9b3a-5b0447d6d89a" class="">由于 Kubernetes 本身的松耦合设计，绝大多数存储项目，比如 Ceph、GlusterFS、NFS 等，都可以为 Kubernetes 提供持久化存储能力。在这次的部署实战中，我会选择部署一个很重要的 Kubernetes 存储插件项目：Rook。</p><p id="85d14fa8-8d64-4d80-a8e8-790020e08ae1" class="">Rook 项目是一个基于 Ceph 的 Kubernetes 存储插件（它后期也在加入对更多存储实现的支持）。不过，不同于对 Ceph 的简单封装，Rook 在自己的实现中加入了水平扩展、迁移、灾难备份、监控等大量的企业级功能，使得这个项目变成了一个完整的、生产级别可用的容器存储插件。</p><pre id="5e723a66-b18d-4b2c-8430-e7876f7ed814" class="code code-wrap"><code>kubectl apply -f https://raw.githubusercontent.com/rook/rook/release-1.3/cluster/examples/kubernetes/ceph/common.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/release-1.3/cluster/examples/kubernetes/ceph/operator.yaml
+kubectl apply -f https://raw.githubusercontent.com/rook/rook/release-1.3/cluster/examples/kubernetes/ceph/cluster.yaml</code></pre><p id="b06eaee5-d3f3-46c5-89b0-6ed78badf5cf" class="">安装完成后检查</p><pre id="7c85082b-3436-465d-aac4-8631b516e0ec" class="code code-wrap"><code>[root@k8s-master01 ~]# kubectl get pods -n rook-ceph</code></pre><p id="b2cc6701-2e16-4f87-936e-1f2b8f10cd3a" class="">这样，一个基于 Rook 持久化存储集群就以容器的方式运行起来了，而接下来在 Kubernetes 项目上创建的所有 Pod 就能够通过 Persistent Volume（PV）和 Persistent Volume Claim（PVC）的方式，在容器里挂载由 Ceph 提供的数据卷了。Rook 项目会负责这些数据卷的生命周期管理、灾难备份等运维工作。</p><p id="b3b7f6fc-cbf2-42ff-af99-cf433ec57ef2" class="">为什么我要选择 Rook 项目呢,是因为这个项目很有前途, 它巧妙地依赖了 Kubernetes 提供的编排能力，合理的使用了很多诸如 Operator、CRD 等重要的扩展特性（这些特性我都会在后面的文章中逐一讲解到）。这使得 Rook 项目，成为了目前社区中基于 Kubernetes API 构建的最完善也最成熟的容器存储插件</p></div></article></body></html>

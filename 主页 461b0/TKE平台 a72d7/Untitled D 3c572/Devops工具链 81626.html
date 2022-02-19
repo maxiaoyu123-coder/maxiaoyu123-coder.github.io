@@ -1,0 +1,695 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Devops工具链</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="816269cf-f52c-4181-ba61-5bc4bf4690a2" class="page sans"><header><h1 class="page-title">Devops工具链</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@May 26, 2021 11:41 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><p id="a733b634-df53-47e6-ae07-4c32f694178d" class="">
+</p><p id="f78e7a51-9eea-4945-8272-6c838ac18542" class="">
+</p><p id="c18a67b2-96ae-4fa6-bda9-a5e0f8cb57c9" class="">
+</p><h2 id="0c616725-a52e-447a-9ed0-a12e5806a9d9" class="">创建devops项目</h2><p id="da9b8616-d989-4c9c-94bb-e1f70ba3911b" class="">流程</p><figure id="6ac60046-94dc-472d-b872-e85cf546136f" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled.png"><img style="width:435px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled.png"/></a></figure><p id="4da1cc45-fa80-48b8-9e79-972b72b02274" class="">
+</p><p id="9a52ee70-53b9-4d56-86dc-de109898079d" class="">
+</p><figure id="1c1a0335-109b-4918-b914-7041f575d314" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%201.png"><img style="width:1157px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%201.png"/></a></figure><p id="a5956cbd-e0cd-4aff-8869-d65fc2045e71" class="">
+</p><figure id="981a32db-3def-4d11-95f2-5eda3d017623" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%202.png"><img style="width:789px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%202.png"/></a></figure><p id="1f471d8f-e2cc-4200-8c03-5f27a0d0d7d5" class="">
+</p><figure id="d15d34a7-1c53-442c-9250-4c7f66fb3859" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%203.png"><img style="width:1199px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%203.png"/></a></figure><p id="e5c45132-e19b-4a10-b101-2429a6ed1b1d" class="">
+</p><p id="8893d699-d981-4a79-9e6c-48630580223e" class="">不填，无限制</p><figure id="58762c37-f2e1-4266-83ae-e93ac77966cf" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%204.png"><img style="width:1437px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%204.png"/></a></figure><p id="de09ca91-bc7c-4671-93d7-a4bb637fb951" class="">
+</p><figure id="36a76677-cfea-414e-a7db-8e93799da038" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%205.png"><img style="width:1513px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%205.png"/></a></figure><p id="38b18da0-d0f1-4471-bcf2-818e08ba8b1f" class="">
+</p><div id="08336cc0-65b9-4d65-b3e8-fef056d65ac0" class="column-list"><div id="ac537f05-13bf-43b4-84ad-fd0b760a01b1" style="width:50%" class="column"><figure id="ef072ee9-7bef-4d8a-a4ca-c5388554d258" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%206.png"><img style="width:1144px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%206.png"/></a></figure></div><div id="0db5a506-9a2d-4914-8976-787b507b8fe0" style="width:50%" class="column"><figure id="09a19b10-94b3-4080-b6a7-70f9e83e0b15" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%207.png"><img style="width:1470px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%207.png"/></a></figure></div></div><p id="f082bbad-c647-4f53-99bd-8e76336f07d1" class="">完成以上工作，项目就创建好了</p><p id="56c1aaca-dc6f-45ac-8d9e-d2e198e5fb22" class="">
+</p><h2 id="2c04df6e-e250-404f-8db3-4f69ae85d4f3" class="">创建Devop工具链</h2><figure id="6bbdb529-269b-4145-879d-43eb507304a6" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%208.png"><img style="width:1163px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%208.png"/></a></figure><p id="0913cf8b-4715-449c-b018-73bcd546c72c" class="">
+</p><figure id="00341cdf-0d61-4619-a502-d24d2d0fe732" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%209.png"><img style="width:1516px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%209.png"/></a></figure><p id="22364a30-ec96-4094-83c1-e6d9506dc4e6" class="">切换管理试图</p><figure id="d1b9acf9-297c-45d4-9974-399611df8ad4" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2010.png"><img style="width:1911px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2010.png"/></a></figure><p id="630e9c1c-48d7-433d-a3ce-c261ee977c28" class="">找到操作器里面的Devops Tools，点击快速部署</p><figure id="18e39d36-d8a2-469d-b6db-85351ba19383" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2011.png"><img style="width:1668px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2011.png"/></a></figure><p id="6d2d0a8e-42fc-4ec8-b353-2c08a93190ba" class="">快速部署</p><figure id="d7a7e7ae-d674-443e-830c-e3422505b5f7" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2012.png"><img style="width:676px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2012.png"/></a></figure><p id="911c0c9e-3be2-4805-8178-93d2b4e41d07" class="">
+</p><figure id="3d72a34c-f16a-4e25-93ad-4651a355947c" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2013.png"><img style="width:1231px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2013.png"/></a></figure><p id="d5dcc0ee-c0d3-4dd0-9579-dfdedc2bca85" class="">切换管理试图</p><figure id="1512c456-71c4-4f23-b884-aec2a2ea4218" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2014.png"><img style="width:1839px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2014.png"/></a></figure><p id="ed5658db-b52f-4c5f-a833-753d82b6c2b2" class="">选择devops工具链</p><figure id="1a70bc89-fa93-4cea-be7e-da3d0f6488a6" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2015.png"><img style="width:1041px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2015.png"/></a></figure><p id="c29a605d-3fe7-4d85-9319-6c2f6c7e9979" class="">点击快速部署并集成</p><figure id="16bceb48-10bf-4841-a992-e5c667618a1a" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2016.png"><img style="width:899px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2016.png"/></a></figure><p id="4d3d85d5-2102-446a-bf0c-5ae425f88a09" class="">
+</p><h3 id="3b583ad9-9fd9-487a-b599-06a1c71dded7" class="">部署Jenkins</h3><p id="1df549e9-a556-48ba-9af9-0ff153ef951a" class="">提前准备一个本地存储, <mark class="highlight-red">这个本地路径不需要在几点上手动安装，修正左下图片。</mark></p><div id="92d64f27-f5d2-4409-803e-1c75e01df664" class="column-list"><div id="13225118-4c4f-42ef-b2e6-7e5bc7b81c42" style="width:50%" class="column"><figure id="4386b201-d91d-4a5e-9473-57391a83cd13" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2017.png"><img style="width:1339px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2017.png"/></a></figure></div><div id="a75dbf03-063a-4a2e-9b50-091a34ace358" style="width:50%" class="column"><figure id="b4fd0511-a4d8-4009-ae53-d8bc0f83c106" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2018.png"><img style="width:764px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2018.png"/></a></figure></div></div><figure id="c0f90548-4239-4cf5-a4cd-6d12c2058905" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2019.png"><img style="width:1471px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2019.png"/></a></figure><p id="a33b44a2-13f9-4224-827a-89bb0bb2a57d" class="">
+</p><figure id="be69b685-f2e6-4845-9c53-0686c4359fdf" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2020.png"><img style="width:904px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2020.png"/></a></figure><p id="f1789191-0729-4115-8a1d-786d355b3307" class="">
+</p><figure id="203ea5c6-76af-4019-b119-4778e5125831" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2021.png"><img style="width:1120px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2021.png"/></a></figure><p id="a4ef39da-6a83-4398-bd41-de0596d4d5ff" class="">到这里Jenkins工具就部署完毕了</p><p id="def5a780-d624-48a5-a324-3cc65366528a" class="">
+</p><h2 id="deb6c000-7cb1-40a3-9d1a-a720a11d7e1f" class="">部署Harbor</h2><figure id="2f30d9bf-c56f-4d64-8482-f22919f133ed" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2022.png"><img style="width:1685px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2022.png"/></a></figure><p id="f398d9de-6f42-41f7-ac46-8bc8ce128a8f" class="">
+</p><figure id="92ceb3c1-ee76-4ce4-8286-8674bac2c325" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2023.png"><img style="width:1101px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2023.png"/></a></figure><figure id="42665ad3-4855-459f-ba9d-ce156f2423fb" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2024.png"><img style="width:783px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2024.png"/></a></figure><p id="aba2e927-ea32-4101-8253-90778cdc1af5" class="">
+</p><figure id="273f0051-7ea8-4406-b0cb-3b5dc2b4e730" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2025.png"><img style="width:1210px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2025.png"/></a></figure><p id="5c9ffc0c-5763-4178-9a4f-ea9a2f7c87e3" class="">
+</p><figure id="5dc5f6fd-8ae8-4e05-906c-276b0a2551c6" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2026.png"><img style="width:1880px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2026.png"/></a></figure><p id="848b72ed-d4a8-488e-8134-4ded6664fecc" class="">
+</p><figure id="330ce8c5-80ae-40ee-aa66-1196676bd974" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2027.png"><img style="width:843px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2027.png"/></a></figure><p id="12b5070d-8170-4547-9c9e-af26376082fd" class="">至此Harbor部署完毕。</p><h3 id="8b99b8ae-17e2-4438-aa84-004018fb532d" class="">业务节点配置Harbor授信</h3><p id="93f1b2d1-b6a8-4c38-a2c1-8cd90f59ecbd" class="">如果需要将Harbor的授信添加到业务集群的工作节点上，则需要在这些节点上编辑docker配置文件并重启docker服务。</p><figure id="087d4b3d-9f8f-4e9a-9246-2d1f2581a47e" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2028.png"><img style="width:503px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2028.png"/></a></figure><p id="4b67b1bf-c83e-44fc-9b61-23d1b9ef9755" class="">
+</p><h3 id="461126a6-8339-4c12-8f4d-6cc532fb0e62" class="">绑定Harbor</h3><figure id="d8de1944-e931-46ce-be82-7cfa714a53b9" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2029.png"><img style="width:1880px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2029.png"/></a></figure><p id="874d0f44-f706-47d8-86aa-98f335d2669c" class="">
+</p><p id="08396ebc-cf88-4a6a-9b4a-e2b2b3cad20e" class="">选择关联的项目</p><figure id="60cb4aa9-8365-4575-9fc5-f5d44058debe" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2030.png"><img style="width:1062px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2030.png"/></a></figure><p id="eb5e2c72-39a8-4ccf-9f81-5329c4754fd6" class="">
+</p><p id="d103e2e7-d719-44bc-9ddd-8186d89a7bf6" class="">
+</p><figure id="bba496d8-6fb4-4c35-bba2-f59e9bfa0150" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2031.png"><img style="width:661px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2031.png"/></a></figure><p id="3db59229-5a10-4632-82f1-e4732a86c80f" class="">
+</p><figure id="f81201c5-1781-4734-b12c-56e465fecba6" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2032.png"><img style="width:1559px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2032.png"/></a></figure><p id="d528a12a-8c68-4fce-837b-ac5bfc8f1500" class="">为项目分配镜像仓库</p><figure id="be098ebc-2ac8-4a9a-956d-964d3bd44c6d" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2033.png"><img style="width:1669px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2033.png"/></a></figure><p id="67000005-3405-4ac8-a642-4d901da1dc27" class="">至此，镜像仓库就和指定的项目绑定好了。这样开发者在项目中部署应用时可直接从Harbor拉取镜像而不需要手动输入用户名和密码了，通过下图可以看到这个效果。</p><figure id="6e69e343-b47d-4000-9ad6-47ebbb399edb" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2034.png"><img style="width:1396px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2034.png"/></a></figure><p id="58a99af8-1b81-42f8-9d98-ed0a6bc40b7e" class="">
+</p><h2 id="7c3e52cb-ff61-4336-8769-52c49c0e8a5f" class="">SonarQube</h2><figure id="9dc0cbe9-7acc-4ee4-8d17-f1e0b7681f9f" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2035.png"><img style="width:1460px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2035.png"/></a></figure><p id="a7ff6d05-5b0a-4d85-9a7e-5439a9d60841" class="">
+</p><figure id="5c5c13d7-d0d8-4aee-aa70-6df261cf0d74" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2036.png"><img style="width:1233px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2036.png"/></a></figure><p id="a662df3b-a326-45c5-aa32-60d915ce0534" class="">
+</p><figure id="47d2aac3-2b1c-4f1c-af75-e4087caaf10d" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2037.png"><img style="width:737px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2037.png"/></a></figure><p id="5698e46e-cca3-42de-9cf5-070c694c402d" class="">
+</p><figure id="8d7fd294-f769-4490-a1e2-96a569fc6e0e" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2038.png"><img style="width:1874px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2038.png"/></a></figure><p id="95f121ec-839c-42f1-9220-c901f89dbd67" class="">
+</p><figure id="258faf41-72ce-441b-b595-960e8f972c7b" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2039.png"><img style="width:1691px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2039.png"/></a></figure><p id="957940b9-a5d0-4498-be81-2add5041914b" class="">
+</p><figure id="e07e8da3-18d7-4583-a2ca-383eeb37639e" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2040.png"><img style="width:1045px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2040.png"/></a></figure><p id="e43daf85-9f2b-454a-a619-630d631b690f" class="">至此SonarQube部署完毕。</p><p id="1c4743e8-17c4-4858-b519-85ae7fd8d3fe" class="">
+</p><h3 id="050822e3-edba-4c6d-99e2-2922fab9c82c" class="">部署Gitlab</h3><figure id="abdf188e-7db9-42b2-9b67-95d6aca82da6" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2041.png"><img style="width:905px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2041.png"/></a></figure><figure id="df7963f2-ae3b-4352-b817-de2cf1662c5d" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2042.png"><img style="width:920px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2042.png"/></a></figure><p id="33623307-dfd2-4485-872c-732d2801f01b" class="">
+</p><figure id="2f2acd24-0a88-4cb2-aa81-2ebe591ec4de" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2043.png"><img style="width:1212px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2043.png"/></a></figure><p id="c0f1a973-f504-4367-a53e-9d9da7ca8672" class="">
+</p><figure id="b5897c01-6cd7-49ac-b152-6f417cb23048" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2044.png"><img style="width:913px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2044.png"/></a></figure><p id="39833a3e-3203-4324-8724-1470f992f2c7" class="">
+</p><figure id="0cbba3a8-d7aa-46b3-964f-caae11c2bb06" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2045.png"><img style="width:1316px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2045.png"/></a></figure><p id="d529bd34-e19e-4a4f-a940-44f9a6a12368" class="">
+</p><figure id="e4138d5e-56d9-4f2d-b07a-39b468a2e813" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2046.png"><img style="width:1281px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2046.png"/></a></figure><p id="867e759c-af6d-4b87-b23a-f29a1ddbd82b" class="">至此gitlab就部署好了</p><h3 id="9f30ba55-67bd-4fef-97eb-beb934fb8bea" class="">排错</h3><p id="3c636e8e-b2f7-43aa-a6cd-3ab080eed8cb" class="">如果部署时出错，请参照下面查看情况</p><figure id="7154c187-7133-4c08-9996-b607359fc55a" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2047.png"><img style="width:1074px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2047.png"/></a></figure><figure id="9b88c383-3769-4cc4-b7c5-7f70f202293b" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2048.png"><img style="width:1590px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2048.png"/></a></figure><p id="17828715-eefb-425f-b958-c1ca20b651c6" class="">
+</p><figure id="c41c490b-e075-4a86-a9f3-0b5cd2911a7d" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2049.png"><img style="width:1859px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2049.png"/></a></figure><figure id="7f1f8a23-c1f5-416d-b76e-a928748384b5" class="image"><a href="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2050.png"><img style="width:1385px" src="Devops%E5%B7%A5%E5%85%B7%E9%93%BE%2081626/Untitled%2050.png"/></a></figure></div></article></body></html>

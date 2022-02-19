@@ -1,0 +1,1454 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>学习流水</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="262c366a-2e16-4184-a4ce-e9b9da1dd8d3" class="page sans"><header><h1 class="page-title">学习流水</h1></header><div class="page-body"><nav id="fb5cb939-21dd-4ea4-8285-4384b518e36d" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#28e582a1-7003-4028-8137-70be4d1c20c9"><time>@October 9, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#567ded6a-aa01-4d76-b3de-14538e0f1387"><time>@October 10, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d009a7a8-c101-45cc-a679-bc8dd08797be"><time>@October 11, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#154ac6f4-0821-406d-b6bf-5b7e4f4aaec8"><time>@October 12, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#386494fd-1ac9-40e9-9cbe-76226148b39c"><time>@October 13, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3c4b83db-d603-4733-bee0-7291c0c70298"><time>@October 15, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cc74bbbe-8b8d-43b3-a9fe-58ac97ca390d"><time>@October 16, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b1d42d44-5ab9-4e26-ad4c-6f7106173213"><time>@October 17, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#8028c71f-3f8b-4b5f-9f22-d58bceccacf8"><time>@October 18, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f2220418-7828-4ad2-9d0f-c01753dedc2d"><time>@October 19, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9d6bae1b-06b0-4f85-9104-43784d275a0a"><time>@October 20, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#61765493-58ee-440d-b15f-24123826c436"><time>@October 25, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2cc03372-05d9-4444-9014-b557ffdd6b70"><time>@October 26, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#929811b4-ac33-4ce0-ba07-b6c1808546ae"><time>@October 28, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0f567f9b-780a-4125-b2bc-282e69265838"><time>@October 31, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f8f94ff9-12fc-4e48-a91f-6ef93234058e"><time>@November 1, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a3a4f1a1-e39e-4e6c-b42d-f9ec0854386f"><time>@November 6, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0301a7b9-62f9-44ab-aa70-fcb685abea7d"><time>@November 23, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ad25da08-8695-4c47-ac1d-d994c2347f98"><time>@November 24, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#acc3c882-0119-40b5-b648-8c0727539d0a"><time>@November 25, 2021</time> </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#201b524b-e911-4e8a-a266-85c4e8bdaeef"><time>@December 3, 2021</time> </a></div></nav><h2 id="28e582a1-7003-4028-8137-70be4d1c20c9" class=""><time>@October 9, 2021</time> </h2><p id="35b684be-0b6b-48ac-ab54-6f700d98a2b0" class="">
+</p><p id="2bb8bb5b-50fe-49a4-9200-9a84aa205757" class="block-color-teal_background">整理的：<div class="indented"><p id="ccc89394-890b-4fbf-8ee5-5db1300fbec2" class="">⚠️浏览器发送的accept字段只是建议值，服务器是否使用这个值由服务端程序决定。如果服务端按Restful规范开发接口的话，可以考虑根据accept的不同值返回不同格式的内容。同一份数据可以按json, xml格式分别输出。</p><p id="7559fea6-2cb2-4157-9447-e3d405c9be24" class=""><mark class="highlight-orange">jenkin在shell docker build时,遇到permission deny,这么解决:</mark><a href="https://www.cnblogs.com/ding2016/p/12988080.html">https://www.cnblogs.com/ding2016/p/12988080.html</a>  <a href="https://stackoverflow.com/questions/47854463/docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socke">https://stackoverflow.com/questions/47854463/docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socke</a>
+insecure问题补充到docker harbor</p><p id="b6e7dc55-38dc-40ea-9185-bf048e4d14a9" class="">💡我认为企业自己开发NPM组件需要传到制品库, 因为很好能某些场景下，其他组件对其有依赖, 故即使做成镜像,也需要先上传制品库再作镜像。</p><p id="d1769fd6-5a50-4fc5-a327-9b7401a830d0" class="">Jenkins新发现的用法<div class="indented"><ul id="b334858c-2ca4-402e-b2c2-892f3627f503" class="bulleted-list"><li style="list-style-type:disc">使用httpRequest访问API接口,保存至变量, 通过json或yaml插件变成结构化数据, 再进行处理</li></ul></div></p><p id="19f7d35f-acf5-49b2-834a-12da60340be8" class="">groovy语法，在定义函数的时候, 形参可以这样被显式申明数据类型<div class="indented"><pre id="6983a5f7-b444-42c1-9569-3cc91692a32b" class="code code-wrap"><code>def 函数(Map args = [:]){
+}
+传参这样
+函数(
+key1: value1,
+key2: value2
+)
+
+</code></pre></div></p><p id="c066153b-f159-4a5b-a051-1a03dd22a904" class="">获取ShortCommitHash: <code>git log -n 1 --pretty=format:&#x27;%h&#x27;</code>
+	</p></div></p><h2 id="567ded6a-aa01-4d76-b3de-14538e0f1387" class=""><time>@October 10, 2021</time> </h2><p id="e3e7a77c-3880-464d-ba9f-70715c0f8070" class="">vscode如何利用支持helm的插件<div class="indented"><p id="776ba8af-2747-4b92-aef3-762f8b549891" class="">尝试安装helm  <div class="indented"><p id="7457d687-4d00-4fe7-9f99-b160a25eae15" class="">发现choco是win10 powershell下管理工具，安装choco<code>iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex</code>，<div class="indented"><p id="11989651-9120-48c1-950f-853d503d4e85" class="">参考：<a href="https://www.jianshu.com/p/be19a2bebc48">https://www.jianshu.com/p/be19a2bebc48</a></p><p id="ce42105c-1731-4ff0-9957-710dbadafc88" class="">choco网址：<a href="https://community.chocolatey.org/">https://community.chocolatey.org/</a></p></div></p></div></p><p id="d60e3aca-d2d7-4eab-b03f-967be9fa97d7" class="">vscode安装了remote插件，可以远程编辑，但目前不能同时使用helm插件的功能</p><p id="b6a3edc4-4caa-4d2e-9010-551b0279a909" class="">
+</p></div></p><h1 id="d009a7a8-c101-45cc-a679-bc8dd08797be" class=""><time>@October 11, 2021</time> </h1><p id="518c2ff2-b0b2-404e-8fbd-bbed0c557804" class="">学习<div class="indented"><p id="c285bbd8-1268-45f6-b6c3-5af5a1722197" class="">chart依赖：<a href="https://helm.sh/docs/chart_template_guide/subcharts_and_globals/">https://helm.sh/docs/chart_template_guide/subcharts_and_globals/</a></p><ul id="7e23c937-bded-47a2-803a-e107a9a2d602" class="bulleted-list"><li style="list-style-type:disc">subchart是独立的一个chart，父chart依赖它但它不依赖父chart<p id="79472882-b4db-4882-8c23-33eda144ab89" class="">例如mychart/charts/mysubchart/，虽然mysubchart是子chart，但依然可独立创建<code>helm install --generate-name --dry-run --debug mychart/charts/mysubchart</code></p></li></ul><ul id="1b10a07d-a9aa-495e-ab48-866bf28d67c8" class="bulleted-list"><li style="list-style-type:disc">子chart不可直接访问父chart的Values，然父chart的values可传递到子chart的values，可覆盖同名或加入新的<mark class="highlight-orange">，如此子chart可间接访问到。</mark><p id="350f0a8c-e283-4fb2-807d-4cf7acf57245" class="">作为独立的chart安装，子chart与父chart是没有联系的，故无法传递父chart的values，只有安装父chart才有联系才可传递。</p><pre id="32f4b1f1-fb8a-42b6-87f5-1c75cb100c9b" class="code code-wrap"><code>父chart的values中指定子chart的value
+mysubchart:  #与子chart目录的名字，它位于charts目录中。这个值只能被mysubchart访问，其他子chart是访问不到的
+  dessert: ice cream
+
+子chart就像引用自己的values
+dessert: {{ .Values.dessert }}</code></pre></li></ul><ul id="b4673981-2329-4ef7-82f6-2c11d47c5f20" class="bulleted-list"><li style="list-style-type:disc">而global values可以被所有chart访问到<pre id="82b9aea0-cae7-4ef3-9568-132c98b441d8" class="code code-wrap"><code>父chart的values中指定global的value
+global:  #只能被mysubchart访问，其他子chart是访问不到的
+  salad: caesar
+ 
+所有chart都可引用
+dessert: {{ .Values.global.salad }}</code></pre></li></ul></div></p><p id="c2edb3ef-d266-4dd1-8a6b-89962c2549d4" class="">
+</p><p id="d77f9ff3-3d41-42ad-81c1-6990b2f954d7" class="">👁️‍🗨️关于持续交付和持续集成的概念<a href="https://dzone.com/articles/continuous-delivery-vs-continuous-deployment-an-ov">https://dzone.com/articles/continuous-delivery-vs-continuous-deployment-an-ov</a></p><p id="cdc42252-559c-4f07-804e-f9e77cc476b0" class="">
+</p><p id="cdbfbfc2-f320-4260-844f-d85e45c11325" class="">发现：<div class="indented"><p id="aff6de4c-468f-4851-9c93-30ccd831840c" class="">像if，range，scope或变量赋值的模板命令不替换为值，要确保在渲染后所在行被删除，而其他都是替换为值，<code>{{模板命令}}</code> 整个删除，留下缩进的空格和回车符，值插入缩进位置后面</p><p id="399a9f4e-f5a6-481d-bf3b-e2502754c67e" class="block-color-teal">有一种函数叫<code>toYaml</code>很好用，在版本3指南中没有，在版本2指南找到了。作用：Values对象如果是列表或者map，不能直接引用，因为其中包含元数据(表示数据类型)，toYaml可解决，它以YAML语法解析元数据并去除它们</p><pre id="ac3777cd-f872-4d23-8390-17199b431544" class="code code-wrap"><code>比如values.yaml有
+labels:
+ traffic-type: external
+ traffic-type: internal
+
+{{ .Values.labels | toYaml | trimSuffix &quot;\n&quot; | indent 4}} 
+它将其解析为map类型，故它发现有重复的key所以只写入一个键值对
+
+比如
+imagePullSecrets:
+- name: secret1
+- name: secret2
+
+{{- with .Values.imagePullSecrets }}  
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}  解析为list
+{{- end }}</code></pre><p id="5e22e695-525c-4aa8-bb1f-fa09db052c0d" class="">
+</p><p id="0a612536-565a-401c-9f26-128499e753a5" class="">
+</p><p id="d226dc75-88cf-45da-91ab-4d20b557ba61" class=""> <strong>Jenkins</strong><div class="indented"><p id="39f0db5a-09c1-47ca-b074-cc7ecef4e790" class="block-color-orange_background">疑问：<div class="indented"><p id="9057817f-961c-47c4-9e46-cf68af5f23d2" class="">每个分支都需要一个Jenkinsfile么？</p></div></p><p id="edd537fc-d69f-4005-8ac9-b51a992d655e" class="block-color-teal_background">借鉴总结：<div class="indented"><ul id="cb50a98e-8f7e-4a8e-983a-fc6a4823b569" class="bulleted-list"><li style="list-style-type:disc">尽可能使用共享库:</li></ul><p id="ebef2132-ac17-460e-be26-41fca6aa9c2d" class="">当有很多项目，随之而来的是同样多的jenkinsfile，任何变动我都需要修改所有的jenkinsfile</p><p id="a4dd1b37-4b57-457b-acd8-48e01a3fea84" class="">更容易实现标准化</p><p id="e8e91ef4-f3e7-4e0b-be89-59e108b0239c" class="">集中存放Jenkinsfile的好处：<div class="indented"><p id="6a72bb5a-a4bc-42bd-8d9d-aac26740164e" class="">jenkinsfile和代码可能会被开发篡改，集中放置更加安全</p></div></p><p id="530c4bc4-de9d-4eb2-8039-8b9f970d5159" class="">在environment块中写入工具链地址与凭证的方式，是正确的，因为网上也有这么用的</p><p id="4e0e7253-ee20-44cd-a32e-f21f8d1f1d7f" class="">我认为chart放一份作为模板，如果每次CI都要提交一个chart</p><ul id="913b7679-0e99-4fb2-a20f-dcfd75671a26" class="toggle"><li><details open=""><summary>新发现的写法</summary><pre id="c7852dbd-ba9e-4155-a5e5-5b718e8a8af7" class="code code-wrap"><code>没见过
+kubernetes {
+    defaultContainer &#x27;jnlp&#x27;
+    yamlFile &#x27;build.yaml&#x27;
+}
+
+也分为了几个镜像，每个镜像分别处理maven打包，
+container(&#x27;maven&#x27;) {
+    sh &#x27;mvn package&#x27;
+}
+
+docker镜像构建与push
+container(&#x27;docker&#x27;) {
+                    sh &quot;docker build -t ${REGISTRY}:${VERSION} .&quot;
+}
+container(&#x27;docker&#x27;) {
+    withDockerRegistry([credentialsId: &quot;${REGISTRY_CREDENTIAL}&quot;, url: &quot;&quot;]) {
+        sh &quot;docker push ${REGISTRY}:${VERSION}&quot;
+    }
+}
+
+helm安装
+container(&#x27;helm&#x27;) {
+    sh &quot;helm upgrade --install --force --set name=${NAME} --set image.tag=${VERSION} --set domain=${DOMAIN} ${NAME} ./helm&quot;
+}
+
+跳过报错
+pipeline {
+    agent any
+    stages {
+        stage(&#x27;1&#x27;) {
+            steps {
+                sh &#x27;exit 0&#x27;
+            }
+        }
+        stage(&#x27;2&#x27;) {
+            steps {
+                catchError(buildResult: &#x27;SUCCESS&#x27;, stageResult: &#x27;FAILURE&#x27;) {
+                    sh &quot;exit 1&quot;
+                }
+            }
+        }
+        stage(&#x27;3&#x27;) {
+            steps {
+                sh &#x27;exit 0&#x27;
+            }
+        }
+    }
+}
+
+groovy判断型赋值:?
+def BRANCH_NAME = &quot;develp&quot;
+DEPLOY = BRANCH_NAME == &quot;master&quot; || BRANCH_NAME == &quot;develop&quot; || BRANCH_NAME == &quot;develp&quot; ? &quot;true&quot; : &quot;false&quot;
+println DEPLOY</code></pre></details></li></ul></div></p><p id="94755ca3-8368-4545-b01a-f78c50c4ff95" class="">插件<div class="indented"><pre id="f33054a4-b0b0-46b5-b077-6b166e4ee599" class="code code-wrap"><code>docker 插件 NOK
+docker.withRegistry( &quot;[https://registry.hub.docker.com](https://registry.hub.docker.com/)&quot;, &quot;dockerhub&quot; ) {
+// dockerImage.push()
+app.push(&quot;latest&quot;)
+docker.withRegistry(&quot;${ECRLink}&quot;, &#x27;ecr:ap-southeast-2:helloworld-ecr&#x27;){
+docker.image(&quot;${ImageName}&quot;).push(&quot;${ImageTag}&quot;)
+
+writeFile 插件
+
+podTemplate NOK</code></pre></div></p><p id="6942578b-4675-4d7e-a302-3e40e360fad9" class="">harbor上的chart museum功能：<a href="https://goharbor.io/docs/2.1.0/working-with-projects/working-with-images/managing-helm-charts/">https://goharbor.io/docs/2.1.0/working-with-projects/working-with-images/managing-helm-charts/</a></p><p id="7c1d216e-b2a6-425d-bd71-c26d411a9049" class="">
+</p><p id="ec70b8e1-f86f-47f4-a263-f3a589fdad25" class="">
+</p></div></p></div></p><h1 id="154ac6f4-0821-406d-b6bf-5b7e4f4aaec8" class="block-color-teal_background"><time>@October 12, 2021</time> </h1><p id="96a8e8ce-5936-4f5f-b1d4-1b69bfaf1dc7" class="">疑问</p><ul id="4bc6b6b8-4695-40eb-b640-0d1afcfa06f1" class="bulleted-list"><li style="list-style-type:disc">what is jenkins controller ？就是Jenkins的master，2.27.1</li></ul><ul id="9d3ab65e-ffd6-4a2f-bf3b-4f8e5b589aca" class="bulleted-list"><li style="list-style-type:disc">如何让shell的PS显示当前的git分支信息</li></ul><ul id="8e493209-b572-4b5f-a397-554f47db990a" class="bulleted-list"><li style="list-style-type:disc">git push <code>--upstream origin fix-123</code>  什么指令<p id="6f334bc9-d65e-4df4-81d0-c01d5072ca05" class="">git status</p></li></ul><p id="b917bd13-daf4-45a9-ba8f-247067847388" class="">新学习</p><ul id="d78f9b53-b95c-42b9-aae8-a16efedfb1f7" class="bulleted-list"><li style="list-style-type:disc"><code>GitLab Branch Source plugin</code>插件的特点是什么？<ul id="913824f3-13bc-40c2-a155-dbbed4f40586" class="bulleted-list"><li style="list-style-type:circle">特点：Jenkins MultiBranch Pipeline feature</li></ul><ul id="473eaab2-66b2-47da-b2ba-5053574db324" class="bulleted-list"><li style="list-style-type:circle">multi-branch pipeline特性用来解决：一个git项目必然包含多个分支，新建分支就要定义新的job，merge并删除分支后要删除job，耗时，它可以实现动态创建与删除</li></ul><ul id="34590005-51e9-426f-8759-42afb99e2a58" class="bulleted-list"><li style="list-style-type:circle">疑问：<ul id="c4c7b9e4-d58e-47c6-8938-9b34bc4c5da9" class="bulleted-list"><li style="list-style-type:square">在分支合并时Jenkinsfile也会合并？如何是那么为什么要改动Jenkinsfile？会造成不稳定么？</li></ul><ul id="04657a8b-d79c-44ff-a6df-bb498cd2538f" class="bulleted-list"><li style="list-style-type:square">每个动态的job是否有自己的workspace</li></ul></li></ul><ul id="85e99898-50bb-438b-847d-46d23ccd4a1d" class="bulleted-list"><li style="list-style-type:circle">它的局限：如果jenkinsfile需要修改那么分支都要变化，虽然可以用share Library来解决，但是仍然有一些需要手动处理。</li></ul><ul id="eb8f6a02-0b6d-4344-a08f-cbc5122844dd" class="bulleted-list"><li style="list-style-type:circle">原理：扫描指定的git项目的所有分支，如发现新的Jenkinsfile文件，则动态创建一个job，如发现分支不存再则删除Jenkinsfile<p id="740e36f1-c0c5-4c23-8355-1226fcbefc58" class="">参考：<a href="https://www.youtube.com/watch?v=y4XGFluzPHY&amp;list=PLvBBnHmZuNQJeznYL2F-MpZYBUeLIXYEe&amp;index=52">https://www.youtube.com/watch?v=y4XGFluzPHY&amp;list=PLvBBnHmZuNQJeznYL2F-MpZYBUeLIXYEe&amp;index=52</a></p></li></ul><ul id="48738551-23a9-4207-88ba-03d1fa1a67e7" class="bulleted-list"><li style="list-style-type:circle">它实际上是一个jenkinsfile目录</li></ul><ul id="ab40c4b0-8aea-492c-b14e-a6e38e49cd19" class="bulleted-list"><li style="list-style-type:circle">特性的选项：<figure id="d6cd6307-831d-4c7d-b2c6-afbb636e9295" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled.png"><img style="width:336px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled.png"/></a></figure></li></ul></li></ul><ul id="9f47feca-515a-49c1-b792-2fea5513e08b" class="block-color-orange bulleted-list"><li style="list-style-type:disc">Remote Jenkinsfile Provider插件的解决了什么问题？<ul id="cdd4a982-3ea8-4064-8c51-a1f113b70c52" class="bulleted-list"><li style="list-style-type:circle">解决了Jenkins MultiBranch Pipeline的问题</li></ul><ul id="a331bed5-33a7-4d8c-acf4-c318228b1403" class="bulleted-list"><li style="list-style-type:circle">特点：在Jenkins MultiBranch Pipeline特性基础上支持以下：<ul id="9209997d-737b-4358-b2f9-b550d46a1272" class="bulleted-list"><li style="list-style-type:square">Centralize Jenkins Files in another repository</li></ul><ul id="5b5136ae-17fd-4521-84a0-10f674fdbe69" class="bulleted-list"><li style="list-style-type:square">Easily maintain</li></ul><ul id="c98dd7ee-5109-4e3a-9001-c1f3603306e4" class="bulleted-list"><li style="list-style-type:square">Review or restrict changes</li></ul><ul id="e2ddcadb-b687-4527-91ba-7adfd40dacec" class="bulleted-list"><li style="list-style-type:square">Apply changes to all Pipelines in seconds</li></ul></li></ul></li></ul><ul id="ba672666-e1e9-4763-8c12-dbfd2d671465" class="block-color-teal bulleted-list"><li style="list-style-type:disc">K8S deployment的<code>imagePullSecrets</code> 字段，昨天成功使用了，作用是无需手动登陆harbor即可拉取镜像<p id="c013ad04-4769-4b42-aa03-5e27fb2f47f2" class="">加入一个secret，它用于保存base64的凭证；然后<code>imagePullSecrets</code> 字段加入这个secret
+ 参考：<a href="https://blog.51cto.com/lvnian/2314456">https://blog.51cto.com/lvnian/2314456</a></p></li></ul><ul id="5535b24d-e5db-4a20-b4c7-29ff145f46b0" class="block-color-orange bulleted-list"><li style="list-style-type:disc">如何打包：helm package helm目录<p id="ca55ece2-3b2d-4607-8bcb-b3333dce9ab1" class="">参考：<a href="https://helm.sh/docs/helm/helm_package/">https://helm.sh/docs/helm/helm_package/</a></p></li></ul><ul id="aa078606-b5e5-4af6-b3eb-01edbae6c751" class="bulleted-list"><li style="list-style-type:disc">如何上传：<p id="40577a78-2ea2-4793-a5f4-68e7f73f581c" class="">参考：<a href="https://goharbor.io/docs/1.10/working-with-projects/working-with-images/managing-helm-charts/">https://goharbor.io/docs/1.10/working-with-projects/working-with-images/managing-helm-charts/</a></p><p id="ae1d1110-2c1b-41ad-b92b-dd7d7187c530" class="">helm add repo添加harbor出现问题<div class="indented"><p id="596b6001-7dfd-4d01-916e-40a592ab0909" class="">
+</p></div></p></li></ul><h1 id="386494fd-1ac9-40e9-9cbe-76226148b39c" class=""><time>@October 13, 2021</time> </h1><p id="de544846-4e98-4ccb-b9e6-3035b1fb807c" class="block-color-orange">疑问：<div class="indented"><ul id="00da173f-b86a-4733-bf74-1f16125bd481" class="bulleted-list"><li style="list-style-type:disc">添加harbor chart仓库的尝试失败，报错：<pre id="5ead09c5-7eba-4e35-9682-056379c32b76" class="code code-wrap"><code>helm repo add test http://192.168.31.102:80/chartrepo/library
+Error: looks like &quot;http://192.168.31.102:80/chartrepo/library&quot; is not a valid chart repository or cannot be reached: failed to fetch http://192.168.31.102:80/chartrepo/library/index.yaml : 404 Not Found</code></pre></li></ul><ul id="a61fd30f-ce8b-4c37-9959-f8200b370706" class="bulleted-list"><li style="list-style-type:disc">ChartMuseum（1.6.0.）和OCI-compatible registry（2.0.0.<a href="https://www.cnblogs.com/ding2016/p/12988080.html">https://www.cnblogs.com/ding2016/p/12988080.html</a>）是什么？</li></ul><ul id="67f80808-0d18-42c1-b434-46de6f477209" class="bulleted-list"><li style="list-style-type:disc">docker image的tag格式有这几种：时间戳/git commit/版本号<p id="827f1873-a958-4ba3-b221-5d60729fa8be" class="">参考别人的tag：<a href="https://github.com/jupyter/docker-stacks/wiki/">https://github.com/jupyter/docker-stacks/wiki/</a></p></li></ul><ul id="5f048190-db2e-4e07-a17c-8aabd7c6727e" class="bulleted-list"><li style="list-style-type:disc">镜像扫描是什么？</li></ul><ul id="2acff3a4-3daa-43b9-8243-5096b88336de" class="block-color-teal bulleted-list"><li style="list-style-type:disc">staging是进入生产环境的最后一步测试，也叫预生产或预发布<pre id="de43bebe-6a65-4b32-bc74-09e0889e101f" class="code code-wrap"><code>[:code, &quot;代码&quot;, &quot;相关合并请求&quot;, &quot;编写代码的时间&quot;],
+[:test, &quot;测试&quot;, &quot;由提交触发的构建&quot;, &quot;构建和测试程序所花费的时间&quot;],
+[:review, &quot;评审&quot;, &quot;已合并的合并请求&quot;, &quot;评审代码所花费的时间&quot;],
+[:staging, &quot;步骤&quot;, &quot;相关已部署的构建&quot;, &quot;各个步骤所花费的时间&quot;],
+[:staging, &quot;预发布&quot;, &quot;已部署的构建&quot;, &quot;预发布所花费的时间&quot;],
+[:production, &quot;生产&quot;, &quot;相关问题&quot;, &quot;产品从概念提出到生产发布的时间&quot;]]</code></pre></li></ul><ul id="1d8aaac4-949a-40ec-bfcf-168c20f15682" class="bulleted-list"><li style="list-style-type:disc">K8S有哪些role？</li></ul></div></p><p id="afed9bf5-8391-440c-84b5-2962d4f053fd" class="">学习：<div class="indented"><ul id="db43759f-7cf4-4266-a016-91188fcc0810" class="bulleted-list"><li style="list-style-type:disc">使用Nexus作为helm仓库</li></ul><ul id="cf265cbb-f622-40aa-9dc2-2466ce4af8f0" class="toggle"><li><details open=""><summary>jenkins使用k8s pod作为agent</summary><ol type="1" id="3f12d468-057b-4738-9ceb-daeb444e4cb6" class="numbered-list" start="1"><li>取消master节点<figure id="36b7181d-89fa-4dba-9676-9305425efdaa" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%201.png"><img style="width:240px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%201.png"/></a></figure></li></ol><ol type="1" id="aca38496-5298-4bcd-beb3-6e390db4d0db" class="numbered-list" start="2"><li>插件kubernetes</li></ol><ol type="1" id="f36e04b6-11f7-4ec0-b15f-5a3ce0de1303" class="numbered-list" start="3"><li>configure clouds<p id="10894345-1722-4a26-bf0c-abb3a546a6d2" class="">添加Kubernetes，名字保持kubernetes</p><p id="c230d144-ab31-4ead-b7f3-941b12e2376b" class="">添加cloud<div class="indented"><p id="7bec64b8-19db-43ab-875f-74dfdc0071b0" class="">k8s api地址</p><p id="866f72ff-2abe-4e0c-a2b7-2bc326f79e30" class="">勾选禁止https检查（自签证书）</p><p id="e4330a2d-d996-48cc-a696-f014b97851cf" class="">namespace： jenkins（你希望pod在哪个ns上运行，k8s需创）</p><p id="9bd2c72c-85ef-41e5-a800-a56f40addccf" class="">k8s 创建用户jenkins：<code>kubectl create serviceaccount jenkins -n jenkins</code></p><p id="241bf8fe-ab1f-430a-9901-924b5f888424" class="">k8s为jenkins用户关联admin角色：<code>kubectl create rolebinding jenkins-admin-binding --clusterrole=admin --serviceaccount=jenkins:jenkins --namespace=jenkins</code></p><p id="14d3be51-d98c-4259-bfce-4b0870fbd4ca" class="">添加credentials：<div class="indented"><p id="37f5548c-2660-4887-b944-ba2dfe7727f5" class="">secret text内容来自：<code>kubectl describe secret $(kubectl describe serviceaccount jenkins -n jenkins | grep Token | awk &#x27;{print $2}&#x27;) -n jenkins</code></p></div></p><p id="61be47f9-2675-4e81-8c15-071e1a77c269" class="">勾选Websocket<div class="indented"><p id="9e1228da-dfe0-4a38-9beb-a5565e597af7" class="">jnlp agent也叫inbound agents，agent在启动之后通过http协议向controller发起连接并保持连接</p></div></p><p id="6c090c8b-83a7-4489-a38c-c8a738cab98d" class="">保存</p></div></p><p id="92798acd-331a-48a4-a98d-1eb4774ba5c3" class="">在jenkinsfile中使用的方法<div class="indented"><pre id="b52580a9-4904-40a7-beb5-f1acc6c4f5c1" class="code code-wrap"><code>pipeline{
+    agent{
+        kubernetes {    这里与cloud定义的名字对应
+            yaml &#x27;&#x27;&#x27;
+                apiVersion: v1
+                kind: Pod
+                spec:
+                  containers:
+                  - name: maven
+                    image: maven:alpine
+                    command:
+                    - cat
+                    tty: true
+                  - name: node
+                    image: node:16-alpine3.12
+                    command:
+                    - cat
+                    tty: true
+            &#x27;&#x27;&#x27;
+        }
+    }
+    
+    stages{
+        stage(&#x27;Run maven&#x27;){
+            steps{
+                container(&#x27;maven&#x27;){
+                    sh &#x27;mvn -version&#x27;
+                }
+                container(&#x27;node&#x27;){
+                    sh &#x27;npm version&#x27;
+                }
+            }
+        }
+    }
+}</code></pre></div></p></li></ol></details></li></ul></div></p><p id="18bedab4-48ad-47db-9f77-ff1f9b342625" class="">总结：<div class="indented"><ul id="ed94261f-8d65-4b77-956f-b77cef474ed5" class="bulleted-list"><li style="list-style-type:disc">项目代码会经历的环境：dev，qa，staging，prod</li></ul><ul id="2d26524e-5888-44e6-afd2-ed3645d4427c" class="bulleted-list"><li style="list-style-type:disc">在开发环境中，我决定使用git commit来作为镜像标签</li></ul><ul id="ef31a09f-ebea-4ec6-a6e8-72fc9b9679a4" class="bulleted-list"><li style="list-style-type:disc">Jenkins的环境变量PATH中没有/usr/local/bin/</li></ul><ul id="115498b2-113c-47e9-aaa4-6b7befbb3b42" class="bulleted-list"><li style="list-style-type:disc">Jenkinsfile中的环境变量在node上也是有效的</li></ul></div></p><p id="a51ef10e-ae21-4db4-8063-9caec4e79e0c" class="">做什么：<div class="indented"><ol type="1" id="bb1a7659-501c-4f1a-af34-e0ea075288e1" class="numbered-list" start="1"><li>上传chart包到nexus chart仓库</li></ol><ol type="1" id="ed8f2f79-f1eb-4221-b0d0-4595211f2b88" class="numbered-list" start="2"><li>完成流水线剩下的部分：通过chart发布<ol type="a" id="f3418735-cb06-4cd5-a6fa-de1b0aa4c0e0" class="numbered-list" start="1"><li>ui的镜像没了，pipeline运行一次生成镜像</li></ol><ol type="a" id="f5d3ca0e-6883-4b86-8960-75bd51bcf3a9" class="numbered-list" start="2"><li>打包chart，推送到nexus<p id="916e58b7-f893-40ae-b360-111d111ec840" class="">上传<div class="indented"><p id="e649f607-70b7-411a-84d4-639fa90ba9e1" class=""><code>curl -v -F file=@devops02-devops-ui-0.1.0.tgz -u admin:nokiadocker http://192.168.31.102:8081/service/rest/v1/components?repository=helm-hosted</code></p></div></p><figure id="e6823140-6686-4f80-9fb1-3ec561855141" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%202.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%202.png"/></a></figure><p id="29a38a00-2e1d-4501-b00d-dc065f70188b" class="">先更新和搜索：<code>helm repo update &amp;&amp; helm search repo -l devops02-devops-ui</code></p><p id="8f7cc978-dd42-4851-9361-a50a8b8c007e" class="">安装：<code>helm install devops02-devops-ui nexus/devops02-devops-ui --set image.tag=139</code></p></li></ol><ol type="a" id="4442d4a2-b3dd-4ffd-9a57-103e5e32ca3a" class="numbered-list" start="3"><li>判断release是否存在，如存在就更新</li></ol><ol type="a" id="3c93e2d9-e62f-4dc1-9575-7747bb9f8650" class="numbered-list" start="4"><li>如不存在则从nexux char仓库安装</li></ol><ol type="a" id="07a6a945-9e36-40d2-a5cb-a82d19a95e2a" class="numbered-list" start="5"><li>等待release成功，如失败则流水线失败</li></ol><p id="18397c1e-e080-422e-834a-cc51391e41aa" class="block-color-orange">疑问：<div class="indented"><p id="b6449b7a-5de8-40a8-b0e4-649ba9af8964" class=""><mark class="highlight-teal">tag改成commit-id，需要确定长度:</mark><code><mark class="highlight-teal">COMMIT_ID = sh(returnStdout: true, script: &#x27;git rev-parse HEAD&#x27;).trim()</mark></code></p><p id="b6b34d1f-fcf6-47fa-8173-2fc59c1ce3f0" class="">nexus上的chart信息有哪些？</p><p id="94b20119-6696-4a8b-902c-6a068f4079c3" class="">jenkinfile的sh step，awk的正则里能否用变量</p></div></p></li></ol><ol type="1" id="15addb72-fbb1-4d5c-9200-10dceb72c1e7" class="numbered-list" start="3"><li>总结好所有的</li></ol><h1 id="c4f2a0bd-b02b-46da-b57d-164f3c44f202" class=""><time>@October 14, 2021</time> </h1><p id="fe1574cf-152a-4337-b367-304bcc82a4b4" class="">Jenkins share library<div class="indented"><p id="54fc61eb-52fc-47a7-897d-5e885539f303" class="">开头<code>#！/usr/bin/env groovy</code></p><p id="ecb47344-ee18-48eb-966f-8078064c63b5" class="">在需要的变量集中申明在开头部分，皆以<code>def</code></p><p id="39dfc890-41a2-4384-8f93-b827a3c60b21" class="">SCM插件</p><p id="c21b764e-c97f-490e-93ba-681007a14e38" class="">共享库很关键，必须严格管控</p><p id="eea14d53-32c6-47c7-a2c0-57fe5394e7b8" class=""><mark class="highlight-teal_background">看到了→</mark><mark class="highlight-teal_background"><a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/#accessing-steps">https://www.jenkins.io/doc/book/pipeline/shared-libraries/#accessing-steps</a></mark></p><p id="7aaa1a8a-a54d-4d6c-9183-9d0788d7ed5a" class="">自定义step→<a href="https://www.jenkins.io/doc/book/pipeline/shared-libraries/#defining-custom-steps">https://www.jenkins.io/doc/book/pipeline/shared-libraries/#defining-custom-steps</a><div class="indented"><p id="1f24c375-6407-421c-9dad-5ee4a1cfe514" class="">像step一样被调用</p><p id="0088c130-f43a-491a-9559-a81039c8985a" class="">使用<code>def call(形参){...}</code></p></div></p><p id="20da91ab-b5a2-48c3-b49c-156216b86fa5" class="">先加载库在加载jenkinsfile</p><p id="fb473614-6852-4663-b8b0-ac2fbddd4f2c" class="">全局变量必须开头小写且驼峰<div class="indented"><p id="c48cfcd4-f140-4887-9ed4-e5b4836fe0da" class="">Global variables defined in Shared Libraries must be named with all lower-case or &quot;camelCased&quot; in order to be loaded properly by Pipeline. [2]</p></div></p><p id="5d84166b-1923-46d4-b926-916ecff94ec6" class="">文章参考：<div class="indented"><p id="9d7c05a6-7a24-44c1-bd77-09d0befcb9a9" class="">Colin But写的非常完善的示例：<a href="https://medium.com/codex/my-jenkins-story-writing-a-jenkins-shared-library-f255c036c4e7">https://medium.com/codex/my-jenkins-story-writing-a-jenkins-shared-library-f255c036c4e7</a></p><p id="66b40582-d767-45dc-9a15-7d33292182a4" class="">比较详细的教学，没看完：<a href="https://www.tutorialworks.com/jenkins-shared-library/">https://www.tutorialworks.com/jenkins-shared-library/</a></p></div></p><p id="c9656890-0857-4e46-a745-69ff645dbeb4" class="">
+</p></div></p><p id="4d57e1bf-5654-4be8-9e27-0dfe47524175" class="">groovy语言复习了正则<div class="indented"><p id="120a5a2b-8c1e-405c-a9d4-e218fabc31f5" class="">Manning Groovy P3.5.1</p></div></p><p id="a540c6c1-4f23-4450-8ef7-4121ea91fb57" class="block-color-orange">QA：<div class="indented"><p id="acd6ca8a-9ca3-496a-acdd-7ce8874de928" class="">jenkins share library中，src与vars的区别是什么？<div class="indented"><p id="2a892391-01eb-4d2e-a2bf-f64d2a897d57" class="">src目录里面保存源代码，采用像JAVA源代码目录结构，比如org/devops, 当加载时，会被加入classpath<div class="indented"><p id="ac63c9d8-0269-420f-b23c-b9b506eb48df" class="">文件采用开头大写的驼峰</p><p id="6ef900d8-e63b-4702-a48a-9a305844a8ec" class="">common pipeline code</p><p id="6dd5818d-b2cb-4ea6-a991-06b54641ed0a" class="">我打算将常量写在类里</p><p id="66995572-8df9-4dd8-8dc7-0c0d40f07f35" class="">在share library是这样定义常量的：<div class="indented"><pre id="275bda82-84d7-449d-8077-8833b3d1b602" class="code code-wrap"><code>在src目录下创建一个类，注意文件名是开头大写驼峰，后缀.groovy
+例子：
+类文件名Constant.groovy
+package org.devops   类的定位
+
+class Constants {                  Constant是类名，必须与文件名一致即文件名是Constant.groovy
+    static String foo = &quot;bar&quot;      所有定义的常量都在Constant类名空间下
+}
+
+在其他类文件中就可以引用常量了，类文件名Test.groovy
+package org.devops   类的定位
+import org.devops.Constants  导入Constants类
+
+def test(){
+    echo Constants.foo  引用类
+}
+
+借助这个，我可以集中将工具链服务器信息比如凭证和地址放在这里。</code></pre></div></p></div></p><p id="5bfbf9c7-0cd6-4c00-81c0-fd54f457e75d" class="">vars目录保存脚本文件，这些文件能够以变量形式在Jenkinsfile中引用<div class="indented"><p id="6927ee56-85d9-4930-83de-fe72681bdda5" class="">文件名驼峰</p></div></p><p id="0dfb8e86-16d4-4af7-bebf-df5d2980f70e" class="">库的trust和untrust概念？</p><p id="0b2bf803-968a-4026-83d2-643be642022d" class="">什么是static variable</p><p id="1730f1f1-714e-4119-9ef1-9bdc9f2a26b4" class="">可以将常量比如工具链地址凭据ID，这种常量，集中在一个类中么？</p><p id="5ce63947-a203-494d-a603-1bde78672047" class=""><code>final string</code> 与 <code>static string</code>  区别</p><p id="b3338d45-39ed-4d21-9ce5-4706682c06c1" class="">⚠️Maven资料中关于认证，是否写清楚了？</p><p id="36c7fb97-d82f-4648-8799-8b91e2f4615e" class="">
+</p></div></p></div></p><p id="d91a836c-7751-49da-8ab0-b09c88524abf" class="">借鉴<div class="indented"><ul id="e7b8240d-deea-44f3-95b5-fcf1306fb652" class="toggle"><li><details open=""><summary>generic webhook trigger</summary><pre id="c7a0af0c-4026-4972-89d0-d66a77d04173" class="code code-wrap"><code>triggers {
+        GenericTrigger(
+                genericVariables: [
+                        [key: &#x27;prNumber&#x27;, value: &#x27;number&#x27;],
+                        [key: &#x27;prAction&#x27;, value: &#x27;action&#x27;],
+                        [key: &#x27;prMergeStatus&#x27;, value: &#x27;pull_request.merged&#x27;]
+                ],
+
+                causeString: &#x27;$prNumber merged&#x27;,
+
+                printContributedVariables: true,
+                printPostContent: true,
+
+                silentResponse: false,
+
+                regexpFilterText: &#x27;$prMergeStatus&#x27;,
+                regexpFilterExpression: &#x27;\\b(\\w*true\\w*)\\b&#x27;
+        )
+    }</code></pre></details></li></ul></div></p></div></p><p id="529da39f-2505-4361-932c-18bb2e7e99e5" class="">
+</p><h1 id="3c4b83db-d603-4733-bee0-7291c0c70298" class=""><time>@October 15, 2021</time> </h1><p id="404d3ab9-fcf3-4f0e-bb49-6ff5c4972a65" class="">经验总结：<div class="indented"><p id="57d2cd23-89a9-43f5-a7d7-5f94bf02590c" class="">共享库的全局变量文件名必须小写开头</p><p id="5850f3b8-ed41-4a7d-be1c-9bd28edb25bf" class="">httpRequest插件返回结果只是一个对象，要获取结果必须.contents</p></div></p><p id="8b496d5d-35ae-4dbc-a34d-0336bdee767c" class="">思考与问题：<div class="indented"><p id="8ec180bd-29ce-45a2-a296-2d6a6c3f5261" class="">解决NPM仓库认证问题</p><p id="7d126217-4672-43c0-9d1a-787e1acfb60b" class="">withcredentials是否的credentialsId是否引用常量？</p><p id="05b0bcc5-dc55-4129-9eeb-71ba518ca5c1" class=""><del>我觉得可以将工具链地址凭证相关的数据放在文件中，可能在properties file中得到解答</del> 无法实现，properties只能与源码所在库放在一起才能被访问到，那样将失去意义。<div class="indented"><p id="63fb53aa-b2b2-43fd-b48f-4437c1261788" class="">如何读取properties file<div class="indented"><ol type="1" id="b2271d72-2259-483e-bbc2-4b85282792bd" class="numbered-list" start="1"><li>需要plugin: pipeline utility steps 提供readProperties</li></ol><ol type="1" id="dc2e9870-a3f9-47c3-abeb-813975223bd3" class="numbered-list" start="2"><li>在git仓库中创建一个文件，后缀无所谓，groovy或properties都可以<p id="857c7c9a-ef9b-4579-a3b1-29a17d861521" class="">按照如下例子格式创建</p><pre id="81e10ce9-2ba4-4618-81fb-ed5e941319a8" class="code code-wrap"><code>SONAR_SERVER = &quot;http://192.168.31.102:9000&quot;
+SONAR_SCANNER_HOME = &quot;/opt/sonar-scanner-4.2.0.1873-linux&quot;
+SONARQUBE_TOKEN = sonarqube-root-token
+NEXUS_CRED = nexus-jenkins-password
+HARBOR_CRED = &#x27;harbor-admin-password&#x27;
+SONARQUBE_CRED = &#x27;sonarqube-admin-password&#x27;
+GITLAB_CRED = &#x27;gitlab-token&#x27;
+NPM_GROUP_REPO = &quot;http://192.168.31.102:8081/repository/npm-group/&quot;
+NPM_HOSTED_REPO = &quot;http://192.168.31.102:8081/repository/npm-hosted/&quot;
+GITLAB_HOST = &quot;http://192.168.31.102&quot;
+HARBOR = &quot;https://192.168.31.102/&quot;
+</code></pre></li></ol><ol type="1" id="c7336330-f331-41ef-bbd9-a33c2c7df105" class="numbered-list" start="3"><li>在Jenkinsfile中加载和引用<p id="a4d9f373-4363-4939-838a-55419a41bffd" class="">因须在pipeline开始前加载，故在pipelines块之上加入加载命令</p><p id="e97abec5-a620-4e7d-94e0-56aedeb71863" class="">因需一个节点来处理加载任务，故若采用静态节点则用<code>node</code>块；若采用Pod节点则用<code>podTemplate</code>块；如采用docker容器则采用<code>container</code>块。</p><pre id="5b81f057-0b50-4c15-9a97-0de8d1be207c" class="code code-wrap"><code>//针对静态节点，我们用node，必须
+node (&#x27;master&#x27;){ //圆括号是label
+    props = readProperties(file: &#x27;test.properties&#x27;)  //这个相对路径是workspace的job目录
+}
+pipelines{
+		environment{
+				SONAR_SERVER = &quot;${props[&quot;SONAR_SERVER]}&quot;  //引用，注意一定要加双引号，在environment块定义环境变量只能用单引或双引或方法
+		}
+}</code></pre></li></ol></div></p></div></p><p id="f4ee37e2-5857-4657-b17b-3a20c81c0a67" class="">tag是什么？与branch有什么区别？<div class="indented"><p id="95f179dc-3e1f-43ee-844b-14b651fa94b3" class="">区别：当添加新commit时，branch head指针会指向新的commit；tag是冻结在指定commit上</p></div></p><pre id="cf78fb26-a576-43f3-b423-3d2977895478" class="code code-wrap"><code>node(&#x27;master&#x27;){            这个工作目录竟然在跳转到源代码目录上了
+    props = readProperties(file: &#x27;value.properties&#x27;)
+    println props
+
+}
+
+pipeline{
+    agent {
+        node {
+            label &quot;master&quot;
+        }
+    }</code></pre></div></p><h1 id="cc74bbbe-8b8d-43b3-a9fe-58ac97ca390d" class=""><time>@October 16, 2021</time> </h1><p id="08ed3410-0d81-4c79-94d1-1525e81617aa" class="">监控</p><p id="d4c9e05f-022c-4d56-bc29-6c0a3620ca13" class="">日志<div class="indented"><p id="0a239be9-096b-4488-8a3f-8da06332f529" class=""><a href="ElasticSea%20eebed.html">ElasticSearch</a> </p><p id="b1084d3d-61bb-4737-910a-434df8f1fba7" class="">docker日志特点<div class="indented"><p id="9f61b807-5ea6-4ba2-8727-853e398043ae" class="">docker选项logging driver是json-file时：容器标准输出，docker收集标准输出，以Json格式保存于<code>/var/lib/docker/contaners/容器id/容器id-json.log</code> 并维持日志切割(即会清空老日志)</p></div></p><p id="4eb9bdaa-5e13-489f-ba79-f72709cd1976" class="">centralized logging system<div class="indented"><p id="eb0f1f03-7c18-4bb6-9b75-fae73a6ea930" class="">容器标准输出，docker写入日志，fluentd采集并发送到远端的日志分析服务器</p><p id="e194a322-ed89-447d-b85d-9c28f85d4322" class="">输入的日志叫原始数据，input插件根据格式知道数据的组成部分（那些是时间，哪些是消息）</p></div></p><p id="de8e3f58-d98d-4514-ab4a-c9da4bf29c58" class="">fluentd官方git： <a href="https://github.com/fluent/fluentd-kubernetes-daemonset">https://github.com/fluent/fluentd-kubernetes-daemonset</a></p><p id="2e1c5927-ed42-47a2-9267-4f8dbed7afa7" class="">parser字段定义如何解析原始数据，比如apache的，nginx的：<a href="https://docs.fluentd.org/configuration/parse-section#parse-section-overview">https://docs.fluentd.org/configuration/parse-section#parse-section-overview</a><div class="indented"><p id="9eee0153-abc3-4208-921f-9deb9ecf4794" class="">can be under &lt;source&gt;, &lt;match&gt; or &lt;filter&gt; section，It is enabled for the plugins that support parser plugin features</p><p id="5666de63-3fd6-42a8-ab5d-b00f4299a871" class="">fluentd核心内建了一些常用parser插件，其他的需要自己手动添加，比如下面的kubernetes的parse插件就不是自带的</p><pre id="8b786743-3f19-4640-8aa6-0577862cadcc" class="code code-wrap"><code>&lt;parse&gt;
+  @type kubernetes
+  @type &quot;#{ENV[&#x27;FLUENT_CONTAINER_TAIL_PARSER_TYPE&#x27;] || &#x27;json&#x27;}&quot;  #因为docker输出的日志是json所以转成JSON，变量是什么意思？
+  time_format %Y-%m-%dT%H:%M:%S.%NZ
+&lt;/parse&gt;</code></pre></div></p><p id="950e2300-69c2-4eaf-b19f-5a984ddf5d31" class=""><code>#{ENV[...]}</code> 这是ruby表达式，目前看match、paser、filter块中都可以用</p><p id="b2c3514e-570c-429f-972c-46931b1791e1" class="">
+</p><p id="5c013178-a086-4d79-a3af-8411e51e8b4d" class="">针对K8S，tail插件需要跟踪/var/log/containers目录，其中保存所有容器日志<div class="indented"><p id="6983a740-2a6a-45b9-b464-d01880228c1e" class="">各种容器运行时，按规范，将容器目录链接到K8S Node的/var/log/containers目录，以保持路径一致</p></div></p><p id="a27f8e80-319b-47b4-ada3-3d66e28d9754" class="">
+</p><p id="07ec7649-d519-4180-95ff-a62bcf6188d2" class="">fluentD生成的容器日志文件和链接，以下是示例<div class="indented"><p id="efc668e1-9856-4933-906f-81139ad31ffa" class="">容器和Pod日志目录，应该是kubelet产生的：<div class="indented"><p id="adc23a3e-654f-4f44-b912-644ddef5ecc5" class="">这是链接关系：/var/log/containers/pod名_命名空间_容器名_容器ID.log → /var/log/pods/命名空间_pod名_podID/容器名/数字.log → /var/lib/containers/容器ID-json.log</p></div></p><pre id="72a92c08-9739-4841-9bed-c540bed66cad" class="code code-wrap"><code>containers/counter_default_count-94655d0176675b144209b497aa8b9589687b3fbcb9932a81f789f1b1f7ae06ff.log -&gt; /var/log/pods/default_counter_4e540339-1a56-40b4-884c-835ed9a51278/count/0.log</code></pre></div></p><p id="d5a0a130-b25c-41c0-9628-9f432d033334" class="">
+</p></div></p><h1 id="b1d42d44-5ab9-4e26-ad4c-6f7106173213" class=""><time>@October 17, 2021</time> </h1><ol type="1" id="3f68d0d2-ede8-4c42-9b41-164032e3b4fe" class="numbered-list" start="1"><li><mark class="highlight-teal">复习一下ES，已经复习了第一遍</mark></li></ol><ol type="1" id="b01fc587-26e5-43ce-8cef-b701513f03bc" class="numbered-list" start="2"><li>ES的主机方式的安装和搭建集群<p id="125ddb72-1ef3-4a59-97d8-919efbf02e20" class="">虽然ES是JAVA写的，但是不用安装因为包里自带JDK且默认指向自带的JDK</p><p id="6af58e33-f3a8-47c4-96b4-fd6a52b7a697" class="">RPM安装: <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/rpm.html</a></p><pre id="479a2b7a-d644-4cf8-aa27-e50bace7d523" class="code code-wrap"><code>
+方法1：
+rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+[elasticsearch]
+name=Elasticsearch repository for 7.x packages
+baseurl=https://artifacts.elastic.co/packages/7.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=0
+autorefresh=1
+type=rpm-md
+yum install --enablerepo=elasticsearch elasticsearch
+方法2
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-x86_64.rpm
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.15.1-x86_64.rpm.sha512
+shasum -a 512 -c elasticsearch-7.15.1-x86_64.rpm.sha512 
+sudo rpm --install elasticsearch-7.15.1-x86_64.rpm
+
+直接启动即可
+systemctl enable --now elasticsearch
+
+当使用RPM或debian包并且使用systemd管理，需通过systemd来设置system limit
+systemctl edit elasticsearch然后添加，最后systemctl daemon-reload</code></pre><p id="5a329a32-cdf1-4aa3-abed-0b8229046898" class="">集群配置</p><pre id="63df0850-aba3-4a51-8788-66bb883d47ba" class="code code-wrap"><code>配置文件
+RPM包有两个主要的配置文件
+		/etc/sysconfig/elasticsearch 保存一些ES环境变量，其中ES_PATH_CONF=/etc/elasticsearch指定默认配置文件的位置
+		/etc/elasticsearch/elasticsearch.yml 主要参数配置文件
+			配置文件采用YAML格式
+			具体格式https://www.elastic.co/guide/en/elasticsearch/reference/current/settings.html#_config_file_format
+
+ES需调整的不多，与生产相关的，需注意的配置参数：
+	1.path.data字段：index相关数据的目录，建议用LVM，避免卷空间不足
+	2.path.log字段：节点和集群健康和操作相关日志的目录
+		警告：二进制安装的，默认data目录位于ES_HOME下，升级后有覆盖危险，安装时指定data字段将其放于之外
+	        RPM安装的，不会有问题，默认放于之外
+	  重要：data目录应只被elasticsearch打开，其他服务不可访问，包括antivirus
+  3.cluster.name
+	  cluster字段名称一致，节点才能加入集群
+    默认elasticsearch,可起别的比如logging-prod，用-prod标注它是生产环境是好习惯
+	4.node.name 不设置则默认是主机名
+  5.network.host 
+		绑定地址
+		当设置为非loopback地址，ES认为是配置在生产环境，任何检查失败都造成exceptions而不是warming。所以有两种模式：production和development
+	6.discovery.seed_hosts 指定其他master-eligible节点，自动发现
+		提示：如network.host为环回地址则认为是development，自动发现9300-9305的本地的其他几点
+    它的值是列表，下面写都可以，不写端口即9300
+        [&quot;IP1&quot;,&quot;IP2&quot;]
+        - IP1:9300
+        - IP2
+  7.cluster.initial_master_nodes 
+		新集群第一次启动时,需所有eligible master节点上，用该字段，显式定义所有的eligible master节点，以完成boostrapping。
+    每个节点上，该设置都要相同切记，比如
+    cluster.initial_master_nodes:
+	  - master-a
+	  - master-b
+	  - master-c
+    这只发生在第一次启动，boostrapping后这几个节点都保存一份集群状态于data目录中，此后新的节点将从elected master节点得到一份集群状态信息
+		它的值是列表，元素是节点的node.name(如未设置则填它的主机名或network.host指定的地址端口)
+		当集群已形成，不要为新节点加入这个字段，也不要为ineligible master节点设置
+
+与生产相关的，需注意的系统参数：
+	 1.关闭swap 
+			swapoff -a 可不用重启
+			另外注释/etc/fstab的swap sed -ri &#x27;s@(.*swap.*)@#\1@&#x27; /etc/fstab
+   2.文件描述符上调至65535或更高，
+			RPM不用调整
+			二进制/etc/security/limits.conf nofile调为65535
+			用CURL查询：GET _nodes/stats/process?filter_path=**.max_file_descriptors
+		虚拟内存mmap上调至262144
+				ES使用mmap保存索引
+				RPM包不用修改，
+				二进制：临时修改sysctl -w vm.max_map_count=262144，在/etc/sysctl.conf文件永久修改vm.max_map_count
+    线程数调整
+				二进制：临时ulimit -u 4096，永久/etc/security/limits.conf的npc设为4096
+				RPM包：不用修改
+
+最终配置类似这样，这是node-1，其他节点相应修改
+cluster.name: mxy-prod
+node.name: node-1
+path.data: /var/lib/elasticsearch
+path.logs: /var/log/elasticsearch
+network.host: 192.168.31.201
+discovery.seed_hosts: 
+- 192.168.31.201
+- 192.168.31.202
+- 192.168.31.203
+cluster.initial_master_nodes:
+- node-1
+- node-2
+- node-3
+
+
+启动后查看命令
+curl -XGET http://192.168.31.201:9200/?pretty 确认所有节点的cluster_uuid已获取
+curl -XGET http://192.168.31.201:9200/_cluster/state/master_node?pretty
+curl -XGET http://192.168.31.201:9200/_cluster/state/nodes?pretty</code></pre></li></ol><p id="119c293a-fce8-4da2-b696-4d49fec0ce80" class="">   </p><h1 id="8028c71f-3f8b-4b5f-9f22-d58bceccacf8" class=""><time>@October 18, 2021</time> </h1><p id="31bfca53-c816-48cf-ba65-87756f87ce75" class="">ES<div class="indented"><p id="abfaa460-58f7-4475-94c8-4d9c4e9d6f3c" class=""><code>resource.reload.interval.high</code> ES能够monitor相关文件(rtificates, keys, keystores, or truststores和主机名)并自动加载，默认5秒钟</p><p id="77e86d88-470a-471b-bf2b-d308ebc11931" class="">优化的index template<div class="indented"><pre id="70029f51-a018-4db6-a296-f568841556d9" class="code code-wrap"><code>
+#mapping
+&quot;settings&quot;: {
+  &quot;index.mapping.ignore_malformed&quot;: true,
+  &quot;index.query.default_field&quot;: &quot;message&quot;,
+  &quot;index.refresh_interval&quot;: &quot;30s&quot;,
+  &quot;index.search.slowlog.threshold.query.debug&quot;: &quot;0ms&quot;,
+  &quot;index.search.slowlog.threshold.query.info&quot;: &quot;1s&quot;,
+  &quot;index.search.slowlog.threshold.fetch.debug&quot;: &quot;0ms&quot;,
+  &quot;index.search.slowlog.threshold.fetch.info&quot;: &quot;1s&quot;,
+  &quot;index.translog.sync_interval&quot;: &quot;1m&quot;,
+  &quot;index.number_of_shards&quot;: 4
+  &quot;index.number_of_replicas&quot;: 1
+}</code></pre></div></p><p id="b9036c8c-51bc-47d0-b82d-55e5aaa38536" class="">主机上用RPM安装Kibana<div class="indented"><p id="d07c7910-f949-4fb6-a8d6-5ea4bd7c9957" class="">配置<div class="indented"><pre id="bb93d70e-f4d6-4f2c-8212-8cff82487026" class="code code-wrap"><code>#/etc/kibana/kibana.yml配置文件
+server.host: &quot;192.168.31.201&quot;
+elasticsearch.hosts: 
+- http://192.168.31.201:9200
+- http://192.168.31.202:9200
+- http://192.168.31.203:9200</code></pre><p id="b091e642-94f5-4f28-b40f-c0181cad98ca" class="">和ES一样，配置文件采用YAML格式，键可以分级写；值有类型，如是列表则可[&quot;item1&quot;,&quot;item2&quot;],或另起一行开头-写且不用引号；如是字符串则双引号；如是布尔则不用引号，如是数字不用引号</p><p id="99bc6da2-69ca-4c2d-b58a-77fc23dd2a9b" class="">日志路径:/var/log/kibana/kibana.log</p><p id="f4fc9122-81b8-47cc-befa-ee6d3300c565" class="">
+</p><p id="90afa458-e8b5-45ea-9ad7-a0f686299910" class="">
+</p></div></p></div></p></div></p><p id="f1673ac8-556a-4d36-b9af-37f47d871614" class="">
+</p><p id="dac91aa9-d7b8-45d1-8742-98d233682f8f" class="">
+</p><p id="8599591f-3b46-467f-aead-513710ab7eb8" class="">整理好的<div class="indented"><p id="e586e3a7-324a-45b2-91fc-86ff79730cef" class="">命令总结<div class="indented"><pre id="97f18195-21dd-4f1f-b182-3075ffe4dcbe" class="code code-wrap"><code>启动后查看命令
+curl -XGET http://192.168.31.201:9200/?pretty 确认所有节点的cluster_uuid已获取
+curl -XGET http://192.168.31.201:9200/_cluster/state/master_node?pretty
+curl -XGET http://192.168.31.201:9200/_cluster/state/nodes?pretty
+curl -XGET http://192.168.31.202:9200/_cluster/health
+curl -XGET http://192.168.31.202:9200/_cat/indices?pretty
+curl -XGET http://192.168.31.202:9200/_cat/nodes?pretty
+curl -XGET http://192.168.31.202:9200/cat/shards
+#查看所有节点
+GET /_cat/nodes
+#查看所有索引
+GET /_cat/indices
+
+#查看节点属性
+GET /_cat/nodeattrs?v</code></pre></div></p><p id="0c3c45dc-7943-40c7-bf2a-a6eb8afe27f5" class="">fluentD<div class="indented"><p id="feb42512-6ce0-41c1-970c-a8e7cd203103" class=""><code>@type</code> 指定插件类型</p><p id="9f3aead2-8e7a-452f-aac2-32d7f9ef7fb7" class=""><code>@id</code> Filter plugins by plugin id <mark class="highlight-orange">到底是用来做什么的？</mark></p><p id="d7baf391-8997-4377-9afd-72d58b4e69a0" class="">采用了ruby模板表达式<code>&quot;#{}&quot; </code>除了变量其他都要用单引号括起来</p><p id="e23d411b-9eb1-4522-93be-09ed416c27f2" class="">启动时会解析配置文件，ruby模板渲染后如下<div class="indented"><pre id="dc130b43-faac-4e11-a20f-cea8d9c35e05" class="code code-wrap"><code>&lt;source&gt;
+    @type tail
+    read_from_head true
+    tag &quot;kubernetes.*&quot;
+    path &quot;/var/log/containers/*.log&quot;
+    pos_file &quot;/var/log/fluentd-containers.log.pos&quot;
+    exclude_path [&quot;/var/log/containers/fluent*&quot;]
+    &lt;parse&gt;
+      @type &quot;json&quot;
+      time_format &quot;%Y-%m-%dT%H:%M:%S.%NZ&quot;
+      unmatched_lines 
+      time_type string
+    &lt;/parse&gt;
+  &lt;/source&gt;
+
+  &lt;filter kubernetes.**&gt;
+    @type kubernetes_metadata
+    @id filter_kube_metadata
+    kubernetes_url &quot;https://10.96.0.1:443/api&quot;
+    verify_ssl true
+    ca_file &quot;&quot;
+		skip_labels false
+    skip_container_metadata false
+    skip_master_url false
+    skip_namespace_metadata false
+  &lt;/filter&gt;
+
+  &lt;match **&gt;
+    @type elasticsearch
+    host &quot;192.168.31.201&quot;
+    port 9200
+    logstash_prefix &quot;logstash&quot;
+    logstash_dateformat &quot;%Y.%m.%d&quot;
+    logstash_format true
+    include_timestamp false
+    type_name &quot;fluentd&quot;
+  &lt;/match&gt;</code></pre></div></p><p id="50927d83-2d6b-4294-b38f-a572731dc71f" class="">fluentD的配置模板与解释<div class="indented"><pre id="1cd842f4-8731-4034-bf34-025083a80b10" class="code code-wrap"><code>&lt;source&gt;
+  @type tail
+  @id in_tail_container_logs
+  path /var/log/containers/*.log
+  pos_file /var/log/fluentd-containers.log.pos
+  tag &quot;#{ENV[&#x27;FLUENT_CONTAINER_TAIL_TAG&#x27;] || &#x27;kubernetes.*&#x27;}&quot;
+  exclude_path &quot;#{ENV[&#x27;FLUENT_CONTAINER_TAIL_EXCLUDE_PATH&#x27;] || use_default}&quot;
+  read_from_head true
+  &lt;parse&gt;
+    @type &quot;#{ENV[&#x27;FLUENT_CONTAINER_TAIL_PARSER_TYPE&#x27;] || &#x27;json&#x27;}&quot;
+    time_format %Y-%m-%dT%H:%M:%S.%NZ
+  &lt;/parse&gt;
+&lt;/source&gt;
+
+
+&lt;filter kubernetes.**&gt;
+  @type kubernetes_metadata
+  @id filter_kube_metadata
+  kubernetes_url &quot;#{ENV[&#x27;FLUENT_FILTER_KUBERNETES_URL&#x27;] || &#x27;https://&#x27; + ENV.fetch(&#x27;KUBERNETES_SERVICE_HOST&#x27;) + &#x27;:&#x27; + ENV.fetch(&#x27;KUBERNETES_SERVICE_PORT&#x27;) + &#x27;/api&#x27;}&quot;
+  verify_ssl &quot;#{ENV[&#x27;KUBERNETES_VERIFY_SSL&#x27;] || true}&quot;
+  ca_file &quot;#{ENV[&#x27;KUBERNETES_CA_FILE&#x27;]}&quot;
+  skip_labels &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_LABELS&#x27;] || &#x27;false&#x27;}&quot;
+  skip_container_metadata &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_CONTAINER_METADATA&#x27;] || &#x27;false&#x27;}&quot;
+  skip_master_url &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_MASTER_URL&#x27;] || &#x27;false&#x27;}&quot;
+  skip_namespace_metadata &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_NAMESPACE_METADATA&#x27;] || &#x27;false&#x27;}&quot;
+&lt;/filter&gt; 
+
+
+&lt;match **&gt;
+  @type elasticsearch
+  #host &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_HOST&#x27;] || &#x27;elasticsearch.elastic-kibana&#x27;}&quot;  可在deploy对象中定义FLUENT_ELASTICSEARCH_HOST的值
+  host 192.168.31.201
+  port &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_PORT&#x27;] || &#x27;9200&#x27;}&quot; 可在deploy对象中定义FLUENT_ELASTICSEARCH_PORT的值
+  logstash_prefix logstash     索引的前缀
+  logstash_dateformat %Y.%m.%d  例如显示为logstash-2021.10.18
+  logstash_format true   时间格式，但也不太清楚   
+  index_name logstash    要ES中的索引的前缀，这与logstash_prefix有什么区别？
+  include_timestamp false  在document中增加一个@timestamp的字段
+&lt;/match&gt;</code></pre></div></p><p id="75d9cb01-a2eb-44c5-b94a-0e363a0fecda" class="">
+</p><p id="2f6f31cf-7a41-4564-b90f-a5afe3064fbc" class="block-color-teal_background">实现EFK的认证<div class="indented"><p id="f5db5ce9-c05a-4a65-95cf-ec014a785b4a" class="">ElasticSearch提供了基础BASIC安全，这是必要的：<div class="indented"><p id="5fdbb75f-4019-4a5d-be10-2fa202c719a8" class="">fluentD通过认证后才可以向其索引日志日志，防止恶意修改数据</p><p id="62e2e128-2931-4c32-9a9a-2f3b55d829c5" class="">Kibana上需要输密码才可登陆</p></div></p><p id="186fc9fa-e062-43d0-84fa-a9c2a3b6a0cf" class="">操作步骤：<div class="indented"><ol type="1" id="cfadc90b-b3be-45ca-a884-1ce58d016962" class="numbered-list" start="1"><li>实现BASIC认证之前，需要先实现TLS，应该是防止密码信息被窃听，参考<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-basic-setup.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/security-basic-setup.html</a><ol type="a" id="2e8befb5-42e1-40a5-bca4-4fc60a5e646f" class="numbered-list" start="1"><li>所有节点关闭Kibana和ES</li></ol><ol type="a" id="51c846ff-1c59-48bd-a721-d5a9d21e8195" class="numbered-list" start="2"><li>所有节点，在/etc/elasticsearch.yml文件加入<pre id="6413315d-a3c1-4933-a823-ba62982d1fe2" class="code code-wrap"><code>xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true</code></pre></li></ol><ol type="a" id="34233f7b-087a-46e7-8e5d-a918d0068f1d" class="numbered-list" start="3"><li>启动所有节点上的ES</li></ol><ol type="a" id="25adf813-a2a6-4580-931e-ea962c1b40a4" class="numbered-list" start="4"><li>在任一个节点上执行，记住是任意一个，只执行一次即可<pre id="38a1a0c9-e956-44e9-af7b-6a2aff57c40e" class="code code-wrap"><code>
+/usr/share/elasticsearch/bin/elasticsearch-certutil ca #生成elastic-stack-ca.p12，可自定义文件名，它包含CA证书和签发证书的密钥；提示输入密码，可为空
+/usr/share/elasticsearch/bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12 #为节点生成keystore文件，包含了节点证书密钥和CA证书，提示输入密码可留空</code></pre></li></ol><ol type="a" id="cab6497f-d1be-4ae0-a579-745e1abb2e25" class="numbered-list" start="5"><li>将keystore文件拷贝到其他节点上的$ES_PATH_CONF目录下，RPM包安装方式的位于/etc/elasticsearch<p id="18eb83aa-784e-48bc-94b6-533fe59e3e2b" class="">注意文件的权限，拷贝之前先<code>chmod g+rw </code></p><pre id="d4211e4a-b5ec-4e57-9535-1757b080ee73" class="code code-wrap"><code>#拷贝好之后，所有节点上，在配置文件中加入以下：开启节点之间的TLS通信和指定证书文件，然后再次重启
+xpack.security.transport.ssl.verification_mode: certificate
+xpack.security.transport.ssl.client_authentication: required
+xpack.security.transport.ssl.keystore.path: elastic-certificates.p12
+xpack.security.transport.ssl.truststore.path: elastic-certificates.p12</code></pre></li></ol><ol type="a" id="52384330-8ce6-4d6a-9607-17679580c0d4" class="numbered-list" start="6"><li>所有的节点，启动ES服务, 跟踪一下日志，看到这个就表示节点间通过TLS通信了，记得检查集群状态<pre id="7472cc03-1a2f-4f82-8c9d-56102600e030" class="code code-wrap"><code>[2021-10-18T07:52:07,107][INFO ][o.e.n.Node               ] [node-1] started
+[2021-10-18T07:52:07,551][INFO ][o.e.l.LicenseService     ] [node-1] license [2bc4b40c-23f3-446b-a6ac-1fe7eaec20f1] mode [basic] - valid
+[2021-10-18T07:52:07,553][INFO ][o.e.x.s.a.Realms         ] [node-1] license mode is [basic], currently licensed security realms are [reserved/reserved,file/default_file,native/default_native]
+[2021-10-18T07:52:07,555][INFO ][o.e.x.s.s.SecurityStatusChangeListener] [node-1] Active license is now [BASIC]; Security is enabled</code></pre></li></ol></li></ol><ol type="1" id="72804466-fc4e-4093-9fb0-de2441bbb07d" class="numbered-list" start="7"><li>实现BASIC认证，参考<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/security-minimal-setup.html#security-create-builtin-users">https://www.elastic.co/guide/en/elasticsearch/reference/current/security-minimal-setup.html#security-create-builtin-users</a><ol type="a" id="e6fdd3c2-0386-4132-b93b-1f8a48b86770" class="numbered-list" start="1"><li>RPM包的，命令位于/usr/share/elasticsearch/bin/<p id="279e491a-b9c4-4ef3-8b71-cb25375ae10b" class="">将结果保存在~/elasticsearch.password</p><pre id="f1e63eaa-21f0-427f-bfe1-550478570ba7" class="code code-wrap"><code>/usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto</code></pre></li></ol><ol type="a" id="57ef251e-940a-4237-9f4f-53667c892f02" class="numbered-list" start="2"><li>在kibana上使用内建用户kibana_system以及刚生成的密码<p id="74ec706d-83a8-4da3-ab85-60f6374ebf71" class="">kibana使用kibana_system用户执行一些后台任务故需配置</p><pre id="6b429a40-fbc9-47d0-9f26-faf54dd90fee" class="code code-wrap"><code>/usr/share/kibana/bin/kibana-keystore create
+/usr/share/kibana/bin/kibana-keystore add elasticsearch.password  #这里会提示kibana_system的密码</code></pre></li></ol><ol type="a" id="b1558520-d7f4-4636-9a31-9dadd6eda8c5" class="numbered-list" start="3"><li>重启Kibana，再次登陆就会提示输入用户名和密码，这里输入ES的超管elastic和它的密码，BASIC认证实现</li></ol><ol type="a" id="4dd658c8-d446-4cf7-829b-a1e7c75a4da8" class="numbered-list" start="4"><li>在fluentD上，添加用户名和密码，BASIC认证实现<pre id="c54dea82-4f4f-4da9-bfea-29cfe059965d" class="code code-wrap"><code>#由于ES开启了TLS，导致fluentD无法连接，如下是fluentD日志
+2021-10-18 12:19:12 +0000 [error]: #0 unexpected error error_class=Elasticsearch::Transport::Transport::Errors::Unauthorized error=&quot;[401] {\&quot;error\&quot;:{\&quot;root_cause\&quot;:[{\&quot;type\&quot;:\&quot;security_exception\&quot;,\&quot;reason\&quot;:\&quot;missing authentication credentials for REST request [/]\&quot;,\&quot;header\&quot;:{\&quot;WWW-Authenticate\&quot;:\&quot;Basic realm=\\\&quot;security\\\&quot; charset=\\\&quot;UTF-8\\\&quot;\&quot;}}],\&quot;type\&quot;:\&quot;security_exception\&quot;,\&quot;reason\&quot;:\&quot;missing authentication credentials for REST request [/]\&quot;,\&quot;header\&quot;:{\&quot;WWW-Authenticate\&quot;:\&quot;Basic realm=\\\&quot;security\\\&quot; charset=\\\&quot;UTF-8\\\&quot;\&quot;}},\&quot;status\&quot;:401}&quot;
+
+#在match块中加入参数，重启fluentD即可
+user elastic
+password y1SaSWSl5PS6zNdsBWXk</code></pre></li></ol></li></ol></div></p></div></p></div></p></div></p><p id="f40879ab-4038-488f-afc7-5eca61403cb0" class="">
+</p><h1 id="f2220418-7828-4ad2-9d0f-c01753dedc2d" class=""><time>@October 19, 2021</time> </h1><p id="4e7ddf65-0aa4-45b1-8ad3-db9019e05c53" class="">
+</p><p id="56142bdc-e21e-4f79-a45c-620c7378531b" class="">DEVOPS视频继续看一下</p><p id="d470d6a5-28e8-4190-bc05-6cc3c0cf45b3" class="">Jenkins继续</p><figure id="fed5b127-055c-492a-b727-b7c5b4e56a3e" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%203.png"><img style="width:1072px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%203.png"/></a></figure><p id="abe101de-13ff-4eca-ab46-66bbf9c6048a" class="">
+</p><p id="efb04967-ac88-4354-a296-96f32f98862a" class="">
+</p><p id="d80020d6-3991-4a2b-8a2a-dabd86d09a7c" class="">
+</p><h1 id="9d6bae1b-06b0-4f85-9104-43784d275a0a" class=""><time>@October 20, 2021</time> </h1><p id="694fbcd4-6b91-44d8-aa8d-4d98d0f0a469" class="block-color-orange">问题<div class="indented"><p id="bbb9431f-1fba-419f-9d89-03ecc672838f" class="">ansible<div class="indented"><p id="56039d33-7bc2-4d53-8008-328afdcdcf33" class="">with_items与loop有什么区别？</p></div></p></div></p><p id="8fd5a719-2164-4eb6-aae5-da7b5e469470" class="">学习<div class="indented"><p id="9ef2cc7f-91dc-461d-87c0-56cdc33e77ed" class="block-color-orange_background">多分支特性<div class="indented"><p id="76309bdc-ad44-4481-a101-3dd9d8fb1c94" class="">为什么使用？</p><p id="1437bf47-2d05-465d-a07e-81c36d268279" class="">如何实现<div class="indented"><ol type="1" id="53daffa2-5c5b-4311-b66b-168f004d6a2f" class="numbered-list" start="1"><li>SSH KEY和TOKEN<p id="89733986-d85e-4068-a688-401e988f5b3e" class="">复制jenkins主机的ssh公钥.ssh/id_rsa.pub文件内容，粘贴到gitlabUser Settings→SSH Keys→Key→add Key</p><p id="19618a8e-a739-4640-91f9-2cfe061815e7" class="">获取git用户的token，注意scop是api </p></li></ol><ol type="1" id="a6580046-9511-4aeb-aba1-210628afb481" class="numbered-list" start="2"><li>在Jenkins上，创建JENKINS主机私钥的凭证，创建TOKEN的凭证</li></ol><ol type="1" id="5715b863-a244-460b-b9d8-a2c92bf267aa" class="numbered-list" start="3"><li></li></ol></div></p></div></p><p id="07cd2d81-1752-4d5a-9fba-c3f6f4f58ac9" class="block-color-teal_background">Kubernetes <div class="indented"><p id="5d4417da-4df0-477b-8771-5989c1e75c32" class="">Network<div class="indented"><p id="50e3c003-e638-42df-b729-de2bb2c433ca" class="">K8S网络标准：<div class="indented"><p id="efcadc8c-b536-4a0b-8a6e-00966ce79780" class="">所有节点上的Pod，之间可以互通,不使用NAT</p><p id="c0894ae2-a4e1-46f4-90af-aadc7fe8fd89" class="">所有K8S SVC与所有Pod之间可以互通,不使用NAT</p></div></p><p id="280cc9cd-8597-4353-8b41-1074c487b21f" class="">三种网络<div class="indented"><p id="f4960ded-a68e-4417-bc05-deeae012fff9" class="">节点网络</p><p id="3dfeadfc-bfa6-4b5d-8063-5d427f86ac1c" class="">Pod网络</p><p id="c1508ca8-6da6-4b28-9ac4-28a96d987606" class="">集群网络（SVC使用，可定义段）</p></div></p><p id="ddc77519-3b79-44dc-9aca-84e10f999d73" class="">网络访问模型<div class="indented"><p id="0d43272a-5a72-4543-b72a-a47c414913ff" class="">同POD，容器间访问通过localhost</p><p id="6fdddd33-31bf-4e78-99eb-df304a26ee9e" class="">同Node，跨POD的容器间访问通过虚拟网桥或路由器(看具体CNI插件)</p><p id="2d2bc7dc-73f9-4932-8818-2437aa973f4a" class="">不同Node，Pod的互相访问依靠Overlay方式(就是将Pod报文封装在物理网络报文中)或者Direct方式</p></div></p><p id="8914fc19-833e-4f3f-85c9-d3fd07a5191f" class="">CNI和CNI插件<div class="indented"><p id="2662c362-643d-4e55-a6cb-6a9e5fe95649" class="">CNI接口规范，CNI插件负责完成这些工作：<div class="indented"><p id="7258f547-3b3f-40da-939e-05cec5bab135" class="">为POD添加新的网络命名空间</p><p id="1ec55ff1-4726-409f-8881-bd03d3039703" class="">为Pod添加虚拟接口对(vethPair)，一侧在Pod一侧在宿主机</p><p id="1ee4a746-a347-46b4-8013-f94993b3be54" class="">为Pod分配地址</p><p id="92e48a10-5b13-4b26-8feb-d6803637895d" class="">为Pod分配默认路由；在宿主机添加去往Pod的路由</p></div></p><figure id="ff0d228b-99c4-4934-83bd-895bb6dfbb44" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%204.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%204.png"/></a></figure></div></p><p id="adc73b95-82a5-4076-b160-c67a89fc37eb" class="">Calico</p></div></p><p id="95994e5e-3ef1-4e75-b294-24f1f8e5bf2e" class="">docker和docker-shim<div class="indented"><p id="dc699457-777f-4ede-88ee-8f1f1ae3e961" class="">CRI是容器运行时的接口，可支持多种容器运行时CRIO/ContainerD，为了兼容Docker提出了一个组件docker-shim作为CRI的替换，它与kubelet交互，从而继续支持docker容器运行时，以后只支持CRIO/ContainerD。</p></div></p><p id="ed407d3e-8752-4696-bb42-db3041db18e7" class="">deployment和service<div class="indented"><p id="57e0fec8-6461-463c-aff5-41fa19f5a36d" class="">service</p></div></p><pre id="00ad3dda-b0ab-4274-a66e-d70268eb3107" class="code code-wrap"><code>kubectl scale --replicas=4 deploy/deopy对象</code></pre><p id="b46793c5-d737-4147-ae1d-05936be16c96" class="">liveness </p><p id="a8188ec1-e68c-45c9-828d-74a26151e72e" class="">readiness</p><p id="4d975b9b-73aa-4a87-85ab-f6b2ccf91fd5" class="">
+</p></div></p></div></p><p id="8a3b7d4a-f6e5-4678-b715-bf7668ca3a37" class="">整理<div class="indented"><p id="fbac0d59-e89b-4d8f-92a5-73538e34fe96" class="block-color-teal_background">Tini<div class="indented"><p id="fd19c150-3a1e-4a22-abdf-19fd26e4a7dd" class="block-color-teal_background"><code>ENTRYPOINT [&quot;tini&quot;, &quot;--&quot;, &quot;/fluentd/entrypoint.sh&quot;] </code> tini是什么？</p><p id="21375f81-1105-4d8c-89b8-9041e52fecac" class="">git首页：<a href="https://github.com/krallin/tini">https://github.com/krallin/tini</a>  参考使用<div class="indented"><p id="1a5da6c1-1a2d-4575-877c-48c1399fce7a" class="">是krallin开发的一个程序，用来做容器PID1，负责收割僵尸进程和转发信号</p><p id="41884cb3-a89f-4944-a87d-1f76a6388614" class="">知识参考：<div class="indented"><p id="038ba808-3b5b-404f-837e-551d5378f317" class=""><a href="https://github.com/krallin/tini/issues/8">https://github.com/krallin/tini/issues/8</a></p><p id="1258ffab-70c4-4430-9b93-b61fe4ba7a91" class=""><a href="https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/">https://blog.phusion.nl/2015/01/20/docker-and-the-pid-1-zombie-reaping-problem/</a></p></div></p></div></p></div></p></div></p><p id="d52cb568-252d-46a3-94c2-3701930cd220" class="">复习<div class="indented"><p id="048fd6f4-83cf-4d67-bc0c-00591808b311" class="">Groovy<div class="indented"><p id="1760ed18-74e7-4e05-901c-da8b989d60dd" class="">复习到了闭包,接下来闭包</p></div></p><p id="db7bedaa-faac-4ac5-b6ad-f7a996e4115c" class="">Ansible<div class="indented"><p id="42670c46-68cd-45e3-a7ca-48fce37338df" class="">block支持循环</p><p id="e9e67c34-1d90-480d-9125-1917c05de809" class="">url模块的使用<div class="indented"><pre id="95b3e54c-2b1c-4045-af28-a98ff443fad2" class="code code-wrap"><code>- name: Queue build
+  uri:
+    url: &quot;http://{{ HostName }}/job/{{ JobName }}/build?token={{ TokenName }}&quot;
+    method: POST
+    user: &quot;{{ User }}&quot;
+    password: &quot;{{ Pass }}&quot;
+    force_basic_auth: yes
+    status_code: 201</code></pre></div></p><p id="e35b1e68-4ac7-44d4-ae0f-17423dced724" class="">其他模板的复习<div class="indented"><pre id="32ee2f33-1f7b-43fb-a22c-5600a1b36cf6" class="code code-wrap"><code>YUM安装本地的RPM包
+- name: install nginx rpm from a local file
+  yum:
+    name: /usr/local/src/nginx-release-centos-6-0.el6.ngx.noarch.rpm
+    state: present
+
+- hosts: all
+  gather_facts: no
+  
+  tasks:
+    - package:
+        name: py-dnspython
+        state: present
+    - lineinfile:
+        path: /etc/hosts
+        line: &quot;{{ item }} ip-{{ item | replace(&#x27;.&#x27;, &#x27;-&#x27;) }}&quot;
+      loop: &quot;{{ lookup(&#x27;dig&#x27;, &#x27;stackoverflow.com.&#x27;).split(&#x27;,&#x27;) }}&quot;</code></pre></div></p><p id="16d54739-89dd-47b0-908d-6f9eac6068c3" class="">built-in变量<div class="indented"><pre id="4d3c3103-d901-4523-8f8e-de6d820f90f8" class="code code-wrap"><code>ansible_host 来自inventroy文件，如定义ansible_ssh_host=192.168.31.103则取地址；如没有则取主机名称；如主机名称是地址则取地址
+inventory_hostname  来自inventory文件，取的永远是主机名称
+
+groups.all 列表类型，元素是主机名称，用循环比如with_items或loop来取
+hostvars是一个列表，元素是一个mapping：键是主机名称，值是mapping，值描述一个主机的数据，它的ansible_ssh_host字段是主机的地址。
+hostvars[&quot;主机名称&quot;]可获得下面的
+{
+  &quot;inventory_hostname&quot;: &quot;web1&quot;,
+  &quot;inventory_file&quot;: &quot;/etc/ansible/hosts&quot;,
+  &quot;ansible_playbook_python&quot;: &quot;/usr/bin/python2&quot;,
+  &quot;inventory_hostname_short&quot;: &quot;web1&quot;,
+  &quot;ansible_forks&quot;: 5,
+  &quot;playbook_dir&quot;: &quot;/practice&quot;,
+  &quot;ansible_inventory_sources&quot;: [
+    &quot;/etc/ansible/hosts&quot;
+  ],
+  &quot;ansible_ssh_pass&quot;: 1,
+  &quot;inventory_dir&quot;: &quot;/etc/ansible&quot;,
+  &quot;ansible_diff_mode&quot;: false,
+  &quot;ansible_ssh_host&quot;: &quot;192.168.31.103&quot;,
+  &quot;group_names&quot;: [
+    &quot;webs&quot;
+  ],
+  &quot;ansible_verbosity&quot;: 0,
+  &quot;groups&quot;: {
+    &quot;ungrouped&quot;: [],
+    &quot;webs&quot;: [
+      &quot;web1&quot;
+    ],
+    &quot;all&quot;: [
+      &quot;web1&quot;
+    ]
+  },
+  &quot;ansible_check_mode&quot;: false,
+  &quot;ansible_run_tags&quot;: [
+    &quot;all&quot;
+  ],
+  &quot;ansible_skip_tags&quot;: [],
+  &quot;ansible_facts&quot;: {},
+  &quot;ansible_version&quot;: {
+    &quot;major&quot;: 2,
+    &quot;full&quot;: &quot;2.9.25&quot;,
+    &quot;string&quot;: &quot;2.9.25&quot;,
+    &quot;minor&quot;: 9,
+    &quot;revision&quot;: 25
+  },
+  &quot;ansible_ssh_user&quot;: &quot;root&quot;
+}
+</code></pre></div></p><p id="8c63cecc-930c-4758-914a-13bfffeee2e4" class="">配置模板<div class="indented"><pre id="fbd1f837-fa10-4211-b1ac-f1c83535bfdd" class="code code-wrap"><code>1.模板模块, 注意：dest字段需指定具体文件，特别是后缀
+- template：
+   src: 模板文件路径
+   dest: 目的配置文件
+   owner: 
+   group:
+   mode:
+  
+2.模板文件后缀.j2
+3.模板语法
+模板中使用{{ 变量 }}引用变量
+
+for循环
+	{% for 循环变量名 in range(数字,数字) %}
+	内容
+	{% endfor %}
+
+条件
+	{% if expression  %}
+	内容
+	{% else  %}
+	内容
+	{% endif  %}
+
+	例子：
+	{% if mysql_port %}   mysql_port是playbook定义的变量，判断变量是否存在
+	bind-address = 0.0.0.0:{{ mysql_port }}
+	{% else %}
+	bind-address = 0.0.0.0:3306
+	{% endif  %}
+
+
+格式化
+	192.168.37.{{ id }} web{{  &quot;%02d&quot; | format(id-200) }}.magedu
+	&quot;%02d&quot; 表示 2表示数字宽度即最大2位数，0表示不足2位数则左侧填充0
+	格式样例：192.168.37.201 web01.magedu
+
+
+
+{% for node in groups[&quot;webs&quot;] %}
+{{ node | join(&quot;&quot;) }}:5672
+{% if not loop.last %}
+{% endif %}
+{% endfor %}</code></pre></div></p></div></p></div></p><p id="3dfb1d38-ed71-4a7f-b34d-8975c36539b6" class="">chrond时间同步设置<div class="indented"><p id="cc63bdf1-ecb9-4105-aec9-8072c3a5cf26" class="">Chrony synchronize the system clock’s time faster and with better accuracy than the ntp.As of RHEL8/CentOS8, ntp is not available anymore, being replaced by the chrony.</p><pre id="ab7b2e22-96a1-4956-9121-f8f08e938bd2" class="code code-wrap"><code>yum install chrony -y
+#chronyc 
+#chronyd
+
+vim /etc/chrony.conf
+server time1.aliyun.com iburst
+driftfile /var/lib/chrony/drift
+makestep 1.0 3
+rtcsync
+logdir /var/log/chrony
+
+systemctl enable --now chronyd
+检查同步情况 chronyc tracking
+检查时间源 chronyc sources -v
+检查详细的时间源 chronyc sources -v</code></pre><figure id="e578f64e-3753-4cc2-8ee6-9875c27abc44" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%205.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%205.png"/></a><figcaption>可以用chronyd服务命令</figcaption></figure></div></p><p id="9ad019fd-4de1-4760-8a2e-8e0f3c553d24" class="">WSL<div class="indented"><p id="e85a01aa-4a30-4ac0-a160-5e7866af2f95" class="">为什么需要？<div class="indented"><p id="152797c7-285e-4a1a-a085-c721c063331c" class="">可以直接在WINDOWS操作系统上安装Linux应用和工具，不必再像以前使用虚拟机了<div class="indented"><pre id="02cafb65-a090-4322-a106-908b3a859e7f" class="code code-wrap"><code>wsl.exe -l -o #列出可支持的linux distribution
+wsl.exe --install -d &lt;Distribution Name&gt; 安装
+</code></pre></div></p><p id="15cbc52e-97cc-4a43-b48e-7315021b1661" class="">安装出现，解决参考：<a href="https://github.com/microsoft/WSL/issues/4299">https://github.com/microsoft/WSL/issues/4299</a></p><p id="e00a1464-12c6-4dcb-b68c-0038decde315" class="">WSL教程:<a href="https://docs.microsoft.com/zh-cn/windows/wsl/">https://docs.microsoft.com/zh-cn/windows/wsl/</a></p><p id="4f53d006-ec8e-4eef-8424-f0421d3273e9" class="">
+</p></div></p></div></p><h1 id="61765493-58ee-440d-b15f-24123826c436" class=""><time>@October 25, 2021</time> </h1><p id="32ee6d35-b764-427e-b12d-26763aaace57" class="block-color-orange">问题</p><ul id="605e9467-dec6-4600-adbe-173f001c7338" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">这有什么用途?
+agent { label  &quot;build&quot; }
+options {
+skipDefaultCheckout true
+}</mark></li></ul><ul id="69bb4ae4-b184-4c70-a552-24d71387e73b" class="block-color-red bulleted-list"><li style="list-style-type:disc">harbor<mark class="highlight-orange">如何清理?如何如何作权限的管理?</mark></li></ul><ul id="ad2bbc56-4a37-49f4-8bb0-78235a67723f" class="block-color-red bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">在非容器场景下, 如何实现CD?</mark></li></ul><ul id="711e6009-e630-487d-a890-99d56f1e7fa6" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">镜像名称规范? 参考：</mark><a href="https://stevelasker.blog/2018/03/01/docker-tagging-best-practices-for-tagging-and-versioning-docker-images/">https://stevelasker.blog/2018/03/01/docker-tagging-best-practices-for-tagging-and-versioning-docker-images/</a><ul id="5b04ec23-d9be-4a0a-87b5-cb857c4d7939" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">在开发环境，采用commit-id的比较多</mark></li></ul></li></ul><ul id="247bffe3-83f3-4894-975b-a2991b462d0a" class="bulleted-list"><li style="list-style-type:disc">prometheus<ul id="629b12e0-f567-4926-9582-de74f05c92b6" class="bulleted-list"><li style="list-style-type:circle">K8S中Services变动频繁，如何动态获取到target？</li></ul><ul id="ab7f1df2-9730-4214-8f26-cd04474b40ab" class="bulleted-list"><li style="list-style-type:circle">PromQL如何学？</li></ul></li></ul><p id="aca2983b-6f59-41a2-8f90-79d050ce2d5a" class="">
+</p><p id="eff148f6-8fe2-4cdc-ab4c-8373a8770bd5" class="">
+</p><p id="9d658c97-0374-4ef9-8240-24659ac7f7e2" class="">
+</p><p id="c217daf2-dd72-4c90-860c-3ab22fca9805" class="">学习计划<div class="indented"><p id="33deb7d4-ac41-4e7e-ba69-de0a2b506de8" class="">python
+监控
+微服务</p></div></p><p id="e3da24db-bdd4-42b1-9805-b65a9ab36f03" class="">复习<div class="indented"><p id="564e12d6-fb87-4dca-8948-28b7a02ed0ee" class="">ansible</p><p id="1fc51114-81c0-4b47-bba9-c276b280ed2d" class="">ES+elasticSearch</p><p id="688f3d0d-ecab-44a0-8d37-c82c1ebc1787" class="">Jenkins多分支+input+构建参数化
+</p></div></p><p id="342e57ad-d7e5-4cd0-a5ed-f559db4e140a" class="">Prometheus<div class="indented"><p id="8e34ff29-760d-4740-a9d0-bb282acc3865" class="">PromQL归纳<div class="indented"><pre id="3b3f56db-a99d-498e-b7b3-538c7cc685ab" class="code code-wrap"><code>rate(&lt;metric名字&gt;[&lt;数字&gt;&lt;时间单位单位&gt;])
+例子：rate(http_server_requests_seconds_count[5m])
+</code></pre></div></p><p id="bfc94887-3338-437e-85c6-77223f185b7d" class="">告警-alertmanager<div class="indented"><p id="5abfb5a0-291e-4e92-bc16-80d5c059e8d2" class="">alertmanager是一个单独的服务，也是一个组件，用于发送告警给接收者</p><p id="ec2c62b5-be36-45a5-b7c9-49970eac82eb" class="">需关心的：</p><ul id="a6a13aec-90dc-4193-9bd1-1809b4148832" class="bulleted-list"><li style="list-style-type:disc">服务还在运行么？</li></ul><ul id="bfd545d5-426c-4d37-a29b-ec5a42479eab" class="bulleted-list"><li style="list-style-type:disc">请求率是否达到最高？</li></ul><ul id="9bba3fb9-4fe3-4c72-bb33-0b1688199d7f" class="bulleted-list"><li style="list-style-type:disc">CPU和内存使用率≥95?</li></ul><p id="47b8302c-966b-4c26-982b-761ecd8b6de0" class="">两个需弄清楚的概念：<div class="indented"><ul id="14e0bc31-4bb7-4bbe-8119-cd1069d6ed84" class="bulleted-list"><li style="list-style-type:disc">receiver：定义告警的接收者，比如邮箱接收者，或者钉钉接收者</li></ul><ul id="34594ab3-292c-4e99-845d-79f217cc522b" class="bulleted-list"><li style="list-style-type:disc"> route：告诉alertmanager向哪个接收者发送告警</li></ul></div></p><p id="2067ec99-e4f4-444a-9032-5cc50386d922" class="">prometheus配置文件能做哪些事情<div class="indented"><ul id="4f18bcc4-8b30-4a1c-8933-0f15acdd14bb" class="bulleted-list"><li style="list-style-type:disc">告诉prometheus 需要采集的endpoint是什么<pre id="a2122a00-4ee9-4200-ae52-fa864f2547d5" class="code code-wrap"><code>- job_name: node
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - &quot;192.168.31.101:9100&quot;
+        - &quot;192.168.31.251:9100&quot;
+        - &quot;127.0.0.1:9090&quot;   #Prometheus自己的endpoint</code></pre></li></ul><ul id="70dd2e09-3c49-4fc9-ba7e-c9e66520ab56" class="bulleted-list"><li style="list-style-type:disc">如何label</li></ul><ul id="2d9c7afd-cd1d-4b09-989c-a0fdeae98e8b" class="bulleted-list"><li style="list-style-type:disc">告警规则是什么</li></ul><ul id="1ab83025-0723-408e-86a4-e417fd52bbe8" class="bulleted-list"><li style="list-style-type:disc">当规则firing时，如何通过alertmanager发送给接收者</li></ul></div></p><p id="1cbb89d9-8b5e-43ae-b92d-00d53c9b5406" class="">部署alertmanager和配置告警<div class="indented"><ol type="1" id="2791a04e-f7a2-4d23-8480-f3469eb1bfa2" class="numbered-list" start="1"><li>设置alertmanager.yml配置文件并启动alertmanager</li></ol><ol type="1" id="a6e5dece-3f93-4613-884c-46dda3909e05" class="numbered-list" start="2"><li>设置rules</li></ol></div></p><p id="f95dd0d1-cc76-4101-b098-f1d060c4cccd" class="">
+</p><p id="d336119e-bfc6-4155-afb5-5d3c0617b698" class="">PromSQL入门</p><ul id="e8d6c468-f832-446d-b465-9d55e748b615" class="bulleted-list"><li style="list-style-type:disc">选择serie<ul id="36448c22-c81f-4de2-8bd5-24a73766ee14" class="bulleted-list"><li style="list-style-type:circle">用metric名字，返回相同metric名字的所有serie<figure id="15766709-38c7-4c17-9e08-c91339735cec" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%206.png"><img style="width:336px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%206.png"/></a></figure></li></ul><ul id="10faea0b-91e2-4f84-934e-da6e51b01631" class="bulleted-list"><li style="list-style-type:circle">用metric名字+标签</li></ul><ul id="cc656a88-de22-4f99-b070-3c9dcdf8171b" class="bulleted-list"><li style="list-style-type:circle">使用时间范围<figure id="afa58dcf-7357-4046-a2dc-5446601bba89" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%207.png"><img style="width:336px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%207.png"/></a></figure></li></ul><ul id="293dd29a-0c96-41d3-9857-f773bd0350c5" class="bulleted-list"><li style="list-style-type:circle">使用正则，对某个标签进行匹配，从而筛选出期望的serie<figure id="ea82b005-cfed-4fba-b926-c01f0405f358" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%208.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%208.png"/></a></figure></li></ul></li></ul><ul id="f53f2963-7a24-4c64-8f89-d0d66a369a23" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="6a81e809-b575-4731-a26a-b3ba0949dc9e" class="">通过PromSQL，按照USE方法监控硬件服务器的CPU/Mem/IO/Network</p><ul id="b354779f-2ce3-4231-9a7a-4dfe39f04c30" class="bulleted-list"><li style="list-style-type:disc">CPU:<p id="abf7cb53-810d-47c2-9e99-b95b4f0fe3ec" class=""><code>sum(rate(node_cpu_seconds_total{mode!=&quot;idle&quot;,mode!=&quot;iowait&quot;,mode!~&quot;^(?:guest.*)$&quot;}[5m])) BY (instance)</code></p><p id="67769301-c969-43ef-8159-5c89018d16f2" class="">
+</p></li></ul><p id="55e24817-a516-4bf4-a493-e8cf90bb0706" class="">
+</p></div></p><p id="b7e61808-3f79-475b-a4d5-585c52afff98" class="">
+</p><p id="3235fd3a-252f-488f-a92d-6f085045c2bf" class="">
+</p></div></p><h1 id="2cc03372-05d9-4444-9014-b557ffdd6b70" class=""><time>@October 26, 2021</time> </h1><p id="7c1d23d2-b83c-4d04-8a32-43264fdb1d06" class="">监控<div class="indented"><p id="3c226f92-17d1-4b9b-9eab-a6a5493ce599" class="">如何监控K8S的节点<div class="indented"><p id="9e08da11-4880-4507-8bd9-c544e37b430d" class="">监控CPU/内存/IO/网络<div class="indented"><ul id="63ea3e66-1b44-4b61-863b-72fffce3f156" class="bulleted-list"><li style="list-style-type:disc">Utility</li></ul><ul id="649b1221-9fea-4403-854b-3f3fddaf16a2" class="bulleted-list"><li style="list-style-type:disc">Saturate</li></ul><ul id="032162d0-f778-4534-b6fb-83d71399f51c" class="bulleted-list"><li style="list-style-type:disc">Error</li></ul><p id="6ef0f860-eff7-4ab1-9c8b-1f053f7a6faa" class="">
+</p></div></p><ol type="1" id="c3e9680d-5454-4fa8-ada0-c59103b4cb59" class="numbered-list" start="1"><li>从节点取到指标<blockquote id="8955f05b-7ac3-4fbb-8d50-4a766b4985e4" class=""><p id="3b003075-c994-4ede-b3dd-9a65fb73096c" class="">要启用 API 持有者令牌（包括服务帐户令牌）以对 kubelet 的 HTTPS 端点进行身份验证，请执行以下操作：</p><ul id="a7d734d4-f078-4322-96fb-7cc374205210" class="bulleted-list"><li style="list-style-type:disc">确保在 API 服务器中启用了 <code>authentication.k8s.io/v1beta1</code> API 组</li></ul><ul id="28a39014-212a-4f64-8f34-4c4e45d68a66" class="bulleted-list"><li style="list-style-type:disc">带 <code>-authentication-token-webhook</code> 和 <code>-kubeconfig</code> 标志启动 kubelet</li></ul><ul id="1e271c39-7a48-44e2-9588-1ca36a4ac048" class="bulleted-list"><li style="list-style-type:disc">kubelet 调用已配置的 API 服务器上的 <code>TokenReview</code> API，以根据持有者令牌确定用户信息</li></ul></blockquote><p id="d6397194-02eb-4494-9ed2-f3f8dd5c6364" class=""><a href="https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/#kubelet-%E9%89%B4%E6%9D%83"><strong></strong></a></p></li></ol></div></p><p id="9f057d03-9964-457c-be58-d20b1087f30b" class="">如何监控容器<div class="indented"><p id="a242b7ac-51ab-4978-be37-40a52168f038" class="">监控CPU/内存/IO/网络<div class="indented"><ul id="bc89e5cc-d094-4e69-b3f2-b0f8d478d59c" class="bulleted-list"><li style="list-style-type:disc">Utility</li></ul><ul id="6b67e70b-a938-4103-962d-8677367cac36" class="bulleted-list"><li style="list-style-type:disc">Saturate</li></ul><ul id="260936cb-87b1-4579-8644-4be9a94504ad" class="bulleted-list"><li style="list-style-type:disc">Error</li></ul></div></p></div></p><h1 id="eeb34c41-04bd-4d6a-9114-94dac4c1abf0" class=""><time>@October 27, 2021</time> </h1></div></p><p id="227de23c-8878-4e76-bfd4-e72a0722c933" class="">
+</p><h1 id="929811b4-ac33-4ce0-ba07-b6c1808546ae" class=""><time>@October 28, 2021</time> </h1><p id="df0c3488-5b41-431e-a679-3e2fbf3229e3" class="">
+</p><h1 id="0f567f9b-780a-4125-b2bc-282e69265838" class=""><time>@October 31, 2021</time> </h1><p id="399959b5-a907-40e1-b1b4-d425c9ea18a0" class="">
+</p><h1 id="f8f94ff9-12fc-4e48-a91f-6ef93234058e" class=""><time>@November 1, 2021</time> </h1><p id="9ea54baa-58c5-47c0-b61d-6bce5a419eea" class="block-color-orange">疑问<div class="indented"><p id="ed748c35-049b-4080-9ea3-67a5bbc8b2b7" class="">Grafana<div class="indented"><p id="3bac989c-12ff-4556-85a9-65e2227cf097" class="">如何导入dashboard文件？</p></div></p><p id="86ee561f-10eb-4ce4-8cc3-5b0c8a63e85d" class="">ES<div class="indented"><p id="d8199409-ceac-4241-b52e-46818adc7ca0" class="">传上来的日志没有时间，为什么？怎么解决？</p></div></p><p id="c03276c0-23e1-4c27-9023-6c96014a7b12" class="">fluentD<div class="indented"><p id="89bac89b-8b5f-44b7-a35b-7ec240e030b0" class="">如何优化索引：<a href="https://code.cash.app/tuning-elasticsearch-index-settings-for-logs">https://code.cash.app/tuning-elasticsearch-index-settings-for-logs</a></p><p id="2be7a32d-2b02-4b4c-9a53-b1e97668f6a3" class="">&lt;label @FLUENT_LOG&gt; 是什么？ 参考<a href="https://github.com/fluent/fluentd-kubernetes-daemonset/blob/master/docker-image/v1.11/debian-elasticsearch7/conf/kubernetes.conf">https://github.com/fluent/fluentd-kubernetes-daemonset/blob/master/docker-image/v1.11/debian-elasticsearch7/conf/kubernetes.conf</a></p><p id="781f2bcb-3ad4-40ef-8708-2bdb0d9651e7" class="">fluentD的elasticsearch插件，如何为index名称添加日期后缀</p><p id="39de01bb-c318-4f52-a1d2-f83a5e23ef87" class="">在什么场景下，需要搭配kafka</p><p id="0504796b-ef21-43d7-bc1e-edf8ef05d56d" class="">如何使用parse块</p><p id="ca7bb619-3480-4f9d-b4c9-c175b772ad0c" class="">ES6与ES7有大的区别么？<div class="indented"><p id="cd698949-9556-4fbc-be38-6aa60bbc029b" class=""><mark class="highlight-teal">比如type，ES7不再支持定义type，一个索引只有一个type就是_doc</mark></p></div></p><p id="5dd65a8e-2e35-4f0f-8a72-e37442698e45" class="">如何写parser插件？<a href="https://docs.fluentd.org/plugin-development/api-plugin-parser">https://docs.fluentd.org/plugin-development/api-plugin-parser</a> 目前还不需要知道</p><ul id="4da388d7-c74e-42a1-9ede-960fa1e146ea" class="toggle"><li><details open=""><summary>对于官方fluentD的配置，这些是不清楚的</summary><pre id="628ec7bf-3820-4ce4-806a-a2c71369e1ec" class="code code-wrap"><code>&lt;filter kubernetes.**&gt;
+watch &quot;#{ENV[&#x27;FLUENT_KUBERNETES_WATCH&#x27;] || &#x27;true&#x27;}&quot;
+&lt;/filter&gt;
+
+@id out_es
+   @log_level info
+   include_tag_key true
+   path &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_PATH&#x27;]}&quot;
+   scheme &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_SCHEME&#x27;] || &#x27;http&#x27;}&quot;
+   ssl_verify &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_SSL_VERIFY&#x27;] || &#x27;true&#x27;}&quot;
+   ssl_version &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_SSL_VERSION&#x27;] || &#x27;TLSv1_2&#x27;}&quot;
+   user &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_USER&#x27;] || use_default}&quot;
+   password &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_PASSWORD&#x27;] || use_default}&quot;
+   reload_connections &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_RELOAD_CONNECTIONS&#x27;] || &#x27;false&#x27;}&quot;
+   reconnect_on_error &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_RECONNECT_ON_ERROR&#x27;] || &#x27;true&#x27;}&quot;
+   reload_on_failure &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_RELOAD_ON_FAILURE&#x27;] || &#x27;true&#x27;}&quot;
+   log_es_400_reason &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_LOG_ES_400_REASON&#x27;] || &#x27;false&#x27;}&quot;
+   target_index_key &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_TARGET_INDEX_KEY&#x27;] || use_nil}&quot;
+   type_name &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_LOGSTASH_TYPE_NAME&#x27;] || &#x27;fluentd&#x27;}&quot;
+   template_name &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_TEMPLATE_NAME&#x27;] || use_nil}&quot;
+   template_file &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_TEMPLATE_FILE&#x27;] || use_nil}&quot;
+   template_overwrite &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_TEMPLATE_OVERWRITE&#x27;] || use_default}&quot;
+   sniffer_class_name &quot;#{ENV[&#x27;FLUENT_SNIFFER_CLASS_NAME&#x27;] || &#x27;Fluent::Plugin::ElasticsearchSimpleSniffer&#x27;}&quot;
+   request_timeout &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_REQUEST_TIMEOUT&#x27;] || &#x27;5s&#x27;}&quot;
+   suppress_type_name &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_SUPPRESS_TYPE_NAME&#x27;] || &#x27;true&#x27;}&quot;
+   enable_ilm &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_ENABLE_ILM&#x27;] || &#x27;false&#x27;}&quot;
+   ilm_policy_id &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_ILM_POLICY_ID&#x27;] || use_default}&quot;
+   ilm_policy &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_ILM_POLICY&#x27;] || use_default}&quot;
+   ilm_policy_overwrite &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_ILM_POLICY_OVERWRITE&#x27;] || &#x27;false&#x27;}&quot;
+   &lt;buffer&gt;
+     flush_thread_count &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_BUFFER_FLUSH_THREAD_COUNT&#x27;] || &#x27;8&#x27;}&quot;
+     flush_interval &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_BUFFER_FLUSH_INTERVAL&#x27;] || &#x27;5s&#x27;}&quot;
+     chunk_limit_size &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_BUFFER_CHUNK_LIMIT_SIZE&#x27;] || &#x27;2M&#x27;}&quot;
+     queue_limit_length &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_BUFFER_QUEUE_LIMIT_LENGTH&#x27;] || &#x27;32&#x27;}&quot;
+     retry_max_interval &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_BUFFER_RETRY_MAX_INTERVAL&#x27;] || &#x27;30&#x27;}&quot;
+     retry_forever true
+   &lt;/buffer&gt;</code></pre></details></li></ul></div></p><p id="db6f6b61-ded3-43a2-a079-17ae3811161d" class="">dockerbuild<div class="indented"><p id="79b254aa-80d8-419c-878f-0f9992f13979" class="">v1.14.1-debian-elasticsearch6-1.0 这个tag，是什么意思？</p><p id="3fbc2250-392b-4b68-933f-eb7d7ddf324e" class="">对于apt，如何使用国内镜像</p><p id="51f8b92c-2117-4ef3-b3e6-1790053606e5" class="">对于ruby，如何使用国内镜像</p><p id="fe88fc1f-36bf-4914-9447-3a13c28e41b0" class="">如何在fluentd基础镜像基础上，加入需要的插件，构建一个新fluentd镜像？<div class="indented"><p id="9f5e51a5-d2cf-469b-a971-478fbd4b1ea5" class="">→对插件要了解，目前还不清楚，总结一下有哪些<div class="indented"><ul id="f3319d4d-e169-4801-b3a7-e91e24f666f4" class="bulleted-list"><li style="list-style-type:disc">自带的插件：input、output、部分parser插件(不知道是否总结全)</li></ul><ul id="b4ade824-def3-45e4-92c8-2e943baef923" class="bulleted-list"><li style="list-style-type:disc">kubernetes</li></ul></div></p><p id="7e06c1c6-a8ba-40f3-bf10-09c4a862d35a" class="block-color-teal">→官方git专门提供了K8S的fluentd-kubernetes-daemonset，提供了若干场景的Dockerfile和相关文件，可依据自己场景选择然后自行docker build<div class="indented"><p id="63916c78-b8bf-4c58-8cd6-9eab3bf8642d" class=""><a href="https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/v1.11">https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/v1.11</a> 这是官方git，docker-image/下，可选择ES6或ES7的场景，目前还不清楚两者差别，因为对ES6和7不了解；在根目录放着对应场景的K8S资源清单</p></div></p></div></p></div></p><p id="b6c621be-ec1d-474b-b656-6ce6a4bbb718" class="">K8S<div class="indented"><p id="e3debe63-d77d-4beb-93e3-68a88886a82f" class="">为什么kubelet的服务端证书(kubelet.crt)签发者不是集群CA, 而是<code>Issuer: CN=master01-ca@1631707730</code></p></div></p><p id="7d9164ff-a8ff-4261-87c7-0807cb953797" class="block-color-teal_background">监控<div class="indented"><p id="9f0e74ab-1abe-4e56-81d5-ce1a488f9588" class="">USE和RED概念<div class="indented"><p id="df5ea7f3-e525-4829-83d5-9c4d211c1107" class="">USE, 对于服务器和容器，衡量硬件资源：CPU，内存，网络<div class="indented"><ul id="0cc4e106-377b-4a7c-848e-f47827f2f86f" class="bulleted-list"><li style="list-style-type:disc">Utilization the average time that the resource was busy servicing work</li></ul><ul id="1e4743e7-3e05-423f-8952-170383ff11a3" class="bulleted-list"><li style="list-style-type:disc">Saturation: the degree to which the resource has extra work which it can&#x27;t service often queued<figure id="deba7c4a-68bb-4ac3-8693-973e81cc6db5" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%209.png"><img style="width:384px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%209.png"/></a><figcaption>你的利用率仪器已经爆表，超过了最大利用率，这超过的部分如何度量呢？用Saturation饱和度，不使用SWAP的主机不需要测量饱和度，比如K8S节点</figcaption></figure></li></ul><ul id="7e23d3de-1555-40b5-9869-eba3fb71a0fa" class="bulleted-list"><li style="list-style-type:disc">Errors: the count of error events</li></ul></div></p><p id="800b1e5c-bd10-4727-9454-49985897cef3" class="">RED, 对于服务<div class="indented"><ul id="05addc77-757e-4dec-b9dc-29ad56a95e8f" class="bulleted-list"><li style="list-style-type:disc">Rate:  the number of requests per second</li></ul><ul id="7d7f9256-20a9-4cf4-b174-a59ad5f9bfae" class="bulleted-list"><li style="list-style-type:disc">Errors: the number of errors per second</li></ul><ul id="6f9f3d6e-8a15-43d5-98fe-a1d741967ad3" class="bulleted-list"><li style="list-style-type:disc">Duration: the length of time required to service the request</li></ul></div></p></div></p><p id="35717843-5549-49bf-b38d-9182a3018a90" class="">Kubernetes同时需要使用上面两个：<div class="indented"><p id="1295a129-cd74-4632-9e4e-3ddaf217ad99" class="">Node指标来自<strong>node_exporter</strong><div class="indented"><figure id="029ff5d1-5d75-49ac-81e3-873c4cf5bf29" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2010.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2010.png"/></a></figure><ul id="53c3e4b9-950d-4a48-8d67-dc05fac3edb0" class="bulleted-list"><li style="list-style-type:disc">USE for Node CPU<p id="62ef8b95-4b83-40df-af4d-30390b3b3b65" class="">node-exporter v1.2.2 CPU mode共8个: user, system, nice, idle, iowait, steal, soft_irq and irq. 没有guest, guest_nice</p><pre id="049435d7-98e1-4d90-aaa2-b70099d36d5a" class="code code-wrap"><code>#Utilization
+sum(rate(node_cpu_seconds_total{mode!=&quot;idle&quot;,mode!=&quot;iowait&quot;}[5m])) BY(instance)
+
+#Saturation
+sum(node_load1) BY(instance)/count(node_cpu_seconds_total{mode=&quot;system&quot;}) BY(instance)
+
+#errors
+#关于CPU错误，node-exporter是不采集的</code></pre></li></ul><ul id="be3efabc-ee43-4f04-8fc1-630c3f03a74c" class="bulleted-list"><li style="list-style-type:disc">USE for Node Memory<figure id="13ffabc3-856d-4117-9e1d-740392f7d1a5" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2011.png"><img style="width:720px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2011.png"/></a></figure><p id="8043947f-85b6-4a09-b5ea-7389389186bd" class="">内存与CPU不同，它不能将目前处理不了的工作排进队列 ☠️</p><pre id="9873b543-99fd-4789-a106-edc30fe337cf" class="code code-wrap"><code>#Utilization
+1 - sum(node_memory_MemAvailable_bytes) by (instance) / sum(node_memory_MemTotal_bytes) by (instance)
+
+#Saturation，Kubernetes Node禁止使用SWAP，所以不用采集
+#当Linux系统内存使用超过一定阈值时,会将最近不用的page移到SWAP分区，以空出内存。
+</code></pre></li></ul><ul id="ec93ac2a-2239-457e-8ca5-bec6bc119361" class="bulleted-list"><li style="list-style-type:disc">USE for Disk<p id="3917b409-ea5a-4d14-854b-2fd3169e5a7d" class="">💡Disk capacity is the amount of data that a disk can store (i.e. how full/empty is my disk) 
+💡disk throughput is how much can I read/write to the disk per second.</p><pre id="08ec077d-05da-4129-bf1d-f403e7858131" class="code code-wrap"><code>
+#使用空间
+#Utilization
+1 - node_filesystem_free_bytes{fstype=&quot;xfs&quot;,mountpoint=~&quot;.*&quot;} / node_filesystem_size_bytes{fstype=&quot;xfs&quot;,mountpoint=~&quot;.*&quot;}
+#Saturation
+node_filesystem_free_bytes{fstype=&quot;xfs&quot;,mountpoint=~&quot;.*&quot;} / node_filesystem_size_bytes{fstype=&quot;xfs&quot;,mountpoint=~&quot;.*&quot;}
+
+#吞吐量计算
+(空)</code></pre></li></ul><ul id="a481d8c1-c745-4edb-98f4-1d083ad1b063" class="bulleted-list"><li style="list-style-type:disc">USE for Network<p id="7efe807f-f5a7-4171-9561-03abc970e744" class="">😕<mark class="highlight-orange">Utilization只能看出每秒的收发量，如果看到与总量的比值是否更好？如果是该怎么做？</mark></p><pre id="db0e1f1f-3053-4dee-be11-e277224627a5" class="code code-wrap"><code>#Utilization
+rate(node_network_receive_bytes_total{device=~&quot;(ens|eth).*&quot;}[5m]) + rate(node_network_transmit_bytes_total{device=~&quot;(ens|eth).*&quot;}[5m])
+#Saturation
+rate(node_network_receive_drop_total{device=~&quot;(eth|ens).*&quot;}[5m]) + rate(node_network_transmit_drop_total{device=~&quot;(eth|ens).*&quot;}[5m])</code></pre></li></ul></div></p></div></p><p id="e7867760-773e-4c1a-86a7-3a51d8b1c8e0" class="">Container指标<div class="indented"><ul id="2a20f808-c6cd-403e-94d2-f3a471ccbf60" class="bulleted-list"><li style="list-style-type:disc">kubelet, 以Prometheus格式，将所有<strong>容器运行时指标和cAdvisor指标</strong>暴露到<code>/metrics</code> </li></ul><ul id="5e62fbed-a8ea-437c-8f02-8a6f943c822a" class="bulleted-list"><li style="list-style-type:disc">cAdvisor指标其实是来自于Linux底层Cgroup报告的指标</li></ul><ul id="575650e0-3f1e-4b59-8a62-6c3810a4f049" class="bulleted-list"><li style="list-style-type:disc">requst：运行程序所需要的资源，如不设置则默认等于limit<p id="7115c615-7a85-4201-8bac-bf9adcf1f19c" class="">limit: 容器可以 使用的最大资源，超过CPU limit则被&quot;卡住&quot;，超过Mem limit则容器被&quot;干掉&quot;</p></li></ul><figure id="ab692f99-e154-40ce-996b-5b9fccc7f2f5" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2012.png"><img style="width:480px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2012.png"/></a></figure><ul id="d010de2a-48ed-4d46-ae7c-aa32d48e0d02" class="bulleted-list"><li style="list-style-type:disc">USE for Container CPU<pre id="7a27b3fc-0d92-4cd4-941c-af88c7eed946" class="code code-wrap"><code>#utilization
+rate(container_cpu_usage_seconds_total[5m])
+
+#saturation 当容器设置limit且超过时，这个容器会被throttled，kube-metric-status将throttle情况写到container_cpu_cfs_throttled_seconds_total指标
+rate(container_cpu_cfs_throttled_periods_total[5m])
+
+#Errors，不提供CPU错误</code></pre><figure id="ce95cc9c-9a2b-4c6a-aaff-28095c3a1f7f" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2013.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2013.png"/></a></figure></li></ul><ul id="c7fa1047-f32e-474c-93b8-f7fb36439c12" class="bulleted-list"><li style="list-style-type:disc">USE for Container Memory<pre id="081afa49-0580-4ae5-8334-a68ccc7fd88c" class="code code-wrap"><code>#utilization
+container_memory_working_set_bytes{container!=&#x27;POD&#x27;}
+#补充： we need to exclude the container who’s name contains “POD”. This is parent cgroup for this container and will track stats for all the containers in the pod.
+
+#saturation 这里我按照Pod级别统计的，也可以按照container级别
+100 * sum(container_memory_working_set_bytes{container!=&#x27;POD&#x27;}) by(pod) / sum(kube_pod_container_resource_limits{container!=&#x27;POD&#x27;}) by(pod)
+</code></pre><figure id="d44a538d-4488-424d-bd29-b53aeed55484" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2014.png"><img style="width:672px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2014.png"/></a></figure><pre id="e56a6e44-08ac-4c4c-b8ce-9fef1394b21d" class="code code-wrap"><code>#utilization
+sum(rate(container_fs_writes_bytes_total[5m])) by (container,device) + sum(rate(container_fs_reads_bytes_total[5m])) by (container,device)
+
+#saturation和errors 目前没有有效的方法
+sum(rate(container_network_receive_packets_dropped_total[5m])) by(name) + sum(rate(container_network_transmit_packets_dropped_total[5m])) by(name)</code></pre><p id="3cdf1cf1-61fd-45f3-9ac2-cc7d49cbc96a" class="">如果清楚容器内存饱和度，就可知道它离内存限制还有多少，以便把控（增加）</p></li></ul><ul id="2e5c0547-8bf5-4941-acdd-c2d3fe587246" class="block-color-orange bulleted-list"><li style="list-style-type:disc">USE for networking<pre id="50101eb0-9e26-42a3-bee2-9522d9b8fb02" class="code code-wrap"><code>#utilization
+sum(rate(container_network_receive_bytes_total[5m])) by (name) + sum(rate(container_network_transmit_bytes_total[5m])) by (name)
+
+#saturation
+sum(rate(container_network_receive_packets_dropped_total[5m])) by(name) + sum(rate(container_network_transmit_packets_dropped_total[5m])) by(name)
+
+#errors
+sum(rate(container_network_receive_errors_total[5m])) by(name) + sum(rate(container_network_transmit_errors_total[5m])) by(name)</code></pre></li></ul><p id="dbf74596-83bd-4ddf-bebc-ed5377ac943a" class="">API Controller的指标<div class="indented"><pre id="addb3d72-71b0-4b7a-bf36-986d7458184f" class="code code-wrap"><code>#utilization
+sum(rate(apiserver_request_total[5m]))
+sum(rate(apiserver_request_total[5m])) by(code,resource)
+
+#errors
+rate(apiserver_request_count{code=~&quot;^(?:5..)$&quot;}[5m]) / rate(apiserver_request_count[5m])
+100 * sum by (instance,job) (rate(rest_client_requests_total{code!~&#x27;2..&#x27;}[5m])) /
+sum by (instance,job) (rate(rest_client_requests_total[5m]))
+#两者有什么区别?
+
+#duration
+histogram_quantile(0.9, sum(rate(apiserver_request_latencies_bucket[5m])) 
+by (le, resource, subresource, verb) ) / 1e+06</code></pre><figure id="ad5ab341-2844-4b06-a84a-c8cf16058a31" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2015.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2015.png"/></a></figure><ul id="f4fb1a34-2398-4ed1-b389-64f7a8aff771" class="bulleted-list"><li style="list-style-type:disc">RED for API Server<figure id="4312a530-97c6-47ed-8dce-d7413922a9cd" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2016.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2016.png"/></a></figure></li></ul><ul id="e49927cb-d083-4f97-ac57-e7acf772d089" class="bulleted-list"><li style="list-style-type:disc">kube-state-metrics 非常有用的<figure id="046030c3-5033-4799-82d5-ada19d33b87c" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2017.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2017.png"/></a></figure></li></ul><ul id="a14042d4-8fc7-4a3f-b3ba-f9e3bdbb66fe" class="bulleted-list"><li style="list-style-type:disc">ETCD指标<figure id="a244a8c6-7d49-4d6b-a415-11faafb64222" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2018.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2018.png"/></a></figure><p id="0a4ce335-4078-4075-916e-034b90bd0ba4" class="">磁盘IO性能非常重要</p><p id="92e9ba65-0142-437a-942a-f628e7a300d5" class="">gRPC是什么？</p></li></ul></div></p></div></p><p id="1aa9a8ee-463b-4f41-b813-fa60889ed09a" class="">
+</p></div></p><p id="817bfda1-8785-4625-9cbf-404d948fcbd7" class="">Prometheus Operator<div class="indented"><p id="d2f2681f-7076-4340-94f6-9730681d52f2" class="">node-exporter安装<div class="indented"><pre id="60162414-8cc5-4c55-a7c3-d306602b0d43" class="code code-wrap"><code>https://github.com/prometheus-operator/kube-prometheus/blob/main/manifests/node-exporter-daemonset.yaml</code></pre><p id="04154814-aff3-463f-af61-9c930118a9a1" class="">
+</p></div></p></div></p></div></p><h1 id="a3a4f1a1-e39e-4e6c-b42d-f9ec0854386f" class=""><time>@November 6, 2021</time> </h1><p id="f2aea647-5ca6-4b5e-bd75-46c3815817ad" class="block-color-red">忘了和做错了哪些？<div class="indented"><p id="8aad6fd2-618a-4659-820c-09f8545ecd44" class="">k8s<div class="indented"><p id="efd87cc0-b128-4610-aeac-1a8ec71790a8" class="">kubectl api-resources -o wide</p><p id="2c0a6380-1cbc-4771-bc3f-bb6c70511d33" class="">kubeadm安装方式，控制组件的文件放在哪里？</p><p id="2f94e01f-8db9-4f5e-ad80-a618a18279c9" class="">新集群建立的24小时之后，token就会更新，此后不可再用原日志中的添加节点命令去添加新工作节点，该怎么办？<div class="indented"><pre id="8c51a14a-3d56-4756-8252-fff3d2895ea2" class="code code-wrap"><code># master 查看节点检查token是否有效
+kubeadm token list
+# 生成新的token和命令。然后在node重新执行
+kubeadm token create --print-join-command
+#复制粘贴到工作节点上即可</code></pre></div></p></div></p><p id="db38d087-95ca-4c49-b4fa-e27bc970693e" class="">docker<div class="indented"><p id="ccd2d941-7350-49e1-b28e-baecb91bda2f" class="">docker-compose文件是<code>docker-compose.yaml</code></p><p id="c125f295-05ff-44cf-93f4-c36913e11f8d" class="">docker-compose <code>Version</code> 字段的值是字符串</p><p id="e0e18872-6183-4168-aba5-5824e3f6fb57" class="">如果你不知道当前ES节点是什么版本，用什么查看？<code>curl -XGET http://192.168.31.201:9200/?pretty </code></p></div></p><p id="d8d1df22-b424-4f0b-9580-4ed523a36690" class="">groovy <div class="indented"><p id="e5340818-67fc-48d8-88ce-1662359182f5" class="">解释性字符串中的变量如何引用</p><p id="e2dd3dc0-1e74-4f7a-b36b-5be79aaf066a" class="">映射赋值如何做</p><p id="c95f22a9-f4d6-4865-989e-d285a382a46a" class="">判断赋值怎么做</p></div></p><p id="26b0c12f-2948-4b8f-81de-9853e40e2d9f" class="">ansible<div class="indented"><p id="62310d88-31ac-4aa6-b3f9-23b9813ccf00" class="">yum模块参数state有present和absent</p><p id="a432c9a9-5441-43c5-8ce3-fa8a1d69c490" class="">jinjia if和for是单花括号{%%}</p><p id="99dd87fb-b95c-47ab-8fbd-010f7a8bb77d" class="">inventory_hostname注意不要写错了</p><p id="49a7b613-1077-4e4f-94eb-0b1f2523ae1c" class="">在jinja模板里，请不要为{{}}打上双引号, 双引号不被渲染而是直接留下来</p><p id="30ac8169-29b4-48ef-8075-c9e6c5cdbfe3" class="">groups<div class="indented"><pre id="e6190bad-c07c-4dec-ad7f-a1347f5eb7eb" class="code code-wrap"><code>#每个host都有对应groups built-in变量
+
+&quot;groups&quot;: {
+    &quot;all&quot;: [        #inventory文件中的所有主机名称列在all的列表中
+        &quot;node-02&quot;, 
+        &quot;node-01&quot;, 
+        &quot;node-03&quot;
+    ],                   #inventory文件中所有的组都列出来，列表是它的成员
+    &quot;elasticsearch0&quot;: [   
+        &quot;node-01&quot;
+    ], 
+    &quot;elasticsearch1&quot;: [   #涉及的组
+        &quot;node-02&quot;
+    ], 
+    &quot;elasticsearch2&quot;: [   #涉及的组
+        &quot;node-03&quot;
+    ], 
+    &quot;ungrouped&quot;: []
+}
+
+例子：
+- name: add host record to /etc/hosts
+    lineinfile:
+        dest: /etc/hosts
+        regex: &quot;^{{ hostvars[item].ansible_ssh_host }} .*&quot;
+        line: &quot;{{ hostvars[item].ansible_ssh_host }} {{item}}&quot;
+    with_items: &quot;{{ groups.all }}&quot;  #得到列表</code></pre></div></p></div></p></div></p><p id="6211db62-0eb4-4915-9ef4-c8160ccfe147" class="">
+</p><p id="811ecc61-5e2b-4cd9-802a-9a5e7f597b15" class="">Ingress基础知识整理<div class="indented"><p id="f025d683-1adf-40e0-929b-759ef2eeecf2" class="">How Ingress-Nginx works<div class="indented"><p id="00db22db-4857-418f-b41d-d9436a893fd6" class="">
+</p></div></p><p id="895d2d15-d882-48c1-a710-ff325805abec" class="">在Kubernetes有两种Ingress-nginx：<div class="indented"><ul id="27cf1702-da9a-4e60-9258-515701550fcf" class="bulleted-list"><li style="list-style-type:disc">Nginxinc/Kubernetes-Ingress 更加活跃<ul id="4a8b0fae-12a5-4f8d-be25-84e55862da38" class="bulleted-list"><li style="list-style-type:circle">来自kubernetes社区</li></ul><ul id="9512934f-0565-457a-88ab-a37819cb3079" class="bulleted-list"><li style="list-style-type:circle">自定义NGINX构建，包含一些nginx第三方模块</li></ul><ul id="030b3496-45f4-42cf-8351-0945da3cb8d6" class="bulleted-list"><li style="list-style-type:circle">所有Ingress Resource在一个配置文件中</li></ul></li></ul><ul id="600a5fed-698c-4258-9d1f-8cad601f122f" class="bulleted-list"><li style="list-style-type:disc">Kubernetes/Ingress-Nginx 更加稳定<ul id="c59533ea-abce-4c05-b010-670eb91f99c3" class="bulleted-list"><li style="list-style-type:circle">来自NGINX inc. and Community</li></ul><ul id="d7100b68-9d27-450c-a08b-78e36a0364ec" class="bulleted-list"><li style="list-style-type:circle">Official NGINX build</li></ul><ul id="12ba34ff-c63a-46d1-aed7-bc687d645a14" class="bulleted-list"><li style="list-style-type:circle">每个Ingress Resource有独立的配置文件</li></ul></li></ul></div></p><p id="95b9c66f-e7d0-459f-afbc-19e4fb59cf38" class="">部署<div class="indented"><pre id="6740a3b1-b09c-49a0-84cc-ccf83a952645" class="code"><code>helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm repo update
+
+helm pull ingress-nginx/ingress-nginx
+tar xf ${tar包}
+vim values.yaml
+  #将.Values.kind改为DaemonSet
+    kind: DaemonSet
+  #将.Values.hostNetwork
+		hostNetwork: true		
+  #将.Values.hostPort.enabled
+		hostPort:
+		    enabled: true
+
+kubectl create ns ingress-nginx
+helm upgrade --install -n ingress-nginx ingress-nginx</code></pre><p id="9a8c1e37-2df1-49fd-ac81-1da7f6361923" class="">💡控制Ingress-Nginx在指定的Node上运行，这个方法好！<div class="indented"><pre id="b0daa7cd-2d4e-4e0e-b7e1-a16a95d44787" class="code"><code></code></pre></div></p><p id="ba5f6842-87be-40a6-b85a-efaa8f5985f9" class="">做到这一步，Nginx-Ingress就部署好了，接下来可以定义ingress资源对象了</p><p id="09582fa2-8470-4a64-ae0c-2b274358b113" class="">😕关于ingress对象，应该有哪些知识点需要了解？</p></div></p></div></p><p id="13018e88-ab82-40fa-bad8-41ce4bb20c4b" class="">
+</p><p id="56b8dece-245b-462f-b329-a1af40ada499" class="">Cert-Manager<div class="indented"><p id="5da878e8-7b41-4d89-9ab2-e5919d60b368" class="">❓有什么用：为便捷实现Ingress-Nginx的TLS功能，需要借助Cert-Manager</p><p id="c5feea55-adf9-4d76-a8a2-766ee09a4ae6" class="">部署<div class="indented"><pre id="64cc86d8-dc8d-43fe-a918-adbb274108ac" class="code"><code>#安装CRD Custom Resources Definition
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.6.1/cert-manager.crds.yaml
+challenges/orders/certificaterequests/certificates/clusterissuers/issuers/certificatesigningrequests
+
+helm pull jetstack/cert-manager                           
+tar xf cert-manager-v1.6.1.tgz
+helm upgrade -n cert-manager --install cert-manager cert-manager</code></pre></div></p></div></p><p id="02821360-f974-45a3-b9d4-42231f5af7a5" class="">
+</p><h1 id="0301a7b9-62f9-44ab-aa70-fcb685abea7d" class=""><time>@November 23, 2021</time> </h1><h1 id="ad25da08-8695-4c47-ac1d-d994c2347f98" class=""><time>@November 24, 2021</time> </h1><h1 id="acc3c882-0119-40b5-b648-8c0727539d0a" class=""><time>@November 25, 2021</time> </h1><p id="4bedfe4a-9561-44b3-bc36-b2a09bbb4c1d" class="">AWS DEVOPS<div class="indented"><p id="d18336a1-0f5f-45a3-9aba-3fd9bff351ca" class="">不懂的基础概念</p><ul id="c9d821e7-2f72-4178-917c-c4042c0afb80" class="bulleted-list"><li style="list-style-type:disc">什么是role?</li></ul><p id="4a15d983-bf1a-41a5-be9a-d773bbab51fc" class="">涉及DEVOPS的概念:</p><ul id="776c3440-a8f9-4247-ad4d-7542257bdb0b" class="bulleted-list"><li style="list-style-type:disc">Elastic Beanstalk 提供了一个底层环境 用于运行应用 </li></ul><ul id="dac843f9-a061-43bd-9cb1-3b2f4afa64a5" class="bulleted-list"><li style="list-style-type:disc">CodeBuild: compile + test + package + parallel build execution</li></ul><ul id="4560360f-98a9-4da9-840e-542cda774087" class="bulleted-list"><li style="list-style-type:disc">CodePipeline </li></ul><ul id="16d17ab1-9e7a-4844-b550-285cf49d823d" class="bulleted-list"><li style="list-style-type:disc">CodeDeploy</li></ul><p id="77c43b14-c7c6-431c-8a31-b61b7f2e7305" class="">涉及DEVOPS的不懂的</p><ul id="4fc7b05c-322d-45ad-8220-66fd6146eeae" class="bulleted-list"><li style="list-style-type:disc">buildSpec</li></ul><p id="4e7584c7-f015-44bd-9268-80e4ad7d5755" class="">
+</p></div></p><p id="d98d47d6-c2c9-4f1e-9086-5b356d0d4858" class="">AWS fundamentals<div class="indented"><p id="4adf88ce-9732-46a8-807f-a124a621fe3c" class="">products<div class="indented"><figure id="a9f553bc-06a1-481f-89cd-d310b9897114" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2019.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2019.png"/></a></figure></div></p><p id="787d69eb-23cd-4c7b-8edc-4e3c0bc55b09" class="">Region &amp; Available Zone<div class="indented"><p id="e4833513-fa94-4bdf-b3c3-c5e548654380" class="">Region，代表一个地区, 比如悉尼、新加坡，这个地区有几个Available Zone组成</p><p id="5078bb21-8c69-4830-81d4-102698e40544" class="">Available Zone<div class="indented"><p id="4821fd64-f512-4da9-92f2-478788552aee" class="">一个地区由几个物理上彼此隔离的AZ组成，彼此相距100km，之间互联是冗余的高带宽和低延迟的，一旦有灾害发生可保证高可用</p><p id="44deaf49-7d6a-471d-a4f4-a211cb9d6a45" class="">一个AZ由多个数据中心组成，AZ 联想一下：移动公司的机房园区，它由多个数据中心大楼组成</p><figure id="fc090a6e-44c3-4173-884b-abe887a96120" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2020.png"><img style="width:1412px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2020.png"/></a></figure></div></p><p id="d78644f8-9e11-402d-83a5-556ea7571932" class="">Global Infrastructure <div class="indented"><p id="cf6e7422-9a68-4940-ac22-a197035bfca0" class="">(空)</p></div></p></div></p><p id="454b92b6-241c-44d2-a366-b7e7abc5414e" class="">
+</p><p id="759c843c-0ccc-4c1d-b970-22c19d7dd6da" class="">IAM(Identity Access Management)<div class="indented"><p id="74b572bc-6a24-46ee-9bd5-484a87dc2e18" class="">What &amp; Why<div class="indented"><p id="90ff53ce-37fb-4e98-b6ab-d041301a6933" class="">IAM，一组信息，它规定了某个用户对指定的AWS资源拥有什么样的权限</p><figure id="50153909-0894-4d31-9cf5-8838272c974a" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2021.png"><img style="width:1859px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2021.png"/></a></figure><figure id="4d40a662-c42a-4bd4-b573-36d462882746" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2022.png"><img style="width:1100px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2022.png"/></a></figure><p id="51e3f783-6e44-41a4-8c81-3a37a2b4e240" class="">Two Authentication Methods to access AWS  resources<div class="indented"><figure id="e53117be-e7e3-494a-91b5-47db217126cb" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2023.png"><img style="width:1152px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2023.png"/></a></figure></div></p></div></p><p id="6757cca2-f84d-4dfb-b608-45186b4025a2" class="">How<div class="indented"><p id="634cb71b-7725-4c20-b5ef-dc7992070ce0" class="">Create IAM Users and Groups<div class="indented"><ol type="1" id="ec1f7ad9-083c-485b-9c1c-80a825e7be06" class="numbered-list" start="1"><li>define an IAM policy</li></ol><ol type="1" id="de848e31-1cb2-4aba-ad82-a25dfcdc2056" class="numbered-list" start="2"><li>Create a group and attach the IAM policy to the group</li></ol><ol type="1" id="a71dd10b-f68e-4e1e-ba91-3e4d6f7c9165" class="numbered-list" start="3"><li>Create a user and put the user into the group</li></ol></div></p></div></p></div></p></div></p><p id="2147f72e-d8ba-4399-aac8-17efbb1aebd7" class="">
+</p><p id="f0be5a12-be14-4660-8dfe-549f3677fc1d" class="">VPC/Subnets/Routers/Internet Gateway<div class="indented"><p id="2d1e072e-0d57-4861-af0b-e4cb0f585212" class="">What &amp; Why<div class="indented"><p id="2f30bc8b-f2b6-4dbe-9186-25a3dfb8f9ac" class="">VPC 帮助租户完全地控制自己的虚拟网络, 包括资源放置、连接性和安全性<div class="indented"><ul id="92590b3d-8686-4a4b-a6ed-74fd78a4ce04" class="bulleted-list"><li style="list-style-type:disc">一个VPC存在于某个Region中</li></ul><ul id="3c9bbf26-05d5-480a-9cf3-bb4b7d841b54" class="bulleted-list"><li style="list-style-type:disc">一个VPC，默认为每个AZ，创建一个Subnet，比如悉尼有3个AZ故有3个subnetes</li></ul><figure id="1a79553e-d6b9-4f23-ac18-15cf15b7a795" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2024.png"><img style="width:1351px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2024.png"/></a></figure><figure id="da9b1ca5-41c7-4ab9-a701-f005f76702ad" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2025.png"><img style="width:1382px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2025.png"/></a></figure></div></p></div></p></div></p><p id="ab0962ec-d96b-4701-a1d2-ce8c955f53ed" class="">How<div class="indented"><p id="44d43264-11a8-4660-929b-772f0bb29e5b" class="">Security Groups<div class="indented"><p id="793b293b-cf57-49ce-bc8b-8b90a2a0702e" class="">What<div class="indented"><ol type="1" id="e86c710c-051f-43e3-885a-1c65559cc800" class="numbered-list" start="1"><li>是有<mark class="highlight-red">状态的instance-level的</mark>firewall</li></ol><ol type="1" id="1f2533b7-1a21-4a47-bcac-b0a84275d22a" class="numbered-list" start="2"><li>分为inbound和outbound，在各自中定义allow规则，只可allow因为默认deny所有，规则基于协议与端口</li></ol><ol type="1" id="91bc1914-c413-4df9-9d56-14f7520ddf41" class="numbered-list" start="3"><li>VPC自动带有一个Security Group default，不可删除，inbound允许来自本Security Group的instance的访问，outbound allow所有<figure id="2427b60f-7146-48b1-a0e7-c17705aaebe4" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2026.png"><img style="width:480px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2026.png"/></a></figure></li></ol><ol type="1" id="91066637-de2b-4d5c-899f-610bca76b970" class="numbered-list" start="4"><li>新建的Security Group，inbound没有规则即拒绝所有入方向流量(即时在同一个Security Group的instance之间也无法通信，除非配置规则，例外：Security Group default)；outbound是放开所有<p id="f5de3782-38df-4885-a11b-e0d1ca3c2bb4" class="">outbound默认开放所有（若空则也deny all），</p></li></ol><ol type="1" id="5b5e4e1e-9959-46d3-adb2-cb25ab84b4a4" class="numbered-list" start="5"><li>quotas不懂，参考<a href="https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html">https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html</a></li></ol><ol type="1" id="2f9ebf05-e7cd-4c8c-9c9b-9c9f17849138" class="numbered-list" start="6"><li>Security Group关联instance的network interface. 新建instance的primary network interface与Security Group关联. 如Security Group关联了network interface则无法被删除.</li></ol><ol type="1" id="632f080a-3086-4580-8c00-4ae776ecacc1" class="numbered-list" start="7"><li>可将instance关联到新的Security Group，一个instance至少要有一个Security Group，最多可关联5个Security Group，</li></ol><ol type="1" id="2692ad4f-fc71-4f90-96f0-8488c859767f" class="numbered-list" start="8"><li>可用命令行添加Security Group</li></ol><p id="6bf68302-a726-4bd3-b200-a4f6849aeb7e" class="">补充：<div class="indented"><p id="752b3b11-2bdd-4bba-b588-f8c8dd7428be" class="">VPC自动带有一个默认Security Group<div class="indented"><ul id="aef3cc13-31af-4ce9-9f58-220f82c75bbb" class="bulleted-list"><li style="list-style-type:disc">如使用自动脚本创建instance，若不显示指定Security Group则指定为默认的Security Group</li></ul><ul id="bbfbd083-21b8-4be6-bc3c-8a799ca86ec8" class="bulleted-list"><li style="list-style-type:disc">若通过console创建instance，则新建并指定为<code>launch-wizard-</code><code><em>xx</em></code>Security Group</li></ul></div></p><p id="97ecc1a4-93f2-4d05-83da-8ff31122b93a" class="">Centrally manage VPC security groups using AWS Firewall Manager （未研究）参考<a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#changing-instance-security-groups">https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#changing-instance-security-groups</a></p></div></p></div></p><p id="1434a1be-9bfe-486e-933d-860b4389389c" class="">Operation<div class="indented"><p id="a8fe7377-f2d4-4323-b2ee-fb71086eed56" class=""><mark class="highlight-teal">Modify the default security group
+Create a security group
+View your security groups
+Tag your security groups
+Add rules to a security group
+Update security group rules
+Tag security group rules
+Delete security group rules
+Change the security groups for an instance
+Delete a security group</mark></p></div></p></div></p><p id="acb07aad-2eaf-4ec5-aad6-63ae1211cbcc" class="">NACL<div class="indented"><p id="f08300f4-a07b-4fcc-b4f5-9bdc85d0d7fd" class="">What<div class="indented"><ol type="1" id="3f2f8646-59a0-420b-a1e2-8c4a59f34ec1" class="numbered-list" start="1"><li>作为一种补充，控制子网进出流量的stateless防火墙，基于子网</li></ol><ol type="1" id="d2d07dab-6f48-4641-93c7-3f1439caa8fb" class="numbered-list" start="2"><li>VPC自动带有一个NACL default，它默认允许进出traffic；而自定义的NACL默认deny进出流量</li></ol><ol type="1" id="62330eb6-c50a-4a7e-bc8f-db91088ee113" class="numbered-list" start="3"><li>每个subnet必须关联一个NACL，若不指定则关联NACL default</li></ol><ol type="1" id="415b7293-813f-41e7-9d9f-281fa19a6464" class="numbered-list" start="4"><li>一个NACL可关联多个subnet，而subnet只可关联一个NACL</li></ol><ol type="1" id="fb06ac80-a720-4a9c-a6bb-ff4d55581465" class="numbered-list" start="5"><li>一个NACL分inbound和outbound，各自可包含一组rules，rule可为allow或deny，从最低号开始匹配，定义号码时建议步进为100</li></ol><ol type="1" id="c5403daf-a6eb-4ab6-b57f-0a3c3756ddda" class="numbered-list" start="6"><li>stateless，即inbound流量是否allowed，由inbound规则决定，必须注意！！与stateful完全不一样</li></ol><ol type="1" id="368f7aef-f5c3-46c7-b5f1-e37662c9bcfb" class="numbered-list" start="7"><li>配置rules后，即时生效</li></ol></div></p><p id="e8c129c8-4c82-482b-a871-789a0f29e50c" class="">Operation：<div class="indented"><p id="56abd40d-1729-465f-a410-57a718cb83ea" class="">inbound/outbound add rules &amp; delete rules</p><p id="cead0e10-abbf-41d2-9562-a963b6efa280" class="">create &amp; delete NACL </p></div></p><p id="f7c6d494-5b3b-42d5-b96b-bdeaef6310b8" class="">补充：<div class="indented"><ul id="b5a1e101-4fdf-4683-93dd-e5ef9d00ff42" class="bulleted-list"><li style="list-style-type:disc">用API或命令行工具，则只能删创，不可修改；用console可增删改</li></ul></div></p><ul id="77e10536-70ec-4e31-9487-31487a089b65" class="bulleted-list"><li style="list-style-type:disc">区别<figure id="866f69d7-e13c-40bf-b3a9-0c462fd896bd" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2027.png"><img style="width:971px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2027.png"/></a></figure></li></ul><ul id="b2c183b1-2b5c-4a70-aa0f-96495e1e3fb0" class="bulleted-list"><li style="list-style-type:disc">subnet-level firewall</li></ul><ul id="a5add95e-bffd-4bb1-a1a4-5c74ccab7bc2" class="bulleted-list"><li style="list-style-type:disc">default allow all traffic</li></ul><ul id="5cc54081-5817-42de-9fc2-2d01f604ec1e" class="bulleted-list"><li style="list-style-type:disc">inbound + outbound + subnet association </li></ul></div></p></div></p><p id="69e986fa-b731-450f-a409-386dbc402f18" class="">
+</p><p id="92a756bb-00a5-40ba-b94a-2951a282ab05" class="">EC2<div class="indented"><ul id="d638c7ef-f050-4906-bb27-651557cde37e" class="bulleted-list"><li style="list-style-type:disc">Public subnets中的instance有private和public IP; Private subnets中的instance只有private IP</li></ul><ul id="c066c268-d1c5-4730-a440-13016d1bc335" class="bulleted-list"><li style="list-style-type:disc">An EC2 instance is a virtual machine, assigned with CPU&amp;Mem&amp;NetworkCard&amp;Storage&amp;OperatorSystem&amp;APP<figure id="2ef73780-1d54-4f22-b880-70e68b90cbfe" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2028.png"><img style="width:1335px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2028.png"/></a></figure></li></ul><ul id="df40c7c6-74d1-4060-91b8-ee53ff7ad6ca" class="bulleted-list"><li style="list-style-type:disc">EC2 instances can have three kind of IP: Public/Private/Elastic IP<figure id="c71fa450-9005-45b2-b3c3-8f4d32ed5d5f" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2029.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2029.png"/></a></figure></li></ul><ul id="624ad845-4078-4a24-b1dc-46ec601fb0bb" class="bulleted-list"><li style="list-style-type:disc">NAT<figure id="3d02143d-b4da-4148-9284-53f24bc75a09" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2030.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2030.png"/></a></figure></li></ul><ul id="e4573174-7fe9-44a3-85cd-451827699913" class="bulleted-list"><li style="list-style-type:disc">Launch an EC2 instance<ul id="1931ef3d-75a8-4fe5-9b19-41270ec1e6d1" class="bulleted-list"><li style="list-style-type:circle">AMI可理解为一个干净的操作系统的快照<figure id="4ceb369d-387c-4367-89df-246ac60ee786" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2031.png"><img style="width:903px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2031.png"/></a></figure></li></ul></li></ul><ul id="3b0fd9fb-d7f7-4f87-a675-b287c11d292b" class="bulleted-list"><li style="list-style-type:disc">Connecting to EC2<p id="cb5caeb5-4b07-4c25-b691-27b8a6ee3dd5" class="">(待补充)</p></li></ul><ul id="94016f1a-1796-4cb9-be36-b2f21466ecad" class="bulleted-list"><li style="list-style-type:disc">使用User data可实现自动配置，比如可自动配置一个Web应用, 箭头处你可粘贴Shell语句, 将自动运行脚本<figure id="c364b2e2-c4bb-45cc-a733-2ad8fed7570d" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2032.png"><img style="width:716px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2032.png"/></a></figure></li></ul><ul id="42e8cc66-e35b-4296-ad69-8fe94a031964" class="bulleted-list"><li style="list-style-type:disc">Using Key Pairs with Amazon EC2(未弄清除)<figure id="01f90f7c-3409-42aa-b545-1927b6655efa" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2033.png"><img style="width:1187px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2033.png"/></a></figure></li></ul><ul id="7203c2dd-5ddd-4c6a-abe7-5f5d22463766" class="bulleted-list"><li style="list-style-type:disc">Using IAM Roles with AWS EC2<p id="701bc39a-edae-4015-befa-69b20d17e395" class="">Roles is assumed by EC2 instances.</p><figure id="9903895c-5c7b-4546-a507-94d3912db400" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2034.png"><img style="width:1243px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2034.png"/></a></figure></li></ul><ul id="ac72954a-900e-4a87-a3e0-dc037aba1480" class="bulleted-list"><li style="list-style-type:disc">EC2 Auto Scaling<p id="99855bdb-976b-4a91-a082-d6ebb5f43d13" class="">automatically launch and terminate EC2 instances<div class="indented"><ul id="9f8b2d04-39c4-4d4b-89d7-2ccafc873ecd" class="bulleted-list"><li style="list-style-type:disc">terminate the instance that failure and replace that with a new EC2<figure id="b9b6badf-01cd-4f9a-8800-4c727480cd6b" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2035.png"><img style="width:1150px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2035.png"/></a></figure></li></ul><ul id="ee58764a-bdcd-4016-bf9f-bd6efab81db8" class="bulleted-list"><li style="list-style-type:disc">CloudWatch 采集指标，当Auto Scaling group中instances的某个全局资源指标(比如CPU)达到阈值，则CloudWatch通知Auto Scaling group, Auto Scaling group launch新的EC2; 当指标降到阈值以下，则CloudWatch通知Auto Scaling group,Auto Scaling group terminate EC2<figure id="f25788dd-47d3-42fc-9916-ba8ee90b24ad" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2036.png"><img style="width:1110px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2036.png"/></a></figure></li></ul><p id="86b906f2-fbea-4b75-8909-886d58bcedd9" class="">QA:<div class="indented"><p id="1e1f7a2e-fe4a-427f-b8cd-94551ac5a5e8" class="">EC2 health check是啥？</p></div></p><p id="1082bd1c-7d63-4411-b3fd-e315c3117e1c" class="">操作流程：<div class="indented"><ol type="1" id="5a6a7dac-8eec-45f9-860c-1921342ba4e5" class="numbered-list" start="1"><li>Define Launch Template</li></ol><ol type="1" id="a6c29304-e2f3-40c2-83a1-bfe5edfaa318" class="numbered-list" start="2"><li>Define Auto Scaling Group and attach LT to it</li></ol><ol type="1" id="ea5a4998-393c-4b04-b6ef-575db314b9d2" class="numbered-list" start="3"><li>Define dynamically scale policy</li></ol></div></p></div></p></li></ul><ul id="5e29621b-545b-4ec6-a8fd-a882995f42d0" class="bulleted-list"><li style="list-style-type:disc">Add Load Balancing with Amazon ELB<p id="45d9d4c3-b90c-4e98-bf20-a3cc7813d2db" class="">Introduction<div class="indented"><ul id="4d958da5-4d74-414f-a45c-ab2b29c87085" class="bulleted-list"><li style="list-style-type:disc">Elastic LB指引流量到EC2，EC2位于不同AZ即可以位于不同subnets</li></ul><ul id="f6c90878-8e42-4fb5-a61a-de26b8ab1959" class="bulleted-list"><li style="list-style-type:disc">ELB 对EC2 instances作health check，如某个failed则将其从service移出并通知Auto Scaling, Auto Scaling terminate the failed instance，并launch new instance， ELB将new instance放入service.<ul id="7c5db981-4cb8-4c4c-8b81-92b51b3cd111" class="bulleted-list"><li style="list-style-type:circle">protocol + port </li></ul><ul id="95a9082f-6968-4b39-919b-a2bfa7a7db73" class="bulleted-list"><li style="list-style-type:circle">url path</li></ul><figure id="729f3d3d-3ab7-4323-a199-af8d5eddd9e0" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2037.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2037.png"/></a></figure><figure id="38b91113-0c89-47b0-8ca4-b1cec4543e87" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2038.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2038.png"/></a></figure></li></ul><ul id="7e267787-9b83-456d-b72f-861d497b268e" class="bulleted-list"><li style="list-style-type:disc">three kinds of ELB: http&amp;https / tcp&amp;udp&amp;tls /(略)</li></ul></div></p></li></ul><p id="3ba9cd9e-3ebc-4862-b585-a9a7cba19cd2" class="">操作顺序：<div class="indented"><ol type="1" id="dc797886-6c4e-4186-a060-2b24b58d1d88" class="numbered-list" start="1"><li>TG</li></ol><ol type="1" id="364550bb-8665-49ca-8f1c-15993223ab26" class="numbered-list" start="2"><li>Launch Template → Auto Scaling Group</li></ol><ol type="1" id="2f12891b-c8d0-40b9-878d-3efb2d8615e8" class="numbered-list" start="3"><li>LB</li></ol></div></p><p id="1c06617d-341e-4b16-8cd3-930a9d5ad69f" class="">
+</p></div></p><p id="9cd1e583-cf54-42c0-92d5-2973032e6e39" class="">Storage Services<div class="indented"><p id="0ff26cae-f393-4154-952f-e2d156d34a9d" class="">AWS Storage Overview<div class="indented"><figure id="df33a2fe-4001-4f98-a70a-f801b1d92ac8" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2039.png"><img style="width:1440px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2039.png"/></a></figure></div></p><p id="fd2d9fcf-ab43-4a62-a5bf-9d0409f8a89b" class="">EBS<div class="indented"><figure id="ba648ea2-eb23-4b56-b3ae-55d1a8720f7a" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2040.png"><img style="width:1190px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2040.png"/></a></figure><p id="e86219f0-4365-4e97-b763-a8331eb52b25" class="">What: <div class="indented"><p id="b197916f-75ad-4962-bb64-4731bd45e89f" class="">The mainly four categories<div class="indented"><p id="1e76f153-8d59-4bb4-9147-58d5889fe9ff" class="">关于IOPS和Throughput的详情需参考：<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html</a></p><figure id="db894caa-d6bb-4b1f-a90d-e4221dbb2d6b" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2041.png"><img style="width:1307px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2041.png"/></a></figure><figure id="87194e02-78dc-4e5d-a8b9-14cc08f21641" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2042.png"><img style="width:1287px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2042.png"/></a></figure><p id="05a6209f-be48-4902-9cde-7eebbda12298" class="">EBS是persistent storage; Instance Stores是non-persistent storage.</p><p id="ff6f1431-3c03-4237-88e2-72ae5247dbc4" class="">EBS是基于网络的块存储; Instance Storage是物理服务器上的物理存储，提供了高性能</p><figure id="f7c4257f-d418-47b8-847c-5751572397f1" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2043.png"><img style="width:939px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2043.png"/></a></figure></div></p><p id="a60f3bf9-22ac-43a4-b865-0d8d39821e7e" class=""><div class="indented"><figure id="ff7abdec-67c7-47fe-bbb5-ea5a8621037c" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2044.png"><img style="width:1412px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2044.png"/></a></figure></div></p><p id="73cd90a0-81fd-4e68-94d2-cf6e86171c23" class=""><div class="indented"><figure id="aa271f93-1df4-4430-ae06-d8de5411e383" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2045.png"><img style="width:1321px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2045.png"/></a></figure></div></p><p id="3a056829-718e-465b-8d08-dce5166b4b92" class="">How：EC2 → Volumes</p><p id="9ffb34b3-082d-4cdd-bcbf-f2d933c3be0c" class="">QA：<div class="indented"><ul id="3fecbcd4-a3dc-45c4-a527-d00a73dfe438" class="bulleted-list"><li style="list-style-type:disc">Diff between IOPS and Throughput ❓<p id="064296f2-ed18-49a9-ac61-50864ba9bf29" class="">IO operations per second (IOPS) is a measure of how many IO requests can be completed by the storage device in a second. </p><p id="009ed6a5-8fcc-46e6-9ffc-2b865cec3dde" class="">Throughput is the measure of the amount of data transferred from/to a storage device in a second.</p></li></ul></div></p><p id="6c0d82cc-d4ae-4a47-80f9-7b24e643da83" class="">EBS Snapshot<div class="indented"><p id="1f16e38a-b696-4116-9139-737302e4111c" class="">What&amp;Why<div class="indented"><ul id="29d14ddd-6bb0-42d5-809a-83bf09769b42" class="bulleted-list"><li style="list-style-type:disc">For baseline(将RootVolume的snapshot做成AMI)or backup</li></ul><ul id="1ed32845-b6d8-4be8-b16a-aac84ababb34" class="bulleted-list"><li style="list-style-type:disc">the built-in way <mark class="highlight-red">taking backup of an EBS volume </mark>that backed up to a snapshot sit on a Amazon S3</li></ul><ul id="9a105da8-68e3-499b-9237-8a2640a83f4a" class="bulleted-list"><li style="list-style-type:disc">A snapshot is in a region not in an availability zone</li></ul><ul id="1ddd8074-0d40-45d5-82a5-4d325c556268" class="bulleted-list"><li style="list-style-type:disc">snapshots <em>incremental</em> backups</li></ul><figure id="acef4b27-8d7f-4238-a0e4-4b491439d403" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2046.png"><img style="width:983px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2046.png"/></a></figure></div></p><p id="e8f96311-bf3c-4da2-ab0f-dd9776c57b04" class="">How to work<div class="indented"><ol type="1" id="a990d0ab-7c5f-48aa-a380-dfb348c9a78b" class="numbered-list" start="1"><li><strong>Relations among multiple snapshots of the same volume</strong><figure id="ca404260-b3a8-4fb0-97cf-50d1a6340ed3" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2047.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2047.png"/></a></figure></li></ol><ol type="1" id="f2e11715-b3b8-415f-831b-df10e99b6745" class="numbered-list" start="2"><li><strong>Relations among incremental snapshots of different volumes</strong><figure id="7aa54484-609b-4ff2-9ea3-0e2491be2e91" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2048.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2048.png"/></a></figure></li></ol><ul id="0fd31138-8e1d-4da8-99bb-cbc665ce8058" class="bulleted-list"><li style="list-style-type:disc">第一个快照(initial snapshots)是全备，后续快照(subsequent snapshots)是增量</li></ul><ul id="caa82ca9-dd3c-4f73-9925-d28adafcb1da" class="bulleted-list"><li style="list-style-type:disc">可以对attached volume作snapshot，但是因APP可能缓存故存在保存不完整的问题，所以建议: 先umount volume再作snapshot，在snapshot为pending状态时再mount即可.</li></ul><ul id="f16dc19b-e7fc-4fe5-9685-deccf8c3d39c" class="bulleted-list"><li style="list-style-type:disc">tag snapshot方便管理</li></ul><ul id="5bee4e0d-9f37-4ebf-b7e9-5fb7ff70fbad" class="bulleted-list"><li style="list-style-type:disc">快照加密，original volume → encrypted snapshot → encrypted volume</li></ul><ul id="f54d4eb2-88f2-435b-aca7-811bcdd636ec" class="bulleted-list"><li style="list-style-type:disc">Multi-volume snapshots<ul id="44003b67-7b56-4313-a351-a93e2f1c58bd" class="bulleted-list"><li style="list-style-type:circle">对一个实例上所有attached volumes作快照动作，可搭配定时任务(参考<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html</a>)</li></ul><ul id="e497eda5-4a0e-4d40-bce7-ad73680d4260" class="bulleted-list"><li style="list-style-type:circle">生成结果是每个attached volumes都有单独的snapshot</li></ul><ul id="7cddad45-e614-46ea-8f51-063411d728cf" class="bulleted-list"><li style="list-style-type:circle">这些快照，作为一个整体进行恢复</li></ul><ul id="b01e8fb3-26ab-4d50-aa95-e431aca17c34" class="bulleted-list"><li style="list-style-type:circle">其中任一快照failed，其他快照也显示错误，并生成CloudWatch event<code>createSnapshots</code></li></ul><ul id="b61ddcb5-6bc8-4828-bdbe-5a61a50ac565" class="bulleted-list"><li style="list-style-type:circle">可手动或自动执行快照</li></ul><ul id="e63ef7bb-615e-4438-90b0-b6f9acb3da21" class="bulleted-list"><li style="list-style-type:circle">Share an EBS snapshots<p id="98792ce7-6191-492b-b8d1-afc96c922dcb" class="">You can share a snapshot across AWS accounts by modifying its access permissions. You can make copies of your own snapshots as well as snapshots that have been shared with you.</p><p id="68550782-4970-47ba-b2fc-5480d6b8ba5c" class="">参考：<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html</a></p></li></ul><ul id="bdc0f405-4c2a-41d8-80e9-728eed50f7da" class="bulleted-list"><li style="list-style-type:circle">Copy an EBS snapshots<p id="ba4654be-31f0-4fd4-bfca-6265ed073589" class="">snapshot位于Region中，可拷贝到其他的Region中，用于geographical expansion, data center migration, and disaster recovery</p></li></ul></li></ul></div></p><p id="67a78e48-12e2-4c65-bddc-1cea736b40dc" class="">Operations<div class="indented"><ul id="a52b3332-7737-4c2e-a3c4-ed98e27e7190" class="bulleted-list"><li style="list-style-type:disc"></li></ul></div></p><p id="17321379-5e8b-410e-a67e-e466d9492ff0" class="">Best Practices<div class="indented"><ul id="00ceca8f-fe9b-479e-bf53-a904875f6230" class="bulleted-list"><li style="list-style-type:disc">若EBS是boot，则snapshot前应关闭系统</li></ul><ul id="838feb30-a08f-4836-ab15-6badf28a02cd" class="bulleted-list"><li style="list-style-type:disc">一个volume，同时存在多个处于pending的snapshot，会影响该volume的performance</li></ul><ul id="9cde1c9d-4813-4e67-850f-7476c250e82d" class="bulleted-list"><li style="list-style-type:disc">st1和sc1仅能有一个处于pending的snapshot，而其他可以同时有5个</li></ul><ul id="2539d279-4b25-443f-ae8d-fff176bef59e" class="block-color-yellow bulleted-list"><li style="list-style-type:disc">When you create a snapshot for an EBS volume that serves as a root device, you should stop the instance before taking the snapshot.</li></ul><ul id="e1efc2d9-d63c-49cd-b877-245cb927ab2a" class="block-color-yellow bulleted-list"><li style="list-style-type:disc">You cannot create snapshots from instances for which hibernation is enabled.</li></ul><ul id="c345a875-a7e9-46ef-a574-b96640ffd07f" class="block-color-yellow bulleted-list"><li style="list-style-type:disc">You cannot create snapshots from hibernated instances.</li></ul></div></p></div></p></div></p></div></p></div></p><p id="f5bcd091-221c-4f49-b19d-30fc2de1f27c" class="">EFS<div class="indented"><figure id="0c42a82f-0775-4d61-b026-2939c98723ac" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2049.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2049.png"/></a></figure><p id="080f7cf7-5428-458f-b201-f4608cd8f397" class="">What &amp; Why<div class="indented"><ul id="c81665e6-6763-487f-a740-8e1e79167f0a" class="bulleted-list"><li style="list-style-type:disc">You can use an EFS file system as a common data source for workloads and applications running on multiple instances.</li></ul><ul id="99462562-f367-42bf-81a1-30d66ac34fe1" class="bulleted-list"><li style="list-style-type:disc">Mount targets in each default subnet in the selected VPC, using the VPC&#x27;s default security group.<figure id="5a5a075d-3002-4228-bbe6-237a2f799e8e" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2050.png"><img style="width:1827px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2050.png"/></a></figure></li></ul></div></p><p id="a712938b-b433-42c0-99ac-c32b959f6d8d" class="">Operation<div class="indented"><ul id="26a02bb2-cf44-4808-98f5-81a73df5a9fc" class="bulleted-list"><li style="list-style-type:disc">Create an EFS</li></ul><ul id="a1563f59-e987-4826-9349-dfd5476f341c" class="bulleted-list"><li style="list-style-type:disc">Add a inbound rule to allow the traffic to NFS from local security group<figure id="4c9c70c6-fed8-4b9e-b906-72dcb1c05530" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2051.png"><img style="width:854px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2051.png"/></a></figure></li></ul><ul id="0f25195e-0efb-4755-86b7-c8cd475421a4" class="bulleted-list"><li style="list-style-type:disc">Attach EFS volume<pre id="efd5991d-2793-4fb3-aee0-9ac45dfb142f" class="code"><code>sudo yum install -y amazon-efs-utils
+sudo mkdir /mnt/efs
+sudo mount -t efs -o tls fs-0abf90350ea061b71:/ efs
+sudo mount -t efs -o tls fs-0abf90350ea061b71:/ /mnt/efs/
+#注意：还需在/etc/fstab中添加</code></pre></li></ul></div></p><p id="39e04ad4-fa0b-4af4-9534-6e9fd9076059" class="">
+</p><p id="ecdbec00-2ae6-4181-9065-de9c69bffaf6" class="">
+</p></div></p><p id="2ba882f0-f65e-4e59-9054-1e63098479dd" class="">EKS<div class="indented"><p id="97628b35-9a90-4096-b2f3-c94edf34bd61" class="">What<div class="indented"><ul id="90826442-9206-490f-8ee0-0016f5a434ea" class="bulleted-list"><li style="list-style-type:disc">Amazon Elastic Kubernetes Service (Amazon EKS)</li></ul></div></p></div></p><p id="4db64d77-cdbe-44df-854d-1980fc12e390" class="">
+</p><p id="c4364fce-cdfa-454d-99b9-0d49c0f102ed" class="">AWS-CLI<div class="indented"><ul id="49248108-982c-4b02-9310-47edad1da027" class="bulleted-list"><li style="list-style-type:disc">Logout of AWS-CLI: <code>rm -rf ~/.aws/credentials</code></li></ul></div></p><p id="4a9acd58-936f-4769-942e-26a2a37dcae2" class="">
+</p><h1 id="201b524b-e911-4e8a-a266-85c4e8bdaeef" class=""><time>@December 3, 2021</time> </h1><p id="df813bca-991c-4a92-a536-3044259ccce4" class=""><code>jq</code>工具使用<div class="indented"><ul id="8c4052a8-cacc-4854-8c51-36494bce2909" class="bulleted-list"><li style="list-style-type:disc">使用jq搜索Array<pre id="e7b6a08e-cb46-4965-887a-63b5ca27ec6e" class="code"><code>例子：
+{
+    &quot;ok&quot;: true,
+    &quot;items&quot;: [
+        {&quot;id&quot;: 123, &quot;name&quot;: &quot;thing-1&quot;},
+        {&quot;id&quot;: 124, &quot;name&quot;: &quot;thing-2&quot;},
+        {&quot;id&quot;: 125, &quot;name&quot;: &quot;thing-3&quot;}
+    ]
+}
+
+		命令： /.,mnbvcxz&#x27;;lkjfds;uytroiuytrewqpowq\]=-098765432 gv fdz `vcxzvcxzxx  xzrsaY6YUK?.,MN 1`
+cat file.json | jq &#x27;.items[] | select(.name == &quot;thing-3&quot;)&#x27; 
+  </code></pre></li></ul><ul id="3a8a952d-fb8a-4e3a-bd56-999ce242bb17" class="bulleted-list"><li style="list-style-type:disc"><code>aws-cli</code> 也有相似的功能, 过滤出需要的信息<pre id="68ba9b17-0d3f-4194-95a0-96ecc09db832" class="code"><code></code></pre></li></ul></div></p><p id="0ecb7223-87b1-41bd-a868-731663a234d3" class="">
+</p><p id="90e6b173-4588-4abc-a2aa-82574668bdb0" class="">IAM<div class="indented"><figure id="7e6e7fed-dd39-4e83-b3a2-1d336cc009f0" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2052.png"><img style="width:588px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2052.png"/></a></figure></div></p><p id="0e6519ef-8d02-4aa7-88c3-60a760c7eb70" class="">
+</p><ol type="1" id="33190758-a4e6-4ff3-b89f-60f3ba91b7d6" class="numbered-list" start="1"><li>Maven Pom Paren</li></ol><ol type="1" id="a3280616-b4b2-48c4-9b90-2ec7d0954b67" class="numbered-list" start="2"><li>CVE(Common Vulnerabilities and Exposure)</li></ol><ol type="1" id="7123ee90-8363-4a7d-b2ff-97e434f8d05a" class="numbered-list" start="3"><li>What is Image Hardening?</li></ol><ol type="1" id="4795454f-8468-4540-b846-5c9b75a44763" class="numbered-list" start="4"><li></li></ol><p id="1f9ccde9-7b55-4bf4-9ffc-901fbd60490f" class="">
+</p></div></article></body></html>

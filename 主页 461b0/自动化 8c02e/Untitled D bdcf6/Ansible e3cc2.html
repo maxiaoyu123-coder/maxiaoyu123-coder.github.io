@@ -1,0 +1,1075 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Ansible</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e3cc2815-5a4f-4548-9eb8-d58bb0fd1bc9" class="page sans"><header><h1 class="page-title">Ansible</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 7, 2021 11:01 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr><tr class="property-row property-row-date"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesDate"><path d="M10.8889,5.5 L3.11111,5.5 L3.11111,7.05556 L10.8889,7.05556 L10.8889,5.5 Z M12.4444,1.05556 L11.6667,1.05556 L11.6667,0 L10.1111,0 L10.1111,1.05556 L3.88889,1.05556 L3.88889,0 L2.33333,0 L2.33333,1.05556 L1.55556,1.05556 C0.692222,1.05556 0.00777777,1.75556 0.00777777,2.61111 L0,12.5 C0,13.3556 0.692222,14 1.55556,14 L12.4444,14 C13.3,14 14,13.3556 14,12.5 L14,2.61111 C14,1.75556 13.3,1.05556 12.4444,1.05556 Z M12.4444,12.5 L1.55556,12.5 L1.55556,3.94444 L12.4444,3.94444 L12.4444,12.5 Z M8.55556,8.61111 L3.11111,8.61111 L3.11111,10.1667 L8.55556,10.1667 L8.55556,8.61111 Z"></path></svg></span>上一次复习时间</th><td><time>@October 9, 2021</time></td></tr></tbody></table></header><div class="page-body"><nav id="37cfee10-bba6-4d87-b190-9479163392e0" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d8309354-0457-49b8-a5ee-c436c4b8abff"><strong>Ansible目录结构</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6f828216-b688-45a0-9a36-c8453cd9b7c3"><strong>Ansible配置文件</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#be8b2aa1-c32c-44f8-a3f4-3c2e9afa483c">ansible命令</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#40c09335-aab3-4923-8f34-761f1ae2cada">ansible-doc命令</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#502a1f69-1f6f-4aa0-a343-9d1aee1cbaf9">主机清单</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a1362dcd-623e-4e29-9d1e-083e0b0a3dc7"><mark class="highlight-teal">pattern</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#210879c4-884d-4cba-92c1-a973d6cdbaad">playbook</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a071b531-838b-4af1-94b5-09dad189d59d">模块</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#172b2615-28fc-4306-abff-a8a895e00d50">内建变量和fact变量汇总</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0910fd4e-5e8b-484a-8c76-b548cc0526f3">环境变量</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0a4e6276-76a8-4c4d-bbd6-a6eb2cf6f148">变量</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#58a1cd95-e32a-4f57-bf76-af3a1763316a">条件判断</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ebf23858-8852-42cf-bb78-76f36703fb89">任务暂停</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#464cdc68-8a1b-4809-8a46-99083df05062">Block</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8fa24453-dbde-48e8-8eba-848ec8461abc"><mark class="highlight-orange">模板和变量</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#16cfa17e-48eb-4f03-b675-273ced4abedb"><mark class="highlight-orange">prea_task</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#51151d1a-c60d-4f2a-b63b-455458b54721"><mark class="highlight-orange">post_task</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#914149e4-361a-43a2-9939-6c4b9282a6eb"><mark class="highlight-orange">handlers</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#28eb30bb-6484-440d-98cb-05053476396e">提权</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dea18848-3e98-404d-8875-f93f867d5b58">问题：</a></div></nav><p id="10ab30d2-5390-4202-b847-4db41e6de48c" class="">
+</p><figure id="8195d131-a22f-4ff7-8517-8119b40f0500" class="image"><a href="Ansible%20e3cc2/Untitled.png"><img style="width:672px" src="Ansible%20e3cc2/Untitled.png"/></a></figure><h3 id="d8309354-0457-49b8-a5ee-c436c4b8abff" class=""><strong>Ansible目录结构</strong></h3><ul id="e1186fa5-a6ad-45f4-96cb-7e9dc7ca5193" class="bulleted-list"><li style="list-style-type:disc"><strong>执行文件目录</strong>: /usr/bin/{ansible, ansible-play, ansible-doc.......省略} 可执行的二进制文件</li></ul><ul id="78c5e9b7-eda2-468e-a68a-f1eb2f3ed9a6" class="bulleted-list"><li style="list-style-type:disc"><strong>配置文件目录</strong>/etc/ansible/, 主机信息配置、工具功能配置等</li></ul><ul id="e0a5e919-33d5-4d8b-b82d-958cd68d1f0a" class="block-color-yellow_background bulleted-list"><li style="list-style-type:square"><strong>依赖库目录</strong>/usr/lib/pythonX.X/site-packages/ansible/, 内置的lib库文件, 存放依赖的python模块文件.</li></ul><h2 id="6f828216-b688-45a0-9a36-c8453cd9b7c3" class=""><strong>Ansible配置文件</strong></h2><ul id="f6b5f74d-35d6-4a8f-a138-1a6fc8a5b079" class="bulleted-list"><li style="list-style-type:disc">主机清单：默认/etc/ansible/hosts，定义Ansible的主机列表, 遵循INI格式.</li></ul><ul id="7decc675-c272-4718-b2e6-102211debba6" class="bulleted-list"><li style="list-style-type:disc"><strong>ansible.cfg：Ansible自身的配置文件只有一个, 即ansible.cfg,</strong>遵循INI格式,<ul id="a65020f1-1c74-4bb7-9592-0e9f6ec8c429" class="bulleted-list"><li style="list-style-type:circle">在ansible.cfg定义的所有选项，也可以参数形式<strong>在命令行中传递</strong>，或也可定义<strong>在Playbook中定义</strong>。</li></ul><ul id="d29c5f36-bc06-40b0-9b56-a767e3c7e3a1" class="bulleted-list"><li style="list-style-type:circle">可存于多个地方, 读取配顺序(优先级高的覆盖优先级低的,<mark class="highlight-orange"><strong>通常只使用第4个配置文件</strong></mark>)<ol type="1" id="0171e961-0fa5-4a79-9dc2-e66fa3c67b01" class="numbered-list" start="1"><li>$ANSIBLE_CONFIG 环境变量指定的配置文件</li></ol><ol type="1" id="c250c45f-2559-481d-9c9c-6c60b4579871" class="numbered-list" start="2"><li>./ansible.cfg 当前执行目录下</li></ol><ol type="1" id="15012b39-a744-495b-a952-26a66d1cc2a5" class="numbered-list" start="3"><li>~/.ansible.cfg 用户家目录下</li></ol><ol type="1" id="5fe06632-c53f-4d87-9a3a-feb189a634c2" class="numbered-list" start="4"><li><mark class="highlight-teal"><strong>/etc/ansble/ansible.cfg</strong></mark></li></ol></li></ul></li></ul><ul id="d83dcf10-6bf4-4ae5-b964-7e1923504e2c" class="bulleted-list"><li style="list-style-type:disc">ansible.cfg内容分为几类:<ul id="c22b7319-d33b-42e8-b7dc-1cc9475ae2c6" class="bulleted-list"><li style="list-style-type:circle">[defaults]<p id="22958031-891f-486a-8ab7-9f1aded74556" class="">该类配置下用于定义<strong>常规的连接类配置</strong>. 以下参数都是日常可以会用到的,<strong>这些多数保持默认即可</strong>.</p><pre id="862037a2-e822-43b8-9f2b-309890d99761" class="code code-wrap"><code>inventory #定义Inventory文件位置
+sudo_user 默认sudo用户
+ask_sudo_pass 是否需要sudo密码
+ask_pass 是否需要密码
+host_key_checking = False #首次连接是否需要检查key认证, 建议设为False，避免交互
+library #自定义lib库存放目录
+remote_tmp #临时文件远程主机存放目录
+local_tmp #临时文件存放目录
+forks #默认开启的并发数
+poll_interval 默认轮询事件间隔
+Falsetimeout #默认超时事件
+log_path #执行日志存放目录
+module_name  #默认执行的模块
+actione_plugins  #action插件的存放目录
+callback_plugins  #callback插件的存放目录
+connection_plugins  #connection插件的存放目录
+lookup_plugins  #lookup插件的存放目录
+vars_plugins vars  #插件的存放目录
+filter_plugins #filter插件的存放目录
+test_plugins  #test插件的存放目录
+strategy_plugins #strategy插件的存放目录
+fact_caching #getfact缓存的主机信息存放方式
+roles_path 默认下载的Roles存放的目录 
+
+</code></pre></li></ul><ul id="5ef71542-b0b6-4d24-9e29-546395fbac6f" class="bulleted-list"><li style="list-style-type:circle">[privileges_escalation]<p id="97943e96-ab79-47a6-8ec2-89a5eab5308a" class="">处于<strong>安全</strong>角度考虑, 部分公司不希望直接以root的高级管理员权限直接部署应用, 往往会开放普通用户权限并给予sudo的权限, 该部分配置主要针对sudo用户提权的配置，<strong>保持默认</strong></p><pre id="c872a67e-7162-4acf-98f8-3c07208a1957" class="code code-wrap"><code>become=True	#是否sudo
+become_method=sudo #sudo方式
+become_user=root #sudo后变为root用户
+become_ask_pass=False	#sudo后是否验证密码</code></pre></li></ul><ul id="8987100d-c0ec-4746-85d2-7f6987ff3f23" class="bulleted-list"><li style="list-style-type:circle">[accelerate]<p id="895ff259-9d28-49f5-866a-2ce47137fb38" class="">连接加速相关配置. 部分使用者不满意Ansible的执行速度, 所以Ansible在连接和执行速度方面也在不断的进行优化. 改配置在提升Ansible连接速度时会涉及, <strong>多数保持默认即可</strong><mark class="highlight-orange">.</mark></p><pre id="2706667f-07d7-4852-bcde-d78e585d5bdf" class="code code-wrap"><code>accelerate_port=5099 #加速连接端口
+accelerate_timeout=30 #命令执行超时时间
+accelerate_connect_timeout=5.0 #连接超时时间
+accelerate_daemon_timeout=30 #上一个活动链接的时间
+accelerate_multi_key=yes</code></pre></li></ul><ul id="7e28e018-776d-4d91-8687-a3deb8c33189" class="bulleted-list"><li style="list-style-type:circle">[ssh_connection]<p id="2b935b3a-d0b5-44df-b845-5fe2c7906ce1" class="">Ansible默认使用SSH协议连接对端主机, 该类配置主要是SSH连接的一些配置, 配置少,<strong>多数默认即可</strong>.</p></li></ul><ul id="8d4bbd08-0984-4bb0-9354-76d7d77e2b12" class="bulleted-list"><li style="list-style-type:circle">[selinux]<p id="ce7f073d-de10-4afb-b96d-c05587db430d" class="">几乎不涉及, <strong>保持默认</strong></p></li></ul><ul id="569ad3dd-0143-4efd-913c-c5fcd932280a" class="bulleted-list"><li style="list-style-type:circle">[paramiko_connection]<p id="f432d21e-e628-47f8-995a-76c6ace0f381" class="">该功能不常用, <strong>了解即可</strong></p></li></ul><ul id="bcf28a6a-3b30-4c38-82a4-2896f2f6a5e0" class="bulleted-list"><li style="list-style-type:circle">[colors]<p id="b8280d8a-621d-4199-b58f-2e31e2847bec" class="">对于输出结果的颜色也进行了详尽的定义且可配置, 影响不大,不用修改,<strong>保持默认即可</strong>.</p></li></ul></li></ul><h2 id="be8b2aa1-c32c-44f8-a3f4-3c2e9afa483c" class="">ansible命令</h2><ul id="d1d58360-94e4-4567-953f-64f8f40348d0" class="bulleted-list"><li style="list-style-type:disc">使用场景<ul id="e4308b93-eabe-4223-85e6-d1fcbe6c41d1" class="bulleted-list"><li style="list-style-type:circle">非固化需求</li></ul><ul id="a3ee5668-709b-4a64-8667-1b7be1c433df" class="bulleted-list"><li style="list-style-type:circle">临时一次操作</li></ul><ul id="34947ca9-8786-467b-a7a1-b482821bdc1d" class="bulleted-list"><li style="list-style-type:circle">二次开发接口调用</li></ul></li></ul><ul id="e75ca203-93bb-4f72-b77a-a34d6906a2b5" class="bulleted-list"><li style="list-style-type:disc">具体命令<ul id="3f8a4903-c9b7-4705-a780-a75de3fe4867" class="block-color-yellow_background bulleted-list"><li style="list-style-type:circle"><strong>格式：</strong><mark class="highlight-teal"><strong><code>ansible &lt;host-pattern&gt; 【选项】</code></strong></mark></li></ul><ul id="100e7c0e-dcf4-478f-8ebd-0a63c33a9248" class="bulleted-list"><li style="list-style-type:circle">例子：<mark class="highlight-teal"><code>ansible web1 -m ping</code></mark></li></ul></li></ul><ul id="d4f8619a-5f6f-43fb-97f4-0e555c79b0ac" class="bulleted-list"><li style="list-style-type:disc">返回结果(playbook同样)<ul id="d90a7f77-0a6c-4e3f-be3a-46696bd9c498" class="bulleted-list"><li style="list-style-type:circle">红: 失败 </li></ul><ul id="601d864d-6043-47c2-afdb-ba7011f17f72" class="bulleted-list"><li style="list-style-type:circle">绿：任务正常运行</li></ul><ul id="a98d8d8e-a9f8-4ffb-b3a8-5959e6e16535" class="bulleted-list"><li style="list-style-type:circle">橘：任务正常运行，目标状态有变化</li></ul></li></ul><h2 id="40c09335-aab3-4923-8f34-761f1ae2cada" class="">ansible-doc命令</h2><ul id="b6eaf4ab-a614-499b-b82e-2260fa057f86" class="bulleted-list"><li style="list-style-type:disc">模块文档说明</li></ul><ul id="9aa607fa-1f6f-4c8f-b4bd-577eadc5f78c" class="bulleted-list"><li style="list-style-type:disc"><code>ansible-doc [options] [module]</code><ul id="812491eb-891c-40f8-9099-eb3d12e11ac1" class="bulleted-list"><li style="list-style-type:circle"><code>ansible-doc -l</code> 列出所有模块</li></ul><ul id="baff28d4-ba33-45a9-9a83-5f6abafa92f9" class="bulleted-list"><li style="list-style-type:circle"><code>ansible-doc ping</code> 显示ping模块信息</li></ul></li></ul><h2 id="502a1f69-1f6f-4aa0-a343-9d1aee1cbaf9" class="">主机清单</h2><ul id="a46e09ca-6ee8-4d5d-9538-a9efa6933447" class="bulleted-list"><li style="list-style-type:disc">默认是<strong>/etc/ansible/hosts</strong>，如有多个，<mark class="highlight-teal">ansible/ansible-playbook命令</mark><mark class="highlight-teal"><strong><code>-i</code></strong></mark><mark class="highlight-teal"><strong>选项指定</strong></mark></li></ul><ul id="35d34945-f422-4c4d-bd80-115a0bbb003f" class="bulleted-list"><li style="list-style-type:disc">功能：主机划归到不同分组，通过主机组批量管理主机</li></ul><ul id="6fbf01b9-dc18-414d-bd2b-08b866287f75" class="bulleted-list"><li style="list-style-type:disc">用法<ul id="7fac8366-8445-48f3-9d09-1b175b4baa3b" class="bulleted-list"><li style="list-style-type:circle"><strong>中括号</strong>表示组名，<mark class="highlight-teal"><strong>一个主机可划归到多个组</strong></mark>，主机名可以是<mark class="highlight-teal"><strong>主机或地址</strong></mark><pre id="36eab9b9-eac6-4f9f-b463-5132ead106d7" class="code code-wrap"><code>[webs]
+web1 #主机名，解析/etc/hosts
+web2 ansible_ssh_host=10.19.34.11 #直接用地址，不解析/etc/hosts
+10.1.1.3  #可直接写地址</code></pre></li></ul><ul id="36fcd72b-228f-4bca-91fb-9181b16c820a" class="bulleted-list"><li style="list-style-type:circle">主机可以是地址或主机名，后面可加<code>:端口</code>，地址和主机名中可使用[num:num]<pre id="3be48ea2-ec7d-484c-a1ab-f5c2d5fcbcce" class="code code-wrap"><code>[webs]
+web[1:2].com:2222 #表示web1.com和web2.com
+web-[a:b].com #表示web-a.com和we-b.com
+192.168.1.[1:5] #表示192.168.1.1~5的地址范围</code></pre></li></ul><ul id="15141e9f-9dda-4935-b1c3-4a8347af97c4" class="bulleted-list"><li style="list-style-type:circle">主机变量<pre id="da624938-ccb0-407f-a8ee-58ee1316c483" class="code code-wrap"><code>[webs]
+web1 http_port=8080 #为web1主机自定义了一个变量，playbook中引用变量时会检索这里
+#在playbook中，这样引用变量{{ http_port }}</code></pre></li></ul><ul id="4f2d1d8c-79de-4448-b03a-db87d2539d6a" class="bulleted-list"><li style="list-style-type:circle">组变量<p id="142d262a-3d27-4108-906e-aaacbe462721" class="">主机变量可覆盖组变量</p><pre id="bf45542b-eac6-4caa-9a43-95cec944e042" class="code code-wrap"><code>[webs]
+web1
+web2
+
+[webs:vars]
+http_port=8081 #等同于给web1和web2自定了一个变量,playbook中的同名变量将会检索获取变量的值</code></pre></li></ul><ul id="d2b4108e-2ccc-41dd-a2e8-9b0cebd7b41f" class="bulleted-list"><li style="list-style-type:circle">定义组嵌套和组变量<mark class="highlight-orange">（不常用）</mark><pre id="79988d97-f4e0-409d-b74b-146427e37399" class="code code-wrap"><code>[apache]
+httpd1
+httpd2
+
+[nginx]
+nginx1
+nginx2
+
+[webs:children]  #定义了webs组嵌套，它包含apache和nginx组
+apache
+nginx
+
+[web]  #为组嵌套了自定义了一个变量
+http_port=808 
+</code></pre></li></ul><ul id="6fcc1602-7bb5-4556-b4df-614b0b95b621" class="bulleted-list"><li style="list-style-type:circle">变量可定义在inventory，<mark class="highlight-teal">过多不方便则定义在group_vars和host_vars目录下的文件中</mark></li></ul><ul id="1b44c678-96b1-4fb3-9984-584e4f702375" class="bulleted-list"><li style="list-style-type:circle">Inventory中的连接变量<ul id="4a647331-6748-422b-95ca-2ad6fd5eb654" class="bulleted-list"><li style="list-style-type:square">在主机添加添加内置的SSH相关的连接变量<pre id="7008b284-188b-404e-ad4b-8002f6deb4a9" class="code code-wrap"><code>ansible_ssh_host  #如指定则不查询/etc/hosts，以此作为主机地址 
+ansible_ssh_port
+ansible_ssh_user
+ansible_ssh_pass
+ansible_ssh_sudo_pass
+
+[webs]
+web1  ansible_ssh_host=10.19.34.11  ansible_ssh_port=222 ansible_ssh_user=fan ansible_ssh_pass=123
+#主机清单中有一个主机名web1的主机，地址10.19.34.11，端口222，登陆用户fan，密码123</code></pre></li></ul></li></ul></li></ul><h2 id="a1362dcd-623e-4e29-9d1e-083e0b0a3dc7" class=""><mark class="highlight-teal">pattern</mark></h2><ul id="4a947bc6-fcb7-40b7-9c2f-925efd612599" class="bulleted-list"><li style="list-style-type:disc">指定主机清单中哪些主机或组，可用<strong>&lt;pattern&gt;</strong>匹配。<strong>&lt;pattern&gt;</strong>类似正则，可匹配清单中的主机和组，以下可利用<strong>&lt;pattern&gt;</strong><ul id="82cc111a-f6f4-4457-8588-b30c542be79b" class="bulleted-list"><li style="list-style-type:circle">ansible命令 <code>ansible &lt;pattern&gt; [command]</code> </li></ul><ul id="45578080-56f4-4192-a8eb-6d96c59a238c" class="bulleted-list"><li style="list-style-type:circle">playbook文件 <code>hosts: &lt;pattern&gt; </code></li></ul><ul id="6954432d-5a60-457b-b851-858e09d33815" class="bulleted-list"><li style="list-style-type:circle"><code>ansible-playbook</code> 命令<code>--limit</code> 选项(在playbook文件 <code>hosts: &lt;pattern&gt;</code>基础上作进一步匹配)</li></ul></li></ul><ul id="bca71cc3-fe44-46ea-ac02-40bc83bd8edc" class="bulleted-list"><li style="list-style-type:disc">全量匹配 <ul id="d99d78d3-f19a-4394-9bc9-df5958310840" class="bulleted-list"><li style="list-style-type:circle"><code>all</code>和<code>&quot;*&quot;</code>，匹配主机清单中的所有主机</li></ul><ul id="7953315a-30e2-43d5-8840-1f969885a0e1" class="bulleted-list"><li style="list-style-type:circle">ansible命令<code>ansible all ping</code> ；playbook<code>hosts: all</code> </li></ul></li></ul><ul id="fd96e002-b08f-43fc-950c-4e235da821c2" class="bulleted-list"><li style="list-style-type:disc">模糊匹配<ul id="ec15d036-892e-436b-b751-55b76e4c45e1" class="bulleted-list"><li style="list-style-type:circle"><code>*</code>通配表示0个或多个任意字符</li></ul><ul id="161d371e-a041-43a4-952f-328595fc8450" class="bulleted-list"><li style="list-style-type:circle"><code>*.mageedu.com</code> ：以<code>.mageedu.com</code> 结尾的</li></ul><ul id="8e380ca7-2797-4e51-aa9f-b558b62c2887" class="bulleted-list"><li style="list-style-type:circle"><code>192.168.1.*</code> ：192.168.1.0/24范围的(前提：清单中的主机名用的是地址，ansible_ssh_host不可以)</li></ul></li></ul><ul id="85d3377e-83e5-495e-9a4e-656a44ac6ad2" class="bulleted-list"><li style="list-style-type:disc">逻辑或匹配，即多个主机或多个组<ul id="25653de1-4284-4f29-b606-79a8fcbe4398" class="bulleted-list"><li style="list-style-type:circle"><code>web1:web3</code>，匹配web1，web2，web3</li></ul></li></ul><ul id="e44a5c38-5dd8-4dac-b842-7bb471550be7" class="block-color-orange bulleted-list"><li style="list-style-type:disc">逻辑非<ul id="4026e850-e91b-4ff4-82d8-87a4c1e5d056" class="bulleted-list"><li style="list-style-type:circle">webs:!phoenix 所有在webs组但不在phoenix组的主机</li></ul></li></ul><ul id="0a5c7efc-e1e2-47ed-9590-77ef62caef73" class="block-color-orange bulleted-list"><li style="list-style-type:disc">逻辑与<ul id="cc2f8a79-c328-4f6e-bc91-fd60bb1f83a7" class="bulleted-list"><li style="list-style-type:circle">webs:&amp;staging 同时在webs组和在staging组的主机</li></ul></li></ul><ul id="5a6bb095-2e1b-4aee-b666-91f118e93344" class="bulleted-list"><li style="list-style-type:disc">域切割<pre id="78906cef-5056-40b2-b28e-f48e305ad750" class="code code-wrap"><code>#主机清单:
+[webs]
+web1
+web2
+web3
+
+#pattern：
+webs[0]是web1
+webs[-1]是web3
+webs[0:1]是web1，web2（亲测）</code></pre></li></ul><ul id="4dacc843-4f55-4945-8242-45e07b70cc03" class="bulleted-list"><li style="list-style-type:disc">正则匹配<ul id="514c368a-dcb2-491b-a558-67d665566535" class="bulleted-list"><li style="list-style-type:circle">支持完整的正则功能，以<code>~</code>表示正则表达式</li></ul><ul id="83f2ba91-cdfe-4663-8a9f-2409c1410b16" class="bulleted-list"><li style="list-style-type:circle">ansible命令：<code>ansible &quot;~(beta|web|green)\.example\.(com|org)&quot; -m ping</code> </li></ul><ul id="22f9be85-24db-4901-87b7-6c855ae8f5d6" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">playbook：hosts: </mark><mark class="highlight-orange"><code>~(beta|web|green)\.example\.(com|org)</code></mark></li></ul></li></ul><h1 id="210879c4-884d-4cba-92c1-a973d6cdbaad" class="">playbook</h1><ul id="f9a046b0-c0c9-401d-862d-7e666b4355de" class="bulleted-list"><li style="list-style-type:disc">初识Playbook<pre id="e257337b-dcd6-47fb-b2e2-647e234fa3ce" class="code code-wrap"><code>---
+- hosts: all   #匹配主机清单中的所有主机
+  sudo: yes #使用sudo，将以root运行下面的命令
+  tasks:  #一系列的任务
+  - name: &quot;安装apache&quot;   #为task起名字，方便识别，改行删除也可以
+    yum:  #yum模块
+      name: {{ item }} #引用item变量（列表类型）
+      state: present #表示安装软件，state=absent表示卸载
+    with_items:  
+    - httpd
+    - httpd-devel
+  - name: &quot;复制配置文件&quot;
+    copy:
+      src: {{ item.src }} 
+      dest: {{ item.dest }}
+      owner: root
+      group: root
+      mode: 0644
+    with_items:  
+    - {
+       src: &quot;/tmp/httpd.conf&quot;,
+       dest: &quot;/etc/httpd/conf/httpd.conf&quot;
+      } 
+    - {
+       src: &quot;/tmp/httpd-vhosts.conf&quot;
+       dest: &quot;/etc/httpd/conf/httpd-vhosts.conf&quot;
+      }
+  - name: &quot;检查Apache运行状态,并设置开机紫气&quot;
+    service:  #调用了service模块
+      name: http
+      state: started
+      enable: yes</code></pre></li></ul><ul id="79c57c0a-375e-4ba2-bc5c-3add361ffb1d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">注意</mark>：<ul id="797c1499-c8b1-42be-a538-2ef311d18207" class="bulleted-list"><li style="list-style-type:circle">第一行<code>---</code></li></ul><ul id="0f46c2c1-8319-4be7-83a9-6e7a74c50030" class="bulleted-list"><li style="list-style-type:circle">YAML顶层是一个mapping</li></ul><ul id="3d0bb1dd-744a-4c81-a2c7-0039749fc0ee" class="bulleted-list"><li style="list-style-type:circle">缩进不要用tab，用空格，缩进级别要统一，通常一个缩进=2个空格，<strong>ansible靠缩进和换行判断级别</strong></li></ul><ul id="f5ac6787-6d80-4ba5-a166-c68050631910" class="bulleted-list"><li style="list-style-type:circle"><code>键: 值 </code>等同于 <code>键: |</code> 然后隔行缩进然后写值，<code>|</code>和<code>&gt;</code> 等价</li></ul></li></ul><ul id="1373d5cc-1d6c-4dcc-9ca3-ddc7f4274f0b" class="bulleted-list"><li style="list-style-type:disc">playbook限定主机执行范围小技巧<ul id="c1fcd1af-d740-4b18-ac43-c5bdcb13814a" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow_background">ansible-playbook命令的</mark><mark class="highlight-yellow_background"><code>--limit</code></mark><mark class="highlight-yellow_background">，在playbook的</mark><mark class="highlight-yellow_background"><code>hosts</code></mark><mark class="highlight-yellow_background">字段基础上，进一步对涉及的主机或组进行限制</mark><ul id="42f1bce8-900c-4b63-add6-802cf9de06c6" class="bulleted-list"><li style="list-style-type:square">清单有apache和nginx两个组，playbook中<code>hosts: all,</code> 执行命令<code>ansible-playbook practice.yaml --limit apache</code> ，这样仅对apache组进行变更</li></ul><ul id="7cdf6911-7aba-4bad-a58c-5d855d6545be" class="bulleted-list"><li style="list-style-type:square">清单有apache组 (主机名1.1.1.1 ）和nginx组(主机名2.2.2.2)，playbook中<code>hosts: all</code>，执行命令<code>ansible-playbook practice.yaml --limit 1.1.1.1</code> ，这样仅对1.1.1.1进行变更</li></ul></li></ul><ul id="cf954b4d-302c-4e23-bfba-92cea8d6b91b" class="bulleted-list"><li style="list-style-type:circle">ansible-playbook命令的<code>--list-hosts</code>参数，列出涉及哪些主机</li></ul><p id="60ece0e9-d50c-427d-b7f4-3040e0489479" class="block-color-teal"><mark class="highlight-teal">总结：主机清单，hosts字段, </mark><mark class="highlight-teal"><code>--limit</code></mark><mark class="highlight-teal"> 逐级决定最终操作的主机范围</mark></p></li></ul><ul id="d3663e4f-fb04-4add-bf03-bebb3f16a514" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">其他常用技巧</mark><ul id="b8416ae0-3bbb-4cd7-a814-9d591e455e4c" class="bulleted-list"><li style="list-style-type:circle"><code>-i</code> 指定主机清单</li></ul><ul id="39136356-dfbb-47d3-8e35-39c5eb7adb2b" class="bulleted-list"><li style="list-style-type:circle"><code>-v</code>  显示详细信息，<code>-vvvv</code>显示精确到每分钟的输出</li></ul><ul id="39f86811-3231-4700-b6f4-d2e4b3b7e1e5" class="bulleted-list"><li style="list-style-type:circle"><code>--extra-vars=VARS、-e VARS </code>定义变量，可理解为向函数输入实参，playbook中可引用，格式是<code>&quot;key=value,key=value&quot;</code></li></ul><ul id="0a575dfb-0bcf-41b7-b9db-336e1912def9" class="bulleted-list"><li style="list-style-type:circle"><code>--forks=NUM、-f NUM</code> 并发数，默认5，根据性能调大可提高效率</li></ul><ul id="96e8554f-98b7-45a4-b1f1-7e2eec7597ff" class="bulleted-list"><li style="list-style-type:circle"><code>--syntax-check </code>：检查YAML语法，不检查模块参数是否正确</li></ul><ul id="5dfa92c7-cd66-478f-9ff2-35f176788c0f" class="bulleted-list"><li style="list-style-type:circle"><code>--check: </code>任务在远程主机上检测但是不真正执行</li></ul></li></ul><p id="d2f04520-6be3-4bf5-8554-f08d65c2d622" class="">
+</p><h2 id="a071b531-838b-4af1-94b5-09dad189d59d" class="">模块</h2><ul id="8160698b-f8fd-423f-a8d5-71cc7fb85fdb" class="bulleted-list"><li style="list-style-type:disc">npm：npm是Node的包管理工具，npm模块用于安装软件包<pre id="bbf1faf8-fd73-419f-b4a7-25d6edf1d609" class="code code-wrap"><code>- name: &quot;安装forever&quot;
+  npm: name=forever global=yes state=latest  #后面两个是什么意思？</code></pre><p id="f44415db-4ec8-4081-b548-0c083611e56f" class="">
+</p></li></ul><ul id="c5579d45-3c1d-41c1-923d-3c2b6ca6fc1c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">rpm_key</mark>：安装YUM库的RPM GPG key<pre id="e2d084d6-3c32-4c27-9b36-f68df38021c8" class="code code-wrap"><code>- name: &quot;导入RPM GPG key&quot;
+  rpm_key:
+    state: present
+    key: &quot;{{ item }}&quot;
+  with_items: 
+  - &quot;http://rpms.famillecollet.com/RPM-GPG-KEY-remi&quot;</code></pre><p id="109a786c-536d-4f5a-bbb1-19e1ba7a582d" class="">
+</p></li></ul><ul id="aa411043-c6f0-4746-9ffa-36a1e055644c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">yum</mark><pre id="1e13cef3-afaa-408e-9b39-7ecba7b12468" class="code code-wrap"><code>- name: &quot;安装Node.js和npm&quot;
+  yum: name=npm state=present enablerepo=epel #enablerepo 指定从哪个YUM库安装</code></pre><p id="91132b31-c448-4292-a6d2-9e0eb4c03bd0" class="">
+</p></li></ul><ul id="7deb5cb3-55b2-4070-bef3-fe566669f71e" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">file</mark><pre id="9ed97a48-cb70-42fb-b0bf-6464fcf8e739" class="code code-wrap"><code>#创建目录
+file: &quot;state=directory path={{ node_apps_location }}&quot;   #如目录不存在则创建目录
+
+#创建软连接
+file:
+  src: &lt;路径&gt;
+  dest: &lt;路径&gt;
+  state: link
+
+</code></pre></li></ul><ul id="0d86f853-a09e-4b2b-9370-d421e080cf19" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">unarchive</mark><pre id="5cdf4d24-a942-4bfa-85dc-d642ba5ccb89" class="code code-wrap"><code>#不会主动创建目录
+- unarchive:
+    src: /ansible3/jdk-8u231-linux-x64.tar.gz
+    dest: /tmp/
+    owner: maxiaoyu
+    mode: 777</code></pre><p id="87f6fed9-aecc-42e8-9e01-1581d6bcd9b4" class="">
+</p></li></ul><ul id="0daec854-e6c6-4086-b749-e187db707617" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">copy</mark><pre id="6200f7e5-2e28-4337-8bd8-8bbc8119f497" class="code code-wrap"><code>#若目录不存在，则自动创建
+- name: 复制Node.js app整个目录到目标主机
+  copy: src=test dest=/tmp/ owner=maxiaoyu group=maxiaoyu mode=777</code></pre><p id="29042b98-a360-4964-8ec5-f58cc037edd2" class="">
+</p></li></ul><ul id="c9490c67-1c98-4e43-a87e-45f6457f88c1" class="bulleted-list"><li style="list-style-type:disc">apt<pre id="114b773f-3f9f-45cd-820d-1af3ffbe7764" class="code code-wrap"><code>#apt安装软件包
+- name: &quot;安装用来管理APT源的工具&quot;
+  apt: &quot;name={{ item }} state=present&quot;
+  with_items:
+  - python-apt
+  - python-pycurl</code></pre><p id="de7d0702-139c-4d76-ae64-1b30babbcdd2" class="">
+</p></li></ul><ul id="22f03cdc-a1e3-4288-88d0-e7d3c3e84880" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">service</mark><pre id="6fb2c4fc-e027-4d97-937e-576697286251" class="code code-wrap"><code>#start并且enable服务
+- service: name=firewalld state=stopped enabled=no</code></pre></li></ul><ul id="d7dc22c9-a751-4e8f-9131-4e57de75d4fb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">lineinfile</mark><pre id="bec9ade3-18a3-4daf-be2f-d1fa7f83e134" class="code code-wrap"><code>#对文件内的内容进行修改
+- lineinfile:
+    path: &quot;/tmp/test.txt&quot;   #需要修改的文件
+    regex: &quot;^parameter2=&quot;  #正则表达式,比如匹配到行parameter2=true(它将被整行替换)
+    line: &quot;parameter2=false&quot; #将整行替换为parameter2=false
+#当state=present(默认)，如果匹配到，只有最后一个匹配的被替换；如果匹配不到，那么在最后一行下面插入line内容。
+#官方：考虑到幂等性，建议正则表达式可匹配修改前后的内容
+
+#在匹配行的上一行或下一行，插入内容</code></pre></li></ul><ul id="23311c7f-5dfb-4e57-9fc6-b21b90645627" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">get_url</mark><pre id="3e28da6e-2c1c-4f78-bb2f-3d61431159fa" class="code code-wrap"><code>#下载并保存至/tmp，mode为0755
+- get_url:
+    url: https://mirrors.tuna.tsinghua.edu.cn/github-release/FreeCAD/FreeCAD/FreeCAD%200.19.1/FreeCAD-0.19.1.a88db11-WIN-x64-installer-1.exe-SHA256.txt
+    dest: /tmp
+    mode: 0755</code></pre></li></ul><ul id="9136bf9a-8215-4a24-bb73-af06fe3a0cf8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">shell</mark><pre id="af009b51-a0a3-4d59-8910-77f2e1ea4916" class="code code-wrap"><code>#执行shell命令
+- shell: |
+    cp /etc/hosts /tmp/
+    creates=/tmp/hosts   #如/tmp/hosts文件已存在，则不再执行，结果中该步骤为绿色</code></pre></li></ul><p id="202f8788-292b-4f45-9e57-3147c40db85f" class="">
+</p><ul id="73c2d4ea-637f-4cf0-85ca-0bee6bd4abe9" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">command</mark>: 执行shell命令<pre id="2c981c03-12ec-4e61-9a1a-d1353d6d4c04" class="code code-wrap"><code>- name: &quot;安装remi repo&quot;
+  command: &quot;rpm -Uvh --force http://rpms.famillecollet.com/enterprise/remi-release-7.rpm creates=/etc/yum.repos.d/remi.repo&quot;   #create表示如检查指定文件存在则不再执行command，因为command命令没有幂等性保护使用create可以避免重复执行。</code></pre><p id="88a11b86-cda1-40e9-b6c7-f40ab7fc999f" class="block-color-teal">command无法处理流操作，比如管道/重定向/&amp;&amp;和|| 都不能用； 而shell可以</p></li></ul><ul id="6aa230e0-853b-42ea-b300-0492f0331ad5" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">git</mark><pre id="17c9b66d-00e1-4b8a-89d4-f9d402339e7a" class="code code-wrap"><code>#从一个git repo checkout,dest目录不可以存在否则报错
+- git:
+    repo: https://github.com/gabrie-allaigre/sonar-gitlab-plugin.git
+    dest: /tmp/sonar-gitlab-plugin
+
+#version字段?
+#refspec?</code></pre></li></ul><ul id="136502d4-695a-4480-9c7a-9ace9351a403" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">user</mark><pre id="f148ab56-c7d2-45ea-b724-68b5f61c18bd" class="code code-wrap"><code>#创建用户
+- user: user=tomcat shell=/sbin/nologin</code></pre><p id="2a858b7e-8acd-4cba-9754-ee602e6b9436" class=""><mark class="highlight-orange">除了user，是否还有对用户组的操作？</mark></p></li></ul><ul id="349c9591-9b64-4a4e-a2a2-9db28f6a80c9" class="bulleted-list"><li style="list-style-type:disc">debug<pre id="4a95f665-d96a-4922-bc8d-60cfe4f7fb8d" class="code code-wrap"><code>---
+- hosts: all
+  vars:
+    software_version: &#x27;4.6.1&#x27;
+  tasks:
+  - command: &quot;ls  /tmp/test.txt&quot;
+    register: result
+    changed_when: &quot;result.stdout == &#x27;/tmp/test.txt&#x27;&quot;
+  - debug: var=result.stdout verbosity=0  #在结果中将变量result打印出来</code></pre></li></ul><h2 id="172b2615-28fc-4306-abff-a8a895e00d50" class="">内建变量和fact变量汇总</h2><pre id="c97fed36-d67e-4f72-9899-a0eeea546b3c" class="code code-wrap"><code></code></pre><h2 id="0910fd4e-5e8b-484a-8c76-b548cc0526f3" class="">环境变量</h2><ul id="9b5f6cca-e3a7-40f9-a46a-7490eff223ba" class="bulleted-list"><li style="list-style-type:disc">环境变量：在进程启动时，由系统内核传入的一组变量，进程内部逻辑按需引用某些变量。环境变量起到为进程设置运行环境的作用。普通变量没有这个作用。env命令可查看</li></ul><ul id="2c20d013-f6ba-40e2-abec-c6c365dd1728" class="bulleted-list"><li style="list-style-type:disc">指定用户级别和系统级别的环境变量 (使用lineinfile模块只能应付环境变量数量少的情况，<mark class="highlight-teal">数量多需COPY模块或模板）</mark><pre id="b6d64fbd-7841-440e-b763-e5e53213952e" class="code code-wrap"><code>#修改登陆用户的环境变量：在~/.bash_profile文件追加PARAM1=maxiaoyu
+- lineinfile: path=~/.bash_profile regex=&#x27;^export PARAM1=&#x27; line=&#x27;PARAM1=maxiaoyu&#x27;
+#生效
+- shell: &quot;source ~/.bash_profile&quot;
+
+#系统级别环境变量
+- lineinfile: path=/etc/environment regex=&#x27;^export PARAM1=&#x27; line=&#x27;PARAM1=maxiaoyu&#x27;
+- shell: &quot;source /etc/environment&quot;</code></pre></li></ul><ul id="5cea1886-def0-4d79-bf43-4173d2ddaa11" class="bulleted-list"><li style="list-style-type:disc">任务级别的环境变量<pre id="dc03a777-a6a9-482d-b629-78e1fc4d9517" class="code code-wrap"><code>---
+- git: repo=https://github.com/mc1arke/sonarqube-community-branch-plugin.git dest=/tmp/sonarqube-community-branch-plugin
+  environment:
+    http_proxy: http://10.19.34.1:10809
+    https_proxy: https://10.19.34.1:10809
+
+#如有多个任务都需引用，可用下面这种方法
+---
+- hosts: all
+  vars:
+    vars_proxy:  #变量组，方便多个环境变量一齐引用
+      http_proxy: http://10.19.34.1:10809
+      https_proxy: https://10.19.34.1:10809
+  become: yes
+  become_user: root
+  tasks:
+  - git: repo=https://github.com/mc1arke/sonarqube-community-branch-plugin.git dest=/tmp/sonarqube-community-branch-plugin
+    environment: {{ vars_proxy }} #将变量组变成环境变量组，如此git进程可使用到这两个环境变量
+  - shell: &quot;env | grep http_proxy&quot;   #可以看到两个环境变量
+    environment: {{ vars_proxy }}
+</code></pre></li></ul><ul id="5846ac35-28a9-40f8-9829-84b98fe22e4b" class="bulleted-list"><li style="list-style-type:disc">playbook级别的环境变量<pre id="b1127635-2685-4115-b83a-165fb90dbe30" class="code code-wrap"><code>---
+- hosts: all
+  environment:
+    http_proxy: http://10.19.34.1:10809
+    https_proxy: https://10.19.34.1:10809
+  become: yes
+  become_user: root
+  tasks:
+  - git: repo=https://github.com/mc1arke/sonarqube-community-branch-plugin.git dest=/tmp/sonarqube-community-branch-plugin</code></pre></li></ul><h2 id="0a4e6276-76a8-4c4d-bbd6-a6eb2cf6f148" class="">变量</h2><ul id="3e0b9c6c-818d-480e-9d96-6516cae7319c" class="bulleted-list"><li style="list-style-type:disc">变量名规则：不要用驼峰，须全部小写，数字尽量放末尾，可包含下划线</li></ul><ul id="30f35e8a-09b6-4e0d-aeb2-b68da6b12ac5" class="bulleted-list"><li style="list-style-type:disc">在主机清单中用<code>=</code>符号，在playbook和变量文件中用<code>:</code>符号</li></ul><ul id="7ff07b2a-391b-45e7-9bfd-705c1ee7ea10" class="bulleted-list"><li style="list-style-type:disc"><strong>主机和主机组的变量</strong>，主机清单不要定义过多变量，官方建议放在group_vars和host_vars目录中, 位于/etc/ansible目录下(没用可手动建)<ul id="84d79d4f-9070-4935-b845-8f0e8d479676" class="bulleted-list"><li style="list-style-type:circle">如某个<strong>主机组</strong>变量和<strong>主机</strong>变量相同，则主机变量<strong>覆盖</strong>主机组变量</li></ul><ul id="922b50b0-cfbf-4ac3-8285-f820e13308f0" class="bulleted-list"><li style="list-style-type:circle">在host_vars目录编辑主机变量文件，一个主机一个同名文件；在group_vars目录编辑主机组变量文件，一个组一个同名文件</li></ul><ul id="72da1196-5ab1-42e0-8785-d161e478ceb7" class="bulleted-list"><li style="list-style-type:circle">在host_vars目录all文件为所有主机定义变量；在group_vars目录all文件为所有组定义变量<pre id="b701867b-9436-4a4c-a9bc-11161f8ff6d9" class="code code-wrap"><code>#主机清单定义主机和主机组变量
+[webs]
+web1 http_port=8081   #放在主机名后面
+
+[webs:vars]  #定义主机组变量
+api_version=3.0  
+
+#在host_vars目录，一个主机一个文件，比如编辑web1.yml
+---
+http_port: 8081
+
+#在group_vars目录，一个组一个文件，比如编辑webs.yml
+---
+api_version: 3.0</code></pre></li></ul></li></ul><ul id="92478057-6633-4ef3-b0d0-b16abfd7ef68" class="bulleted-list"><li style="list-style-type:disc"><strong>playbook的变量</strong>，赋值方式：<ul id="cae332f2-5e84-4b33-ba1a-e4ca55d9e308" class="bulleted-list"><li style="list-style-type:circle">ansible-playbook命令选项<code>--extra-vars=var1=123</code> 赋值</li></ul><ul id="065e6b71-665b-477d-b7ed-974aac02bfa6" class="bulleted-list"><li style="list-style-type:circle">playbook文件的<code>vars</code>字段中赋值</li></ul><ul id="8daa7957-ec00-4ec7-932d-e519d58454d7" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-yellow_background">playbook中指定需要导入变量文件，在文件中赋值，统一管理：</mark><pre id="f5af9d19-34bc-459d-be08-16fc5658ba74" class="code code-wrap"><code>#playbook的vars
+---
+- hosts: all
+  vars:
+    var1: 123  #在playbook直接定义变量
+  tasks:
+  - command: &quot;echo {{ var1 }}&quot;  #引用变量
+
+#定义playbook的变量文件
+---
+- hosts: all
+  vars_files:
+  - vars.yml  #指定变量文件
+
+#编辑vars.yml文件
+---
+var1: 123  #定义变量</code></pre></li></ul><ul id="d8ee8bdc-f82e-46b2-ac3b-c18602efde8d" class="bulleted-list"><li style="list-style-type:circle">playbook中，可以根据facts变量信息，实现vars文件的选择性导入，达到不同环境对应不同变量文件<pre id="984749cd-8fe7-4cb7-b507-6ad531820a59" class="code code-wrap"><code>#执行时ansible读取facts信息中的ansible_os_family，在vars_files块中，如果{{ ansible_os_family }}.yml在变量替换后没有对应的变量文件，则选择default.yml
+---
+- hosts: all
+  become: no
+  become_user: root
+  vars_files:
+  - [&quot;{{ ansible_os_family }}.yml&quot;, &quot;default.yml&quot;]   #在CentOs7是RedHat.yml
+</code></pre></li></ul></li></ul><p id="44037bbd-ea05-4b7f-8f44-205c30d99e45" class="">
+</p><ul id="f81fe7be-3725-4573-a712-78494f3fb1fc" class="bulleted-list"><li style="list-style-type:disc">高阶变量<ul id="46a45956-e3fc-4804-8d75-c99f7f907f92" class="bulleted-list"><li style="list-style-type:circle">列表<pre id="e59dea60-c056-43e8-a6dc-d1711239b623" class="code code-wrap"><code>---
+- hosts: all
+  vars:
+    vars_list:
+    - &quot;var1&quot;
+    - &quot;var2&quot;
+  tasks:
+  - command: &quot;echo {{ vars_list[0] }}&quot;</code></pre></li></ul><ul id="f9203160-0431-4a6d-a75e-5b888b0d78e4" class="bulleted-list"><li style="list-style-type:circle">类似字典，我个人叫变量组，类似YAML使用符号<code>.</code>来逐级检索<pre id="e36e45f9-2874-46df-b7ba-1c96cdf9acca" class="code code-wrap"><code>---
+- hosts: all
+  vars:
+    vars_list:
+      var1: var1
+      var2: var2
+  tasks:
+  - command: &quot;echo {{ vars_list.var1 }}&quot;  #{{ vars_list[&#x27;var1&#x27;] }}一样</code></pre></li></ul><ul id="74ff4d56-d3a1-4e04-ae91-0a91714055b2" class="bulleted-list"><li style="list-style-type:circle">从一个主机上获取另外一个主机的变量信息, 利用变量hostvars<pre id="4f076d0b-7377-43c9-a278-9eb244794d80" class="code code-wrap"><code>---
+- hosts: all
+  tasks:
+  - shell: &quot;echo {{hostvars.web2.inventory_hostname}}&quot;  #{{ hostvars.主机名.变量名 }} 
+#还没有实例来演示
+</code></pre></li></ul><ul id="f60f5181-c1fe-4381-9995-b2a5ddab90e3" class="bulleted-list"><li style="list-style-type:circle">register变量注册<ul id="95966bd6-7f98-49ab-bd07-436dd0ac0757" class="bulleted-list"><li style="list-style-type:square">register获取任务的运行结果，赋值给变量，注册的变量和其他普通变量一样被使用</li></ul><ul id="348b1631-89ea-498c-9619-17e2e0499bec" class="bulleted-list"><li style="list-style-type:square">多数情况用于接受shell命令的结果，标准输出<code>.stdout</code>和标准错误<code>.stderr</code></li></ul><ul id="23e39359-3152-4d9f-ac04-c5561998a6d9" class="bulleted-list"><li style="list-style-type:square">通常会与when搭配使用(取值然后判断是否执行)</li></ul><pre id="afcb8e50-922e-4282-87e4-27ffd91dfe6c" class="code code-wrap"><code>
+---
+- hosts: all
+  tasks:
+  - command: &quot;echo 123&quot;
+    register: result  #register获取上一个模块command的输出，赋值变量result.
+  - command: &quot;echo {{ result.stdout }}&quot; #result.stdout是“echo 123”指令的标准输出，是一个字符串类型</code></pre></li></ul></li></ul><ul id="38a57bc7-2ed7-4a86-964c-1d71d171dc4d" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">变量优先级</mark><p id="7818ede8-107b-4653-9c92-e2611f1a960e" class=""><a href="https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html">https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html</a></p></li></ul><p id="c3a9ccd9-68c4-47df-a63d-fb6a76ef1797" class="">
+</p><h2 id="58a1cd95-e32a-4f57-bf76-af3a1763316a" class="">条件判断</h2><p id="127fdbba-f30c-4aa2-9159-55a7ab9bc7b1" class="">有些任务自带幂等性，而像command和shell没有幂等性的任务需要用户进行判断，所以流程控制就显得重要。</p><ul id="b8065dad-df1b-48a8-83ae-b33ea4a67936" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">when的使用</mark><pre id="4c881b14-5290-45f6-b923-c089f5dffa8b" class="code code-wrap"><code>#在条件表达中，不可以用jinjia变量符号{{}}来作变量替换，如果需要变量与字符串进行拼接，可以用圆括号，比如下面
+- name: &quot;启动node.js app列表&quot;
+  command: &quot;forever start&quot;
+  when: &quot;forever_list.stdout.find(&#x27;( node_apps_location )/app/app.js&#x27;) == -1 }}&quot;  #如真则执行任务，
+
+- command: &quot;echo 正确!!&quot;
+  when: result.stdout + &#x27;/&#x27; + file == &#x27;/tmp/test.txt&#x27;  #使用+号实现字符串和变量的拼接</code></pre></li></ul><ul id="7f1a5455-a251-4e69-8de6-39345f0bd468" class="bulleted-list"><li style="list-style-type:disc">jinja2语法，在条件判断和模板中会用到<ul id="d7066c1d-557e-4c84-9352-c3374ffb813f" class="bulleted-list"><li style="list-style-type:circle">支持数据类型：整数，字符串，浮点，列表，元组，字典</li></ul><ul id="13862b71-3ba4-4127-bc11-1a8962d0a445" class="bulleted-list"><li style="list-style-type:circle">数据运算(+-*/)和比较(<code>==,!=,&gt;=,&lt;=</code>)，逻辑运算(<code>and</code>,<code>or</code>,<code>not</code>可以用<code>()分组</code>），<code>in</code></li></ul><ul id="0273ddfd-d28b-42ec-9d14-0aac50f9746a" class="bulleted-list"><li style="list-style-type:circle">test语句，判断变量：defined,undefined,equalto,even.iterable</li></ul><pre id="5b3857cf-33fa-4a51-ade3-dce7bf392522" class="code code-wrap"><code>#返回true
+1 in [1,2,3]
+&#x27;see&#x27; in &#x27;Can you see me ?&#x27;
+foo != bar
+(1 &lt; 2) and (&#x27;a&#x27; not in &#x27;best&#x27;)
+
+#返回false
+4 in [1,2,3]
+
+#判断是否相等，when表达式不可用jinja变量符号{{}}或{%%}，jinja有数据类型要求，因为result.stdout是字符串故123要用单引号。
+- hosts: all
+  vars:
+    software_version: &#x27;4.6.1&#x27;
+  tasks:
+  - command: &quot;echo 可以执行&quot;
+    when: software_version == &#x27;4&#x27;  </code></pre></li></ul><ul id="c8aee917-0751-4a91-a59b-f9be94df7baf" class="bulleted-list"><li style="list-style-type:disc">python内置方法可弥补jinja2无法满足的场景, <mark class="highlight-orange">python内置方法有哪些？</mark><pre id="fc4c2654-d2ca-448d-88d4-1ea3213b8182" class="code code-wrap"><code>---
+- hosts: all
+  vars:
+    software_version: &#x27;4.6.1&#x27;
+  tasks:
+  - command: &quot;echo 可以执行&quot;
+    when: software_version.split(&#x27;.&#x27;)[0] == &#x27;4&#x27;   #python内置方法.split()</code></pre></li></ul><ul id="96b5ebbb-df4c-453e-b96f-f2266c04d0cb" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-purple_background">changed_when </mark><ul id="56d8557e-a17c-405b-b59f-cf1541b98ce0" class="bulleted-list"><li style="list-style-type:circle">使用环境：没有幂等性的模块(sh,command)，不判断当前状态是否等于期望状态(如yum的state为present或absent)，执行后在每次结果中显示黄色，不方便执行者观察。通过changed_when，判断条件，如果满足则在结果中显示黄色，反之显示绿色</li></ul><ul id="adb8e1d5-cd87-44ca-8ed6-1a0cbf505da6" class="bulleted-list"><li style="list-style-type:circle">通常用在sh或command任务，执行脚本或二进制程序，</li></ul><ul id="33711f98-2de1-4269-99a2-6057132ab526" class="bulleted-list"><li style="list-style-type:circle">changed_when所在任务的绿色不是任务跳过！！切记：任务已经执行了</li></ul><ul id="7eb15150-a219-48ae-8785-288f7113f95d" class="bulleted-list"><li style="list-style-type:circle">when是先判断条件再决定是否执行任务，而changed_when是在任务执行后判断结果</li></ul><pre id="4d3d355e-3d34-46dd-b990-49fc0ea59575" class="code code-wrap"><code>#如再次执行test_command.sh，它会显示‘Service already started, status OK’，当出现这条信息时，不满足条件，显示绿色
+- command: sh /ansible3/test_command.sh
+    register: result
+    changed_when: &quot;&#x27;Service already started, status OK&#x27; not in result.stdout&quot;</code></pre></li></ul><ul id="951a1cea-32a6-4f07-b51b-15e275e99f7f" class="bulleted-list"><li style="list-style-type:disc"> failed_when<ul id="9801a9e6-5777-4582-84c5-af3a03b3787e" class="bulleted-list"><li style="list-style-type:circle">使用环境：与changed_when相似：先执行后判断，区别是：判断执行结果为真则任务失败，显示红色，playbook终止；反之任务执行成功，显示黄色，playbook终止</li></ul><ul id="a8918c16-d275-4474-a397-f941f8bad68e" class="bulleted-list"><li style="list-style-type:circle">二进制程序报错，可能是在标准输出，也可能在标准错误，视情况使用.stdout和.stderr<pre id="c91bae09-3efa-40c2-955e-c7ab2ecfbf0d" class="code code-wrap"><code>如执行test_command.sh时发生错误，标准输出‘Service start failed, status inactive’，当出现此信息，满足条件，显示红色，playbook终止
+- command: &quot;sh /ansible3/test_command.sh&quot;
+  register: result
+  failed_when: &quot;&#x27;Service start failed, status inactive&#x27; in result.stdout&quot;</code></pre></li></ul></li></ul><ul id="a6948eba-e1ec-44ba-9178-ac2d27f2fe6b" class="bulleted-list"><li style="list-style-type:disc">failed_when与changed_when搭配<pre id="7bb75596-0474-440c-ba01-e8529f6593c8" class="code code-wrap"><code>- command: &quot;sh /ansible3/test_command.sh&quot;
+  register: result
+  failed_when: &quot;&#x27;Service start failed, status inactive&#x27; in result.stdout&quot;
+  changed_when: &quot;&#x27;Service already started, status active&#x27; not in result.stdout&quot;</code></pre></li></ul><ul id="07c28b1a-6714-434f-b3a2-69ecb5d71c73" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">ignore_errors</mark></li></ul><ul id="6d087fa1-bf6e-4660-b267-623d27c1c904" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">条件判断与内置python方法练习</mark><ul id="a4b15eba-b537-41ed-a8a3-1a602d12a682" class="bulleted-list"><li style="list-style-type:circle">数据类型的转换</li></ul></li></ul><p id="862805ec-49ef-4131-8fcc-d83423b8e4cc" class="">
+</p><h2 id="ebf23858-8852-42cf-bb78-76f36703fb89" class="">任务暂停</h2><pre id="92531afa-2bc3-4e3a-a15a-e3b1a4894690" class="code code-wrap"><code>#在ansible主机上探测web_server，直到成功才能继续到下一个任务
+- name: 等待web_server启动
+  local_action:
+    module: wait_for
+    host: 10.19.34.18  #如果host是主机名，则执行者的hosts文件必须有，因为它不依赖主机清单进行解析
+    port: 80   #检测端口
+    delay: 1  #单位秒，每秒执行一次
+    timeout: 300
+    state: started
+- name: 添加相关配置
+  command: echo &#x27;123&#x27; &gt;/etc/test.conf</code></pre><h2 id="464cdc68-8a1b-4809-8a46-99083df05062" class="">Block</h2><ul id="c77218e1-13a9-4c2d-8f29-72b8b96cd62f" class="bulleted-list"><li style="list-style-type:disc">将多个任务模块整合为一个，可针对一个块配置when，sudo等参数<pre id="d8b2acb9-a3dd-49e2-bb78-b028dd52dac4" class="code code-wrap"><code>- block:
+    - yum: name=httpd state=present
+    - service: name=httpd state=started enabled=yes
+    - user: user=httpd shell=/sbin/nologin
+  when: ansible_os_family == &#x27;RedHat&#x27;
+  sudo: yes</code></pre></li></ul><p id="2cda616d-0ff8-438f-8f27-bffe1f1e2773" class="">
+</p><ul id="13dcd628-d6a9-4037-aff7-80c01d83d92b" class="bulleted-list"><li style="list-style-type:disc">处理任务的错误异常：当块中的任务出现错误时,rescue将立即执行,而alway是一定会执行的<pre id="d4f0be58-ae06-4feb-8299-2e58502a5dde" class="code code-wrap"><code>- block:
+    - name: 执行脚本1
+      command: sh /ansible3/test_command.sh
+      register: result
+    rescue:
+    - name: 执行脚本错误，发送错误相关信息到日志
+      shell: echo &quot;$(date +%Y%m%d-%H%M%S)  脚本执行错误：{{ result.stderr }}&quot; &gt;&gt;/var/log/test.log
+    always:
+    - name: 执行脚本，发送信息到日志
+      shell: echo &quot;$(date +%Y%m%d-%H%M%S)  脚本已执行：&quot; &gt;&gt;/var/log/test.log</code></pre></li></ul><h2 id="8fa24453-dbde-48e8-8eba-848ec8461abc" class=""><mark class="highlight-orange">模板和变量</mark></h2><ul id="4227b56f-aab6-49d0-a63f-62cfdc0ae5a3" class="bulleted-list"><li style="list-style-type:disc">模板+变量=配置文件，因为有些情况配置不可写死，方便操作者按需调整，所以采用模板。</li></ul><ul id="ce8d66ed-7052-44fd-bb14-02cec11493fd" class="bulleted-list"><li style="list-style-type:disc">将模板放在template目录</li></ul><ul id="c8aeafa8-5f09-4568-824e-f523d0e05fc7" class="bulleted-list"><li style="list-style-type:disc">模板文件后缀.j2</li></ul><pre id="785ce837-df42-4d8d-8057-bc834d643f42" class="code code-wrap"><code>#步骤1： 创建模板文件
+mkdir template &amp;&amp; cd template #模板统一放一个目录
+vim nginx.conf.j2  #后缀.j2
+#{{ 变量 }}表示此处引用变量
+
+#步骤2: 定义变量,所有变量可定义在一个单独文件中,方便集中管理
+vim vars.yml
+---
+drupal_core_version: &quot;8.0.x&quot;
+drupal_core_path: &quot;/var/www/drupal-{{ drupal_core_version }}-dev&quot;
+domain: &quot;maxiaoyu&quot;
+
+#步骤3: 在playbook中指定变量路径
+---
+- hosts: all
+  vars_files:   
+  - vars.yml  #执行变量
+  tasks：
+  - template: 
+      src: &quot;nginx.conf.j2&quot;
+      dest: &quot;/etc/nginx/{{ domain }}.dev.conf&quot;
+      owner: root
+      group: root
+      mode: 0644
+
+
+</code></pre><p id="fa9c2869-ada1-475a-9e2f-da1632394b27" class="">
+</p><h2 id="16cfa17e-48eb-4f03-b675-273ced4abedb" class=""><mark class="highlight-orange">prea_task</mark></h2><h2 id="51151d1a-c60d-4f2a-b63b-455458b54721" class=""><mark class="highlight-orange">post_task</mark></h2><p id="ebf2e7ce-18ee-40ad-9888-65a2daa8d9a9" class="">
+</p><h2 id="914149e4-361a-43a2-9939-6c4b9282a6eb" class=""><mark class="highlight-orange">handlers</mark></h2><ul id="2f705d0d-7ea7-4c66-a786-93ee2fc5cbc4" class="bulleted-list"><li style="list-style-type:disc">所有tasks执行完后handlers才开始执行（已亲测）</li></ul><ul id="24b4708f-7367-4e46-8c78-603c3f85d619" class="bulleted-list"><li style="list-style-type:disc">只有执行过的任务，对应的handler才会执行；跳过的任务，对应的handler不执行（已亲测）</li></ul><ul id="69c35f82-f771-4c19-8d78-e00da7aae13b" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">当playbook失败时，不会继续执行剩下的tasks，</mark><mark class="highlight-orange"><strong>也不会触发本该被触发的handler(</strong></mark><mark class="highlight-orange">本该是指某task已触发handler，该handler应在tasks结束后执行),可能造成负面影响，可在ansible-play命令中加</mark><mark class="highlight-orange"><code>--forcehandler</code></mark><mark class="highlight-orange"> 强制handler执行。</mark><pre id="f0f956e4-08eb-4eb2-b087-62615ab5d0ba" class="code code-wrap"><code>#1：一个任务调用一个handler
+---
+- hosts: all
+  handlers:
+  - name: test handler  #定义一个handler，name将用于引用故不可省略
+    command: echo &quot;执行handlers&quot; #handler执行内容也是模块
+  tasks:
+  - command: touch /tmp/test.txt creates=/tmp/test.txt  #如/tmp/test.txt存在则该任务不执行，如不执行则handler最终也不会执行
+    notify: test handler
+  - command: echo &quot;command2&quot;
+#handler将在两个任务执行结束后开始
+
+#2: 一个任务使用两个handler
+---
+- hosts: all
+  handlers:
+  - name: test handler 1
+    command: echo &quot;执行handler 1&quot;
+  - name: test handler 2
+    command: echo &quot;执行handler 2&quot;
+  tasks:
+  - command: touch /tmp/test.txt creates=/tmp/test.txt
+    notify:
+    - test handler 1
+    - test handler 2
+  - command: echo &quot;command2&quot;
+
+#3: 一个handler调用另一个handler
+---
+- hosts: all
+  handlers:
+  - name: test handler 1
+    command: echo &quot;执行handler 1&quot;
+    notify: test handler 2   #handler 1执行完后，再调用handler 2执行
+  - name: test handler 2
+    command: echo &quot;执行handler 2&quot;
+  tasks:
+  - command: touch /tmp/test.txt creates=/tmp/test.txt
+    notify:
+    - test handler 1
+  - command: echo &quot;command2&quot;
+</code></pre></li></ul><h2 id="28eb30bb-6484-440d-98cb-05053476396e" class="">提权</h2><p id="2c32222f-daa7-4e51-b1a3-ace86e173bc4" class="">有时不允许以root身份SSH登陆直接执行操作，必须以普通用户登陆，在提权后执行操作</p><ul id="8391b3ba-2610-4358-ae0f-a06fb8b6171d" class="bulleted-list"><li style="list-style-type:disc">全局级别提权<pre id="181c85eb-1eb0-43a0-bcbe-7c29124d0fee" class="code code-wrap"><code>
+#1.playbook开头加入become和become_user,全局范围的提权,指定sudo和sudo用户
+---
+- hosts: webs
+  become: yes
+  become_user: root  #sudo为root
+
+#2.在inventory添加主机信息，比如hosts文件，
+[webs]
+web2  ansible_ssh_host=10.19.34.51 ansible_ssh_user=maxiaoyu #已作maxiaoyu用户的免密登陆
+
+#3.执行命令时，--ask-become-pass要求提示输入sudo密码，因为官方建议更安全
+ansible-playbook &lt;playbook文件&gt; --ask-become-pass</code></pre></li></ul><ul id="f72f452c-2993-4b39-a33b-0b3a199a8dce" class="block-color-orange bulleted-list"><li style="list-style-type:disc">模块级别提权</li></ul><p id="4aa845b5-7574-463a-a1d5-803ac23e5c37" class="">
+</p><p id="5cecd838-a729-473e-b010-96e1bda23bfa" class="">
+</p><h2 id="dea18848-3e98-404d-8875-f93f867d5b58" class="">问题：</h2><ol type="1" id="e2d5836a-21ea-43ef-a636-109667f6bbdc" class="numbered-list" start="1"><li>研究stat模块，它搭配register可以实现对文件是否存在的判断</li></ol></div></article></body></html>

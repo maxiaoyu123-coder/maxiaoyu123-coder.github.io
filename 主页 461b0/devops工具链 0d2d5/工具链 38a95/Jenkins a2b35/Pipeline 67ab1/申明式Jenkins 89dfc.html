@@ -1,0 +1,849 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>申明式Jenkinsfile,</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="89dfc18f-3bd1-4219-ba58-2d8128f72e81" class="page sans"><header><img class="page-cover-image" src="%E7%94%B3%E6%98%8E%E5%BC%8FJenkins%2089dfc/image00.png" style="object-position:center 32.730000000000004%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">💼</span></div><h1 class="page-title">申明式Jenkinsfile,</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 23, 2021 7:38 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>tag</th><td></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><p id="18f6364e-f6c4-496f-a5f7-cca0d97cb003" class="">
+</p><ul id="553875d5-be08-4365-82c9-8a22289f9beb" class="bulleted-list"><li style="list-style-type:disc">什么是Pipeline?<p id="e49e8bcc-596e-40f2-9f7c-736a6a573026" class="">Pipeline是一套插件, 用来将&quot;持续交付管道(continuous delivery pipeline)&quot;这种功能集成到Jenkins中.</p><p id="78be7b99-09a5-4045-8bf7-038e09bb8526" class="">持续交付管道(continuous delivery pipeline)是一个表达式, 它包括从&quot;获得软件&quot;到&quot;交付给用户或客户&quot;的一整个流程.</p><p id="818196d7-2f03-4655-b895-df0fa33b8232" class="">Jenkins Pipeline插件可以让我们用&quot;代码&quot;描述一个&quot;交付管道&quot;,  这样一段&quot;代码&quot;是写在一个称为&quot;Jenkinsfile&quot;文本中的.</p><p id="45da0c03-fc12-4e79-b280-54f6fa102425" class="">
+</p></li></ul><ul id="3f264fa5-db7e-4263-97ea-2c671d0eaced" class="bulleted-list"><li style="list-style-type:disc">注意：因为groovy脚本在Master节点运行，消耗CPU和内存，故在pipeline中的groovy脚本不可复杂，鼓励采用插件<p id="4fb3abd8-3c8a-4d4e-aa00-55fb35214313" class="">参考：<a href="https://earthly.dev/blog/slow-performance-in-jenkins/">https://earthly.dev/blog/slow-performance-in-jenkins/</a></p><p id="24d76f75-2bf3-4aea-99d6-939fc81e9804" class="">
+</p></li></ul><h3 id="3d896077-5d9b-4280-8ede-0768285b1d32" class="">Jenkinsfile申明式风格</h3><ul id="3c0cd6bc-470d-4566-b4b2-2714a187a069" class="toggle"><li><details open=""><summary>示例</summary><pre id="e4c5726d-9aec-4aef-8f7a-1ab1982ee488" class="code code-wrap"><code>#!groovy
+
+pipeline{
+
+//定义agent部分
+    agent {
+        node {
+            label &quot;master&quot;
+            //customWorkspace &quot;${workspace}&quot;
+        }
+    }
+
+//options部分
+options {
+		timestamps()
+		skipDefaultCheckout()
+		disableConcurrentBuilds()
+		timeout(time: 1, unit: &#x27;HOURS&#x27;)
+}
+
+//定义stages    
+    stages {
+        stage(&quot;GetCode&quot;){
+            steps{
+                timeout(time:5, unit:&quot;MINUTES&quot;){
+                    script{
+                        println(&#x27;获取代码&#x27;)
+                    }
+                }
+            }
+        }
+        stage(&quot;Build&quot;){
+            steps{
+                timeout(time:20, unit:&quot;MINUTES&quot;){
+                    script{
+                        println(&#x27;应用打包 &#x27;)
+                    }
+                }
+            }
+        }
+        stage(&quot;CodeScan&quot;){
+            steps{
+                timeout(time:30, unit:&quot;MINUTES&quot;){
+                    script{
+                        println(&#x27;代码扫描 &#x27;)
+                    }
+                }
+            }   
+        }
+    }
+
+//定义post
+    post{
+        always{
+            script{
+                println(&quot;always&quot;)
+            }
+        }
+        success{
+            script{
+                currentBuild.description += &quot;构建成功\n&quot;
+            }
+        }
+        failure{
+            script{
+                currentBuild.description += &quot;构建失败\n&quot;
+            }
+        }
+        aborted{
+            script{
+                currentBuild.description += &quot;构建取消\n&quot;
+            }
+        }
+    }
+
+}</code></pre></details></li></ul><h3 id="b6daacbc-e084-45ac-9538-7fb8b5fd6cc6" class="">定义agent</h3><p id="a39a2f07-fa87-43e4-888d-92d1a0f64a08" class=""><code>node</code> 下的<code>label</code>定义哪个节点处理这个“作业”.</p><pre id="f0e42680-0538-4785-a91e-9352be01e6e0" class="code code-wrap"><code>//指定任意节点
+agent any
+
+//指定具有指定标签的节点
+agent {
+        label &quot;master&quot;
+}
+
+//指定具有指定标签的节点，并指定这个节点的worekspace位于哪个目录下。
+agent {
+        node {
+            label &quot;master&quot;
+            customWorkspace &quot;/tmp/&quot;
+        }
+}</code></pre><p id="34e2e815-d45c-4069-95f5-f18bb2a1fc74" class="">
+</p><hr id="30f9d931-d64b-4eb2-b192-f9fd81cd1ba4"/><p id="61a6e026-088a-4411-b092-79fc2c71811f" class="">
+</p><h3 id="2e89843e-e3d2-4f6b-9bff-f7f8b455c1dd" class="">timeout</h3><p id="a9944938-d29e-44a8-b1c0-06d2be9db243" class="">限制脚本中某个动作的所花费的时间. 默认是分钟. 超过所定时间, 将抛出异常.</p><p id="93c4f514-4358-4c2a-b5e3-fdc8e1d674af" class="">建议对任何会暂停pipeline的step都用timeout进行限制.</p><pre id="5eec1887-f6e5-4e83-9c0f-3b134b7a03c6" class="code"><code>timeout(time:60, unit: &#x27;SECONDS&#x27;) {
+ // processing to be timed out inside this block
+}</code></pre><p id="edc98946-0e3b-4b31-9620-4c6276863a29" class="">例子</p><pre id="8b038be3-0dd3-463d-89f9-e48f9cab9552" class="code"><code>node {
+		def response
+		stage(&#x27;input&#x27;) {
+		timeout(time:10, unit:&#x27;SECONDS&#x27;) {
+		response = input message: &#x27;User&#x27;,
+		parameters: [string(defaultValue: &#x27;user1&#x27;,
+		description: &#x27;Enter Userid:&#x27;, name: &#x27;userid&#x27;)]
+		}
+		echo &quot;Username = &quot; + response
+		} 
+}</code></pre><p id="75292348-8278-4a91-86c1-1427b17086b8" class="">上例中timeout会在等待10秒后,抛出异常, pipeline将终止. 为了避免pipeline终止, 可以参照下面例子.</p><pre id="318e9a29-17ff-4c8d-bd9a-578ae9b3be6d" class="code"><code>node {
+ def response
+ stage(&#x27;input&#x27;) {
+ try {
+ timeout(time:10, unit:&#x27;SECONDS&#x27;) {
+ response = input message: &#x27;User&#x27;,
+ parameters: [string(defaultValue: &#x27;user1&#x27;,
+ description: &#x27;Enter Userid:&#x27;, name: &#x27;userid&#x27;)]
+ }
+ }
+ catch (err) {
+ response = &#x27;user1&#x27;
+ }
+ } }</code></pre><h3 id="652fa5fc-ed7c-44e8-aa13-f418f74d5303" class="">retry</h3><p id="d423b954-b0cb-407a-9e27-7dc60ad89fac" class="">retry所括的代码在遇到异常时将会再次执行直到n次.</p><pre id="bfa2b4fe-4d3a-4158-abed-0acb4dc08bb4" class="code"><code>retry(&lt;n&gt;) { // processing }</code></pre><h3 id="47b42198-d833-46a2-b327-cecf118d0485" class="">sleep</h3><p id="db804e0e-af48-4808-9561-646b426cc316" class="">延迟指定时长, 默认是秒.</p><pre id="3e7d4f7f-b0bd-45f2-a8a2-4ab5ed4035c8" class="code"><code>sleep time: 5, unit: &#x27;MINUTES&#x27;</code></pre><h3 id="f87d2bb1-1cbd-4ab2-8efb-239ef9a396a1" class="">waitUtil</h3><p id="5db8354f-d3e3-4485-9020-289f559a8436" class="">这种step会不断执行一段程序直到它返回0. </p><pre id="986afc49-b627-46ef-b944-eef88d8f42f6" class="code"><code>waitUntil { // processing that returns true or false }</code></pre><p id="613c5025-cf1c-4690-a73c-72ef739816a7" class="">建议把waitUtil放在timeout中,反之无限循环. 下例中, 如果判断指定文件存在则返回0结束waitUtil循环, 否则进入下一次尝试, 但这段程序时常受限于timeout指定的15秒.</p><p id="91a77491-7d4a-42de-8712-85b875b24326" class="">注意sh的参数returnStatus的用法, 通常script以非0状态退出会导致sh这个step异常退出(pipeline自然也就异常退出了),为了避免这种情况, 可开启returnStatus, 这样script的状态码就是sh的返回值,就不会异常退出了.</p><pre id="49f9c1db-0e97-4e26-bcf5-eb200ab34c85" class="code"><code>timeout(time:15, unit:&#x27;SECONDS&#x27;) {
+ waitUntil {
+def ret = sh returnStatus: true,
+ script: &#x27;test -e /home/jenkins2/marker.txt&#x27;
+ return (ret == 0)
+ } }</code></pre><p id="c133513d-bf47-45a7-9fa0-2efdb122aceb" class="">另一种方法是使用try-catch来捕获异常并返回false.</p><pre id="8eac07ca-8b70-4e82-bd55-025663cee826" class="code"><code>timeout(time: 120, unit: &#x27;SECONDS&#x27;) {
+		 waitUntil {
+				 try {
+						 sh &quot;docker exec ${webContainer.id} curl
+								 --silent http://127.0.0.1:8080/roar/api/v1/registry 
+								 1&gt;test/output/entries.txt&quot;
+						 return true
+				 }
+				 catch (exception) {
+						 return false
+		     }
+		 }
+ }</code></pre><hr id="5a3c867d-c138-4725-a37c-759e92f2e6d5"/><h2 id="ec96bdc2-1d3d-42b2-a5b0-599014015397" class="">条件执行</h2><p id="1aa61721-e58d-460c-b789-e0b4d5a1e9e6" class="">基于测试条件, 然后基于结果执行&quot;构建步骤&quot;.</p><p id="b6d18dc8-7542-46f7-a5b0-d364449c5a9e" class="">下例是脚本式的条件执行</p><pre id="d5dedd4b-4a3b-421c-9f62-1449c708a42a" class="code"><code>node (&#x27;worker_node1&#x27;) {
+ def responses = null
+ stage(&#x27;selection&#x27;) {
+ responses = input message: &#x27;Enter branch and select build type&#x27;,
+ parameters:[string(defaultValue: &#x27;&#x27;, description: &#x27;&#x27;,
+ name: &#x27;BRANCH_NAME&#x27;),choice(choices: &#x27;DEBUG\nRELEASE\nTEST&#x27;,
+ description: &#x27;&#x27;, name: &#x27;BUILD_TYPE&#x27;)]
+ }
+ stage(&#x27;process&#x27;) {
+ if ((responses.BRANCH_NAME == &#x27;master&#x27;) &amp;&amp;
+ (responses.BUILD_TYPE == &#x27;RELEASE&#x27;)) {
+ echo &quot;Kicking off production build\n&quot;
+ }
+ } }</code></pre><p id="f31dc8cb-abf6-4896-9e99-5e16b4f2c52e" class="">
+</p><h2 id="a2fe883b-9ad7-410e-96ce-f63c13c39a74" class="">脚本式的Post</h2><p id="a7aa5db1-95b3-4c45-a049-93a4683cb832" class="">关于Post, 脚本式的写法来自编程语言而申明式有自己的格式.</p><p id="8591a922-5f2d-4731-866a-9b8d48f20e9f" class="">在脚本式, 如果没有内建功能上的支持, 通常我们要依赖Groovy语言结构自己创建功能, 关于post功能的实现, 我们可以利用try-catch-finally机制, 不过Jenkins DSL有一种step叫catchError也能实现.</p><pre id="e701a05b-e5a0-44e8-8173-f1219622c039" class="code"><code>def err = null
+try {
+ // pipeline code
+ node (&#x27;node-name&#x27;) {
+ stage (&#x27;first stage&#x27;) {
+ ...
+ } // end of last stage
+ } }
+catch (err) {
+ currentBuild.result = &quot;FAILURE&quot;
+}
+finally {
+ (currentBuild.result != &quot;ABORTED&quot;){
+ // Send email notifications for builds that failed 
+ // or are unstable
+ }</code></pre><p id="1659e299-ac54-4093-b133-25066dd4e92f" class="">
+</p><pre id="29a3a85f-c1c2-4816-9676-5ea23fb3b2a1" class="code"><code>node (&#x27;node-name&#x27;) {
+ try {
+ stage (&#x27;first stage&#x27;) {
+ ...
+ } // end of last stage
+ } catch (err) {
+ echo &quot;Caught: ${err}&quot;
+ currentBuild.result = &#x27;FAILURE&#x27;
+ }
+ // step to send email notifications 
+}</code></pre><p id="257635b4-84db-4127-a1a1-8eac21c0961e" class="">
+</p><pre id="9ec2759b-1421-42a0-92f6-d4c20a836932" class="code"><code>node (&#x27;node-name&#x27;) {
+ catchError {
+ stage (&#x27;first stage&#x27;) {
+ ...
+ } // end of last stage
+ }
+ // step to send email notifications 
+}</code></pre><p id="3a803904-2fe7-4087-bd3c-ebcf4c097119" class="">
+</p><hr id="fba8cf23-29f7-490a-8247-7412115346ba"/><p id="665d23e3-0150-4243-85ad-652bc8a221b2" class="">
+</p><p id="e2111dc4-acf3-4466-bfac-20655d929cea" class="">
+</p><p id="66bf9fe0-93e7-46ac-8670-478f50b588ae" class="">
+</p><p id="933555e2-9dc1-40ad-acd0-82c2edb5a909" class="">
+</p><p id="183a4470-032d-4abb-9ee7-5d34953f5039" class="">
+</p><p id="c4ee450b-8317-4b22-b122-384c79bcc6ff" class="">
+</p><p id="ca0c8354-40d0-455f-ac29-1cd2fbfcd678" class="">
+</p><p id="be5cdfb0-9a02-4e44-b149-b76a2e6b1459" class=""> </p></div></article></body></html>

@@ -1,0 +1,926 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>部署主节点</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d8b39a22-2f48-4ef8-a3ef-56197b7024a1" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_william_morris_1878.jpg" style="object-position:center 0%"/><h1 class="page-title">部署主节点</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 20, 2021 6:04 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><hr id="d6c97852-b5c6-4954-b893-0e5110287da4"/><h1 id="9530a1f4-914c-418c-bbea-919fd9488f1f" class="">安装前准备</h1><h2 id="2698956f-85bd-4239-95d8-8362a3145ac6" class="">环境要求</h2><pre id="57e07b6b-754d-47bf-b2fb-fef444c939c7" class="code code-wrap"><code>#设置防火墙为Iptables并设置空规则
+systemctl disable --now firewalld
+
+#关闭selinux
+sed -i &#x27;s#^SELINUX=.*#SELINUX=disabled#&#x27; /etc/selinux/config
+setenforce 0
+
+#关闭swap
+swapoff -a
+vi /etc/fstab
+
+#时间同步
+
+
+#东8区
+timedatectl set-timezone &quot;Asia/Shanghai&quot;
+
+#将主节点的主机名与地址写到/etc/hosts中</code></pre><h2 id="2cd7c240-888b-4207-b05d-45266585f89a" class="">配置主节点的目录</h2><pre id="17efa1df-dc02-41da-897d-d6d693e65f18" class="code"><code>mkdir -p /opt/kubernetes/{bin,cfg,logs,pki}</code></pre><p id="bbd63498-8ef8-417a-8f04-a9540a0cb949" class="">
+</p><hr id="235c8143-6e35-450b-9940-3ff67a29ee2d"/><h1 id="87ae9a9b-36e3-47f0-8c18-cca8a00e1ce5" class="">部署API-Server</h1><h3 id="43941ba6-522a-42ea-858c-2e6d037a5351" class="">可执行文件</h3><p id="25190e64-9432-401e-83f2-9983ca87c4a7" class="">将可执行文件从压缩包目录移动到<code>/opt/kubernetes/bin/</code>目录下。</p><h3 id="26b3835d-31b1-48de-9277-0d289158f6a4" class="">创建service文件</h3><pre id="b99dd2b0-5b0f-4fa3-9196-973a61526aaa" class="code"><code>#service文件
+cat&gt;/usr/lib/systemd/system/kube-apiserver.service &lt;&lt;&#x27;EOF&#x27;
+[Unit]
+Description=Kubernetes API Service
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+After=etcd.service
+
+[Service]
+EnvironmentFile=-/opt/kubernetes/cfg/kube-apiserver.conf
+ExecStart=/opt/kubernetes/bin/kube-apiserver $KUBE_API_ARGS
+Restart=on-failure
+Type=notify
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+#配置文件
+cat &gt;/opt/kubernetes/cfg/kube-apiserver.conf &lt;&lt;&#x27;EOF&#x27;
+KUBE_API_ARGS=&quot;--logtostderr=true \
+--v=2 \
+--enable-bootstrap-token-auth=true \
+--token-auth-file=/opt/kubernetes/cfg/token.csv \
+--kubelet-client-certificate=/opt/kubernetes/pki/kubeapi-server.pem \
+--kubelet-client-key=/opt/kubernetes/pki/kubeapi-server-key.pem \
+--etcd-servers=https://etcd-1:2379,https://etcd-2:2379,https://etcd-3:2379 \
+--etcd-cafile=/opt/etcd/pki/etcd-ca.pem \
+--etcd-certfile=/opt/etcd/pki/etcd-client-kubeapi.pem \
+--etcd-keyfile=/opt/etcd/pki/etcd-client-kubeapi-key.pem \
+--tls-cert-file=/opt/kubernetes/pki/kubeapi-server.pem \
+--tls-private-key-file=/opt/kubernetes/pki/kubeapi-server-key.pem \
+--bind-address=192.168.31.63 \
+--secure-port=6443 \
+--advertise-address=192.168.31.63 \
+--client-ca-file=/opt/kubernetes/pki/kubeapi-ca.pem \
+--enable-bootstrap-token-auth=true \
+--authorization-mode=RBAC,Node \
+--service-account-key-file=/opt/kubernetes/pki/kubeapi-ca-key.pem \
+--anonymous-auth=false \
+--allow-privileged=true \
+--service-cluster-ip-range=10.0.0.0/24&quot;</code></pre><ul id="be2e361f-4dbe-49a8-a70a-d88e820d5b5a" class="bulleted-list"><li style="list-style-type:disc"><code>--client-ca-file=/opt/kubernetes/pki/ca.pem</code> 指定认证, CA证书用于验证提交给 API server 的客户端证书.如果客户端证书已提交并验证，则使用 subject 的 Common Name（CN）作为请求的用户名。从 Kubernetes 1.4开始，客户端证书还可以使用证书的 organization 字段来指示用户的组成员身份。要为用户包含多个组成员身份，请在证书中包含多个 organization 字段。</li></ul><ul id="68890c11-05b4-48f4-9bfd-62d5aadff2a6" class="bulleted-list"><li style="list-style-type:disc"><code>--advertise-address</code></li></ul><ul id="889de9bb-a12f-41e3-b34d-6694e23deb33" class="bulleted-list"><li style="list-style-type:disc"><code>--allow-privileged=true</code> 如果不设置, 在部署网络插件时daemonset将会报错.</li></ul><ul id="ec3beb25-6254-49cc-8198-7243340b2c62" class="bulleted-list"><li style="list-style-type:disc"><code>--service-node-port-range=30000-32767 </code></li></ul><ul id="fc051652-c8c3-4d38-9286-131647c802a5" class="bulleted-list"><li style="list-style-type:disc"><code>--enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,NodeRestriction</code> </li></ul><ul id="05077efe-471c-4fde-be8e-e74cce42e6d4" class="bulleted-list"><li style="list-style-type:disc"><code>--audit-log-maxage=30 </code>
+<code>--audit-log-maxbackup=3</code>
+<code>-audit-log-maxsize=100 </code>
+<code>--audit-log-path=/opt/kubernetes/logs/k8s-audit.log</code></li></ul><p id="5d8c37b5-c61c-4807-8439-ac7053a0e7d7" class="">
+</p><h3 id="3aa1ae84-d460-422c-80bf-86d2a795d442" class="">关于kublet-bootstrap功能的介绍</h3><p id="e8956e69-0cbd-43af-ad28-c253874238b1" class="">该功能让kubelet可以自动向apiserver申请证书, apiserver可代表CA向kubelet签发证书，不需要管理者手动签发证书了. 
+在向apiserver申请证书的过程中，kubelet以token方式通过认证，以一个低级用户身份向apiserver发出CSR证书签发请求。</p><p id="138d6926-8297-4745-bd01-6a2aec3b3c07" class="">
+</p><h3 id="dfde2379-a29f-4340-931e-ffeef32ab8a0" class="">创建token.csv文件</h3><p id="02c08714-4c79-4660-aea5-0d1bace69fd9" class=""><code>system:node-bootstrapper</code>角色是预定义的，只能用来作kublet-bootstrap的申请证书，将其赋予<code>kubelet-bootstrap</code>用户。</p><pre id="714d1674-e5e5-4193-8104-f057459e4c8a" class="code code-wrap"><code>kubectl create clusterrolebinding kubelet-bootstrap \
+--clusterrole=system:node-bootstrapper \
+--user=kubelet-bootstrap</code></pre><p id="655b11f3-d6f5-4058-b6ac-b8e01e76dba5" class="">kube-apiserver会引用token.csv文件，如此kubelet可通过token方式通过认证，并以kubelet-bootstrap用户身份进行证书申请。</p><pre id="9ec66da2-948b-47ec-a813-627c65ab0261" class="code code-wrap"><code>#token号码是我随机生成的一份, 直接使用即可.
+
+cat &lt;&lt;EOF &gt;/opt/kubernetes/cfg/token.csv
+bc47661b5bad82e72f0cd646be261d5d,kubelet-bootstrap,10001,&quot;system:kubelet-bootstrap&quot;
+EOF
+#kublet向apiserver出示这个token,认证通过后以kubelet-bootstrap用户为自己颁发证书.
+#这里的token必须与node节点bootstrap.kuconfig配置里的一致.</code></pre><p id="01cff70f-d68e-4119-ad39-ae5f6c743bce" class="">
+</p><h3 id="48c30867-66da-47ac-b888-6462f5417fb3" class="">启动</h3><pre id="4cde58e4-cf96-4a5f-8eab-23dec3ae8276" class="code code-wrap"><code>systemctl enable --now kube-apiserver</code></pre><p id="866ab97f-bb14-4b86-a3f6-1e457b763d85" class="">
+</p><h3 id="16887643-2c97-46a6-aa66-33cc53433a87" class="">创建管理员kubeconfig文件</h3><p id="22ab93bc-6fc6-4056-abad-0b3e28976f90" class="">关于创建账号, 参考<a href="https://kubernetes.io/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts">https://kubernetes.io/docs/setup/best-practices/certificates/#configure-certificates-for-user-accounts</a></p><pre id="280788da-e30f-478f-9070-0f139f23f41b" class="code"><code>export KUBECONFIG=kbp.yaml
+#--server=，因为采用APIServer的NGINX代理的地址。
+kubectl config set-cluster kbp --server=https://kubeapi-loadbalancer.kbp.local:6443 --certificate-authority=/opt/kbp/pki/ca.pem
+kubectl config set-credentials admin --client-certificate=/opt/kbp/pki/kube-apiserver-client-admin.pem --client-key=/opt/kbp/pki/kube-apiserver-client-admin-key.pem
+kubectl config set-context kbp-admin --cluster=kbp --namespace=kube-system --user=admin
+kubectl config use-context kbp-admin</code></pre><p id="e00f3c53-458e-4233-8c86-f0711af7a11e" class="">
+</p><p id="4bb58e2e-ad19-485a-a598-a4596cd3fdc2" class="">
+</p><h2 id="f56c7ddb-4c39-44bb-9b65-279fc101c8b6" class="">部署API Server负载均衡</h2><h3 id="3711c4fc-6fd7-407e-bfad-c4848034542a" class="">nginx</h3><p id="3fa4f823-5d7f-42bf-8044-3e6b30fc354a" class="">LB01与LB02上配置</p><pre id="9037539d-c1b5-412e-ae61-3dfd3e56633d" class="code code-wrap"><code>#安装
+rpm -ivh http://nginx.org/packages/rhel/7/x86_64/RPMS/nginx-1.16.0-1.el7.ngx.x86_64.rpm
+
+#编辑配置文件
+cat &gt;/etc/nginx/nginx.conf &lt;&lt;&#x27;EOF&#x27;
+user  nginx;
+worker_processes  1;
+
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+stream {
+    log_format main &#x27;$remote_addr $upstream_addr - [$time_local] $status $upstream_bytes_sent&#x27;;
+    access_log /var/log/nginx/k8s-access.log main;
+    upstream k8s-apiserver {
+        server 192.168.31.63:6443;
+        server 192.168.31.64:6443;
+        server 192.168.31.65:6443;
+    }
+    server {
+        listen 6443;
+        proxy_pass k8s-apiserver;
+    }
+}
+EOF
+
+#</code></pre><ul id="07cdf609-976a-4966-9cf2-094a939d590b" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">缺少健康检查的机制</li></ul><ul id="061a3ed5-9e64-451a-b226-37a37d2faad9" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">缺少service文件</li></ul><h3 id="b484baa6-82e0-4e8f-bf4e-7a19a6831e72" class="">keepalived</h3><pre id="5dc8d40b-26da-47eb-a4b6-08ff1106895c" class="code code-wrap"><code>#安装
+yum install keepalived
+
+#LB01上添加
+cat /etc/keepalived/keepalived.conf &lt;&lt;&#x27;EOF&#x27;
+global_defs {
+    router_id lb01			#标识符，一般设置为主机名
+    script_user root
+    enable_script_security
+}
+vrrp_script check_nginx {
+    script  &quot;/etc/keepalived/script/check_nginx.sh&quot;
+    interval  5					#脚本执行间隔
+    weight  -30					#脚本执行错误优先级减30
+}
+vrrp_instance VI_1 {
+    state MASTER					#状态可以是MASTER和BACKUP两种
+    nopreempt
+    interface eth0					#实例绑定的网卡
+    unicast_src_ip 192.168.31.61
+    unicast_peer {
+    	192.168.31.62
+    }
+    virtual_router_id 51				#两台服务器id值必须相同
+    priority 100					#优先级，优先级高的获得VIP
+    advert_int 1					#检查间隔，即VRRP包发送的间隔
+    authentication {					#认证
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.31.60		  #VIP
+    }
+    track_script {
+        check_nginx
+    }
+}
+EOF
+
+#LB02上添加
+cat /etc/keepalived/keepalived.conf &lt;&lt;&#x27;EOF&#x27;
+global_defs {
+    router_id  lb02           #标识符，一般设置为主机名
+    script_user root
+    enable_script_security
+}
+vrrp_script check_nginx {
+    script  &quot;/etc/keepalived/script/check_nginx.sh&quot;
+    interval  5                 #脚本执行间隔
+    weight  -40                 #脚本执行错误优先级减20
+}
+vrrp_instance VI_1 {
+    state BACKUP                    #状态可以是MASTER和BACKUP两种
+    interface eth0                  #实例绑定的网卡
+    unicast_src_ip 192.168.31.62
+    unicast_peer {
+        192.168.31.61
+    }
+    virtual_router_id 51                #两台服务器id值必须相同
+    priority 90                 #优先级，优先级高的获得VIP
+    advert_int 1                    #检查间隔，即VRRP包发送的间隔
+    authentication {                    #认证
+        auth_type PASS
+        auth_pass 1111
+    }
+    virtual_ipaddress {
+        192.168.31.60           #VIP
+    }
+    track_script {
+        check_nginx
+    }
+}
+EOF
+
+#启动
+systemctl enable --now keepalived</code></pre><p id="15084e3c-0c13-41d3-9c5e-382adbe839e4" class="">
+</p><p id="c241d275-ee98-4ba8-bea3-a073886cc93b" class="">
+</p><hr id="d69fa161-3bf4-4f48-8e04-e420d7ed952e"/><h1 id="357f5431-31d5-4fd5-9207-9952858d6119" class="">部署Controller-manager</h1><h3 id="d58b2042-6e57-49c9-9e0a-d715221a320b" class="">可执行文件</h3><p id="02a76b1d-9c8e-4c0a-b8fd-ee19d2ec0638" class="">将可执行文件从压缩包目录移动到<code>/opt/kubernetes/bin/</code>目录下。</p><h3 id="354ac7da-b6bd-428a-aaee-1f8fd93c09b6" class="">创建kubeconfig文件</h3><p id="388e2353-9d2e-4997-89cc-f4572de886f9" class=""><code>--server=https://192.168.31.60:6443</code> 指向NGINX上的代理地址</p><pre id="e74fa7f2-e675-4ce0-907e-5b1c3cbf1bc4" class="code code-wrap"><code>touch /opt/kubernetes/cfg/controller-manager.conf
+KUBECONFIG=/opt/kubernetes/cfg/controller-manager.conf kubectl config set-cluster default-cluster --server=https://192.168.31.60:6443 --certificate-authority /opt/kubernetes/pki/kubeapi-ca.pem --embed-certs
+KUBECONFIG=/opt/kubernetes/cfg/controller-manager.conf kubectl config set-credentials default-controller-manager --client-key /opt/kubernetes/pki/kube-apiserver-client-kcm-key.pem --client-certificate /opt/kubernetes/pki/kube-apiserver-client-kcm.pem --embed-certs
+KUBECONFIG=/opt/kubernetes/cfg/controller-manager.conf kubectl config set-context default-system --cluster default-cluster --user default-controller-manager
+KUBECONFIG=/opt/kubernetes/cfg/controller-manager.conf kubectl config use-context default-system</code></pre><h3 id="71bce784-e5a7-4d5e-b73e-8259ef999ba2" class="">添加Service文件</h3><pre id="06aaed69-2125-4e7c-b04f-9c0b6fb33974" class="code code-wrap"><code>#添加service文件
+cat&gt;/usr/lib/systemd/system/kube-controller-manager.service &lt;&lt;&#x27;EOF&#x27;
+[Unit]
+Description=Kubernetes Controller Manager
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+EnvironmentFile=/opt/kubernetes/cfg/kube-controller-manager.conf
+ExecStart=/usr/local/bin/kube-controller-manager $KUBE_CONTROLLER_MANAGER_ARGS
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+#添加service需要引用的包含配置选项的文件
+cat &gt;/opt/kubernetes/cfg/kube-controller-manager.conf &lt;&lt;&#x27;EOF&#x27;
+KUBE_CONTROLLER_MANAGER_ARGS=&quot;--logtostderr=true \
+--v=2 \
+--log-dir=/opt/kubernetes/logs \
+--leader-elect=true \
+--master=127.0.0.1:8080 \
+--address=127.0.0.1 \
+--allocate-node-cidrs=true \
+--cluster-cidr=10.244.0.0/16 \
+--service-cluster-ip-range=10.0.0.0/24 \
+--cluster-signing-cert-file=/opt/kubernetes/pki/kubeapi-ca.pem \
+--cluster-signing-key-file=/opt/kubernetes/pki/kubeapi-ca-key.pem \
+--root-ca-file=/opt/kubernetes/pki/kubeapi-ca.pem \
+--service-account-private-key-file=/opt/kubernetes/pki/kubeapi-ca-key.pem \
+--kubeconfig=/opt/kubernetes/cfg/controller-manager.conf \
+--experimental-cluster-signing-duration=87600h0m0s&quot;
+EOF</code></pre><ul id="76c01eea-e7d2-493d-8cb6-8945667e10de" class="bulleted-list"><li style="list-style-type:disc"><code>--kubeconfig </code><p id="ea59c24d-c1ef-413e-a0d9-6040081766ad" class="block-color-red_background">日志中提示了No authentication-kubeconfig provided in order to lookup requestheader-client-ca-file in configmap/extension-apiserver-authentication in * kube-system, so request-header client certificate authentication won&#x27;t work.
+No authentication-kubeconfig provided in order to lookup client-ca-file in configmap/extension-apiserver-authentication in kube-system, so client certificate authentication won&#x27;t work.
+No authentication-kubeconfig provided in order to lookup client-ca-file in configmap/extension-apiserver-authentication in kube-system, so client certificate authentication won&#x27;t work.</p></li></ul><ul id="32dc9f66-825b-4e2a-8ba9-2e19ddd3690b" class="bulleted-list"><li style="list-style-type:disc"><code>--root-ca-file </code>用来对 kube-apiserver 证书进行校验，指定该参数后，才会在Pod 容器的 ServiceAccount 中放置该 CA 证书文件；\</li></ul><ul id="b4d49353-48c0-4710-a661-0de35ab54a1b" class="bulleted-list"><li style="list-style-type:disc"><code>--cluster-signing-*</code> 指定的证书和私钥文件用来签名为 TLS BootStrap 创建的证书和私钥；</li></ul><ul id="71659922-e20f-43d4-be48-9aa821d692fb" class="bulleted-list"><li style="list-style-type:disc"><code>--service-cluster-ip-range</code> 指定集群Service的CIDR范围，该网络在各 Node 间必须路由不可达，必须和 kube-apiserver 中的参数一致；</li></ul><ul id="2ab4c38f-fa70-4905-9213-91177b88309c" class="bulleted-list"><li style="list-style-type:disc"><code>--bind-address</code> 值必须为 127.0.0.1，kube-apiserver 期望 scheduler 和 controller-manager 在同一台机器；</li></ul><ul id="ed47fed3-8f37-46d5-a055-fa2efd9671cd" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>--service-account-private-key-file</code></li></ul><ul id="499a4d96-a780-4f04-be92-191608426911" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>--experimental-cluster-signing-duration</code></li></ul><ul id="13af67c5-cf66-405a-8474-7688032fa3b9" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>--master=127.0.0.1:8080 </code></li></ul><h3 id="87da3a1a-4112-4282-b93c-1d85dba2ba3b" class="">启动</h3><pre id="86482559-be3c-4c08-8bd4-99080ad363a7" class="code code-wrap"><code>systemctl enable --now kube-controller-manager</code></pre><p id="865d7b87-c4e4-406e-8088-6345c3681d10" class="">
+</p><hr id="549a6248-64c8-4aa9-be63-9b0cf46e3e5a"/><h1 id="efcc9c3e-153d-4409-8c71-9a13eed6d576" class="">部署Scheduler</h1><h3 id="e2a802e2-6658-4c7a-a836-764cde98f892" class="">创建kubeconfig文件</h3><p id="d21e14f5-4a48-467a-b68c-78fb842b4a4d" class="">scheduler服务访问apiserver时所需的kubeconfig文件, 与kubectl访问时的情况类似.</p><p id="a2e4b1a6-4f4f-4a7e-a4da-dcc8ce3c8fb1" class=""><code>--server=https://192.168.31.60:6443</code> 指向NGINX上的代理地址。</p><pre id="e875f815-20cb-4ede-81f3-5f9e44851531" class="code code-wrap"><code>touch /opt/kubernetes/cfg/scheduler.conf
+KUBECONFIG=/opt/kubernetes/cfg/scheduler.conf kubectl config set-cluster default-cluster --server=https://192.168.31.60:6443 --certificate-authority /opt/kubernetes/pki/kubeapi-ca.pem --embed-certs
+KUBECONFIG=/opt/kubernetes/cfg/scheduler.conf kubectl config set-credentials default-scheduler --client-key /opt/kubernetes/pki/kube-apiserver-client-scheduler-key.pem --client-certificate /opt/kubernetes/pki/kube-apiserver-client-scheduler.pem --embed-certs
+KUBECONFIG=/opt/kubernetes/cfg/scheduler.conf kubectl config set-context default-system --cluster default-cluster --user default-scheduler
+KUBECONFIG=/opt/kubernetes/cfg/scheduler.conf kubectl config use-context default-system
+</code></pre><h3 id="e2187bb9-9fbf-4d7a-b88c-8deceb953f59" class="">添加service文件</h3><pre id="72876ab6-7749-4f93-81d8-e2a6b5b9e33e" class="code code-wrap"><code>添加service文件
+cat &gt;/usr/lib/systemd/system/kube-scheduler.service &lt;&lt;&#x27;EOF&#x27;
+[Unit]
+Description=Kubernetes Scheduler Plugin
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+
+[Service]
+EnvironmentFile=/opt/kubernetes/cfg/kube-scheduler.conf
+ExecStart=/opt/kubernetes/bin/kube-scheduler $KUBE_SCHEDULER_ARGS
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+#添加service需要引用的包含配置选项的文件
+cat &gt;/opt/kubernetes/cfg/kube-scheduler.conf &lt;&lt;&#x27;EOF&#x27;
+KUBE_SCHEDULER_ARGS=&quot;--logtostderr=true \
+--v=2 \
+--log-dir=/opt/kubernetes/logs \
+--leader-elect=true \
+--kubeconfig=/opt/kubernetes/cfg/scheduler.conf \
+--master=127.0.0.1:8080 \
+--address=127.0.0.1&quot;
+EOF</code></pre><h3 id="d72b3c58-d032-459a-8132-f8c0e093438b" class="">启动</h3><pre id="cb83e11d-1b3b-4cff-887e-6218df47ab9d" class="code code-wrap"><code>systemctl enable --now kube-scheduler</code></pre><p id="5e321f67-f538-476a-bf49-89b995bdd212" class="">
+</p><hr id="7f99e6ae-dc3f-4c36-a7f5-a1af9ebfa174"/><h1 id="be7f3d33-fd9a-4f30-b9a6-2e490dfef0de" class="">拷贝证书和私钥到其他主节点上</h1><p id="4a2bccfe-aff4-4daf-b504-4831e67785eb" class="">拷贝时需要调整参数</p><pre id="ce012c9d-0e85-43b4-b933-a53e44feff1f" class="code code-wrap"><code>scp -rp /opt/kubernetes kubeapi-2:/opt/
+scp -rp /opt/kubernetes kubeapi-3:/opt/
+
+scp -p /usr/lib/systemd/system/{kube-apiserver.service,kube-controller-manager.service,kube-scheduler.service} kubeapi-2:/usr/lib/systemd/system/
+scp -p /usr/lib/systemd/system/{kube-apiserver.service,kube-controller-manager.service,kube-scheduler.service} kubeapi-3:/usr/lib/systemd/system/</code></pre><p id="adbe62b4-6ece-44e6-8230-7e9b6b816293" class="">
+</p><hr id="4061f03c-74c6-49e8-bfd2-3fc03f1b22fd"/><p id="eccc91d3-40e4-48b1-a617-c7bde8f6ee85" class="">
+</p></div></article></body></html>

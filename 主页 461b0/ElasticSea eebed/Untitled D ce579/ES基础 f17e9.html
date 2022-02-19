@@ -1,0 +1,1141 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ES基础</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f17e9886-277c-413d-80d7-4ff97e430d90" class="page sans"><header><h1 class="page-title">ES基础</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@August 4, 2021 9:25 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="68faed1a-6e78-4807-85ab-abf78208e351" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dbb27a62-a414-46da-aefd-fd2fd50a00db">基本概念</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1625dfe9-9788-4cb0-8bba-4698da840cc2">文档</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#33e33897-38be-4cda-8d1f-71dd4b4acae0">索引</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6d85e42b-5eb2-4d45-a97c-a28246d42a45">分片</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5c1d2628-0b53-4371-b638-d930e8609746">节点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0e8de17b-3ed6-48f7-aadd-5abba23c855c"><em>分布式系统的可用性与扩展性</em></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#319e8b1f-77f4-4c4f-9aeb-956ed42f83ba">节点介绍</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b5e8b84c-9dc6-4f19-9df4-a2ba24f3b71a">搜索</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#91b1963e-d851-4c90-a9e4-742c0212c930">CRUD和批量操作</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#418b60b2-46a4-42db-be95-96657762a74f">curl命令</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0d579ee6-fb13-4b95-9dc5-b1d67d989863">缩写格式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#262f6218-14e0-4af1-a241-33355a02ea42">五种方法</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dce7694a-97f4-48ee-8530-0f249ad4637d">分词器与倒排索引</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7db3716d-c39f-4e17-b38c-5c067c2b971d">全文检索概念</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#eaa1a533-4304-40de-8790-b9c5adcd5762">倒排索引的核心组成</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#763fd431-6381-4fea-adbf-e975c9127c7d">举例Index一条文档的过程</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#839c646f-a584-40b3-936e-9736595cecd1">分析器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#92509d55-e199-4157-873e-3e1d3f9f1ba0">Analyzer的组成</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c9ce89aa-5304-4218-ab0f-403851a6e463">使用_analyzer API</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#28689eb1-6202-4d99-b8a8-f76ef0e2ad6b">Analyzer内置分词器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cd99a5c9-9c19-4656-9711-99ac6db180b3">Standard Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0ca4ced7-1c11-4389-87a8-6b92ff31e483">Simple Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2a998883-c239-4017-acae-903af17264bb">Stop Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#40842c02-27bf-4890-8c20-ee9f5d22a968">Whitespace Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9cf14b8f-b10e-43e2-b0f4-5b0c8fd52194">keywords Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0b3cf82c-3371-4820-bbd3-488d41966e34"> Pattern Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1447895c-f00c-4469-80e8-1cee52234514">language Analyzers</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4f0ac9e5-5e94-4345-861d-87c3084e8616">中文分词的挑战与ICU Analyze</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#72b00282-38c3-4033-8df6-e82ab654acc1">自定义分析器</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0165e6f7-e4cc-4769-adc8-513af0ff7705">回顾分析器</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3a3afec3-9522-44fa-ae6f-ed4c7be13378">自定义分析器演示</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#34f72061-3836-4c97-8706-f9a88cb8d7ec">指定character_filter</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5f1d1eb8-2dbf-49c7-b972-6bc09350b588">指定分词器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#afd3baa2-1c89-4c35-9917-49b8a8bd68a0">指定token过滤器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e03c42dd-9f30-4164-8ad4-baa5bb96bc20">自定义mapping的一些建议</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#05af6635-3b8b-41f5-bb31-7ab077567b33">控制某字段不被索引</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e958f06a-a5e2-46cb-b8c2-6153a2182fc9">四种不同级别的索引选项</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#aa2da5e9-0ce5-4863-947d-b9401773e549">null_value</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2d1de514-473d-4240-b868-ce4552c0fe3a">Search API</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f0ee143e-3ecd-4893-ad3a-6e37962cf333">URI Search</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#387b98fe-be89-463e-b5af-d2a1dfe42866">列出所有索引</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4c14ea18-7d55-4ac1-804c-525732d3108d">指定索引</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#af0eefde-9ff5-4819-b6f1-11a884db5147">URI查询</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#64bc974c-80b0-4df2-9e35-d3bd942f1805">REST Body</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#70ba1955-9c06-450d-9f38-065e178856f3">缩写格式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#df1aee75-620d-49b8-b554-312ccbe5a340">分页</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#74a66291-a079-4bd2-bba7-db9828c81862">排序</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5c90cb5b-1d3f-459c-9489-9599bbd1aa8f">字段过滤</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f7228e4a-a60c-495c-a6fa-1eb9ec59cbf9">脚本字段（略，16节）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#15b5fefb-29d8-4fa9-b727-be9296bff406">match_all和match</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#849de261-4bc8-4633-b506-7355d9f7a3e3">响应结果</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3e147e4f-121b-4b32-a06a-d1225ae7294a">搜索结果的相关性</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2b162432-af2e-4a05-963b-3a5068948220">Term查询与全文本查询</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#25369b90-0533-443d-baee-4e7bbd0be277">Term查询</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5ecc92fd-aa7c-4114-8dee-3068dc6c8c3d">全文本查询</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cff46010-5f6f-48bf-99bd-b35a64e57b39">Match Query</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#159b9828-7e38-4fb2-979f-80edd8b1507b">Operator操作符</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#57c12dd8-eeae-4351-b295-a6a2887f3816">Match Phrase Query</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e7ca940-6f56-45ad-ba06-64a66ecaf6f7">结构化搜索</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#729de623-e9f0-40dd-b6fd-159a7d1dbf4f">结构化数据</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#68e67554-a746-4363-b348-547f13c165bb">ES中结构化搜索</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ebc91021-f9c7-4fdd-9d66-ae8bcc0940d9">Range</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4652b06a-876b-43ba-afb8-01a0161f3ca5">相关性和相关性算分（未完）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8911d54b-bead-4851-866a-4b1cbbd9e29c">相关性算分</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#78e7ca2d-ae1d-44a9-9ca0-18e56e2f3588">词频TF</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7e8d6135-7a09-462b-a882-7fe6b8d82168">DF </a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4b1c4c2d-562e-44d5-91cf-1cce9246b1ee">Mapping</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1069df2d-9ef7-4f24-b75e-ad29b437bd5a">Mapping的作用</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1851bf7a-0bab-4393-99ea-e53b1be6c790">一个索引只有一个Mapping</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e894f093-09f8-4cf1-8128-c5ad75e14977">数据类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d567b230-5c1d-4cd3-ba81-f8239944f7f1"><mark class="highlight-red">Dynamic Mapping</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9ae6b7bd-3e5c-4788-ba5f-6b5d6244420a">能否更改Mapping中的字段</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#3d554dbe-2b6e-438d-909f-8b87793ec285"><mark class="highlight-orange">显式设置Mapping和常见参数（省略）</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7928603c-7c5b-434a-87bd-8b8a71fd2fae">多字段特性及Mapping中配置自定义Analyzer</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#832e236f-0bfa-4f0f-b3ce-b4d4061b8273">多字段特性</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e772fdfa-c87f-46d4-9e87-945d471d055d">Exact Value（精确值）区别Full Text（全文本）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1a58fbaf-bfdb-43fc-8292-50cb9cef833d">copy_to（省略）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#69b051b4-3af7-4af5-a81d-841a030b4d0c">数组（省略）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#970ab737-1696-463f-b492-b057ca0fba68">Index Template是什么？</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#71afb3a9-4ad8-4a3f-b8ef-481a682bac8b">两个Index Template示例</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ffa61e86-8167-4aae-a267-67b3209edd22">Index Template的工作方式</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0523ca9e-b765-454c-b577-91b93e50a57e">Dynamic Index</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#77e9f118-e05d-495d-b5a9-a3e0c3775578">聚合分析</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c01512b5-8fb5-4868-b68e-94822bcdffd6">什么是聚合分析</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#29b45597-91c6-435b-ae29-9c3851f6de40">集合的分类</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#774d5ae5-8876-4488-a8fa-bb706a1d13a1">Bucket</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ab9f68e1-7869-4890-8d4f-0dfe16f7e3d7">Metric</a></div></nav><h1 id="dbb27a62-a414-46da-aefd-fd2fd50a00db" class="">基本概念</h1><p id="a7a37d99-0622-435d-9aaf-74564e7ac5fc" class="">一个ElasticSearch可以运行在一个节点上，也可以运行在多个服务器上实现数据和服务的水平扩展。</p><h2 id="1625dfe9-9788-4cb0-8bba-4698da840cc2" class="">文档</h2><ul id="6b7e4468-6185-4f9c-95bc-d267ca4e8a73" class="bulleted-list"><li style="list-style-type:disc">ES是面向文档的，文档是<strong>可搜索的最小数据单位</strong>。比如：<ul id="751f2e5f-99a4-4d30-ba4e-a588bfcdeecd" class="bulleted-list"><li style="list-style-type:circle">日志中的一条日志项是一个文档</li></ul><ul id="428f1cfb-bc73-4f80-9b7a-db180024d3bb" class="bulleted-list"><li style="list-style-type:circle">一张唱片的详细信息（歌手：XXX，制作时间：XXX，价格：XXX）</li></ul></li></ul><ul id="f7879141-6f63-4637-8f5f-5291ebad3215" class="bulleted-list"><li style="list-style-type:disc">文档会被序列化成<strong>JSON格式</strong>，保存在ES中。<ul id="88aa52c0-1f2c-49f1-9ea8-7a8ef3f81333" class="bulleted-list"><li style="list-style-type:circle">JSON对象由字段组成</li></ul><ul id="e0c97ee2-866a-49b9-b36b-a7983c027de1" class="bulleted-list"><li style="list-style-type:circle">每个字段都有对应的<strong>字段类型</strong>（字符串/数值/布尔/日期），字段类型可指定也可由ES自动推算。</li></ul><ul id="b079a04d-5697-473a-9ea8-83fcf073b00b" class="bulleted-list"><li style="list-style-type:circle">一个文档包含<strong>若干字段</strong>。类似关系型数据的一条由多个列组成的记录。</li></ul><ul id="d52bef12-1296-42f1-b836-d2a858323be3" class="bulleted-list"><li style="list-style-type:circle">格式灵活，<strong>不需要预先定义格式</strong>。</li></ul><ul id="9eb4580e-199a-4ee8-a01d-4077fa867949" class="bulleted-list"><li style="list-style-type:circle">支持数组，支持嵌套</li></ul></li></ul><ul id="cb8bec48-7af4-432a-8e13-510c36948ac9" class="bulleted-list"><li style="list-style-type:disc">每个文档都有一个<strong>Unique ID</strong><ul id="cc2f8eca-16ae-43d4-a980-7412720a483f" class="bulleted-list"><li style="list-style-type:circle">可以指定</li></ul><ul id="fb58498c-ac4d-4320-abf6-5d3a24142b0a" class="bulleted-list"><li style="list-style-type:circle">也可以通过ES自动生成</li></ul></li></ul><div id="3b35115e-eb48-4e84-a6d7-f35fe2983c0f" class="column-list"><div id="b4ba4ea5-0ed1-42e0-940c-fbb113d0fe7a" style="width:31.25%" class="column"><ul id="dec1db48-ac46-4598-a5ba-d5de56649be0" class="bulleted-list"><li style="list-style-type:disc">文档的<strong>元数据</strong>用于标注文档的相关信息，看图<ul id="56187ab6-f5bc-4c0f-ae90-73f3d0e7e293" class="bulleted-list"><li style="list-style-type:circle">_index 文档所属的索引的名字</li></ul><ul id="f4a1e34d-4eb7-431f-bc18-237389292613" class="bulleted-list"><li style="list-style-type:circle">_type 文档的类型的名字</li></ul><ul id="e0557490-1ba5-47c7-9659-7370a7054d65" class="bulleted-list"><li style="list-style-type:circle">_id 文档的Unique ID</li></ul><ul id="d00e7b73-0252-4e4d-b830-24196cdd09c6" class="bulleted-list"><li style="list-style-type:circle">_score 相关性的打分</li></ul><ul id="66ba2344-fa08-4440-a71e-8b1d53ba6ff4" class="bulleted-list"><li style="list-style-type:circle">_version 文档的版本信息</li></ul><ul id="9e878844-ec7e-4192-b13f-ebfb293770bb" class="bulleted-list"><li style="list-style-type:circle">_source 文档的raw data/原始数据。</li></ul></li></ul></div><div id="bc694b99-0361-4f0c-a4ee-7827e9edfedb" style="width:68.75%" class="column"><figure id="9964b2e6-c54f-45d9-beed-6947cc09499e" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled.png"><img style="width:192px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled.png"/></a></figure></div></div><hr id="b1656766-f77c-4735-b6aa-870e2cfa1da9"/><h1 id="33e33897-38be-4cda-8d1f-71dd4b4acae0" class="">索引</h1><p id="14653ca8-a70d-4c41-9c81-78450ed51055" class="">一类相似文档的集合，会将同类文档放在一个索引内，<strong>类似于文件夹</strong>，它是<strong>逻辑</strong>空间的概念。<div class="indented"><p id="94d4daf1-e72c-4a62-b965-b30479b1837f" class="">而shard（分片）则是物理空间的概念，索引中的数据，物理上，分散在shard中的。</p></div></p><p id="d9c7ed17-4116-49a8-8bbf-64e6541e9da5" class="">每一个索引都有一个mapping和一个setting。</p><ul id="cc861161-782d-492b-96b3-020b29be0fea" class="bulleted-list"><li style="list-style-type:disc">mapping描述索引中的文档的字段名和字段类型</li></ul><ul id="f0b4c622-f37f-4b75-9638-f555a948e5b4" class="bulleted-list"><li style="list-style-type:disc">setting定义不同的数据分布。</li></ul><p id="5f3369f7-46d1-4388-855f-ae4b7ef189d5" class="">索引的语义</p><ul id="cc8d4e9e-6b2c-4969-aced-9373bd64d3ae" class="bulleted-list"><li style="list-style-type:disc">名词，一个ES中可以有多个索引，它们像文件夹一样包含一类相同的文档。</li></ul><ul id="88e6c9fd-93dd-46fe-9d27-7f547937b3d5" class="bulleted-list"><li style="list-style-type:disc">动词，<mark class="highlight-yellow">保存一个文档到ES中的过程称也叫索引（indexing）</mark>，<mark class="highlight-teal">ES中创建一个倒排索引的过程</mark>。</li></ul><ul id="d563abed-e5e3-4bf1-ad16-97631f5c600c" class="bulleted-list"><li style="list-style-type:disc">名词，比如B树索引、倒排索引。</li></ul><p id="7caba331-a809-4f88-8b76-96f218e768db" class="">ES与关系型数据库的类比</p><figure id="978987fa-fa0f-4579-ad46-c2f81fc352fe" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%201.png"><img style="width:336px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%201.png"/></a></figure><p id="15b2758f-bac1-4369-9c65-44d1bc9e44db" class="">🤢Kiabana上的索引管理界面</p><figure id="fe6ab0ca-8a40-4254-ad76-4320c23dc27f" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%202.png"><img style="width:480px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%202.png"/></a></figure><hr id="9f630e5a-2b79-4547-80ed-e23defe83281"/><h1 id="6d85e42b-5eb2-4d45-a97c-a28246d42a45" class="">分片</h1><p id="80f45389-ba8d-4a69-877b-3c6b80f90c32" class="">分片指的是文档放置的位置, 它只是位置概念, 与存多少文档无关</p><ul id="a28b0965-3c02-4636-90fe-eb89a528d3d4" class="bulleted-list"><li style="list-style-type:disc">主分片，用以解决数据水平扩展的问题。通过主分片，可以将<strong>数据分布到集群的各个节点</strong>上。<ul id="247e93e0-5a96-467d-93ef-7504612f6098" class="bulleted-list"><li style="list-style-type:circle">物理角度，分片是一个<strong><mark class="highlight-teal">Lucene实例</mark></strong>，存储一个索引的部分数据，索引的分片可分布在不同节点上</li></ul><ul id="4a7a49fd-93f0-466a-9cc8-811529386b3f" class="bulleted-list"><li style="list-style-type:circle">主分片数在索引创建时指定，以后<mark class="highlight-teal"><strong>不能更改</strong></mark>，除非作reindex。已存在的索引的数据分布是不会变化的。<mark class="highlight-orange">为什么？</mark></li></ul></li></ul><ul id="20771c07-3d83-42d0-8f90-b4617d2c078a" class="bulleted-list"><li style="list-style-type:disc">副本分片，用以解决<strong>数据的高可用</strong>问题。副本分片是主分片的拷贝<ul id="16e6c688-eb76-433e-9a1a-3bde8fe38e1b" class="bulleted-list"><li style="list-style-type:circle">副本分片数可以<mark class="highlight-teal"><strong>动态调整</strong></mark></li></ul><ul id="ae936b8c-1acd-416d-ac90-7ac969db1108" class="bulleted-list"><li style="list-style-type:circle">增加副本数还可以提高<mark class="highlight-teal"><strong>读取的吞吐</strong></mark>. <mark class="highlight-orange">一个主分片有多少副本才是比较合适的？</mark></li></ul></li></ul><ul id="4de4c40a-bd8a-4cae-bf21-145efb0d8f8f" class="bulleted-list"><li style="list-style-type:disc">主分片不会与副本分片在一个节点上<figure id="e87cd3dc-6172-46a0-b547-3d68038b89c4" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%203.png"><img style="width:816px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%203.png"/></a></figure></li></ul><ul id="7d8f7645-e311-457a-9a20-67ccdada322a" class="bulleted-list"><li style="list-style-type:disc">集群的健康状态<ul id="651d3514-03b0-4f00-9394-5deca426b02f" class="bulleted-list"><li style="list-style-type:circle">green，所有主分片和副本分片分配正常</li></ul><ul id="29e98392-d1fc-4091-be54-d489387cc2ae" class="bulleted-list"><li style="list-style-type:circle">yellow， 所有主分片分配正常，部分副本分片未能分配</li></ul><ul id="fa746d6b-56b0-4a1b-bfad-f630226e36a3" class="bulleted-list"><li style="list-style-type:circle">red ，有主分片未能分配</li></ul></li></ul><figure id="50f09a92-98bd-4ea7-932c-be7fd58fa27b" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%204.png"><img style="width:288px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%204.png"/></a></figure><ul id="0a9ad4b4-ac4b-4f29-bee7-2ec01ebc9285" class="bulleted-list"><li style="list-style-type:disc">查看命令<pre id="3e912319-cde6-46fb-9cf4-d19e3fbdd893" class="code"><code>查看集群状态
+get _cluster/health
+查看分片状态
+get _cat/shards</code></pre></li></ul><hr id="6666f8ab-d1b8-4e19-bc03-5c084d3ede80"/><h1 id="5c1d2628-0b53-4371-b638-d930e8609746" class="">节点</h1><h3 id="0e8de17b-3ed6-48f7-aadd-5abba23c855c" class=""><em>分布式系统的可用性与扩展性</em></h3><p id="13509885-1fd6-42ae-b767-4ffe8fea4f0f" class=""><em>高可用性</em></p><ul id="518e2916-9b1a-40a7-8d82-b34016c77b80" class="bulleted-list"><li style="list-style-type:disc"><em>服务可用性，允许有节点损坏</em></li></ul><ul id="477e3790-1258-4eec-9e26-2ca83564205a" class="bulleted-list"><li style="list-style-type:disc"><em>数据可用性， 部分节点的数据丢失不会丢失数据</em></li></ul><p id="8a8880a7-e7e4-4959-8433-9c74c6b3778a" class=""><em>可扩展性</em></p><ul id="0a9034ad-8fb7-4083-9b30-261aec05f6ae" class="bulleted-list"><li style="list-style-type:disc"><em>请求量提升/数据的不断增长（将数据分布到所有节点上）</em></li></ul><p id="e3a81964-5317-4caf-9519-0f5a9fa11b7e" class=""><em>ES的分布式特性</em></p><ul id="31c0f114-0393-425e-9324-f845ab9f0101" class="bulleted-list"><li style="list-style-type:disc"><em>ES分布式架构的好处</em><ul id="9c36020c-5cdc-420a-a21a-222b6b778af2" class="bulleted-list"><li style="list-style-type:circle">存储的水平扩容</li></ul><ul id="ef3db37c-04a7-46b9-aa00-9e95a344c920" class="bulleted-list"><li style="list-style-type:circle">提高ES系统的可用性，即使部分节点损坏，集群也能继续工作。因为还有节点可以工作且数据有副本</li></ul></li></ul><ul id="ccd31592-c206-4dba-a8d4-25bdbef1ba09" class="bulleted-list"><li style="list-style-type:disc"><em>ES的分布式架构简介</em><ul id="4b363857-d50a-4820-8752-4b44bddc3c79" class="bulleted-list"><li style="list-style-type:circle">不同集群通过不同的名字来区分，默认名字是“ElasticSearch”<ul id="c15958be-87ee-4133-9790-6aa95ead588d" class="bulleted-list"><li style="list-style-type:square">通过配置文件修改或在服务启动命令行中添加“<code>-E cluster.name=集群名成</code>”</li></ul></li></ul><ul id="11ec0f1e-5b6d-4045-8e4d-d450c2908389" class="bulleted-list"><li style="list-style-type:circle">一个集群可以有一个或者多个节点</li></ul></li></ul><h3 id="319e8b1f-77f4-4c4f-9aeb-956ed42f83ba" class="">节点介绍</h3><ul id="e4e6e0ca-984a-46f5-af6c-3821e209935b" class="bulleted-list"><li style="list-style-type:disc">节点是<strong><mark class="highlight-teal">一个ES服务的实例</mark></strong>，本质上就是一个JAVA进程, 它负责处理相关的请求</li></ul><ul id="a8857764-4dc4-40d3-a024-45f4a85d6384" class="bulleted-list"><li style="list-style-type:disc">一个机器上可以运行多个节点，但是生产环境中建议只运行一个</li></ul><ul id="fca75e8d-a7a5-4313-9d1c-d5c82ca9ea2e" class="bulleted-list"><li style="list-style-type:disc">每个节点上<mark class="highlight-teal"><strong>有一个名字</strong></mark>，通过配置文件或服务启动命令中“<code>-E node.name=节点名称</code>”</li></ul><ul id="7749ccdd-86fa-4711-922a-3e48a5d89395" class="bulleted-list"><li style="list-style-type:disc">每个节点启动后都会自动分配<mark class="highlight-teal"><strong>一个UID</strong></mark>，保存在data目录下</li></ul><ul id="388dc2d4-505d-4d8b-a00d-33586397e83d" class="bulleted-list"><li style="list-style-type:disc">每个节点启动后默认都是<mark class="highlight-teal"><strong>eligible-master节点</strong></mark>，即有资格参加“选主流程”，并可能成为master。可以设置<code>node.master: false</code>来禁止它称为master节点。master的作用是什么？<p id="053d3595-2238-4910-a974-4c4aa22fd334" class="">当第一个节点启动时，它会将自己选举成为master</p></li></ul><ul id="a72bae2f-c453-45be-8c6c-975e139c41ce" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal"><strong>所有节点都保存了集群的状态，但只有master能够修改</strong></mark>。<ul id="1e2d98e4-ec5a-4aed-b06c-a145e71e4dfd" class="bulleted-list"><li style="list-style-type:circle">集群状态维护了一个集群中必要的信息<ul id="ffaef63c-3dd3-464b-b6c1-d40732c005e5" class="bulleted-list"><li style="list-style-type:square">所有的节点信息</li></ul><ul id="bd1f52f0-60eb-400b-8d5e-2b3b8905128e" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-teal"><strong>所有的索引和其相关的Mapping和Setting的信息</strong></mark></li></ul><ul id="51bd9979-72a1-42a1-a63d-f2c5a165b6ff" class="bulleted-list"><li style="list-style-type:square"><strong><mark class="highlight-teal">分片的路由信息</mark></strong></li></ul></li></ul><ul id="85cf2be6-49d9-48a7-907e-55c27f5f97b4" class="bulleted-list"><li style="list-style-type:circle">如果任意节点都能修改信息，就会导致数据不一致。</li></ul></li></ul><ul id="97652480-a8cc-43bf-8635-8b9eac8c4846" class="bulleted-list"><li style="list-style-type:disc">Data Node和Coordinating Node<ul id="afce23c4-a202-4c6c-9a5e-55b8b5b47018" class="bulleted-list"><li style="list-style-type:circle">Data Node负责保存分片数据. 在“数据扩展”上起到了至关重要的作用</li></ul><ul id="1b98f5dc-a63a-4452-800a-452097036fe2" class="bulleted-list"><li style="list-style-type:circle">Coordinating Node<ul id="5cab0392-47d3-498e-92f0-25799a63b5af" class="bulleted-list"><li style="list-style-type:square">负责<mark class="highlight-teal">接受</mark>客户端的请求，<mark class="highlight-orange">(计算分片位于哪个节点)</mark>将请求<mark class="highlight-teal">分发</mark>到合适的数据节点，最终把结果<mark class="highlight-teal"><strong>汇集</strong></mark>到一起</li></ul><ul id="81d5b45a-6add-443c-b183-2d68e37bd81c" class="bulleted-list"><li style="list-style-type:square">每个节点默认都起到了Coordinating Node的职责</li></ul></li></ul></li></ul><ul id="ffcd3739-54c9-42df-9ddd-a2634e70dafa" class="bulleted-list"><li style="list-style-type:disc">一个节点可同时担任角色：EligibleMaster + Data + Coordinating</li></ul><ul id="6c2660c2-74b0-4f25-88f6-414064df0932" class="bulleted-list"><li style="list-style-type:disc">设置节点的类型（忽略）</li></ul><ul id="fd4b69d0-a758-45b7-b2aa-dbd0b180a133" class="bulleted-list"><li style="list-style-type:disc">命令<pre id="d268250e-2b99-4aee-8a68-966eda41d62b" class="code code-wrap"><code>#查看所有节点
+GET /_cat/nodes
+
+#查看节点属性
+GET /_cat/nodeattrs?v</code></pre></li></ul><p id="47cad1d9-6f72-45d1-98dc-0a0f1ce402f6" class="block-color-orange">疑问<div class="indented"><p id="7045b6e0-c86e-415b-93df-8df23d751fd5" class="">比如添加新字段，这种操作是由master来处理么？这种情况下coordinating节点与Master是如何交互的？</p></div></p><hr id="d0f803aa-0d9c-4bc9-9dba-63ae31753297"/><h1 id="b5e8b84c-9dc6-4f19-9df4-a2ba24f3b71a" class="">搜索</h1><h2 id="91b1963e-d851-4c90-a9e4-742c0212c930" class="">CRUD和批量操作</h2><p id="7cfe4dd8-1528-433b-bfd9-e6b52a0d7ba0" class="">使用RESTful API通过端口9200可以实现CRUD和批量操作。</p><h3 id="418b60b2-46a4-42db-be95-96657762a74f" class="">curl命令</h3><pre id="baff533a-41fd-4d0e-b82e-3764ea0e8a8f" class="code"><code>curl -X&lt;VERB&gt; &#x27;&lt;PROTOCOL&gt;://&lt;HOST&gt;:&lt;PORT&gt;/&lt;PATH&gt;?&lt;QUERY_STRING&gt;&#x27; -d &#x27;&lt;BODY&gt;&#x27;
+
+#VERB(方法)，GET/PUT/POST/HEAD/DELETE
+#PROTOCOL，https、http
+#PATH, API的终端路径
+#QUERY_STRING, 查询字符串参数
+#BODY, 请求体
+</code></pre><p id="1f78fec5-08c6-46b6-95c8-4bc50fe855c7" class="">使用curl命令+用户名密码访问kibana</p><pre id="7ffffd81-7c73-474a-a10c-ae8b97f4debd" class="code"><code>curl http://quickstart-es-http.elastic-system.svc:9200/_cluster/health -u &quot;elastic:o8z9ngI8xy3DX00UxW4G64O9&quot;</code></pre><h3 id="0d579ee6-fb13-4b95-9dc5-b1d67d989863" class="">缩写格式</h3><p id="419ef247-6b3b-482c-8b60-8cef973dd463" class="">使用专用客户端，比如kibana、sense上都可以使用这种格式。</p><ul id="cfe72aa5-6484-4ecd-8c6d-d59457fa4b58" class="bulleted-list"><li style="list-style-type:disc">CRUD请求格式：<em><strong>METHOD 索引名/type/文档ID</strong></em> 比如: <pre id="0ee31649-f95d-4de9-b65d-d06d93221674" class="code"><code>PUT my_index/_doc/1
+{
+	&quot;firstname&quot;: &quot;Jack&quot;,
+	&quot;lastName&quot;: &quot;Johnson&quot;,
+  &quot;tags&quot;: [&quot;guitar&quot;, &quot;skateboard&quot;]
+}
+#PUT是方法,大小写都可以,my_index是索引,_doc是type,1是我指定新创建的文档id是1。</code></pre></li></ul><h3 id="262f6218-14e0-4af1-a241-33355a02ea42" class="">五种方法</h3><ul id="eeda2a25-909d-4075-841a-cae76a89da32" class="bulleted-list"><li style="list-style-type:disc">Create 一个文档<ul id="c649ac5c-6351-4477-8a3e-99823ec7aad7" class="bulleted-list"><li style="list-style-type:circle">通过调用<code>post /索引/_doc</code> 可自动生成文档ID<pre id="49dee23b-6820-4b33-9b5e-e96114cc70b6" class="code"><code>post users/_doc
+{
+  &quot;users&quot;: &quot;Mike&quot;,
+		&quot;post_date&quot;: &quot;2019-04-15T14:12:12&quot;,
+    &quot;message&quot;: &quot;tryping out Kibana&quot;
+}</code></pre></li></ul><ul id="a33dfa7f-4a22-46c3-8e39-90408d6d6cc7" class="bulleted-list"><li style="list-style-type:circle">调用<code>put 索引/_create/ID</code>，URI显示指定_create, 如果id已存在则操作失败<pre id="8b214e46-c742-45c1-8d8e-be8c4807bad7" class="code"><code>#执行两次，第二次执行会报错。
+put users/_create/2
+{
+  &quot;users&quot;: &quot;Jack&quot;,
+    &quot;post_date&quot;: &quot;2019-04-15T14:12:12&quot;,
+    &quot;message&quot;: &quot;tryping out ElasticSearch&quot;
+}</code></pre></li></ul></li></ul><ul id="13e5aaa0-66e2-4de5-af24-51869ee02701" class="bulleted-list"><li style="list-style-type:disc">Get 一个文档<pre id="8b28c5c5-4ae3-4cea-a1c6-5e34d40df085" class="code"><code>#method是get，type是_doc,寻找users索引中id号为2的文档。
+get users/_doc/2</code></pre></li></ul><ul id="1557a7ef-a775-4743-926a-adf5c5429af5" class="bulleted-list"><li style="list-style-type:disc">index一个文档<p id="4108da6e-a65c-4ffa-a69a-f5638c95f34a" class="">也是创建一个文档，与Create不同，如已有相同ID文档存在则删除已有文档再新建。</p><p id="fe834b26-1008-453a-8f07-82963069c785" class="">必须手动指定ID。</p><pre id="6aae0ca6-e586-4ff4-9252-534bdd88bed5" class="code"><code>#在users索引中创建id为1的文档，如已有id为1的文档则覆盖它。
+put users/_doc/1
+{
+  &quot;users&quot;: &quot;Mike&quot;
+}</code></pre></li></ul><ul id="3f4aea2e-5237-4043-b24d-a833d7eca6b7" class="bulleted-list"><li style="list-style-type:disc">update更新一个文档<p id="efb05015-0931-4ef8-925a-35de8fc8702b" class="">post方法，payload需要包含在“doc”中。</p><pre id="07880048-58ce-4f4b-903c-42e6e91eb811" class="code"><code>#对users索引id为1的文档进行更新，增加&quot;albums&quot;字段。
+POST users/_update/1
+{
+  &quot;doc&quot;: {
+    &quot;albums&quot;: [&quot;album1&quot;, &quot;album2&quot;] 
+  }
+}</code></pre></li></ul><hr id="17644212-9344-46bb-94a7-d24ff2e5bb5a"/><h1 id="dce7694a-97f4-48ee-8530-0f249ad4637d" class="">分词器与倒排索引</h1><h2 id="7db3716d-c39f-4e17-b38c-5c067c2b971d" class="">全文检索概念</h2><p id="4da77d0c-8b91-4206-b9c9-94eade655093" class="">我们生活中的数据分为<strong>结构化数据</strong>和<strong>非结构化数据</strong>：</p><p id="88b20c80-ee57-495a-b718-7ee4f5bb7b78" class=""><strong>结构化数据</strong>：具有固定格式或有限长度的数据，可以用二维表结构来逻辑表达实现的，如数据库，元数据等。</p><p id="f62ad491-fbb7-4383-b36e-f9f6511f6a3c" class=""><strong>非结构化数据</strong>：指不定长或无固定格式的数据，如办公文档、文本、图片、XML、HTML、各类报表、图像和音频/视频信息等等。也叫全文数据。</p><p id="c72c362c-065c-4990-9f16-b7b65fb0acb6" class=""><strong>对于结构化数据的搜索</strong>：如对数据库的搜索，用 SQL 语句。再如对元数据的搜索，如利用windows 搜索对文件名，类型，修改时间进行搜索等。</p><p id="9b4512a2-c0f9-4b22-bb19-ac67ec9721ef" class=""><strong>对非结构化数据的搜索</strong>：如利用 windows 的搜索也可以搜索文件内容，Linux 下的 grep命令，再如用 Google 和百度可以搜索大量内容数据。</p><p id="8ca8d27b-a46c-47a6-a0ed-dff8baf069e0" class="">对<strong>非结构化数据</strong>主要有两种方法：</p><ul id="8866449b-e3fe-4564-99ea-b6e9f681710a" class="bulleted-list"><li style="list-style-type:disc">一种是<strong>顺序扫描法</strong><p id="2b6dfeb1-7756-434c-9ddf-c78bfde5441d" class="">比如在一个项目中找一个接口名为 queryTest 的接口，就是在项目里一个文件一个文件的找，对于每个文档从头到尾的去找，直到扫描项目里面的所有文件。window 的搜索文件内容，linux 的 grep 命令就是如此的。小数据量的文件还可以接受，如果对于大量的文件，方法就很慢了。</p></li></ul><ul id="5b945f28-a20d-48c3-8ccb-b0a62040499d" class="bulleted-list"><li style="list-style-type:disc">另一种方法就是通过<strong>索引</strong><p id="fba6bad4-2ddc-49c5-a7b4-2e45e63b6f7d" class="">把非结构化数据重新设计成有一定的结构，利用结构化的数据采取一定的搜索算法加快速度。把非结构化数据中提取出的然后重新组织的信息，称之为<strong>索引</strong>。比如字典，字典的拼音表和部首检字表就是相当于字典的索引，对每一个字的解释就是非结构化的，如果字典没有音节表和部首检字表，在茫茫辞海中找一个字只能顺序扫描。
+然而字的某些信息可以提取出来进行结构化处理，比如读音，就比较结构化，分声母和韵母，分别只有几种可以一一列举，于是将读音拿出来按一定的顺序排列，每一项读音都指向此字的详细解释的页数。我们搜索时按结构化的拼音搜到读音，然后按其指向的页数，便可找到我们的非结构化数据——也即对字的解释。
+这种先建立索引，再对索引进行搜索的过程叫<strong>全文检索</strong>。</p></li></ul><p id="6a582175-b23a-4d57-bb69-2279b4dc3977" class="">全文检索大体分两个过程，<strong>索引创建(Indexing)</strong>和<strong>搜索索引(Search)</strong>。</p><ul id="5deecfbc-b86e-4333-a592-f625e6dbc0cf" class="bulleted-list"><li style="list-style-type:disc"><strong>索引创建</strong>：将现实世界中所有的结构化和非结构化数据<strong>提取信息，创建索引的过程</strong>。</li></ul><ul id="757fc1fb-cd69-437f-8b6e-82123ade2e15" class="bulleted-list"><li style="list-style-type:disc"><strong>搜索索引</strong>：通过用户的查询请求搜索创建的索引，然后返回查询结果的过程。</li></ul><p id="c4832e3d-028f-4694-afcc-aad9c96f056a" class="">创建索引比如一段日志信息&quot;The service in failure&quot;的文本，它是非结构化的，进行分析：以空格分出&quot;The&quot; “service” “in” “failure”词条，每个词条都指向这段日志信息的位置，这样我搜索任何一个单词都可以找到包含它的文本了，这个文本就变成可搜索的</p><p id="20139a84-1b83-4791-adc6-8e656a6c29e3" class="">ES为每个字段都建立一个倒排索引（默认，可以关闭）。</p><h2 id="eaa1a533-4304-40de-8790-b9c5adcd5762" class="">倒排索引的核心组成</h2><ul id="74707eca-5278-4433-b40f-90310a0558d7" class="bulleted-list"><li style="list-style-type:disc">倒排索引的两个组成部分：<ul id="9503917e-962f-4ee1-a61d-493c9ce64d13" class="bulleted-list"><li style="list-style-type:circle"><strong>单词词典</strong>（Term Dictionary）中，纪录所有文档的开启索引的<strong>字段中出现的单词</strong>，以及每个<strong>单词到倒排列表的关联关系</strong>。</li></ul><ul id="2d76a4ae-d50c-4d55-adc5-533ac8f8f731" class="bulleted-list"><li style="list-style-type:circle"><strong>倒排列表</strong>,纪录了<strong>单词对应的文档集合</strong>，由<strong>倒排索引项</strong>组成<ul id="f21fde5e-8994-4f72-b8b4-143db9993793" class="bulleted-list"><li style="list-style-type:square">一个 倒排索引项<ul id="f0482ce0-f135-4e05-9fa4-03db39865fc3" class="bulleted-list"><li style="list-style-type:disc">文档ID</li></ul><ul id="b4c6962f-5076-4bff-84e3-f7c72e7d8935" class="bulleted-list"><li style="list-style-type:disc">词频TF， 单词在文档中出现的次数</li></ul><ul id="6b30ab1f-3f3a-4d95-9cfd-22254708e1b9" class="bulleted-list"><li style="list-style-type:disc">位置（position）， 单词在文档中的位置</li></ul><ul id="35d683e8-6200-44d9-96ec-ecdcee406fec" class="bulleted-list"><li style="list-style-type:disc">偏移（offset）</li></ul></li></ul></li></ul></li></ul><h2 id="763fd431-6381-4fea-adbf-e975c9127c7d" class="">举例Index一条文档的过程</h2><p id="463a0a6b-9348-498b-9513-02b335b7d620" class="">为了实现通过搜索某字段找到相关的文档，需将文档中字段的全文本进行组织，放入到一个数据结构中，这个过程叫Index。</p><ul id="abf22a4a-4685-4f8f-8945-11187e036d06" class="bulleted-list"><li style="list-style-type:disc">根据指定Index的分词规则，将一条文档中某字段的字符串进行分词, 变成若干词条或叫Term。</li></ul><ul id="db0642b7-2d42-44b0-b6c2-58c086437e4e" class="bulleted-list"><li style="list-style-type:disc">为了快速搜索到词条，将词条放到Dictionary数据结构，词条是唯一且有序排列以便二分法搜索</li></ul><ul id="4e5dfa37-18ac-4c31-aefe-351df3bfe196" class="bulleted-list"><li style="list-style-type:disc">在Posting List中，建立与此词条关联的项，填入文档ID&amp;词频&amp;偏移，如此可在查询时可知词条出现于哪些文档。</li></ul><figure id="55d84cba-fd88-49fd-b5b0-737ae2b69d6a" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%205.png"><img style="width:1841px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%205.png"/></a></figure><p id="37546971-9757-4425-a809-5fa069ae199a" class="">可以指定某些字段没有倒排索引，优点是节省存储空间，缺点是无法对该字段进行倒排索引。</p><h2 id="839c646f-a584-40b3-936e-9736595cecd1" class="">分析器</h2><p id="e62b571a-866a-497b-a1e7-eccd4c36870b" class="">Analysis，文本分析，把<strong>全文本</strong>转换为一系列词条（Term或叫Token）的过程，也叫分词</p><p id="5b216082-755d-4a6e-97a8-da0f4d741b8e" class="">Analysis是通过Analyzer分析器实现</p><ul id="4bc8ebc5-f518-4314-a80e-a7aba13c4d55" class="bulleted-list"><li style="list-style-type:disc">可以使用ES内置的或者定制的分析器</li></ul><p id="82539e77-e8a5-4e55-9980-0f91dd420383" class="">除了在Indexing时转换词条，匹配Query语句时也需要用相同的分词器语句进行分析。</p><h3 id="92509d55-e199-4157-873e-3e1d3f9f1ba0" class="">Analyzer的组成</h3><p id="5bc51b3a-9d0a-4a5b-ab7d-eb60675f92f6" class="">分词组件，三部分组成</p><ul id="a9f3cd41-5185-4402-8549-4a3208c8450c" class="bulleted-list"><li style="list-style-type:disc">Character Filters，针对原始文本，删除不需要的内容</li></ul><ul id="62845df6-f7a0-4bd2-89e8-1b976d5c65f2" class="bulleted-list"><li style="list-style-type:disc">Tokenizer，按照规则切分单词</li></ul><ul id="5cf7d6fd-fc52-4566-8177-91c03ea59510" class="bulleted-list"><li style="list-style-type:disc">Token Filter，将切分的单词进行加工，小写，删除stopwords，复数转单数，增加同义词，去除高频词比如a、the、in</li></ul><h3 id="c9ce89aa-5304-4218-ab0f-403851a6e463" class="">使用_analyzer API</h3><p id="5486d9c7-eb1e-47eb-bcf0-3993cd3a0169" class="">可以帮助我们测试分词器</p><pre id="4c72e0a4-fb75-4abe-a1d7-32f67f62276d" class="code code-wrap"><code>GET _analyze
+{
+  &quot;text&quot;: &quot;Ma-xiao 123 the a an yu &quot;, 
+  &quot;analyzer&quot;: &quot;standard&quot;  #选择分词器
+}</code></pre><h3 id="28689eb1-6202-4d99-b8a8-f76ef0e2ad6b" class="">Analyzer内置分词器</h3><figure id="38d7e6f8-c84c-4885-9f74-68c530023d58" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%206.png"><img style="width:432px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%206.png"/></a></figure><h3 id="cd99a5c9-9c19-4656-9711-99ac6db180b3" class="">Standard Analyzer</h3><p id="6b651fab-a832-4b93-a32f-b1af79266306" class="">是默认分词器</p><ul id="a196471e-e313-4ada-9b8f-653df6840f16" class="bulleted-list"><li style="list-style-type:disc">即分隔符是<strong>非字母非数字的符号</strong>，比如空格&amp;*#@这种,但是不包括下划线_</li></ul><p id="d438e14d-f05d-4701-bf5c-7697ce22d857" class="">小写处理</p><p id="cc03cac0-6a7b-4506-a87a-bf1dcd854496" class="">不过滤stopwords，stopwords指停用词，比如in、the</p><figure id="56061fe1-f119-472d-8853-a2b99a60865d" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%207.png"><img style="width:288px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%207.png"/></a></figure><h3 id="0ca4ced7-1c11-4389-87a8-6b92ff31e483" class="">Simple Analyzer</h3><p id="2cd73e35-be8a-40e6-9dd3-dfda8f246c13" class="">与Standard Analyzer一样，除此区别：<strong>分隔符是非字母</strong>，特殊符号+数字都是分隔符。</p><h3 id="2a998883-c239-4017-acae-903af17264bb" class="">Stop Analyzer</h3><p id="ab319960-2f8e-4bc1-9b79-5b0da010d25b" class="">相比Simple Analyzer，<strong>增加了停用词过滤</strong>：in、the、a、an等将被过滤，它只小写的</p><h3 id="40842c02-27bf-4890-8c20-ee9f5d22a968" class="">Whitespace Analyzer</h3><p id="eacf2a9e-8956-4a63-b1b9-e6a204e3e140" class="">该分词器只进行分词，分隔符是空格，不做其他处理。</p><h3 id="9cf14b8f-b10e-43e2-b0f4-5b0c8fd52194" class="">keywords Analyzer</h3><p id="aeaf19b9-b5ff-4f77-9f89-30e45d07d226" class="">将整个作为一个词条，且不做任何处理。 </p><h3 id="0b3cf82c-3371-4820-bbd3-488d41966e34" class=""> Pattern Analyzer</h3><p id="8d1614ab-fa04-4349-8c71-9508732f3d1f" class="">以<strong>正则表达式匹配到的部分</strong>作为分隔符，默认pattern是\W+，非字符非数字的作为分隔符。</p><p id="37b559fd-1491-4b1f-89a0-aa76cf911ae0" class="">小写处理</p><h3 id="1447895c-f00c-4469-80e8-1cee52234514" class="">language Analyzers</h3><figure id="88f93e7e-9caf-46fd-8cc8-729a3d984ecf" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%208.png"><img style="width:720px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%208.png"/></a></figure><h3 id="4f0ac9e5-5e94-4345-861d-87c3084e8616" class="">中文分词的挑战与ICU Analyze</h3><ul id="e44ea9b2-bc71-420f-9e84-45eb3c8e7f1e" class="bulleted-list"><li style="list-style-type:disc">中文句子，应以词而不是字进行分割</li></ul><ul id="5a8b684c-7dd0-4a20-bf7a-037cc3dbe318" class="bulleted-list"><li style="list-style-type:disc">不同的上下文，有不同理解<ul id="a82588cd-c1a1-4758-9ab7-6db465f320de" class="bulleted-list"><li style="list-style-type:circle">这个苹果不大好吃/这个苹果，不大，好吃</li></ul></li></ul><ul id="bc29cb32-764c-419c-98b3-1f74dc7ace55" class="bulleted-list"><li style="list-style-type:disc">ICU Analyze提供了Unicode的支持，更好地支持亚洲语言<ul id="23f58a9a-f39b-4a12-8c61-491930856f48" class="bulleted-list"><li style="list-style-type:circle">安装ICU插件<ul id="13de13e9-78f0-4a63-b204-33c5d1a7b57d" class="bulleted-list"><li style="list-style-type:square"><code>elasticsearch-plugin install analysis-icu</code></li></ul></li></ul></li></ul><figure id="98132ef9-d3a8-42b4-aea8-eddd4d3d0175" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%209.png"><img style="width:768px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%209.png"/></a></figure><h1 id="72b00282-38c3-4033-8df6-e82ab654acc1" class="">自定义分析器</h1><p id="f139db96-01b5-4835-84be-e1e1e97ad222" class="">当自带分析器无法满足，可自己组合各种组件实现一个自定义分析器</p><h2 id="0165e6f7-e4cc-4769-adc8-513af0ff7705" class="">回顾分析器</h2><ul id="3a6de28a-9d5b-4056-bd6c-b6e9295f98b5" class="bulleted-list"><li style="list-style-type:disc">Character Filters<ul id="6001f9fc-1c8b-479b-a809-36741ed077c0" class="bulleted-list"><li style="list-style-type:circle">在Tokenizer之前对文本进行处理</li></ul><ul id="427a551e-ec3f-4679-9e7f-46fd8ba44e60" class="bulleted-list"><li style="list-style-type:circle">可配置多个</li></ul><ul id="f6554d8b-56a3-4c50-b121-dfa3a9a20c33" class="bulleted-list"><li style="list-style-type:circle">自带的<ul id="d0a06eb5-ae4a-4778-8090-f31f304540e2" class="bulleted-list"><li style="list-style-type:square">HTML strip 去除html标签</li></ul><ul id="ca68e09c-6057-4e81-92c4-dba625bdacde" class="bulleted-list"><li style="list-style-type:square">Mapping 字符串替换</li></ul><ul id="767e92d0-f411-4375-a2be-58ca8c173a6c" class="bulleted-list"><li style="list-style-type:square">Pattern replace 正则匹配替换</li></ul></li></ul></li></ul><ul id="0f76c117-021f-4c21-b31c-ef61156d8073" class="bulleted-list"><li style="list-style-type:disc">Tokenizer<ul id="cca8e3d6-4c19-4224-a617-aab6b2c154dc" class="bulleted-list"><li style="list-style-type:circle">将原始文本，按指定规则，切分为词条（term或叫token）</li></ul><ul id="a6419d1e-5d61-45dd-ae58-667f7713582f" class="bulleted-list"><li style="list-style-type:circle">内置的<ul id="8a1ace2f-33ab-4eca-9367-cb2ffa1ec2d3" class="bulleted-list"><li style="list-style-type:square">standard/simple/stop/whitespace/uax_url_email/pattern/keyword/path hierachy</li></ul></li></ul><ul id="16c45ad9-c232-4f08-9da9-e12ecdfb8624" class="bulleted-list"><li style="list-style-type:circle">可以用Java开发插件，实现自己的Tokenizer</li></ul></li></ul><ul id="e3d8c31f-73fb-44c0-a3a4-bf17918de16d" class="bulleted-list"><li style="list-style-type:disc">Token Filter<ul id="4bf2f597-dd76-4383-9ebf-2e6facbfb50e" class="bulleted-list"><li style="list-style-type:circle">将Tokenizer输出的单词，进行增加/删除/修改</li></ul><ul id="8116f561-6e9c-4544-9f73-b36ca04839e2" class="bulleted-list"><li style="list-style-type:circle">可配置多个<pre id="d90549d0-b17c-4bbe-943e-ce0e55d39c43" class="code code-wrap"><code>&quot;filter&quot;: [&quot;lowercase&quot;,&quot;stop&quot;]</code></pre></li></ul><ul id="75725b24-fea6-4c8d-80aa-1dd495f483e5" class="bulleted-list"><li style="list-style-type:circle">自带的<ul id="c4b7ac23-02a2-4986-a50f-01323e0a5789" class="bulleted-list"><li style="list-style-type:square">小写<code>lowercase</code>/去除停用词<code>stop</code>/添加近义词<code>synonym</code></li></ul></li></ul></li></ul><h2 id="3a3afec3-9522-44fa-ae6f-ed4c7be13378" class="">自定义分析器演示</h2><h3 id="34f72061-3836-4c97-8706-f9a88cb8d7ec" class="">指定character_filter</h3><pre id="f95df2df-67fd-46c5-a571-adc4132d7216" class="code code-wrap"><code>bin/elasticsearch -E node.name=node0 -E cluster.name=mxy -E path.data=node0_data -d
+bin/elasticsearch -E node.name=node1 -E cluster.name=mxy -E path.data=node1_data -d
+
+#analyzerAPI测试分词器
+POST _analyze
+{
+  &quot;char_filter&quot;: [&quot;html_strip&quot;], 
+  &quot;text&quot;: &quot;&lt;b&gt;hellow world&lt;/b&gt;&quot;, 
+  &quot;tokenizer&quot;: &quot;keyword&quot;
+}
+#输出结果
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;hellow world&quot;,
+      &quot;start_offset&quot; : 3,
+      &quot;end_offset&quot; : 19,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    }
+  ]
+}
+
+#
+POST _analyze
+{
+  &quot;tokenizer&quot;: &quot;whitespace&quot;, 
+    &quot;char_filter&quot;: [
+    {
+      &quot;type&quot;: &quot;mapping&quot;,
+      &quot;mappings&quot;: [&quot;:) =&gt; happiness&quot;, &quot;:( =&gt; sadness&quot;]
+    }
+    ], 
+  &quot;text&quot;: [&quot;happiness and sadness&quot;]
+}
+
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;happiness&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 9,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;and&quot;,
+      &quot;start_offset&quot; : 10,
+      &quot;end_offset&quot; : 13,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 1
+    },
+    {
+      &quot;token&quot; : &quot;sadness&quot;,
+      &quot;start_offset&quot; : 14,
+      &quot;end_offset&quot; : 21,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 2
+    }
+  ]
+}
+
+#
+GET _analyze
+{
+  &quot;char_filter&quot;: [
+      {
+        &quot;type&quot;: &quot;pattern_replace&quot;,
+        &quot;pattern&quot;: &quot;http://(.*)&quot;,
+        &quot;replacement&quot;: &quot;$1&quot;
+      }
+    ], 
+  &quot;tokenizer&quot;: &quot;standard&quot;,
+  &quot;text&quot;: &quot;http://www.elasticsearch.co&quot;
+}
+
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;www.elasticsearch.co&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 27,
+      &quot;type&quot; : &quot;&lt;ALPHANUM&gt;&quot;,
+      &quot;position&quot; : 0
+    }
+  ]
+}</code></pre><h3 id="5f1d1eb8-2dbf-49c7-b972-6bc09350b588" class="">指定分词器</h3><pre id="db7cc992-fcff-434f-8a65-2a2071fabbce" class="code code-wrap"><code>#path hierachy
+POST _analyze
+{
+  &quot;tokenizer&quot;: &quot;path_hierarchy&quot;, 
+  &quot;text&quot;: &quot;/usr/local/bin/elastic&quot;
+}
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;/usr&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 4,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;/usr/local&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 10,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;/usr/local/bin&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 14,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;/usr/local/bin/elastic&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 22,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    }
+  ]
+}</code></pre><h3 id="afd3baa2-1c89-4c35-9917-49b8a8bd68a0" class="">指定token过滤器</h3><p id="e8f4ac86-52be-4cbb-b406-33c41f8fd8bd" class="">token过滤器可有多个，先后对词条进行过滤。</p><pre id="7196d8e3-1046-42b6-831f-5d470d92cd7a" class="code code-wrap"><code>
+POST _analyze
+{
+  &quot;tokenizer&quot;: &quot;whitespace&quot;,
+  &quot;filter&quot;: [&quot;stop&quot;], 
+  &quot;text&quot;: &quot;The rain in Spain falls mainly on the plain.&quot;
+}
+
+{
+  &quot;tokens&quot; : [
+    {
+      &quot;token&quot; : &quot;An&quot;,
+      &quot;start_offset&quot; : 0,
+      &quot;end_offset&quot; : 2,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 0
+    },
+    {
+      &quot;token&quot; : &quot;rain&quot;,
+      &quot;start_offset&quot; : 3,
+      &quot;end_offset&quot; : 7,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 1
+    },
+    {
+      &quot;token&quot; : &quot;Spain&quot;,
+      &quot;start_offset&quot; : 11,
+      &quot;end_offset&quot; : 16,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 3
+    },
+    {
+      &quot;token&quot; : &quot;falls&quot;,
+      &quot;start_offset&quot; : 17,
+      &quot;end_offset&quot; : 22,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 4
+    },
+    {
+      &quot;token&quot; : &quot;mainly&quot;,
+      &quot;start_offset&quot; : 23,
+      &quot;end_offset&quot; : 29,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 5
+    },
+    {
+      &quot;token&quot; : &quot;plain.&quot;,
+      &quot;start_offset&quot; : 37,
+      &quot;end_offset&quot; : 43,
+      &quot;type&quot; : &quot;word&quot;,
+      &quot;position&quot; : 8
+    }
+  ]
+}</code></pre><p id="0c0e8a23-b2dc-4361-aca3-f5c4170be069" class="">
+</p><p id="0e39bd8e-a7ec-41e4-ac86-2c44182911ff" class="">
+</p><h3 id="e03c42dd-9f30-4164-8ad4-baa5bb96bc20" class="">自定义mapping的一些建议</h3><p id="b50c6372-ec78-479e-9721-5d4c635e604e" class="">纯手写会比较麻烦，建议这样：</p><ul id="a005ac70-7a93-4c32-ba12-25d85800de88" class="bulleted-list"><li style="list-style-type:disc">写入样本数据，使其自动生成索引和Mapping</li></ul><ul id="0e552462-1ee6-4565-88f1-c92db5103e82" class="bulleted-list"><li style="list-style-type:disc">读取Mapping，在此基础上进行修改</li></ul><ul id="9aee1254-f5c8-4a65-b092-74fec60b19a0" class="bulleted-list"><li style="list-style-type:disc">修改好后，删除临时索引</li></ul><ul id="156e233a-33b8-401b-829a-a4313f199d4a" class="bulleted-list"><li style="list-style-type:disc">粘贴修改好的配置</li></ul><p id="602be0cf-28c3-401d-92dd-fa30660b80ba" class="">
+</p><h3 id="05af6635-3b8b-41f5-bb31-7ab077567b33" class="">控制某字段不被索引</h3><p id="491f00fb-74bb-4392-a5ae-a972b55a68b1" class="">将指定字段设置为不被索引，这样我们也无法对该字段进行搜索了。</p><pre id="acfd747d-a417-4dce-9cb4-753e2897b7ef" class="code"><code>PUT /log1
+{
+  &quot;mappings&quot;: {
+    &quot;properties&quot;: {
+      &quot;time&quot;: {
+        &quot;type&quot;: &quot;binary&quot;,
+        &quot;index&quot;: false
+      }
+    }
+  }
+}</code></pre><p id="c0b53360-840b-4550-bc91-28292ce4442e" class="">即使新字段的值是字符串（双引号），Dynamic Mapping也可根据格式推算出日期类型或数字类型。</p><p id="cb1353bc-a7b8-4ca0-b54e-7e99ac17ff5f" class="">日期格式的设置</p><pre id="63bec02a-6e58-4102-8ee5-660f53f687e4" class="code"><code>PUT my-index-1
+{
+  &quot;mappings&quot;: {
+    &quot;dynamic_date_formats&quot;: [&quot;yyyy-mm-dd&quot;]
+  }
+}</code></pre><p id="d4253892-73ea-4284-935b-dbb62a2001e1" class="">关闭日志推算</p><pre id="d8695999-631c-41eb-a77f-c4c726661010" class="code"><code>PUT my-index-1
+{
+  &quot;mappings&quot;: {
+    &quot;date_detection&quot;: false
+  }
+}</code></pre><p id="911eef5e-fe0a-4e9c-9cd2-7cca0154b016" class="">数字类型的推算设置</p><p id="98078e30-9b4b-4e5b-a9ee-d4285cec4e70" class="">默认是关闭的, 开启后即使字段的值使用了双引号，也会推断为数字类型。</p><pre id="e3e4847b-b489-4f37-8e7f-4eda4beb9e35" class="code"><code>PUT my-index-001
+{
+  &quot;mappings&quot;: {
+    &quot;numeric_detection&quot;: true
+  }
+}
+
+#写入一个字段，验证一下
+PUT my-index-001/_doc/1
+{
+  &quot;num1&quot;: &quot;123&quot;
+}
+
+</code></pre><p id="f8417522-e322-452e-802c-fe2442a158d3" class=""><mark class="highlight-orange">数字检测</mark></p><p id="0ebab4f2-5b07-411a-8080-0d21320b80e0" class="">
+</p><h3 id="e958f06a-a5e2-46cb-b8c2-6153a2182fc9" class="">四种不同级别的索引选项</h3><p id="5934af38-8ffb-446d-9c3f-f625c0db13ba" class="">四种不同级别的index选项配置，可以控制倒排索引纪录的内容。</p><ul id="8f6158be-67d4-46ef-a625-d927ec07b9f8" class="bulleted-list"><li style="list-style-type:disc">docs - 纪录doc id</li></ul><ul id="c60ba6bf-b52b-475d-b991-c6a54232bfb3" class="bulleted-list"><li style="list-style-type:disc">freqs - 纪录doc id/term frequencies</li></ul><ul id="a498171b-e2da-46a5-a073-5f0a238bd217" class="bulleted-list"><li style="list-style-type:disc">positions - 纪录doc id/term frequencies/term positions</li></ul><ul id="ea8ee0c7-b68c-46ca-a44d-5b8e235a2225" class="bulleted-list"><li style="list-style-type:disc">offsets - 纪录doc id/term frequencies/term positions/character offsets </li></ul><p id="cf0229e4-4b5d-45d9-b2ee-70c1e30997a2" class="">Text（全文本）类型的字段的索引选项是positions，其他默认为docs。<div class="indented"><p id="2db790fc-2b7f-4b76-85e5-c19fec58b9f3" class="">索引选项的级别越高，纪录的内容越多，占用存储也越大。</p></div></p><p id="00539e4d-0fce-426b-9dbd-ba5d73cf8a4a" class="">
+</p><h3 id="aa2da5e9-0ce5-4863-947d-b9401773e549" class="">null_value</h3><p id="0cba678c-c1d0-419a-8058-4ea091800bc1" class="">某个字段可能会是空值，而我们需要对这个字段搜索空值。如保存手机号码的字段可能会是空值（比如联系人没有手机号码），而我们又需要搜索没有手机号码的联系人有哪些。</p><p id="90b1a775-2639-4204-ab55-e3d7a5e28373" class="">这种情况需要对这个字段设置null_value，注意：只有keyword类型的字段才能使用null_value。</p><figure id="e3477cd7-abf8-477e-8122-154a4afc0c68" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2010.png"><img style="width:401px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2010.png"/></a><figcaption>mapping为phone字段设置null_vallue</figcaption></figure><p id="b827d7fa-c8f4-4ffa-98f3-a1032357a895" class="">
+</p><h1 id="2d1de514-473d-4240-b868-ce4552c0fe3a" class="">Search API</h1><p id="495636d3-49d4-4309-82db-d3ce879776f1" class="">有两种：URI Search和REST Body</p><h2 id="f0ee143e-3ecd-4893-ad3a-6e37962cf333" class="">URI Search</h2><p id="993486de-01ec-4170-af2a-773b38a18368" class="">也叫Query-string 搜索/轻量搜索，将请求写在URI中，虽简单易用，但有局限。</p><h3 id="387b98fe-be89-463e-b5af-d2a1dfe42866" class="">列出所有索引</h3><pre id="f3c255df-9965-49fa-a7e3-0ac5826b0590" class="code code-wrap"><code>GET /_cat/indices</code></pre><h3 id="4c14ea18-7d55-4ac1-804c-525732d3108d" class="">指定索引</h3><pre id="c8a22971-59a1-42de-b6cf-028a593038a4" class="code code-wrap"><code>表示这是一个查询请求
+/_search 
+
+#针对某个指定索引的查询请求
+/索引/_search
+
+#针对某两个指定索引的查询请求
+/索引1,索引2/_search  
+
+#使用了通配符,针对以索引二字开头的索引的查询请求
+/索引*/_search </code></pre><h3 id="af0eefde-9ff5-4819-b6f1-11a884db5147" class="">URI查询</h3><p id="dd577877-3027-45a3-86db-eaa0999be282" class="">在_search后面加上<code>q=</code>来传入query string syntax即KV键值对（要搜索的字段和值）</p><figure id="5c5d3877-7b0b-4d95-a053-d6cb400f73df" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2011.png"><img style="width:998px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2011.png"/></a></figure><pre id="902606fc-b16f-4b26-b810-731b87a6fdd6" class="code"><code>
+#泛查询，针对_all（全文域）即所有字段，字段也叫域，这种搜索性能不好。
+/索引/_search?q=xiaoming 
+
+#指定查询，针对指定字段，表示在字段customer中搜索xiaoming
+/索引/_search?q=customer:xiaoming 
+
+#Term，比如title字段，你要搜含Beautiful或Mind的文档，下面这么写是错的，它表示：对title字段搜索Beautiful，对所有字段搜索Mind。
+/movie/_search?q=title:Beautiful Mind 
+
+#这样写，这叫分组，圆括号将Beautiful和Mind分到一个组里，它表示对title字段搜索Beautiful或Mind。
+/movie/_search?q=log:(Beautiful Mind)no
+
+#Phrase是词组，比如title字段，你要搜Beautiful Mind这样一个词组，这样写，用引号将Beautiful Mind引起来。
+GET /movie/_search?q=title:&quot;Beautiful Mind&quot;
+
+#AND和OR，查询类型是BooleanQuery
+GET /movie/_search?q=title:(Beautiful AND Mind)
+GET /movie/_search?q=title:(Beautiful NOT Mind)
+GET /movie/_search?q=title:(Beautiful Mind) 
+
+#范围查询
+#闭区间 year:{2019 TO 2012}
+#开区间 year:[* TO 2012]
+
+#数字计算,针对year字段，搜索大于2008的文档。
+GET /movie/_search?q=year:&gt;=2008
+GET /movie/_search?q=year:(&gt;=2008 &amp;&amp; &lt;=2012)
+
+#通配符查询
+#针对title字段，搜索含b开头单词的文档。
+GET /movie/_search?q=title:b*
+
+#近似查找
+#针对title字段，搜索含近似beautifl单词的文档，~1表示提高recall近似度。
+GET /movie/_search?q=title:beautifl~1</code></pre><h2 id="64bc974c-80b0-4df2-9e35-d3bd942f1805" class="">REST Body</h2><p id="d03a2507-b334-42db-ac38-03d1030051de" class="">将query以Json格式写在请求体中，相比URI，更加丰富灵活，支持更加复杂和健壮。</p><figure id="43e4c495-0f00-4bf2-926d-92efc840ff55" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2012.png"><img style="width:975px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2012.png"/></a></figure><h3 id="70ba1955-9c06-450d-9f38-065e178856f3" class="">缩写格式</h3><p id="c8ef313f-484f-4b0e-bd3a-5b0ba9253416" class="">在Kibana devtool中可以使用</p><pre id="0206585f-e114-4b1a-bad2-a3488287770c" class="code code-wrap"><code>curl -XGET -H&quot;Content-Type: application/json&quot; http://127.0.0.1:9200/customers/_search?pretty -d &#x27;
+{
+	&quot;query&quot;: {
+		&quot;match_all&quot;: {}
+	}
+}&#x27;
+
+GET customers/_search?pretty
+{
+  &quot;query&quot;:{
+    &quot;match_all&quot;: {}
+  }
+}</code></pre><h3 id="df1aee75-620d-49b8-b554-312ccbe5a340" class="">分页</h3><pre id="18b6e951-91e1-4a1c-b254-fea0efdaa7ea" class="code code-wrap"><code>GET customers/_search?pretty
+{
+  &quot;from&quot;:10,   #默认返回10个结果
+  &quot;size&quot;:20,   #
+  &quot;query&quot;:{
+    &quot;match_all&quot;: {}
+  }
+}</code></pre><h3 id="74a66291-a079-4bd2-bba7-db9828c81862" class="">排序</h3><pre id="33b8d53e-c2a1-4b28-a904-fe2ef4c62b31" class="code code-wrap"><code>GET kibana_sample_data_ecommerce/_search
+{
+  &quot;sort&quot;: [{&quot;order_date&quot;:&quot;desc&quot;}], #按降序asc
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
+  }
+}</code></pre><h3 id="5c90cb5b-1d3f-459c-9489-9599bbd1aa8f" class="">字段过滤</h3><pre id="d88e8970-08d8-46d6-91cf-9f6ddc80d41a" class="code code-wrap"><code>GET kibana_sample_data_ecommerce/_search
+{
+  &quot;sort&quot;: [{&quot;order_date&quot;:&quot;desc&quot;}],
+  &quot;query&quot;: {
+    &quot;match_all&quot;: {}
+  },
+  &quot;_source&quot;: [&quot;order_date&quot;]
+}</code></pre><h3 id="f7228e4a-a60c-495c-a6fa-1eb9ec59cbf9" class="">脚本字段（略，16节）</h3><p id="59b9a916-8595-4578-911b-2eaf96f87ec7" class="">
+</p><h3 id="15b5fefb-29d8-4fa9-b727-be9296bff406" class="">match_all和match</h3><p id="2b551b19-86c6-45a2-b256-03189e2776ec" class="">match_all返回所有文档</p><pre id="f3371f75-9f4f-4e0e-a3cd-cb7449c9416e" class="code code-wrap"><code>GET customers/_search?pretty
+{
+  &quot;query&quot;:{
+    &quot;match_all&quot;: {}
+  }
+}</code></pre><p id="91852d59-1be4-4333-aec8-11534596f821" class="">match返回指定字段中匹配的文档</p><pre id="a6e1acd5-0076-4bf5-bb1b-b94ac9e6c695" class="code"><code>#缩写格式，搜索索引megacorp类型employee中last_name字段为Smith的纪录。
+GET megacorp/employee/_search
+{
+    &quot;query&quot; : {
+        &quot;match&quot; : {
+            &quot;last_name&quot; : &quot;Smith&quot;
+        }
+    }
+}
+
+</code></pre><h2 id="849de261-4bc8-4633-b506-7355d9f7a3e3" class="">响应结果</h2><figure id="4d4c6582-a8ca-494b-b991-b382b05f786e" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2013.png"><img style="width:864px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2013.png"/></a></figure><h2 id="3e147e4f-121b-4b32-a06a-d1225ae7294a" class="">搜索结果的相关性</h2><p id="18e75b96-67c0-47c0-a7d5-cea49ea5299d" class="">搜索结果根据打分进行排序，相关性最高的排在前面。</p><h1 id="2b162432-af2e-4a05-963b-3a5068948220" class="">Term查询与全文本查询</h1><h2 id="25369b90-0533-443d-baee-4e7bbd0be277" class="">Term查询</h2><p id="d73c0567-2aa9-4658-8a49-7c3dc35ab8a2" class="">Term是表达语义的最小单位，<strong>Term查询不对查询条件做任何的分词处理（小写，分词）</strong>，比如搜索条件是John Smith，名字不需分词，作为整体来搜索，可以参考下面的例子进行理解。</p><p id="59e0fa65-ce7e-4b29-b3d0-f91b7eff4ae6" class="">Term级别的查询包括：Range Query/Prefix Query/wildcard Query</p><pre id="82a0e547-6f83-4b4d-a73f-151da778c66a" class="code"><code>#索引中有以下数据
+POST /products/_bulk
+{&quot;index&quot;: {&quot;_id&quot;: 1}}
+{&quot;productID&quot;: &quot;XHDK-A-1293-#fj3&quot;, &quot;desc&quot;: &quot;iPhone&quot;}
+{&quot;index&quot;: {&quot;_id&quot;: 2}}
+{&quot;productID&quot;: &quot;KDKE-B-9947-#kL5&quot;, &quot;desc&quot;: &quot;iPad&quot;}
+{&quot;index&quot;: {&quot;_id&quot;: 3}}
+{&quot;productID&quot;: &quot;J0DL-X-1937-#pV7&quot;, &quot;desc&quot;: &quot;MBP&quot;}
+
+#补充：在Index时，standard分析器会执行分词(非字母数字是分隔符)和小写处理,比如J0DL-X-1937-#pV7,处理后是j0dl x 1937 pv7这四个部分。
+
+#用Term查询搜索，desc字段查询条件为&quot;ipad&quot;，不作分词处理。
+POST /products/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;desc&quot;: {
+        &quot;value&quot;: &quot;ipad&quot;
+      }
+    }
+  }
+}
+#用Term查询搜索，productID字段的查询条件是1937，不作分词处理
+GET /products/_search
+{
+  &quot;query&quot;: {
+    &quot;term&quot;: {
+      &quot;productID&quot;: {
+        &quot;value&quot;: &quot;1937&quot;
+      }
+    }
+  }
+}</code></pre><p id="67d51f03-4674-4b6e-bc68-bfad5475d78e" class="">Term查询之使用filter减少查询开销(20节)</p><pre id="2aead717-12ab-459e-b8f5-ba389b7ddbdb" class="code"><code></code></pre><p id="fe4edb32-f534-48df-b28a-f42cf6f3d516" class="">Term级别的查询包括：Range Query/Prefix Query/wildcard Query</p><p id="9726d784-95e8-4b5a-af0e-20fb18568955" class="">
+</p><h2 id="5ecc92fd-aa7c-4114-8dee-3068dc6c8c3d" class="">全文本查询</h2><ul id="ada05e6c-f6bc-485e-b4a1-7c650595ec0e" class="bulleted-list"><li style="list-style-type:disc">对查询条件进行分词处理（分词+小写）</li></ul><ul id="1114e74b-a656-447a-ac41-e145ad0f1e90" class="bulleted-list"><li style="list-style-type:disc">基于全文本的查询：Match Query/Match Phrase Query/Query String query</li></ul><ul id="436c0047-d5be-4413-b93c-5220c372e8f7" class="bulleted-list"><li style="list-style-type:disc">特点<ul id="2e5b4521-4b8c-4955-978b-cc59d3922c5f" class="bulleted-list"><li style="list-style-type:circle">查询时会先对查询条件进行分词，然后每个词条逐个进行底层查询，最终将结果进行合并，并为每个文档进行算分。</li></ul></li></ul><h3 id="cff46010-5f6f-48bf-99bd-b35a64e57b39" class="">Match Query</h3><p id="16468b56-14b9-4253-b4b1-e7b1ece90475" class=""><strong>操作过程</strong></p><div id="21c22004-92e7-46fb-a7a4-dabc9a3e01b3" class="column-list"><div id="ff2da326-b724-4f86-8062-7345a096e25e" style="width:50.000000000000014%" class="column"><figure id="ea654c64-94f6-49f4-810d-2aea0b1dfc2f" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2014.png"><img style="width:432px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2014.png"/></a></figure></div><div id="6c9ce9e4-c0d8-4d52-bd11-84a75ad45dd6" style="width:50%" class="column"><figure id="136172a5-6082-4611-92b6-afbe7c80386c" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2015.png"><img style="width:288px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2015.png"/></a></figure></div></div><h3 id="159b9828-7e38-4fb2-979f-80edd8b1507b" class="">Operator操作符</h3><p id="572b1fb2-d62b-426e-8eb3-850e35134162" class="">词条是且的关系，即搜索出的文档必须包含所有词条，但没有位置要求。</p><figure id="4cbbab4a-8e7c-4771-a103-e5330ccd53be" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2016.png"><img style="width:288px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2016.png"/></a></figure><h3 id="57c12dd8-eeae-4351-b295-a6a2887f3816" class="">Match Phrase Query</h3><p id="0096cd3d-c525-413d-b347-382d0b7b8d97" class="">分词，但是按照词条位置进行搜索，它是有位置要求的。</p><ul id="1476761b-2c60-4918-b1bb-3d2f3bebf362" class="bulleted-list"><li style="list-style-type:disc">可以搭配<code>slop</code> ，词条之间可间隔的单词数，<code>&quot;slop&quot;: 1</code> 表示可以间隔一个。</li></ul><div id="9849873b-f97a-4f7e-b1a7-9aaecd1ad73f" class="column-list"><div id="3f9c268f-0d3e-4cbf-a713-bf4347f2e464" style="width:31.25%" class="column"><figure id="56ee95b4-6050-46ed-80d5-392579d4fd43" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2017.png"><img style="width:288px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2017.png"/></a></figure></div><div id="fbbc2403-1bb1-4fb4-a9dc-5baf61c59eac" style="width:68.75%" class="column"><figure id="e72fdc99-4334-4ac9-9e24-0482c30bbb0b" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2018.png"><img style="width:240px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2018.png"/></a></figure></div></div><h2 id="7e7ca940-6f56-45ad-ba06-64a66ecaf6f7" class="">结构化搜索</h2><h3 id="729de623-e9f0-40dd-b6fd-159a7d1dbf4f" class="">结构化数据</h3><ul id="701e9be4-8dd4-4300-aafe-34a1171ce6c5" class="bulleted-list"><li style="list-style-type:disc">是指对结构化数据的搜索，结构化数据是有固定格式或固定内容的<ul id="add8ef4a-894d-4689-8ff4-fe4b9cd28c01" class="bulleted-list"><li style="list-style-type:circle">日期、布尔和数字都是结构化</li></ul><ul id="7263f6a9-1326-4f6a-975a-3edd7f9a4e12" class="bulleted-list"><li style="list-style-type:circle">文本也可以是结构化的<ul id="f578b109-e362-4445-be70-534cab4e241a" class="bulleted-list"><li style="list-style-type:square">如颜色的集合：红，绿，蓝</li></ul><ul id="03e55cfb-a26b-4d9b-be43-21715ba95bce" class="bulleted-list"><li style="list-style-type:square">商品的通用产品码或其他唯一标识，遵从严格规定的、结构化的格式。</li></ul></li></ul></li></ul><h3 id="68e67554-a746-4363-b348-547f13c165bb" class="">ES中结构化搜索</h3><ul id="f28eb93b-2e77-4b1e-a369-1d8b751de708" class="bulleted-list"><li style="list-style-type:disc">布尔、数据、时间、日期这类结构化数据：有精确的格式。可以逻辑判断，包括数字或时间的范围，</li></ul><ul id="55077824-771b-4fd2-b689-9d586a9e81f3" class="bulleted-list"><li style="list-style-type:disc">结构化的文本可以作精确匹配或者部分匹配<ul id="6d52a900-5ade-4619-a633-44f1d5bab9bc" class="bulleted-list"><li style="list-style-type:circle">Term查询/Prefix查询</li></ul></li></ul><ul id="bbb34bdf-6913-4aa1-9b7e-4a35bf74341d" class="bulleted-list"><li style="list-style-type:disc">结构化数据只有两个结果：匹配到文档和没有匹配<ul id="6521f2c1-ded7-4f76-a892-ffed0e6c7315" class="bulleted-list"><li style="list-style-type:circle">根据场景决定搜索结果是否需要打分：像日期、数字、时间这种结构化数据是没有相似度的，不用打分。</li></ul></li></ul><h3 id="ebc91021-f9c7-4fdd-9d66-ae8bcc0940d9" class="">Range</h3><ul id="fea70ff8-5f60-469a-a044-d66e0e98c108" class="bulleted-list"><li style="list-style-type:disc">针对数字或日期，进行范围查询</li></ul><ul id="6b5ad6e0-03e4-45a4-8f73-86495472a915" class="bulleted-list"><li style="list-style-type:disc">操作符</li></ul><p id="5a65ff0a-b256-474f-b5a9-d3c0f0402131" class=""><strong>数字查询</strong></p><figure id="cd4148b7-37fc-4c8b-96fe-0908f9755190" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2019.png"><img style="width:576px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2019.png"/></a></figure><p id="0001e50d-e0d1-4c38-bd67-e0aa4173dc0f" class=""><strong>日期查询</strong></p><div id="9ed71758-ef8d-439c-b03a-06ff15f0d782" class="column-list"><div id="bbaa63d1-2e10-45ae-9e14-66d26175c322" style="width:50%" class="column"><figure id="9824b075-6f69-4a45-bea1-26bf5956a250" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2020.png"><img style="width:720px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2020.png"/></a></figure></div><div id="eaf78b78-d9e7-434a-b87c-94ee76f2e799" style="width:50%" class="column"><figure id="67cf57c0-7769-4a69-b962-a479f38091d4" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2021.png"><img style="width:240px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2021.png"/></a></figure></div></div><p id="36e02ee6-c3ad-45d9-b771-30b9617dcaf9" class="">
+</p><h1 id="4652b06a-876b-43ba-afb8-01a0161f3ca5" class="">相关性和相关性算分（未完）</h1><h2 id="8911d54b-bead-4851-866a-4b1cbbd9e29c" class="">相关性算分</h2><ul id="e4db85f0-2225-46e7-80de-077c20f47d73" class="bulleted-list"><li style="list-style-type:disc">相关性算分，描述了一个文档和查询语句的匹配程度。ES会对每个匹配查询条件的结果进行算分<code>_score</code> </li></ul><ul id="36f87909-d49d-45ae-9705-412f2c35fe35" class="bulleted-list"><li style="list-style-type:disc">打分的目的是为了排序。把最符合用户需求的文档排在前面。ES5前用TF-IDF,现在采用BM25</li></ul><h2 id="78e7ca2d-ae1d-44a9-9ca0-18e56e2f3588" class="">词频TF</h2><ul id="198a7a4b-4359-4c97-959f-ee63657fc5bd" class="bulleted-list"><li style="list-style-type:disc">Term Frequency： 检索词在一篇文档中出现的频率<ul id="86f87c3a-9cd5-4a33-b392-57c54fd4e1fb" class="bulleted-list"><li style="list-style-type:circle">检索词出现次数/文档总词条数</li></ul></li></ul><ul id="a5a3cad5-a651-445e-b567-6b1320a7facc" class="bulleted-list"><li style="list-style-type:disc">度量一条查询和结果文档相关性的简单方法：将搜索条件中每个词条的词频进行相加。<ul id="242b971d-2dd1-4501-8d13-4ba8c4a66a98" class="bulleted-list"><li style="list-style-type:circle">TF(区块链) + TF(的) + TF（应用）</li></ul></li></ul><ul id="7a177272-13a0-4981-81d0-edb766b5cedf" class="bulleted-list"><li style="list-style-type:disc">Stop Word<ul id="c8ef29ce-c083-40d4-85dc-d3c6a0d8118e" class="bulleted-list"><li style="list-style-type:circle">&quot;的&quot;在文档中出先的频率最高，但是它对共享相关度没有用处，不应该考虑它们的词频</li></ul></li></ul><h2 id="7e8d6135-7a09-462b-a882-7fe6b8d82168" class="">DF </h2><ul id="8e64a3a2-3521-49b2-810b-7bbdf879d407" class="bulleted-list"><li style="list-style-type:disc">DF： 检索词在所有文档中出现的频率</li></ul><ul id="1eb7b0d8-fbe0-4597-a03d-e573b13f5261" class="bulleted-list"><li style="list-style-type:disc"></li></ul><p id="111b03d0-18fb-4bfb-b5e3-9ed2c612d24c" class="">
+</p><hr id="e6f2e4ff-3477-4451-88a8-c1a9a71eba5c"/><h1 id="4b1c4c2d-562e-44d5-91cf-1cce9246b1ee" class="">Mapping</h1><h2 id="1069df2d-9ef7-4f24-b75e-ad29b437bd5a" class="">Mapping的作用</h2><ul id="368be480-7cf6-4d72-9da5-72659ff903b8" class="bulleted-list"><li style="list-style-type:disc">定义了索引中的字段的名称</li></ul><ul id="21ded9a6-c6e8-4793-9cb6-d423515c1d45" class="bulleted-list"><li style="list-style-type:disc">定义了索引中的字段的数据类型, 例如字符串、数字、布尔</li></ul><ul id="3e839457-ec6c-41c3-b1af-6147315a1a24" class="bulleted-list"><li style="list-style-type:disc">定义了索引中的字段的倒排索引是否开启</li></ul><h2 id="1851bf7a-0bab-4393-99ea-e53b1be6c790" class="">一个索引只有一个Mapping</h2><ul id="4dd900cb-4d94-45a8-a94f-36c7d76b0e6d" class="bulleted-list"><li style="list-style-type:disc">一个索引只能有一个Type，一个Type只有一个Mapping，ES7合法的type名是_doc。</li></ul><ul id="2afaf6c4-7a4f-41c2-baf7-9442bee56443" class="bulleted-list"><li style="list-style-type:disc">7.0开始，不需要在Mapping定义中指定Type。</li></ul><ul id="7b45aa8b-8f70-4c8c-a02e-c8f5e443c2c9" class="bulleted-list"><li style="list-style-type:disc">每个文档属于且只属于一个Type</li></ul><ul id="e191fa63-e6ff-4823-b710-f3c39ebee0e6" class="bulleted-list"><li style="list-style-type:disc">创建一个文档时，如果索引不存在，ES会自动创建索引和Mapping，ES会推算出文档中各字段的值的数据类型。</li></ul><h2 id="e894f093-09f8-4cf1-8128-c5ad75e14977" class="">数据类型</h2><ul id="07cdfc7d-24c3-47bc-8968-4d8f03ba3ed3" class="bulleted-list"><li style="list-style-type:disc">简单类型<ul id="80263e46-721e-4c99-9894-0c62ba001ddb" class="bulleted-list"><li style="list-style-type:circle">Text/keyword<ul id="95e8e404-9d89-4b82-8aeb-173d0e63691a" class="bulleted-list"><li style="list-style-type:square">text 先分词再索引，用于全文搜索（以文中任一词为条件都可搜索出全文），支持模糊和精确，不支持聚合</li></ul><ul id="fdb671cc-2f8c-4981-8595-fcf5b237441a" class="bulleted-list"><li style="list-style-type:square">keyword 不分词直接索引，支持模糊精确，支持聚合</li></ul></li></ul><ul id="988a6afb-6aab-4c59-8d30-cd431cf1b251" class="bulleted-list"><li style="list-style-type:circle">integer/float</li></ul><ul id="f775e1df-6569-4ffe-ac60-31daa03060f6" class="bulleted-list"><li style="list-style-type:circle">Boolean</li></ul><ul id="a19b0c4d-4e59-42c5-a8af-840a9339a19a" class="bulleted-list"><li style="list-style-type:circle">date</li></ul><ul id="000a5da8-bae6-456c-92a7-e7d694d79a88" class="bulleted-list"><li style="list-style-type:circle">ipv4/ipv6</li></ul></li></ul><ul id="cf774c28-1d77-4e37-8819-e91be526ed5c" class="bulleted-list"><li style="list-style-type:disc">复杂类型<ul id="bfc058b0-22de-41c9-af93-821dfaf933e9" class="bulleted-list"><li style="list-style-type:circle">对象</li></ul><ul id="9653e488-172f-48de-8049-6b4f998a29e6" class="bulleted-list"><li style="list-style-type:circle">嵌套</li></ul></li></ul><ul id="63a4244d-1c7f-49b7-9dae-f270904f5757" class="bulleted-list"><li style="list-style-type:disc">特殊类型<ul id="d634a048-9094-425b-843b-ddb0011ae4dd" class="bulleted-list"><li style="list-style-type:circle">geo_point</li></ul><ul id="583ef324-70eb-4966-a1ad-838ee2678502" class="bulleted-list"><li style="list-style-type:circle">geo_shape</li></ul><ul id="ecf3de92-02d6-4d48-ac37-f9dd82357bba" class="bulleted-list"><li style="list-style-type:circle">percolator</li></ul></li></ul><h2 id="d567b230-5c1d-4cd3-ba81-f8239944f7f1" class=""><mark class="highlight-red">Dynamic Mapping</mark></h2><ul id="80b43b30-f1c2-47a0-a70d-59c374f007d1" class="bulleted-list"><li style="list-style-type:disc">写入文档，如索引不存在，ES的Dynamic Mapping功能会帮助创建Mapping：纪录字段和数据类型，数据类型由数据值自动推算。</li></ul><ul id="abe4e8b4-09d9-4524-bef1-dfdf5d06d6a1" class="bulleted-list"><li style="list-style-type:disc">新的字段，默认，DynamicMapping会其加入Mapping，推算出字段数据类型</li></ul><h3 id="9ae6b7bd-3e5c-4788-ba5f-6b5d6244420a" class="">能否更改Mapping中的字段</h3><ul id="5d347417-702f-4c1f-ae86-037760b91bf3" class="bulleted-list"><li style="list-style-type:disc">两种情况<ul id="d3932326-ead6-4fea-8aaf-0d0c0fe7cb2a" class="bulleted-list"><li style="list-style-type:circle">有新增字段的文档加入<ul id="900355d5-2344-4602-a0ab-dfdb90787d52" class="bulleted-list"><li style="list-style-type:square">true时，文档写入，新字段纪录到Mapping</li></ul><ul id="f772e562-1ce9-4134-9dcf-50aca4287842" class="bulleted-list"><li style="list-style-type:square">false时，文档写入，新字段不记录到Mapping，即新增字段的数据无法索引。</li></ul><ul id="7f41c88a-2352-48fb-bd32-42df25d568b2" class="bulleted-list"><li style="list-style-type:square">strict时，文档不允许写入</li></ul></li></ul><ul id="3719ea7a-ad77-4296-ab02-6658e8bde1e4" class="bulleted-list"><li style="list-style-type:circle">对存在字段，一旦已有数据写入，将不再支持修改字段的定义<ul id="d020bab5-0943-4cb5-9aa8-20e09aa25cf1" class="bulleted-list"><li style="list-style-type:square">Lucene实现的倒排索引，一旦生成后，就不允许修改<ul id="a737bdd2-d86b-4261-b862-8add927dfaa2" class="bulleted-list"><li style="list-style-type:disc">如修改字段的数据类型，将导致已被索引的数据无法被搜索到。</li></ul></li></ul><ul id="cb6bf0e8-425b-4792-aab3-0ecbb29cc9db" class="bulleted-list"><li style="list-style-type:square">如想改变，必须ReIndex API 重建索引</li></ul></li></ul></li></ul><figure id="4e4103d4-a42f-41e5-82b5-941371f803bf" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%205.png"><img style="width:768px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%205.png"/></a></figure><pre id="4142a590-95dc-4fe2-9bc3-a0648f60a723" class="code"><code>#修改索引的Dynamic Mapping
+PUT 索引名
+{
+	&quot;mappings&quot;: {
+		&quot;_doc&quot;: {
+			&quot;dynamic&quot;: &quot;false&quot;
+		}
+	}
+}</code></pre><h3 id="3d554dbe-2b6e-438d-909f-8b87793ec285" class=""><mark class="highlight-orange">显式设置Mapping和常见参数（省略）</mark></h3><h1 id="7928603c-7c5b-434a-87bd-8b8a71fd2fae" class="">多字段特性及Mapping中配置自定义Analyzer</h1><h2 id="832e236f-0bfa-4f0f-b3ce-b4d4061b8273" class="">多字段特性</h2><ul id="5ef5bcbf-fb0e-40aa-9bf5-469145f3a6a5" class="bulleted-list"><li style="list-style-type:disc">Why：一个字符串字段可映射为text字段用于全文本搜索，也可映射为keyword字段用于排序或聚合，这时候为字段设置多字段属性。<ul id="3f4b796d-af27-4443-ad07-571ea085ed8d" class="bulleted-list"><li style="list-style-type:circle">比如<code>brand: John-Smith</code>作为品牌名字，既可以&quot;john&quot;或“smith”全文本匹配，又可以<code>“John-smith”</code>精确匹配</li></ul></li></ul><div id="70b28932-99a9-4120-85f6-d2884a1b0506" class="column-list"><div id="7c4bf091-83a4-45dd-9cf8-ad394c49c1ed" style="width:50%" class="column"><ul id="9d70f685-9687-4534-b6e3-969ff0be47d9" class="bulleted-list"><li style="list-style-type:disc">增加了一个Keyword类型的子字段<ul id="a36d9a00-a885-4a4b-8b13-b42016403452" class="bulleted-list"><li style="list-style-type:circle">默认text类型的字段都有一个子字段属性<figure id="a3d9fdbf-fdf2-4304-8644-2f714d9569c9" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2022.png"><img style="width:672px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2022.png"/></a></figure></li></ul></li></ul></div><div id="34ac2cdb-fbba-4ba9-a4d7-1ff1af619710" style="width:50%" class="column"><figure id="38b8fd73-d6c7-4bf7-82e1-5f0ef9865212" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2023.png"><img style="width:336px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2023.png"/></a></figure></div></div><figure id="0b9ce040-7fdf-4ac2-966f-140ebc202aa1" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2024.png"><img style="width:672px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2024.png"/></a></figure><h2 id="e772fdfa-c87f-46d4-9e87-945d471d055d" class="">Exact Value（精确值）区别Full Text（全文本）</h2><ul id="e977d942-cce9-41cf-b0c2-0244dbf573d5" class="bulleted-list"><li style="list-style-type:disc">Exact Value：包括数字/日期/具体的一个字符串（比如“China of people‘s republic”）。<ul id="9c6fdc50-4687-4089-b642-11acaf45ee1f" class="bulleted-list"><li style="list-style-type:circle">具有固定结构（比如数字，日期，IP地址）或固定值（比如“China of people‘s republic”），是<strong>不需要分词处理的</strong></li></ul><ul id="04582934-7292-4e33-99f7-2d7afc7cdb5b" class="bulleted-list"><li style="list-style-type:circle">在ES中，<strong>数据类型用keyword表示</strong></li></ul></li></ul><div id="630ebee5-5d6a-4335-8a11-ad29f597566c" class="column-list"><div id="845cd24a-319f-44de-a667-32d965d5b827" style="width:62.5%" class="column"><figure id="9bef1e5f-7c27-45f6-93e5-8d6c1cb7d8f8" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2025.png"><img style="width:576px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2025.png"/></a></figure></div><div id="ba3b8114-6864-4fcc-8fbe-8a078c1a5e6f" style="width:37.5%" class="column"><figure id="abe02748-96a7-4300-bdc8-833ffeef6321" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2026.png"><img style="width:903px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2026.png"/></a><figcaption>Exact Value类型的字段，值不需要分词</figcaption></figure></div></div><ul id="a2db40bb-bcdb-47f5-9fdd-48027e6b7ebf" class="bulleted-list"><li style="list-style-type:disc">全文本，非结构化的文本数据，是需要分词的<ul id="be8c70d2-2b65-4b76-bb41-0bca10ff7d5d" class="bulleted-list"><li style="list-style-type:circle">在ES中，数据类型用text表示</li></ul></li></ul><h3 id="1a58fbaf-bfdb-43fc-8292-50cb9cef833d" class="">copy_to（省略）</h3><h3 id="69b051b4-3af7-4af5-a81d-841a030b4d0c" class="">数组（省略）</h3><h2 id="970ab737-1696-463f-b492-b057ca0fba68" class="">Index Template是什么？</h2><p id="39bd44da-3fe1-4d57-82a4-6fef70983426" class="">按一定规则，自动匹配到新创建的索引上，帮你自动设定Mappings和Settings。</p><ul id="ace39e11-b591-4839-a81a-cf8780d15fb8" class="bulleted-list"><li style="list-style-type:disc">仅对新建索引有作用，对已有的索引无效</li></ul><ul id="6d429a9f-1ec8-42fc-8706-0ce925f87d8c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-red">可设定多个索引模板，新建索引可能会先后匹配到多个模板，按优先级，先匹配到低优先级</mark></li></ul><h3 id="71afb3a9-4ad8-4a3f-b8ef-481a682bac8b" class="">两个Index Template示例</h3><div id="5e7d8d3f-5a3f-4b0a-8b6d-110d4576e9da" class="column-list"><div id="9fa6fb4f-d23c-4370-bcdb-2b3ee1fbaabe" style="width:50%" class="column"><pre id="29c62970-11d9-439c-a56c-96d5a5c0c859" class="code code-wrap"><code>PUT _template/template_default
+{
+  &quot;index_patterns&quot;:[&quot;*&quot;],
+  &quot;order&quot;: 0,
+  &quot;version&quot;: 1,
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 1,
+    &quot;number_of_replicas&quot;:1
+  }
+}</code></pre></div><div id="eaeeda79-b15a-4a0c-acea-51ece6ef9763" style="width:50%" class="column"><pre id="e7c9e01c-8d37-438b-9eae-c994aa440db7" class="code code-wrap"><code>PUT _template/template_test
+{
+  &quot;index_patterns&quot;:[&quot;test*&quot;],
+  &quot;order&quot;: 1,
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 1,
+    &quot;number_of_replicas&quot;: 2
+  },
+  &quot;mappings&quot;: {
+    &quot;date_detection&quot;: false,
+    &quot;numeric_detection&quot;: true
+  }
+}</code></pre></div></div><h3 id="ffa61e86-8167-4aae-a267-67b3209edd22" class="">Index Template的工作方式</h3><p id="90166a38-2ca4-49af-bc8f-ed1869fe824f" class="">当一个索引被创建时</p><ul id="da09281a-bc66-472c-886f-a76a14340a4f" class="bulleted-list"><li style="list-style-type:disc">应用ElasticSearch默认的Settings和Mappings</li></ul><ul id="38ec2a56-f814-415b-ad88-590f692c94bb" class="bulleted-list"><li style="list-style-type:disc">应用order低的index template的设定</li></ul><ul id="e72ad746-e175-493f-ab8d-5ed938c00183" class="bulleted-list"><li style="list-style-type:disc">应用order高的index template的设定</li></ul><ul id="fbbe72a1-fa42-4d4b-abec-e4f71c34afc8" class="bulleted-list"><li style="list-style-type:disc">用户显示创建索引，应用所指定的Settings和Mapping，并覆盖之前模板中的设定。<figure id="968dcfa8-7469-40b1-8329-d3a89383c184" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2027.png"><img style="width:624px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2027.png"/></a></figure></li></ul><p id="9eb50d7d-3e64-4b8d-aeec-1478f6436d68" class="">在日志收集中，每天会自动生成一个索引（利于管理和性能），通过Index模板，这些索引保持相同的Mapping（字段特性和分词器）和Setting（分片和副本）。</p><p id="698a0ae2-826f-42d8-a1fd-b3749facfd24" class="">
+</p><h2 id="0523ca9e-b765-454c-b577-91b93e50a57e" class="">Dynamic Index</h2><p id="116f97f6-6b3a-46e9-a910-7261c4c6ddcf" class="">索引的Dynamic Index会自动匹配新的字段，帮我们自动设置新字段的属性</p><ul id="9fb525d5-2a13-4de6-8a27-48a3e470760d" class="bulleted-list"><li style="list-style-type:disc">修改字段的数据类型。<pre id="4178059c-9cdc-4761-860b-7977307ea5fd" class="code code-wrap"><code>#匹配is开头的字段，如数据是string类型，字段类型为boolean
+PUT my_index
+{
+  &quot;mappings&quot;: {
+    &quot;dynamic_templates&quot;: [
+        {
+          &quot;strings_as_boolean&quot;:{
+            &quot;match_mapping_type&quot;: &quot;string&quot;,
+            &quot;match&quot;: &quot;is*&quot;,
+            &quot;mapping&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          }
+        },
+        {
+          &quot;strings_as_keywords&quot;: {
+            &quot;match_mapping_type&quot;: &quot;string&quot;,
+            &quot;mapping&quot;: {
+              &quot;type&quot;: &quot;keyword&quot;
+            }
+          }
+        } 
+    ]
+  }
+}
+
+
+PUT my_index/_doc/1
+{
+  &quot;firstName&quot;: &quot;Max&quot;,
+  &quot;isVIP&quot;: &quot;true&quot;
+}</code></pre></li></ul><div id="3e4aea16-0a45-4a33-b59e-f30b3467e0be" class="column-list"><div id="acf0ff11-0927-49fc-914a-f4de527329d1" style="width:50%" class="column"><ul id="85c633b1-42ce-4f97-8f1c-b3ab2a13c041" class="bulleted-list"><li style="list-style-type:disc">设置copy_to<pre id="3a0bb076-41e2-43ba-a4d3-66519aa17b1f" class="code code-wrap"><code>PUT my_index
+{
+  &quot;mappings&quot;: {
+    &quot;dynamic_templates&quot;:[
+      
+      {
+        &quot;full_name&quot;: {
+          &quot;path_match&quot;: &quot;name.*&quot;,
+          &quot;path_unmatch&quot;: &quot;name.middle&quot;,
+          &quot;mapping&quot;: {
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;copy_to&quot;: &quot;full_name&quot;
+          }
+        }
+      }
+      
+    ]
+  }
+}
+
+PUT my_index/_doc/1
+{
+  &quot;name&quot;: {
+    &quot;first&quot;: &quot;John&quot;,
+    &quot;middle&quot;: &quot;Winston&quot;,
+    &quot;last&quot;: &quot;Lennon&quot;
+  }
+}
+
+GET my_index/_search?q=full_name:Jonh</code></pre></li></ul></div><div id="0c1fbbd3-109c-43a9-bb27-152d0ae0bb7b" style="width:50%" class="column"><figure id="cd5f6a4f-2b42-4863-94cb-f76ae3af4270" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2028.png"><img style="width:480px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2028.png"/></a></figure></div></div><p id="a3ffc009-36a7-416b-9d24-a01332eee47e" class="">
+</p><h1 id="77e9f118-e05d-495d-b5a9-a3e0c3775578" class="">聚合分析</h1><h2 id="c01512b5-8fb5-4868-b68e-94822bcdffd6" class="">什么是聚合分析</h2><p id="430c65a4-d469-4f2a-bbe2-23e666d8ddaa" class="">除搜索外，ES还提供了对数据进行统计分析的功能。</p><ul id="c7e3c2a2-c293-4b7b-8b93-ec2acde52a11" class="bulleted-list"><li style="list-style-type:disc">实时性高</li></ul><p id="aa48489c-0d77-4e0b-b7ad-af9d9b2cb597" class="">通过聚合，我们会得到一个数据的概览（比如男的有多少，女的有多少），是分析和总结整个数据，而不是单个文档</p><ul id="884894d8-df44-44a5-bb7c-0155b24338d8" class="bulleted-list"><li style="list-style-type:disc">金安区和裕安区的客房数量</li></ul><ul id="2a654c93-f4c5-42f6-876e-a32f5bd1aefc" class="bulleted-list"><li style="list-style-type:disc">不同价格区间，可预订的客房的数量（100以下多少，100与200之间的多少）</li></ul><p id="478be914-2bf9-4772-8f27-72162f2c1d0b" class="">高性能，只需要一条语句，就可以从ES得到分析的结果</p><p id="5ef68e18-daff-4301-b2bf-69541b010d37" class="">Kiabana可视化报表很多都是聚合分析</p><ul id="2e60ac26-9e28-444a-a058-724dc2aa7c46" class="bulleted-list"><li style="list-style-type:disc">公司程序员的工作岗位分布</li></ul><ul id="53808001-6510-45bf-b23f-639317d39afd" class="bulleted-list"><li style="list-style-type:disc">公司采用的变成框架分布</li></ul><ul id="a73b57cf-1de6-4474-b0df-1482319c5f6c" class="bulleted-list"><li style="list-style-type:disc">公司员工薪水分布</li></ul><ul id="d2f9d10e-329b-498b-9c1b-1768a4425b8d" class="bulleted-list"><li style="list-style-type:disc">客户的地理位置分布</li></ul><ul id="e58d6c28-8159-47ba-a4fd-451563e612e3" class="bulleted-list"><li style="list-style-type:disc">订单的增长情况</li></ul><ul id="592af2a4-8817-4e4c-b6d5-c68f0a7c1a34" class="bulleted-list"><li style="list-style-type:disc">等等</li></ul><h2 id="29b45597-91c6-435b-ae29-9c3851f6de40" class="">集合的分类</h2><ul id="ccbca5eb-6929-4208-ab67-8fb31f289d92" class="bulleted-list"><li style="list-style-type:disc">Bucket Aggregation - 将一些满足特定条件的文档的集合放到一个一个的桶中</li></ul><ul id="82a154c8-1853-4dc8-9170-6da192dfa334" class="bulleted-list"><li style="list-style-type:disc">Metric Aggregation - 一些数学运算，可以对文档字段进行统计分析</li></ul><ul id="7eafd2a9-37b3-485c-a2f5-03d4849b3aca" class="bulleted-list"><li style="list-style-type:disc">Pipeline Aggregation - 对其他的聚合结果进行二次聚合</li></ul><ul id="1eb5961f-133d-463f-b0ef-92f8e6d5775c" class="bulleted-list"><li style="list-style-type:disc">Matrix Aggregation - 支持对多字段的操作并提供一个结果矩阵</li></ul><p id="a96b6c85-a188-4500-ba02-6ae549697876" class="">Bucket与Metric的区别</p><figure id="284cfd47-48f3-4a81-9b6b-c40380d962bf" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2029.png"><img style="width:624px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2029.png"/></a></figure><h3 id="774d5ae5-8876-4488-a8fa-bb706a1d13a1" class="">Bucket</h3><p id="f47e6ecd-1971-4d10-ba45-f16aaab1aa36" class="">将整个数据，按照一个字段进行分类，将文档放到不同的桶里，比如：</p><ul id="1eef3b06-3fe5-4d9e-8b8c-75d832e67991" class="bulleted-list"><li style="list-style-type:disc">按商品档次分为高、中、低；</li></ul><ul id="1e26faa7-01c8-488c-ab26-8d4b64d7ac2f" class="bulleted-list"><li style="list-style-type:disc">高档中又可根据评分分为好、中、差</li></ul><p id="862f50b0-e29a-4c9b-9907-aa3e971b2a87" class="">ElasticSearch提供了很多类型的Bucket，帮助你用多种方式划分文档</p><ul id="eeb8060e-99c4-4690-8119-753c703a601d" class="bulleted-list"><li style="list-style-type:disc">Term 比如按年份/性别</li></ul><ul id="3fa2f399-a60b-4aea-afcf-3078d9ef9652" class="bulleted-list"><li style="list-style-type:disc">Range 比如按年龄进行分类</li></ul><div id="53af3dbc-7198-4b2a-a950-cf42c279767a" class="column-list"><div id="18459d30-ff88-4cb8-bbcd-df8d1dbf6541" style="width:56.25%" class="column"><figure id="51604367-3fa7-44bb-8256-23cb4c2e1655" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2030.png"><img style="width:384px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2030.png"/></a></figure></div><div id="6e0be89e-5460-4e7c-ac69-2ef8e3c6f347" style="width:43.75000000000001%" class="column"><figure id="ec8204f0-4127-48b4-a567-51bde05143bd" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2031.png"><img style="width:624px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2031.png"/></a></figure></div></div><h3 id="ab9f68e1-7869-4890-8d4f-0dfe16f7e3d7" class="">Metric</h3><p id="0a603c71-ea37-422d-8f9d-a9ad1e595069" class="">会基于数据集(由Bucket分类而来的),除了在字段上进行计算,同样也支持在脚本（painless script）产生的结果之上进行计算。</p><p id="d69ba8f1-de42-440b-aa31-ab0428b16285" class="">大多数Metric是数学计算，仅输出一个值</p><ul id="84fc31d2-bf00-429f-8d49-369e488e0bcb" class="bulleted-list"><li style="list-style-type:disc">min/max/sum/avg/cardinality</li></ul><p id="fb03005d-6335-4609-b7e5-4bd7b3ca4222" class="">部分Metric支持输出多个值</p><ul id="89eb6095-57cc-4a3c-a662-6bca957be47c" class="bulleted-list"><li style="list-style-type:disc">stats/percentiles/percentile_ranks</li></ul><div id="bc817d06-897b-4e91-8814-2b557a7321a2" class="column-list"><div id="3edf3e94-142a-4e16-9d9b-d087070d0592" style="width:50%" class="column"><figure id="d423cdb5-b7cc-4888-ae17-a4e9108ba2be" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2032.png"><img style="width:288px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2032.png"/></a></figure></div><div id="640283ab-4a69-453e-aff6-86a550fea95c" style="width:50%" class="column"><figure id="13e73cda-5016-4c92-94d1-a7bfd23d3423" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2033.png"><img style="width:537px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2033.png"/></a></figure></div></div><p id="3bba9beb-f8c6-44a4-ad42-e576a4da31f5" class="">
+</p><figure id="189e299f-e8be-4bff-8a3b-0e8bd06b57de" class="image"><a href="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2034.png"><img style="width:816px" src="ES%E5%9F%BA%E7%A1%80%20f17e9/Untitled%2034.png"/></a></figure><p id="7f680c96-cfc5-4b84-a5a3-1f79351120a8" class="">
+</p></div></article></body></html>

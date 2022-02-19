@@ -1,0 +1,881 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ECK(Elasticsearch Cloud on Kubernetes)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4ca151f7-0883-43bd-b281-eed4eefeb383" class="page sans"><header><h1 class="page-title">ECK(Elasticsearch Cloud on Kubernetes)</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@July 17, 2021 9:59 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><p id="9c29d9bf-fdd7-4e0f-ba42-88d92ea7f6c8" class="">在部署ElasticSearch时需要解决哪些问题？（10）</p><ul id="dae58cf5-021d-4c58-8a88-5a48c1dba717" class="bulleted-list"><li style="list-style-type:disc">管理Pod，SVC，Secret，ConfigMap等资源</li></ul><ul id="dfe3c10c-dedf-4ebc-a73f-7c6641e93eda" class="bulleted-list"><li style="list-style-type:disc">维护高可用</li></ul><p id="a1f27f90-15d0-45df-b025-1d984a3f5568" class="">如果需要在K8S上部署Elastic应用，ECK是一种更灵活更简单的方案。ECK是一个Operator，它提供了各种CRD，比如ElasticSearch，Kibana，Beats等等，我们只需申明CRD，它会帮我们实现，它会自动创建和管理底下一堆资源Deploy/Pod/SVC/Secret/ConfigMap。</p><p id="fff053be-1b28-4a18-bec8-2d1733855401" class="">示例，申明一个ElasticSearch<div class="indented"><pre id="fde632bf-c23e-4f37-b082-f1693e3ac941" class="code"><code>cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  nodeSets:
+  - name: masters
+    count: 3
+    config:
+      # On Elasticsearch versions before 7.9.0, replace the node.roles configuration with the following:
+      # node.master: true
+      node.roles: [&quot;master&quot;]
+      xpack.ml.enabled: true
+      node.remote_cluster_client: false
+  - name: data
+    count: 10
+    config:
+      # On Elasticsearch versions before 7.9.0, replace the node.roles configuration with the following:
+      # node.master: false
+      # node.data: true
+      # node.ingest: true
+      # node.ml: true
+      # node.transform: true
+      node.roles: [&quot;data&quot;, &quot;ingest&quot;, &quot;ml&quot;, &quot;transform&quot;]
+      node.remote_cluster_client: false
+EOF</code></pre></div></p><p id="d9c82f4e-e4f5-4eae-b5d4-5fc3545b89eb" class="">提供了这些CRD，在新的版本中可能还会有更多的CRD。</p><ul id="59745e20-fd14-4e66-a1d7-9f6e3d6784ce" class="bulleted-list"><li style="list-style-type:disc">ElasticSearch</li></ul><ul id="b8d3d4c2-bd45-4928-a5f8-64f712fa2508" class="bulleted-list"><li style="list-style-type:disc">Kibana</li></ul><ul id="33ec7302-c87a-4c65-849a-e65eeba3b889" class="bulleted-list"><li style="list-style-type:disc">APM Server</li></ul><p id="df6ac97b-bfd6-41e8-bf17-e5f9e862a07a" class="">ECK Operator为新申明的CRD创建各种资源，当申明变化时自动进行调整，维护资源的状态与CRD一致。</p><figure id="10897b0b-e807-4304-94fe-6f37a9e3b6f8" class="image"><a href="ECK(Elasti%204ca15/Untitled.png"><img style="width:288px" src="ECK(Elasti%204ca15/Untitled.png"/></a></figure><p id="41ba8f56-478e-4425-b890-e05f383abc32" class="">ElasticSearch集群健康与创建过程？</p><p id="5ef775a6-fd03-4aaa-981d-1d99c2014f03" class="">
+</p><p id="de55a128-7651-4f8f-aee4-315905681b9a" class="">kubectl命令自动补全配置</p><pre id="e139eef0-4cbb-48f5-8cbf-c8db06f7656d" class="code"><code>yum install bash-completion -y
+kubectl completion bash &gt;/etc/bash_completion.d/kubectl
+#命令补全依赖于对ETCD的访问</code></pre><p id="43933bdf-232e-4546-8831-c1646a0e5fd6" class="">
+</p><hr id="cc3a926d-b02a-4b1a-bd30-6a6c32f32415"/><h1 id="69c337e5-9f4e-4ffb-8da8-5eae96064c95" class="">ES节点配置</h1><p id="30a39b92-bb77-40c2-b9f4-0976bec30294" class="">  </p><p id="78cb8c57-6a72-4219-befd-d914440a4793" class="">
+</p><p id="0180e20f-0a5b-4786-8aee-1a9fa8cc54e1" class="">
+</p><hr id="1139ea87-fb48-4e88-98dd-5a887b12b368"/><h1 id="9696af62-eb4b-4eec-baae-2dce2d27fa43" class="">存储</h1><p id="7029e142-153e-4130-86fe-15aca6e25e8c" class=""><a href="https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-volume-claim-templates.html">https://www.elastic.co/guide/en/cloud-on-k8s/current/k8s-volume-claim-templates.html</a></p><p id="4996b389-d332-49ff-8d0c-71ed70e5516d" class="">ES存储的两种选择：本地Volume和网络文件系统</p><p id="770aaffd-3ae7-4b1b-8158-a8646a0e32dd" class="">我选择SSD和Local Persistent Volume来作为ElasticSearch的Volume，保证IO的高性能。Local Persistent Volume能保证Pod一旦与Volume绑定，Pod将始终调度在这个Node上。</p><p id="8f998b18-dd33-41c2-bb39-d912a42853d7" class="">部署</p><p id="afe45284-9307-4eff-8435-c456e1f748c1" class="">
+</p><h3 id="30fd35ff-e75e-4862-91db-b93bb5cb5701" class="">节点在维护中</h3><p id="f9b93108-0a1d-43f6-a13c-cf7c6563e1cd" class="">当一个Node维护时，先cordon再drain，Pod删创后处于Pending状态直到Node节点恢复。</p><p id="f2fbe533-1bad-4394-ad7d-77967a1938b1" class="">
+</p><figure id="d7984a59-3ed4-499a-9346-9051da144187" class="image"><a href="ECK(Elasti%204ca15/Untitled%201.png"><img style="width:672px" src="ECK(Elasti%204ca15/Untitled%201.png"/></a></figure><h3 id="8c8c7ada-ae05-4a25-941b-1eb97d3ef065" class="">节点被移除</h3><p id="2cfd2a02-faea-4bb6-9374-cb959b914e13" class="">
+</p><p id="cadda3f8-c73e-4725-a676-9584d1f0565b" class="">
+</p><h3 id="be869501-b14f-4c85-92fe-7a840aa35c46" class="">设置ElasticSearch的VC模板</h3><p id="ab11bec5-3315-43a5-abdb-cebe87e6550e" class="">VC模板为ElasticSearch下的Pod提供PVC。如没有设置VC模板，默认为每个Pod提供一个1G的PVC，在生产环境申明中应包含VC模板。</p><p id="5f8d61f1-1374-4e8b-aded-3dc54eed090c" class="">示例：在VC模板中描述了容量、访问模式、存储类型，还需要提前申明存储类和PV。</p><pre id="0079b45f-427c-454f-b819-816f5ad87c71" class="code"><code>#ElasticSearch中的VC模板
+...省略
+    volumeClaimTemplates:           #这里强制要求一个PVC。              
+      - metadata:
+          name: elasticsearch-data   #elasticsearch-data是固定名称
+        spec:
+          accessModes:
+          - ReadWriteOnce   #仅在一个节点上挂载
+          resources:
+            requests:
+              storage: 2Gi  #描述容量,必须小于PV的容量
+          storageClassName: local-storage  #指定存储类</code></pre><ul id="2633f053-0143-427b-8218-590627c118cf" class="toggle"><li><details open=""><summary>示例：申明一个存储类和PV。Volume Persistent Volume适合ES这类分布式数据库。</summary><p id="4c36d0c4-b13e-456b-9797-ab5ea1ec3493" class="">注意点：1.<code>persistentVolumeReclaimPolicy</code>设为<code>retain</code>，Pod和PVC销毁后PV和数据会保留下来。2.<code>nodeAffinity</code> 关联有高性能存储的节点。</p><pre id="ed65a946-c777-4146-8951-cd231084a392" class="code"><code>#存储类
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+	metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+#PV的申明
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elastic-system-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/data
+  nodeAffinity:
+   required:
+     nodeSelectorTerms:
+     - matchExpressions:
+       - key: kubernetes.io/hostname
+         operator: In
+         values:
+         - master01</code></pre><p id="c73993db-54de-487a-aca9-c58f2005ea74" class="">PVC被销毁后，数据保存在保留的PV中，如何被ElasticSearch重用</p><pre id="6f864f8b-9f4b-49a7-8153-b085a60b9583" class="code"><code>#PVC被销毁后，PV的状态是release
+kubectl get pv
+
+#编辑PV，删除spec.claimRef
+kubectl edit pv
+...
+spec:
+...
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: elasticsearch-data-quickstart-es-default-0
+    namespace: elastic-system
+    resourceVersion: &quot;222337&quot;
+    uid: 8a494963-3dce-48d1-9d7c-1896469b4a11
+...
+#再次查看，release变成了available，可以被PVC绑定了,绑定后状态变成Bound。</code></pre></details></li></ul><h3 id="0afa59ab-8ea6-4f71-858d-cfc9778bf59b" class="">删除VC模板</h3><p id="e95275a0-45dd-4d31-90e9-4757f72c5099" class="">ElasticSearch的Pod缩容时PVC会被自动销毁，而相应的PV，根据persistentVolumeReclaimPolicy为relain，可以被保留下来，建议保留。</p><h3 id="ab1055ea-b2c1-410b-9365-3ba1edb1ed04" class="">更新VC模板</h3><p id="cdd64409-9862-4914-a64e-cb11f4d84110" class="">当ElasticSearch的Volume空间不足时，需要更新VC模板增加size的大小（无法缩小&amp;存储类允许<code>volume expansion</code>），除了size，其他都是不可修改的。</p><hr id="be18f2a7-0bec-4437-9e6c-2e134c4d1791"/><p id="bdcfb667-1f6d-41be-a457-6fe593dae260" class="">
+</p><p id="6365e654-7a59-4071-a7a0-b76671563e3b" class="">
+</p><p id="bb58c9aa-fcf7-4b4c-8740-3e1ea359f2b9" class="">
+</p><h1 id="12a48efe-da5a-4d07-be73-0afe0d0c2139" class="">部署</h1><h3 id="be93b82a-ecdb-44ad-a16c-3386e0e6efe6" class="">安装all-in-one</h3><p id="1c018341-bd18-4961-95f6-2cf038843730" class="">该步骤会创建一个ECK Operator和5个CRD。执行下面的命令创建</p><pre id="13092797-813d-4111-8f7b-c70b750eb96e" class="code"><code>mkdir /k8s/ECK/ -p &amp;&amp; cd /k8s/ECK/
+kubectl apply -f https://download.elastic.co/downloads/eck/1.2.1/all-in-one.yaml
+
+#创建了这些资源
+customresourcedefinition.apiextensions.k8s.io/apmservers.apm.k8s.elastic.co created
+customresourcedefinition.apiextensions.k8s.io/beats.beat.k8s.elastic.co created
+customresourcedefinition.apiextensions.k8s.io/elasticsearches.elasticsearch.k8s.elastic.co created
+customresourcedefinition.apiextensions.k8s.io/enterprisesearches.enterprisesearch.k8s.elastic.co created
+customresourcedefinition.apiextensions.k8s.io/kibanas.kibana.k8s.elastic.co created
+namespace/elastic-system created
+serviceaccount/elastic-operator created
+secret/elastic-webhook-server-cert created
+clusterrole.rbac.authorization.k8s.io/elastic-operator created
+clusterrole.rbac.authorization.k8s.io/elastic-operator-view created
+clusterrole.rbac.authorization.k8s.io/elastic-operator-edit created
+clusterrolebinding.rbac.authorization.k8s.io/elastic-operator created
+rolebinding.rbac.authorization.k8s.io/elastic-operator created
+service/elastic-webhook-server created
+statefulset.apps/elastic-operator created</code></pre><h3 id="913d487d-a97e-4987-af38-63f842047f26" class="">部署一个ES</h3><p id="a1cfe6aa-dca0-4f53-a6dd-a61cac58afdb" class="">elastic资源强制包含一个PVC，用于保存ES的数据，这里的示例PVC使用宿主机的本地文件系统。</p><ol type="1" id="679f0223-8d53-45ea-8968-729d0db5b701" class="numbered-list" start="1"><li>创建存储类<pre id="58df9ab4-a2c6-4995-925a-da5362a81492" class="code"><code>cat &lt;&lt;EOF &gt;storage-class.yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+EOF
+kubectl apply -f storage-class.yaml</code></pre></li></ol><ol type="1" id="5c25e179-4cce-408c-8df1-84be7c93d7f7" class="numbered-list" start="2"><li>创建Local Persistent Volume类型的PV<p id="a266c7d6-7631-41ba-ac9a-d89699b32654" class="">Local Persistent Volume</p><pre id="b4df2b3a-570b-487b-b132-0ee96bc92179" class="code"><code>cat &lt;&lt;EOF &gt;pv.yaml
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elastic-system-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/data
+  nodeAffinity:
+   required:
+     nodeSelectorTerms:
+     - matchExpressions:
+       - key: kubernetes.io/hostname
+         operator: In
+         values:
+         - master01
+EOF
+kubectl apply -f pv.yaml 
+#确认PV是available状态</code></pre></li></ol><ol type="1" id="5214d359-ddd6-4392-b5ea-3da9ee012455" class="numbered-list" start="3"><li>创建ES资源，注意：这是一个CRD资源类型，是在第一步申明的。<pre id="92a69bff-3bdf-433f-bafb-5af2203f6f56" class="code"><code>cat &lt;&lt;EOF &gt;quickstart-es.yaml
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: quickstart
+spec:
+  version: 7.9.0    #za
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  nodeSets:
+  - name: default
+    count: 1
+    config:
+      node.master: true
+      node.data: true
+      node.ingest: true
+      node.store.allow_mmap: false
+    volumeClaimTemplates:           #这里强制要求一个PVC。              
+      - metadata:
+          name: elasticsearch-data   #这个elasticsearch-data是固定名称
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 2Gi
+          storageClassName: local-storage
+EOF
+kubectl apply -f quickstart-es.yaml
+#确认PVC是bounding状态
+#</code></pre></li></ol><ol type="1" id="da27cd5a-6784-4328-8497-688d8d531e68" class="numbered-list" start="4"><li>创建Kibana资源，注意：和上一步ES一样，它是一个CRD资源。<pre id="0ee2c853-7bc2-4221-811c-3b272b84dd24" class="code"><code>
+cat &lt;&lt;EOF &gt;quickstart-kb.yaml
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: quickstart
+spec:
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true 
+  version: 7.9.0
+  count: 1
+  elasticsearchRef:
+    name: quickstart
+EOF
+
+</code></pre></li></ol><ol type="1" id="d5d95642-4316-470c-9b8c-5c7268134a2a" class="numbered-list" start="5"><li>发布Kibana，用户可以访问，创建Ingress-nginx<p id="42879cb5-06f6-429c-94a7-2f342e61a265" class="">如果没有ingress-controller，参考<a href="../%E7%BD%91%E7%BB%9C%20c652c/Ingress%20Ng%20fa372.html">https://www.notion.so/Ingress-Nginx-fa372f01b5214ee79f7fd02976a56e8d</a></p><pre id="10f7825d-9d7e-4801-b697-9c85f96aab1c" class="code"><code>cat &lt;&lt;EOF &gt;ingress-kibana.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: elastic-ingress
+  namespace: elastic-system
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: kibana.qikqiak.com
+    http:
+      paths:
+      - backend:
+          serviceName: quickstart-kb-http
+          servicePort: 5601
+        path: /
+EOF</code></pre></li></ol><ol type="1" id="9b0f5a83-d4af-4c5a-9215-2ab0203f88ce" class="numbered-list" start="6"><li>访问kibana<pre id="c9abaf0c-eeea-440f-a688-3897b0d1c1f3" class="code"><code>#用户名是elastic, 密码
+kubectl get secrets quickstart-es-elastic-user -o=jsonpath=&#x27;{.data.elastic}&#x27; | base64 --decode</code></pre></li></ol><p id="af48cbba-e5b8-41f9-9662-eb5b7d128a7e" class="">
+</p><p id="6fb1baf5-b94e-4cb2-ae10-4f75f4019e94" class="">
+</p><p id="4e721569-9afd-4302-8ef0-596b63a61240" class="">
+</p><p id="90d21c82-34b3-46c6-a9de-54d61cc4595c" class="">
+</p><p id="3953d77c-58db-47b7-ac42-ad0945d57eb9" class="">
+</p><p id="494fdf7f-ec41-4cf4-9afc-1a15d8e5d023" class="">设置默认上下文</p><pre id="c9190e28-7869-4fde-948f-c0248b7f6eba" class="code"><code>kubectl config set-context --current --namespace=elastic-system</code></pre><p id="8a938694-efae-45d6-ab53-9fcceb727bc0" class="">
+</p><p id="7c139520-c9fc-467a-a7ca-db1dcd62f3e3" class="">
+</p><h3 id="15fb741d-9096-4bcf-9808-5eb1cf67b71c" class="">ECK有哪些CRD</h3><p id="8259df08-8586-47f2-b5d7-9ec0935c3adb" class="">
+</p><p id="9164a6d9-1364-4306-bfac-f28115ad551b" class=""><a href="http://customresourcedefinition.apiextensions.k8s.io/apmservers.apm.k8s.elastic.co">customresourcedefinition.apiextensions.k8s.io/apmservers.apm.k8s.elastic.co</a> created
+<a href="http://customresourcedefinition.apiextensions.k8s.io/beats.beat.k8s.elastic.co">customresourcedefinition.apiextensions.k8s.io/beats.beat.k8s.elastic.co</a> created
+<a href="http://customresourcedefinition.apiextensions.k8s.io/elasticsearches.elasticsearch.k8s.elastic.co">customresourcedefinition.apiextensions.k8s.io/elasticsearches.elasticsearch.k8s.elastic.co</a> created
+<a href="http://customresourcedefinition.apiextensions.k8s.io/enterprisesearches.enterprisesearch.k8s.elastic.co">customresourcedefinition.apiextensions.k8s.io/enterprisesearches.enterprisesearch.k8s.elastic.co</a> created
+<a href="http://customresourcedefinition.apiextensions.k8s.io/kibanas.kibana.k8s.elastic.co">customresourcedefinition.apiextensions.k8s.io/kibanas.kibana.k8s.elastic.co</a> created</p></div></article></body></html>

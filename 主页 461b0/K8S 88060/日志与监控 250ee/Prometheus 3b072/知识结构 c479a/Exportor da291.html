@@ -1,0 +1,745 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Exportor </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="da29141b-5c33-4b73-b474-12cc95bb103f" class="page sans"><header><h1 class="page-title">Exportor </h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 29, 2021 10:24 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h2 id="2a05696e-38b2-4ca2-9c86-26d38b128a3d" class="">2.1. 介绍</h2><p id="4df346c2-92ad-4e23-bb9d-1ff5553047cb" class="">Exporter本质上是将收集的数据转化为对应的文本格式，并提供 HTTP接口，供Prometheus定期采集数据。</p><h3 id="24e7a0a1-bb9d-430d-888c-af684b8f2463" class="">2.1.1. 类型</h3><ul id="36c224fb-4c81-45a5-98d8-62438ca115a7" class="bulleted-list"><li style="list-style-type:disc">直接采集型<p id="f499318c-fc63-4e5d-990f-82bdf5eb98c4" class="">这类Exporter直接被内置在应用程序中, 比如cAdvisor和kubernetes均内置了用于向Prometheus提供监控数据的端点. <em>这样设计的好处是，可以更好地 监控各自系统的内部运行状态，同时也适合更多自定义监控指标的项目 实施。</em></p></li></ul><ul id="adb6c59c-7875-42e6-b6d2-400b69676fdc" class="bulleted-list"><li style="list-style-type:disc">间接采集型<p id="3b42e75a-48c8-4f2d-baa2-1cea45ab4c72" class="">原始监控目标并不直接支持Prometheus，需要我们使用Prometheus提供的Client Library编写该监控目标的监控采集程序，用户可以将该程序独立运行，去获取指定的各类监控数据值。例如，由于 Linux操作系统自身并不能直接支持Prometheus，用户无法从操作系统层 面上直接提供对Prometheus的支持，因此单独提供Node exporter（将在 3.2节介绍），还有数据库或网站HTTP应用类等Exporter。</p></li></ul><hr id="8f110e22-737c-4a34-a09d-c04e1f3042f9"/><h3 id="4850b7c0-059c-4b1b-a5c4-b31daf56b930" class="">2.1.2. 文本数据格式</h3><p id="24b2a9a9-b788-4837-ae6c-34fb23dc2ec1" class="">在Prometheus监控环境中，所有返回监控样本数据的Exporter程 序，均需要遵守Prometheus规范，即基于文本的数据格式，其特点是具 有更好地跨平台和可读性。</p><hr id="6d89b99b-72f1-43d1-b323-142eef11844e"/><h2 id="2466c687-06eb-40b8-a16a-5d658c4f6112" class="">2.2. Exportor部署</h2><p id="ea694da9-4058-4734-a6d3-2a5a3d714e96" class="">有100多种Exporter, 有一些第三方的Exporter由Prometheus官方直接维护, 在官网Exporter列表中它们以(official)标记, 但大量都由个人或其他机构负责维护.</p><figure id="191b430e-ffde-47df-b1d3-fbed6316815e"><a href="https://prometheus.io/docs/instrumenting/exporters/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Exporters and integrations | Prometheus</div><div class="bookmark-description">There are a number of libraries and servers which help in exporting existing metrics from third-party systems as Prometheus metrics. This is useful for cases where it is not feasible to instrument a given system with Prometheus metrics directly (for example, HAProxy or Linux system stats).</div></div><div class="bookmark-href"><img src="https://prometheus.io/assets/favicons/favicon.ico" class="icon bookmark-icon"/>https://prometheus.io/docs/instrumenting/exporters/</div></div></a><figcaption>官网</figcaption></figure><h3 id="a1fa32d8-2194-438f-9190-9d11966b6c50" class="">NodeExport监控</h3><p id="737702f6-26ef-4e5b-b76d-34e0a76bfa48" class="">对Linux操作系统主机的 监控数据采集。它提供了系统内几乎所有的标准指标，如CPU、内存、 磁盘空间、磁盘I/O、系统负载和网络带宽。另外，它还提供了由内核 公开的大量额外监控指标，从负载平均到主板温度等.</p><p id="3a218d60-923f-4ea6-8785-6e2ab72ccf66" class=""><strong>部署NodeExpor</strong></p><p id="fe06c9d0-1b5b-4859-8b52-d6f483685240" class="">步骤一: 安装 NodeExport的默认监听端口是9100</p><pre id="38968c45-310a-4e95-8a3d-e3c6d9dc0e0f" class="code code-wrap"><code>curl -L https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz -o /tmp/node_exporter-1.1.2.linux-amd64.tar.gz
+
+tar xf /tmp/node_exporter-1.1.2.linux-amd64.tar.gz -C /opt/
+ln -s /opt/node_exporter-1.1.2.linux-amd64/ /opt/node_exporter
+
+
+cat &lt;&lt;&#x27;EOF&#x27; &gt;/usr/lib/systemd/system/node_exporter.service
+[Unit] 
+Description=node_exporter 
+Documentation=https:// prometheus.io/ 
+After=network-online.target 
+
+[Service] 
+Type=simple 
+User=root 
+Group=root 
+ExecStart=/opt/node_exporter/node_exporter 
+Restart=on-failure 
+
+[Install] 
+WantedBy=multi-user.target
+EOF
+#默认使用了root用户和组， 读者可以根据实际指定用户
+
+systemctl enable --now node_exporter</code></pre><p id="bc4404eb-75c4-450e-8b3d-726dac4494f4" class="">步骤二: 与Prometheus服务器集成</p><p id="01b99729-89f0-4c4b-ad15-834e80457b96" class="">将已安装部署好的node_exporter添加到Prometheus服务 器中, 可以在Prometheus主机目录中，找到主配置文件，使用其中的静态配置功能static_configs来采集node_exporter提供的数据. </p><p id="820a389f-0cd1-43a2-9c3c-b640ed16e16a" class="">安装Prometheus服务</p><pre id="a626494d-a713-461b-b795-9fcf4928488d" class="code code-wrap"><code>
+mkdir -p /data/prometheus/
+cat &lt;&lt;&#x27;EOF&#x27; &gt;/usr/lib/systemd/system/prometheus.service
+[Unit]
+Description=Prometheus server daemon
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/opt/prometheus/prometheus \
+ --config.file=/opt/prometheus/prometheus.yml \
+ --storage.tsdb.path=/data/prometheus/data \
+ --storage.tsdb.retention=15d \
+ --web.console.templates=/data/prometheus/consoles \
+ --web.console.libraries=/data/prometheus/console_libraries&quot; \
+ --web.max-connections=512 \
+ --web.external-url=http://192.168.31.31:9090 \
+ --web.listen-address=0.0.0.0:9090
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+systemctl enable --now prometheus</code></pre><p id="27d680a0-adb9-433e-8b87-aa5907753497" class="">
+</p><pre id="2f2e24bc-be81-4fd5-8905-797160bd20d8" class="code code-wrap"><code>...
+scrape_configs:
+...
+#增加一个job, 把改采部署的node_export加进来.
+- job_name: &#x27;node_export&#x27;
+    static_configs:
+    - targets: [&#x27;192.168.31.63:9100&#x27;]</code></pre><p id="fa0a221d-7440-40f1-8dad-9a18de7077ff" class="">步骤三: 确认</p><figure id="bbe280c4-509d-4ee2-b1c8-7141331661af" class="image"><a href="Exportor%20da291/Untitled.png"><img style="width:1008px" src="Exportor%20da291/Untitled.png"/></a></figure><p id="9d590030-1e56-4c7f-8041-b61caa713948" class=""><strong>有哪些监控指标</strong></p><ul id="d112ff7d-8b45-4efb-a62d-6b0f9cc7ca66" class="bulleted-list"><li style="list-style-type:disc">CPU</li></ul><ul id="ab49f02f-a323-400a-8c53-c54413e51bac" class="bulleted-list"><li style="list-style-type:disc">内存</li></ul><ul id="96f57f75-0be4-4775-89dd-3e3162993460" class="bulleted-list"><li style="list-style-type:disc">磁盘</li></ul><ul id="1e1bc104-47ef-402d-83b0-bddc1bcb5b9a" class="bulleted-list"><li style="list-style-type:disc">文件系统</li></ul><ul id="148f0b63-8312-4e09-bf02-50a13076def0" class="bulleted-list"><li style="list-style-type:disc">网络采集</li></ul><hr id="bd5561bc-569a-4db6-a707-e25d121ce52d"/><h3 id="43a299a0-b1a8-4a87-a037-6c6309b3d34b" class="">MySQL Export</h3><p id="d20b6000-6ca1-4ac6-80dc-35a1a5b5f4e9" class="">由于MySQL Server不提供任何端点，所以Prometheus无法直接从中 获取监控指标。为了解决这个问题，Prometheus社区开发了对应的 exporter。其工作原理是使用底层应用程序理解的语言，从目标应用程 序中提取监控指标，然后通过REST公开这些指标。这样Prometheus服务 器就可以采集到对应的数据。针对MySQL，我们将使用Prometheus社区 中的MySQL官方“mysqld_exporter”进行监控数据采集。</p><p id="1472d329-2d84-468d-a886-bdb2c2f83e97" class="">
+</p><p id="f222139e-de2c-4cdd-8fbb-57e466d78aba" class="">
+</p><p id="deec0f4d-2d4d-4c0b-bf89-1d8475277fc5" class="">
+</p><p id="a413d2b9-a72b-4efd-99ca-d5a7341097fc" class="">
+</p><p id="e3c0c3ab-c004-49cf-9926-dccfba8bfdf1" class="">
+</p><p id="1d75c57e-0ec6-4dd5-93f0-51505274c34d" class="">
+</p><p id="a683851d-880e-4404-8688-d490b278088f" class="">
+</p><p id="8279b63f-7b30-43b5-83e7-f03af573d2e9" class="">介绍Prometheus主配置文件的<code>[global]</code>与<code>[scrape_configs]</code></p><p id="4f265d9d-6cd7-4663-b7e9-71a0c6202e22" class=""><code>[global]</code> 里的是面向全局的配置.</p><pre id="c54480c1-f9bf-46ea-9d92-af4e7396df8a" class="code code-wrap"><code>global:
+  scrape_interval:     15s # 每次数据采集的时间间隔，默认为1秒
+  evaluation_interval: 15s # 执行rules的频率，默认为1秒。 \
+  #scrape_timeout，采集请求超时时间，默认为10秒。
+  #external_labels，与外部系统通信时添加到任意时间序列或告警用 的外部标签。</code></pre><p id="8516e702-52ce-4404-ac1f-14eafbc75ecf" class=""><code>[scrape_configs]</code> 里的是面向&quot;被采集数据节点&quot;的.</p><pre id="3dab3705-25be-46bf-a146-a774bc5e5707" class="code code-wrap"><code>scrape_configs:
+  - job_name: &#x27;prometheus&#x27;   #全局唯一名称
+    # scrape_interval，默认等于global内设置的参数值，设置后可以覆盖 global中的值。
+    # scrape_timeout，默认等于global内设置的参数值。 
+    # metrics_path，从targets获取metric的HTTP资源路径，默认 是/metrics。 
+    # scheme，用于请求的协议方式，默认是http。
+    # params，数据采集访问时HTTP URL设定的请求参数。 
+    # relabel_configs，采集数据重置标签配置。 
+    # metric_relabel_configs，metric重置标签配置。 
+    # sample_limit，对每个被已知样本（sample）数量的每次采集进行限制，如果超过限制，该数据将被视为失败。默认值为0，表示无限 制
+    # honor_labels，Prometheus如何处理标签之间的冲突。若设置 为&quot;true&quot;，则通过保留标签来解决标签冲突进行数据值采集。若设置 为&quot;false&quot;，则通过重命名来解决标签冲突，以exported_&lt;original-label&gt; 格式采集数据值，例如exported_job形式，默认是&quot;false&quot;。 
+    static_configs:
+    - targets: [&#x27;localhost:9090&#x27;]</code></pre><p id="626aa7bb-2fee-4969-a33d-357b91b575a1" class="">
+</p><p id="34c310ed-0ee4-4f82-a611-20a3fec4fe21" class="">
+</p><p id="2ffb3091-c615-4c22-9c7a-e0e36e94f286" class="">
+</p><p id="af9bf501-6c35-44a2-9822-a680f95baf59" class="block-color-red_background">补充: YAML语法的注意
+- 大小写敏感
+- 缩进表示层级关系
+- 只能使用空格表示缩进, 绝对不能用table
+- 缩进一般是2或4个空格的, 只要相同层级左对齐即可.</p><p id="4e251219-c1a6-47e5-895e-ad2c67af05c6" class="">
+</p></div></article></body></html>

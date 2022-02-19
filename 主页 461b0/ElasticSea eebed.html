@@ -1,0 +1,731 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>ElasticSearch</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="eebedec4-ee1f-40f2-95af-335ff1e84810" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_silk_kashan_carpet.jpg" style="object-position:center 50%"/><h1 class="page-title">ElasticSearch</h1></header><div class="page-body"><nav id="dc6965ea-7ebf-43ad-88c2-549fd8fd48b9" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2453ab0e-c516-4f93-b20d-16c56dc5d5ed">结构化搜索是什么</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#167233e1-37b6-486a-8b99-bbb193ceb8e1">全文本查询是什么</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f93495c0-107f-4b9b-9c21-93d8b09313ee">Bool查询</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a1aeb95a-a99e-440d-99b8-90547b72f0b8">分布式和分布式搜索</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a1dcab8a-b089-4490-8f15-5c4444a1bdab">分布式模型</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dc6e4ab2-9b67-41ec-a9ea-d0e878dd6989">节点</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#34fec87c-707c-4588-874d-51a65fb006e0">节点角色</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2495a512-a48e-44d5-8716-ebc6859a820d">集群元数据-Cluster State</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#e280db67-a35a-4358-94e5-9631adf9b02a">Master eligible和选主过程</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#dd566199-01f8-4741-82fa-409f55cf003a">脑裂问题和quorum</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b5e36788-b322-4b7d-aa8a-effd0700aeff">演示</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#db687ff1-ffb7-455a-8a4f-0870b273ed17">主分片-提升系统存储容量</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d7e41b0f-d263-45ce-b980-8165ae733787">副本分片-提高数据的可用性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1eed69b9-12f4-4da0-b47f-b68667ed2c59">分片数的设定</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f66a8303-0d73-4351-894c-4718e902bb64">集群健康状态</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#22489477-ec06-4021-86a6-64a23eef5851">集群的故障转移</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#67b85b80-b957-424c-806c-5d8a745412ec">文档分布式存储</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a6c75864-57fe-4fca-b3e3-3fda506943da">文档存储在分片上</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8064212e-b4d1-4b34-adbd-fffe72b51e3a"> 更新一个文档的流程</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#09571d11-0082-49ff-898b-cdad569adb48">删除一个文档的流程</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a7966a21-12ec-4350-924e-898061957d3a">分片和生命周期</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5bf666b5-6d47-4840-86d3-c07863a03917">ES的分片到底是什么？</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#26f76f05-12bb-4ef6-8154-de4383326cc7">倒排索引的不可变性</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#c2d1786f-86e5-45b8-ad42-1f79ef2ba02c">Lucene Index</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a57a1454-f27d-4f68-b33e-7e11db134d2c">Refresh是什么？</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a076e55f-4b14-4ed5-b712-99a16fd861cd">Transaction Log是什么？</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ed566391-6b21-479c-8e70-4f57f8f2aade">Flush是什么？</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#750706ef-af50-4a3d-bf9a-fe4458880c27">Merge</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d4e77db0-803b-4a40-8f09-ffce26ddcb6a">水平扩展</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ea7084af-a004-4a1c-b8c6-128b7cde2b39">节点类型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#de91102e-2a11-4050-8daa-8f01062cc55b">节点角色配置</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#21783f2e-91ca-4249-8d9d-b7478e807a46">单一职责的节点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b18c6475-9f21-4268-9c33-70c39c9fc109">单一角色：职责分离的好处</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#69698be5-422f-4b5d-92d5-61ec5ba44a85">Dedicated Coordinating Only Node</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c3f67e3d-c90c-42fa-be48-d82ba0677ce2">Delicate eligible Master Only Node</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#781a8c55-eb66-4cdf-8e70-fcc305f79f2e">基本部署：增加节点，水平扩展</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#024e0501-b6b5-421e-a863-758cf14493fa">水平扩展： Coordinating Only Node</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3de0bc79-ec5c-4d9d-bfe5-85a0d182f1de">读写分离</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d87fb663-adb8-46bd-ad8d-e35a39571e2a">在集群中部署高可用的Kibana</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#49f9d02b-72e2-4195-ab42-ff5ee5ce7df8">Hot &amp; Warm架构与Shard Filtering</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#bb1c6bb0-0083-4d69-ac58-54d8ebef7428">什么是Hot &amp; Warm架构</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#6cb3d019-1f1d-4b1a-a9ba-87472436bdcc">Hot节点</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f5a3eabb-b0b9-4f6a-97e2-45d082369805">Warm节点</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#13de898a-45f8-4f85-9cef-819401ae5273">配置Hot &amp; Warm架构</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5fc6f02f-89be-4b6a-a6ab-2c2f2180d2a6">Rack Awareness</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0e894a59-f268-427a-9c9c-1c68077f1fb1">Forced Awareness(未完)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e80fc624-fa31-4324-99b3-63cc21e90963">分片的设计和管理（未完）</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#977a730e-94f8-47be-82ce-668b57ddf64d">单个分片</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b1804c55-3be4-475f-ad4f-ddd2045513c7">两个分片</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#476605f3-940d-437d-88aa-b4cd1b8e0e44">压力测试</a></div></nav><div id="ce579c8b-26db-4b90-9c97-cc07a55bc8fc" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="059c5992-87a7-4d79-a87a-04b76dff88b1"><td class="cell-title"><a href="ElasticSea%20eebed/Untitled%20D%20ce579/%E4%BB%8B%E7%BB%8D%20059c5.html">介绍</a></td><td class="cell-IkDb"><time>@August 4, 2021 9:19 PM</time></td><td class="cell-U{~|"></td></tr><tr id="11394c68-260f-4da1-916e-4edcce353f15"><td class="cell-title"><a href="ElasticSea%20eebed/Untitled%20D%20ce579/%E5%9C%A8%E5%AD%A6%E4%B9%A0%E7%8E%AF%E5%A2%83%E4%B8%AD%E9%83%A8%E7%BD%B2ES%2011394.html">在学习环境中部署ES和Kibana</a></td><td class="cell-IkDb"><time>@August 4, 2021 9:19 PM</time></td><td class="cell-U{~|"></td></tr><tr id="f17e9886-277c-413d-80d7-4ff97e430d90"><td class="cell-title"><a href="ElasticSea%20eebed/Untitled%20D%20ce579/ES%E5%9F%BA%E7%A1%80%20f17e9.html">ES基础</a></td><td class="cell-IkDb"><time>@August 4, 2021 9:25 PM</time></td><td class="cell-U{~|"></td></tr></tbody></table></div><p id="65144b82-f1b6-44d9-856c-ad9bf91e983e" class="">
+</p><figure id="1786cd97-404f-4267-af4f-4af4743b2175" class="image"><a href="ElasticSea%20eebed/Untitled.png"><img style="width:649px" src="ElasticSea%20eebed/Untitled.png"/></a></figure><figure id="a2f91cce-ba2b-41c5-a8e0-35987ffcf567" class="image"><a href="ElasticSea%20eebed/Untitled%201.png"><img style="width:496px" src="ElasticSea%20eebed/Untitled%201.png"/></a></figure><h3 id="2453ab0e-c516-4f93-b20d-16c56dc5d5ed" class="">结构化搜索是什么</h3><p id="2896f82b-77ef-4d9d-8cfb-78df4ae2c5f7" class="">结构化搜索是对结构化数据的搜索。什么是结构化数据？日期，布尔类型和数字都是结构化的。文本也可以是结构化的，比如产品编码。</p><p id="16cc402b-41f7-4553-b186-83abcc466f87" class="">日期，布尔类型和数字有精确的格式，可以逻辑操作，包括比较数字和时间的范围，或判定两个数字的大小。</p><p id="cb3994d0-fede-433b-9aac-040db5bb0ff5" class="">针对结构化文本，可以用term查询作精确匹配，或用Prefix前缀查询作部分匹配。</p><p id="3110233c-02df-4fc0-bd84-5f8643f9a94d" class="">结构化结果只有是或否两个值。</p><h2 id="167233e1-37b6-486a-8b99-bbb193ceb8e1" class="">全文本查询是什么</h2><ul id="1beb7d30-1c73-48c5-b296-221bc144858e" class="bulleted-list"><li style="list-style-type:disc">特点<ul id="d972986a-835e-4126-b071-c97ef21f7668" class="bulleted-list"><li style="list-style-type:circle">索引和搜索时都会先进行分词。查询时会分配到一个合适的分词器，然后生成一个供查询的词项列表。</li></ul><ul id="dd95bb82-adde-4cdd-80c5-d57d44bd3cf6" class="bulleted-list"><li style="list-style-type:circle">查询的时候先分词，然后每个词项逐个进行底层的查询，最终将结果进行合并。并为每个文档进行算分。</li></ul></li></ul><ul id="876ce6c8-2f6b-409a-a4de-29a0e59397ad" class="bulleted-list"><li style="list-style-type:disc">基于全文本的查询<ul id="4fc0e1c6-fc35-4259-a5d4-08d3676a7d28" class="bulleted-list"><li style="list-style-type:circle">Match</li></ul><ul id="7419a41a-c576-4512-b678-4cb4c6d784f4" class="bulleted-list"><li style="list-style-type:circle">Match Phrase</li></ul><ul id="b8572caa-622a-4022-9f43-7d15e62288fc" class="bulleted-list"><li style="list-style-type:circle">Query String</li></ul></li></ul><h2 id="f93495c0-107f-4b9b-9c21-93d8b09313ee" class="">Bool查询</h2><p id="0740accb-bc8b-430a-8061-cac5bf5d3732" class="">是一种针对多个字段的符合查询。比如搜索一个电影，包含这些条件：评论中包含了guitar，用户打分高于3分，上映于1993到2000之间的。</p><p id="74b4a5ea-3f49-46db-8313-cdd6c5e8f477" class="">是一个包含多个条件子句的组合。共含4种子句，算分的：must和should，不算分的：must_not和filter。</p><p id="94cc65e9-474f-4b1f-a867-93f834fef743" class="">
+</p><hr id="13d37cbc-5e4c-45d5-a895-ffe822e9c6d1"/><figure id="99c56b57-2566-483f-9cc9-7a73e36fbfdc" class="image"><a href="ElasticSea%20eebed/Untitled%202.png"><img style="width:576px" src="ElasticSea%20eebed/Untitled%202.png"/></a></figure><figure id="a6ba8afc-1849-4cf2-bdb2-f702e0d5c952" class="image"><a href="ElasticSea%20eebed/Untitled%203.png"><img style="width:480px" src="ElasticSea%20eebed/Untitled%203.png"/></a></figure><div id="d8c5f57f-2a7d-4177-b22c-dbf3e7c6e53b" class="column-list"><div id="0d886238-432f-43ba-9f22-8462d89b605a" style="width:44.44444444444444%" class="column"><figure id="f0ccdb3c-37ad-4585-9d8e-0b74f70679e8" class="image"><a href="ElasticSea%20eebed/Untitled%204.png"><img style="width:336px" src="ElasticSea%20eebed/Untitled%204.png"/></a><figcaption>写入一条纪录，phone字段写入null</figcaption></figure></div><div id="43e02a70-ffb7-4803-81bf-ec1a8d5ce55c" style="width:55.55555555555557%" class="column"><figure id="61ab040a-256a-43b7-ad81-ace56cddcf45" class="image"><a href="ElasticSea%20eebed/Untitled%205.png"><img style="width:238px" src="ElasticSea%20eebed/Untitled%205.png"/></a><figcaption>对phone字段搜索NULL</figcaption></figure></div></div><h1 id="a1aeb95a-a99e-440d-99b8-90547b72f0b8" class="">分布式和分布式搜索</h1><h2 id="a1dcab8a-b089-4490-8f15-5c4444a1bdab" class="">分布式模型</h2><h3 id="dc6e4ab2-9b67-41ec-a9ea-d0e878dd6989" class="">节点</h3><p id="19aeb603-d34f-49ea-9db4-57934375469d" class="">一个集群可以有一个或多个节点，每个节点都可以处理HTTP请求，每个节点彼此知晓故可转发客户请求至其他节点。
+<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/modules-node.html</a></p><h3 id="34fec87c-707c-4588-874d-51a65fb006e0" class="">节点角色</h3><p id="f9317361-5884-497d-a5bb-6baa7a493d77" class="">每个节点默认是一个Master eligible，data和ingest的节点。</p><p id="4f3a289d-3590-48f8-85a9-9e4d05acd269" class="">data<div class="indented"><ul id="b011d128-c7fd-4751-8905-397fa01bb6f4" class="bulleted-list"><li style="list-style-type:disc">负责保存分片。默认每个节点是Data节点，可以通过设置<code>node.data: true</code> 禁止。保存分片数据，由Master节点决定如何将分片分发到数据节点上，</li></ul><ul id="7a233758-cace-4cda-b810-6833483b81f4" class="bulleted-list"><li style="list-style-type:disc">负责处理数据相关的操作，比如CRUD、搜索、aggregations，是IO/CPU/MEM密集型节点，如超负荷需添加data节点。</li></ul></div></p><p id="8b4f77b6-a53c-443e-8275-45da6fbeb0c7" class="">coordinating<div class="indented"><ul id="6d1cc083-b6be-4cdd-ba91-6abdb48b980c" class="bulleted-list"><li style="list-style-type:disc">考虑到像搜索或bulk-indexing请求可能涉及多个data节点，Coordinating节点负责先处理客户端的请求再分发至合适的data节点（叫scatter阶段），处理后再由Coordinating节点收集（叫gather阶段），一并返回给客户端。</li></ul><ul id="4bb1edcb-a131-44f3-8e99-fcf9dc98f6fe" class="bulleted-list"><li style="list-style-type:disc">默认每节点都是Coordinating节点。</li></ul></div></p><p id="596a71d7-5996-4eeb-af9a-be37928a4ec7" class="">eligible-master<div class="indented"><ul id="08faa83b-c24f-4b34-bc1f-2da4b251ba5b" class="bulleted-list"><li style="list-style-type:disc">每个节点启动后默认都是eligible-master，即有资格参加“选主流程”，并可能成为master。可以设置node.master: false来禁止它称为master节点。</li></ul></div></p><p id="ae311a86-2d45-4128-b8a6-db3348bf52ac" class="">master<div class="indented"><ul id="19bbb14b-b8f1-4b4d-b165-df40d10be5db" class="bulleted-list"><li style="list-style-type:disc">负责处理创、删索引</li></ul><ul id="726edceb-4b71-428d-82b8-700a60021f78" class="bulleted-list"><li style="list-style-type:disc">决定分片被分配到哪个节点，Master节点不会将主分片和它的副本分片放在同一个数据节点上。</li></ul><ul id="f30eca95-f745-4b9f-8463-d3b45ef7aeca" class="bulleted-list"><li style="list-style-type:disc">维护和更新集群元数据，它们描述了如何读取保存在data节点上的数据，如集群元数据丢失则无法从data节点读取数据，持久化在<code>path.data</code> 目录，</li></ul><ul id="0992d2dd-dbd6-41c4-8971-0abdeb574db2" class="bulleted-list"><li style="list-style-type:disc">最佳实践：Master非常重要，为一个集群设置多个Master节点，如需确保Master高性能运行每个节点可承担Master的单一角色。</li></ul></div></p><p id="33336b8d-2c0d-4f07-a2ff-74a6bb39170e" class=""><mark class="highlight-orange">除了以上，还有其他角色，暂不研究。</mark></p><h3 id="2495a512-a48e-44d5-8716-ebc6859a820d" class="">集群元数据-Cluster State</h3><p id="b6a8349d-77c2-41a3-a7aa-243f011b749e" class="">集群状态信息，维护了一个集群中必要的信息。</p><ul id="fadf6399-57ac-4712-a2ca-87737567461f" class="bulleted-list"><li style="list-style-type:disc">节点信息</li></ul><ul id="7afe82d6-0ded-49bd-b7cb-7075cce9f4af" class="bulleted-list"><li style="list-style-type:disc">索引信息（包括Mapping和Setting）</li></ul><ul id="6bcc0139-8718-441f-894e-9f27cbb93ed5" class="bulleted-list"><li style="list-style-type:disc">分片的路由信息</li></ul><p id="839e68e3-3618-4762-a72f-c06e8265cac6" class="">每个节点都维护了一份集群状态信息，故每个节点彼此知晓故可转发客户请求至其他节点，<mark class="highlight-orange">但只有Master节点能修改</mark>。</p><h3 id="e280db67-a35a-4358-94e5-9631adf9b02a" class="">Master eligible和选主过程</h3><ul id="afd23b1d-d2bd-4aa9-a9f3-0d9af2862f3e" class="bulleted-list"><li style="list-style-type:disc">在选举Master时,Master eligible节点ID低的优先级越大。</li></ul><ul id="1f33a1a9-3886-4fca-8868-1dc37035e661" class="bulleted-list"><li style="list-style-type:disc">集群选出master之后，新加入的节点不会引发新的选举。</li></ul><h3 id="dd566199-01f8-4741-82fa-409f55cf003a" class="">脑裂问题和quorum</h3><p id="c35238c6-eeba-42da-96c8-a8fc9f33407d" class="">为避免脑裂，只有在Master eligible数量大于等于quorum（总数/2的整数再加1）时才能进行选举，7.0后不需要设置quorum了。</p><figure id="f7f6b74d-82ad-444a-b001-24446a2e53cb" class="image"><a href="ElasticSea%20eebed/Untitled%206.png"><img style="width:528px" src="ElasticSea%20eebed/Untitled%206.png"/></a></figure><p id="6c47f4c6-ad52-46d6-bffe-d98401fc2249" class="">quorum=总数/2的整数再加1，比如3个Master eligible，quorum是2。</p><div id="917e5a87-68c6-4fc1-8389-906742ba0b6d" class="column-list"><div id="5b66ba6f-6c9f-4524-8a2c-2a8188516663" style="width:50%" class="column"><figure id="6861a4f8-19a9-436a-8492-3ad80f5d1569" class="image"><a href="ElasticSea%20eebed/Untitled%207.png"><img style="width:720px" src="ElasticSea%20eebed/Untitled%207.png"/></a></figure></div><div id="385ae33b-d025-46a5-a963-0744d9dd2f6b" style="width:50%" class="column"><figure id="6f4f2e4a-a3b4-4599-ae7f-f0e2b4f07ae9" class="image"><a href="ElasticSea%20eebed/Untitled%208.png"><img style="width:576px" src="ElasticSea%20eebed/Untitled%208.png"/></a></figure></div></div><p id="ffe951ed-b80d-4486-a4ac-7a2d3f6949af" class="">
+</p><h3 id="b5e36788-b322-4b7d-aa8a-effd0700aeff" class="">演示</h3><pre id="5f5c2d20-60f4-4c0e-a170-01d70dc7d28f" class="code"><code>bin/elasticsearch -E node.name=node0 -E cluster.name=mxy -E path.data=node0_data -E http.port=9200 -d
+bin/elasticsearch -E node.name=node1 -E cluster.name=mxy -E path.data=node1_data -E http.port=9201 -d</code></pre><p id="4f89b847-a439-498a-ac41-f9e0a1b3fd1f" class="">
+</p><p id="5c10ad57-bf77-4b11-b121-d1688ad61f3b" class="">
+</p><h3 id="db687ff1-ffb7-455a-8a4f-0870b273ed17" class="">主分片-提升系统存储容量</h3><p id="d74748b4-3a36-4b02-a944-9d5fe07a9d8b" class="">分片是ES分布式存储的基石</p><ul id="9ecbda3d-0c69-4c78-a5a2-6227984d7d81" class="bulleted-list"><li style="list-style-type:disc">主分片/副本分片</li></ul><p id="a29d68f8-3363-4bf6-96c5-6fb1cbb02ad8" class="">通过主分片使索引的数据分布在多个data节点上，实现了横向扩展。主分片是在索引创建时指定的，后期默认无法更改，若要更改需要重建索引。</p><p id="e3c8adc4-d830-49ec-a0f0-48aa9a638a5a" class="">
+</p><h3 id="d7e41b0f-d263-45ce-b980-8165ae733787" class="">副本分片-提高数据的可用性</h3><ul id="dce02a21-e205-4295-b6a2-2d2fb8a55241" class="bulleted-list"><li style="list-style-type:disc">数据可用性<p id="74e7d167-b943-4245-87c8-09f8afeb9411" class="">一旦主分片丢失，在其他data节点上的副本分片成为主分片。如果主分片没有副本分片，将造成数据丢失。</p></li></ul><ul id="9804f489-01e0-416f-a362-5d8b9fbccb50" class="bulleted-list"><li style="list-style-type:disc">副本分片数量可动态调整</li></ul><ul id="555692a0-18ae-47fd-8471-e879d90e8e24" class="bulleted-list"><li style="list-style-type:disc">提升数据的读取性能<p id="19b02e90-50b1-4779-9ad4-476118fe43b2" class="">副本分片由主分片同步。通过增加数量可提升索引的读取的吞吐量。</p></li></ul><p id="a4b1996a-f0b4-4067-9121-a3c5d2be8928" class="">
+</p><h3 id="1eed69b9-12f4-4da0-b47f-b68667ed2c59" class="">分片数的设定</h3><p id="fc731a63-90fc-40c5-afa5-e00fade1f486" class=""><mark class="highlight-orange">索引在创建时默认1个主分片0个副本分片，生产环境必须指定副本分片。</mark></p><p id="66768e12-6994-4237-bb9b-fd315780c4b0" class="">如何规划索引的主分片数和副本分片数</p><ul id="80c28e71-42d5-415d-9db9-cadea60fe2de" class="bulleted-list"><li style="list-style-type:disc">主分片数量过少<p id="900bf2b6-031b-4bd8-9ba1-cb05c31693c0" class="">例如索引只有1个主分片，当数据增长快时，无法实现横向的数据扩展。</p></li></ul><ul id="fe66b9b0-e49b-4ee1-8cbe-b1b35ce4efbc" class="bulleted-list"><li style="list-style-type:disc">主分片数量设置过多<p id="c625cabc-0ce4-424f-9bfe-66e91411fe32" class="">导致单个分片数据容量小，引发一个节点上过多的分片，影响性能。</p></li></ul><ul id="7072e36a-146e-4715-9a26-58e8b65f984e" class="bulleted-list"><li style="list-style-type:disc">副本分片过多，会降低集群整体的写入性能</li></ul><p id="bc921bff-6d76-4fe1-b00a-cfde6bcb89a2" class="">
+</p><h3 id="f66a8303-0d73-4351-894c-4718e902bb64" class="">集群健康状态</h3><p id="3ffd2d05-68b3-4aa6-ba25-92fbd8433739" class="">Green 所有的主分片和副本分片都可用</p><p id="f72a37d0-d3b8-49b5-9565-96e7c212dc8d" class="">Yellow 副本分片不可用</p><p id="5b843f60-a6c7-47ab-a5a8-0611e035daec" class="">Red 主分片不可用</p><pre id="ca8dccec-bff2-4004-8499-22521072ca3c" class="code"><code>#查看集群健康状态
+GET /_cluster/health</code></pre><h3 id="22489477-ec06-4021-86a6-64a23eef5851" class="">集群的故障转移</h3><figure id="925666c3-cabc-4f0a-85d3-09c07a1a9be8" class="image"><a href="ElasticSea%20eebed/Untitled%209.png"><img style="width:576px" src="ElasticSea%20eebed/Untitled%209.png"/></a></figure><h2 id="67b85b80-b957-424c-806c-5d8a745412ec" class="">文档分布式存储</h2><h3 id="a6c75864-57fe-4fca-b3e3-3fda506943da" class="">文档存储在分片上</h3><ul id="0f335a86-6738-457d-aa11-af6ed2861e1a" class="bulleted-list"><li style="list-style-type:disc">文档是存储在主分片和副本分片上的</li></ul><ul id="0e2027c1-2f7b-4d0b-aab3-6ca2082d73fb" class="bulleted-list"><li style="list-style-type:disc">文档必须平均地分布在多个主节点上。</li></ul><p id="1836cb89-718d-4d25-91ad-63a66d76ea50" class="">文档必须平均地分布在多个主节点上？-文档到节点的路由算法<code>shard=hash(_routing)%number_of_primary_shards</code></p><ul id="b54a7e69-1cbb-4c29-84f4-9d9c5edf8d63" class="bulleted-list"><li style="list-style-type:disc">hash可以保证均匀分散</li></ul><ul id="9afda06c-2a31-4d8e-a361-38d0dc771b44" class="bulleted-list"><li style="list-style-type:disc">默认_routing是文档ID</li></ul><div id="7b91aebc-3052-4394-8c95-9b7c1ecec497" class="column-list"><div id="4f3eddbd-d450-449c-a0b4-df61efdee5b7" style="width:50%" class="column"><ul id="5179a746-72a5-4a86-a78f-9b32b79da447" class="bulleted-list"><li style="list-style-type:disc">可以自行设置routing设置，例如相同国家的商品，都能分配到相同的分片上</li></ul><ul id="f1541ab7-298d-42ec-a060-45fe794d6c30" class="bulleted-list"><li style="list-style-type:disc">代入主分片数计算，故主分片数在设置后不可更改，必须重建索引。</li></ul></div><div id="a69b688c-be2e-4481-9572-cb1cf951ffbb" style="width:50%" class="column"><figure id="383c767d-548a-4960-ace2-9a62a7ade3e9" class="image"><a href="ElasticSea%20eebed/Untitled%2010.png"><img style="width:336px" src="ElasticSea%20eebed/Untitled%2010.png"/></a></figure></div></div><h3 id="8064212e-b4d1-4b34-adbd-fffe72b51e3a" class=""> 更新一个文档的流程</h3><figure id="dd1e14a7-ed38-4916-9c23-08ac6545e90e" class="image"><a href="ElasticSea%20eebed/Untitled%2011.png"><img style="width:816px" src="ElasticSea%20eebed/Untitled%2011.png"/></a></figure><p id="16ba5201-2093-4fa6-ba2f-575262822e7b" class="">注意：<div class="indented"><ol type="1" id="f0343612-6d27-4509-82bf-8101b6a21377" class="numbered-list" start="1"><li>每个节点都有一份集群状态数据包括索引和分片路由信息，通过hash算出对应的主分片节点，然后路由至该节点</li></ol><ol type="1" id="13784363-970d-48c1-a645-9aca4322ca41" class="numbered-list" start="2"><li>更新一个文档，其实是删除然后创建一个新的文档</li></ol></div></p><h3 id="09571d11-0082-49ff-898b-cdad569adb48" class="">删除一个文档的流程</h3><figure id="5faf467f-3ef4-47c2-b627-2c14987520d9" class="image"><a href="ElasticSea%20eebed/Untitled%2012.png"><img style="width:576px" src="ElasticSea%20eebed/Untitled%2012.png"/></a></figure><h2 id="a7966a21-12ec-4350-924e-898061957d3a" class="">分片和生命周期</h2><h3 id="5bf666b5-6d47-4840-86d3-c07863a03917" class="">ES的分片到底是什么？</h3><p id="4e45f67d-0d12-4e7d-a8d5-fde58429c677" class="">ES中最小的工作单元/是一个lucene的Index。</p><p id="509b61a7-79ee-40f8-b19d-e32eb4b9fcc4" class="">分片的特点：</p><ul id="b2c6c95b-ba04-47d6-99da-440291dd34fd" class="bulleted-list"><li style="list-style-type:disc">ES的搜索是近实时的</li></ul><ul id="5f49e01c-cee8-4561-b3c9-2e5ec3e991b5" class="bulleted-list"><li style="list-style-type:disc">在断电时数据不会丢失</li></ul><ul id="a88bc7af-2e3f-4095-86a0-578a332eb175" class="bulleted-list"><li style="list-style-type:disc">删除文档，并不会立刻释放空间</li></ul><h3 id="26f76f05-12bb-4ef6-8154-de4383326cc7" class="">倒排索引的不可变性</h3><ul id="52b06771-1bff-4d30-8e9c-37d5d54a5f3c" class="bulleted-list"><li style="list-style-type:disc"> 倒排索引采用Immutable Design，一旦生成，不可改变</li></ul><ul id="4233b749-6146-4ddf-8ce3-842f6f7c6962" class="bulleted-list"><li style="list-style-type:disc">不可变性，带来的好处如下：<ul id="938c3636-bc4a-467a-9a72-dd50dafcb872" class="bulleted-list"><li style="list-style-type:circle">无需考虑并发写文件的问题，避免了锁机制带来的性能问题</li></ul><ul id="43bd3a2e-43d9-43c0-b787-0c56e896afed" class="bulleted-list"><li style="list-style-type:circle">一旦读入内核的文件系统缓存，便留在那里，只要文件系统有足够的空间，大部分请求就会直接请求内存，不会命中磁盘，提升了很大的性能</li></ul><ul id="68b48080-84db-44e2-9b1b-0ce0d9776cf8" class="bulleted-list"><li style="list-style-type:circle">缓存容易生成和维护/数据可被压缩</li></ul></li></ul><ul id="82ea1e8b-beff-4bb3-96b7-17a6ca944185" class="bulleted-list"><li style="list-style-type:disc">不可变性也带来了挑战：如果需要让一个新的文档可以被搜索，需要重建整个索引</li></ul><h3 id="c2d1786f-86e5-45b8-ad42-1f79ef2ba02c" class="">Lucene Index</h3><p id="b86c0385-8a7c-4cc2-a806-8978bd460c3f" class="">在Lucene中，单个倒排索引文件称为Segment，它是自包含、不可变更的。多个Segments汇总在一起称为Lucene的Index,其对应的就是ES的shard。</p><p id="834a134d-e632-47e3-bb5b-8903fea12312" class="">当新文档写入时，会生成新Segment；查询时会同时搜索所有的Segments，并对结果进行汇总。Lucene有一个commit point文件，用来纪录所有的Segments信息。</p><p id="b324f7f0-6c2e-44cf-aca3-2080023ac732" class="">删除的文档保存在.DEL文件中，在搜索结果中，会将DEL文件中的文档过滤出去。</p><figure id="bcf19fb8-fec6-4754-8a63-5b254fd23d16" class="image"><a href="ElasticSea%20eebed/Untitled%2013.png"><img style="width:336px" src="ElasticSea%20eebed/Untitled%2013.png"/></a></figure><h3 id="a57a1454-f27d-4f68-b33e-7e11db134d2c" class="">Refresh是什么？</h3><p id="2b70ebbc-9a00-4ae7-8591-c7c5f4d77937" class="">写一个文档，首先写到Index buffer-一个内存空间，到一定时候再将Index Buffer写入到Segment，将Index Buffer写入到Segment的过程叫Refresh。</p><p id="d336f315-c099-48e7-a450-b628486d5d60" class="">Refresh不执行fsync操作。</p><p id="3014773a-0754-4b58-9575-b919cd09b6f9" class="">Refresh间隔是1秒，过一秒写入的文档才能被搜索到，所以ES也叫近实时搜索。</p><p id="bba02c23-2a61-40a1-9502-b0772102ed0d" class="">如果有大量数据写入，就会有很多的Segment。</p><p id="a12d8a37-70ed-4f74-a4e5-72689329c31e" class="">Index Buffer被占满时，会触发Refresh，默认是JVM的10%。</p><figure id="0ad279b9-6f8a-4638-b5bb-f9156148e04c" class="image"><a href="ElasticSea%20eebed/Untitled%2014.png"><img style="width:672px" src="ElasticSea%20eebed/Untitled%2014.png"/></a></figure><h3 id="a076e55f-4b14-4ed5-b712-99a16fd861cd" class="">Transaction Log是什么？</h3><p id="3dabf0f0-8b9e-4b05-9b75-257bb526a7af" class="">Segment写入磁盘相对耗时，借助文件系统缓存，即Refresh时Segment先放经过文件系统缓存层，如此可更快被客户端查询。</p><p id="2c8463be-68da-4f6f-9c9c-1beb8f88bfb5" class="">放在文件系统缓存层的且未写入磁盘的有丢失的风险，故transaction log纪录，如发生断电，可通过它进行恢复。</p><figure id="42c8aa4c-9c5d-49b3-9f87-e6bd5189074c" class="image"><a href="ElasticSea%20eebed/Untitled%2015.png"><img style="width:768px" src="ElasticSea%20eebed/Untitled%2015.png"/></a></figure><h3 id="ed566391-6b21-479c-8e70-4f57f8f2aade" class="">Flush是什么？</h3><p id="cb4c2e9c-cb52-436e-9471-6dce97556989" class="">Flush将缓存中的数据进行落盘的动作，依次执行：Fresh→Fsync→清空Transaction。</p><p id="33e0bd8f-1a57-41d9-9d1f-215001fe00b8" class="">默认30分钟执行一次；Transaction Log满的时候也会触发（默认512M）。</p><figure id="3e8a2ccb-54db-437b-be35-ea5febdc7d8b" class="image"><a href="ElasticSea%20eebed/Untitled%2016.png"><img style="width:624px" src="ElasticSea%20eebed/Untitled%2016.png"/></a></figure><h3 id="750706ef-af50-4a3d-bf9a-fe4458880c27" class="">Merge</h3><p id="f6b62eb7-d3ee-4370-9c33-563f96a648bd" class="">segment很多，需要定期合并。</p><ul id="e67cf48e-cccb-462b-bddb-5e2514666c24" class="bulleted-list"><li style="list-style-type:disc">减少Segment/删除DEL文件（已删除的文档）</li></ul><p id="d625d087-55f9-48bb-b6bc-7293e31d5a19" class="">ES/lucense会自动进行Merge操作。</p><ul id="d45eb938-4111-4175-aa14-01b87892ef26" class="bulleted-list"><li style="list-style-type:disc">POST my_index/_forcemerge</li></ul><hr id="941d1768-9c45-42eb-a954-554987378c22"/><h1 id="d4e77db0-803b-4a40-8f09-ffce26ddcb6a" class="">水平扩展</h1><h3 id="ea7084af-a004-4a1c-b8c6-128b7cde2b39" class="">节点类型</h3><p id="ff9fc1c4-6738-4cfd-9aec-0c89f29d01fe" class="">不同角色的节点：Master eligible/Data/Ingest/Coordinating/Machine Learning</p><p id="60222902-c32d-411e-b79a-d4808fe0d19b" class="">在开发环境中，一个节点可以担任多种角色</p><p id="d0268ad4-4b49-4bc9-8c3f-2c43b448c920" class="">在生产环境</p><ul id="a10f1977-ff9b-4680-a5b3-8a46b631c27d" class="bulleted-list"><li style="list-style-type:disc">根据数据量，根据写入和查询的吞吐量，选择合适的部署方式。<mark class="highlight-orange">如何做到？</mark></li></ul><ul id="fae9aea3-08f7-44bd-9c16-ffd42d910a86" class="bulleted-list"><li style="list-style-type:disc">建议设置单一角色</li></ul><h3 id="de91102e-2a11-4050-8daa-8f01062cc55b" class="">节点角色配置</h3><p id="3db1c583-7de1-4a6e-b592-329113cff251" class="">一个节点默认会同时扮演：master eligible，data 和<mark class="highlight-orange">ingest</mark>，以及coordinating。</p><h3 id="21783f2e-91ca-4249-8d9d-b7478e807a46" class="">单一职责的节点</h3><p id="01870d74-18b0-4884-ab3b-eb17b77fcaee" class="">一个节点只承担一个角色（master eligible、data 、ingest）</p><figure id="e9f1218b-49ee-4092-b22d-f02fbcae41a9" class="image"><a href="ElasticSea%20eebed/Untitled%2017.png"><img style="width:576px" src="ElasticSea%20eebed/Untitled%2017.png"/></a></figure><p id="7adc1942-16fe-4bca-aca2-cc6e1950cc4b" class="">
+</p><h3 id="b18c6475-9f21-4268-9c33-70c39c9fc109" class="">单一角色：职责分离的好处</h3><ul id="5031db01-64ce-4696-b63a-319405491c1e" class="bulleted-list"><li style="list-style-type:disc">Dedicated eligible master：负责集群状态的管理。使用低配置的CPU，RAM和磁盘。</li></ul><ul id="5897e047-1ffa-43ad-be58-b4bcc42dc4fc" class="bulleted-list"><li style="list-style-type:disc">Dedicated data：负责数据存储和处理客户端请求。使用高配置的CPU，RAM和磁盘。</li></ul><ul id="52d67008-9908-47fc-a3b6-552d32d0a070" class="bulleted-list"><li style="list-style-type:disc">Dedicated ingest: 负责数据处理。使用高配置CPU；中等配置RAM; 低配置的磁盘</li></ul><h3 id="69698be5-422f-4b5d-92d5-61ec5ba44a85" class="">Dedicated Coordinating Only Node</h3><ul id="ddd1a597-7781-4576-9529-54a9c572958d" class="bulleted-list"><li style="list-style-type:disc">配置：将eligible master, data, ingest配置成False<ul id="9514dbf8-174b-46ed-9929-4228315e807c" class="bulleted-list"><li style="list-style-type:circle">中/高CPU，中/高RAM，低磁盘‘</li></ul></li></ul><ul id="18077b8a-82c8-4fa1-b2b2-8a14270276eb" class="bulleted-list"><li style="list-style-type:disc">生产环境中，建议为一些大的集群配置Coordinating Only Node<ul id="4b6d4e03-7548-4f08-ab9a-398f8ea8146b" class="bulleted-list"><li style="list-style-type:circle">扮演Load Balancers。降低Master和data的负载。</li></ul><ul id="0e9bf1ee-2fcc-40ec-adde-d6deac29bfe9" class="bulleted-list"><li style="list-style-type:circle">负责搜索结果的Gather</li></ul><ul id="8ae83310-53bc-4823-a7dc-090cf52c3c83" class="bulleted-list"><li style="list-style-type:circle">有时候无法预知客户端会发送怎样的请求<ul id="91eeffa1-8773-4870-9fde-69b632b2559c" class="bulleted-list"><li style="list-style-type:square">大量占用内存的结合操作，一个深度聚合可能会引发OOM</li></ul></li></ul></li></ul><h3 id="c3f67e3d-c90c-42fa-be48-d82ba0677ce2" class="">Delicate eligible Master Only Node</h3><ul id="bb3cbae7-1c5d-445c-b237-a1d34b640591" class="bulleted-list"><li style="list-style-type:disc">从高可用&amp;避免脑裂的角度出发<ul id="34d2ed4c-d9ae-42a8-86a8-81ba511a9f86" class="bulleted-list"><li style="list-style-type:circle">一般生产环境使用3台</li></ul><ul id="27a4f366-7e56-4377-9b1a-c3da01045267" class="bulleted-list"><li style="list-style-type:circle">一个集群只有一个活跃的主节点<ul id="c631585b-50ee-436b-896c-9c025a9fbe3a" class="bulleted-list"><li style="list-style-type:square">负责索引创建，分片管理，集群管理等操作</li></ul></li></ul></li></ul><ul id="203cddec-0f07-4d64-aa45-194bd934c953" class="bulleted-list"><li style="list-style-type:disc">如果和Data节点或者Coordinate节点混合部署，需要意识到<ul id="047ce4b5-87b1-4c66-a117-42a987bb78a6" class="bulleted-list"><li style="list-style-type:circle">Data节点占用比较大的内存</li></ul><ul id="6adad77a-8383-4806-9423-27322b92de8e" class="bulleted-list"><li style="list-style-type:circle">Coordinate节点有时候可能会有开销很高的查询，导致OOM</li></ul><ul id="bd3c3125-9d7a-478b-8773-900e795daf45" class="bulleted-list"><li style="list-style-type:circle">以上两点会影响Master节点，导致集群不稳定</li></ul></li></ul><h3 id="781a8c55-eb66-4cdf-8e70-fcc305f79f2e" class="">基本部署：增加节点，水平扩展</h3><p id="37848e00-c701-4ad3-b1e9-b418443b46ea" class="">当磁盘无法满足需求时，可以增加数据节点；磁盘读写压力大时，增加数据节点</p><figure id="3ddc82dd-acf2-456e-925b-145138089e18" class="image"><a href="ElasticSea%20eebed/Untitled%2018.png"><img style="width:816px" src="ElasticSea%20eebed/Untitled%2018.png"/></a></figure><h3 id="024e0501-b6b5-421e-a863-758cf14493fa" class="">水平扩展： Coordinating Only Node</h3><ul id="e280d2c0-8f1f-4247-b1cf-8fc22bbf1f5f" class="bulleted-list"><li style="list-style-type:disc">当系统有复杂查询或聚合时候，增加Coordinating节点，增加查询的性能，增加QPS。</li></ul><ul id="5dce3bca-b592-43ee-9e9a-1d42a23409cc" class="bulleted-list"><li style="list-style-type:disc">LB可以是软负载/硬负载</li></ul><figure id="3d8dd2dc-18d0-4246-a3dc-affc58e1db5c" class="image"><a href="ElasticSea%20eebed/Untitled%2019.png"><img style="width:1286px" src="ElasticSea%20eebed/Untitled%2019.png"/></a></figure><h3 id="3de0bc79-ec5c-4d9d-bfe5-85a0d182f1de" class="">读写分离</h3><figure id="b4cdeba7-45eb-431a-8265-27a4e00351da" class="image"><a href="ElasticSea%20eebed/Untitled%2020.png"><img style="width:1858px" src="ElasticSea%20eebed/Untitled%2020.png"/></a></figure><h3 id="d87fb663-adb8-46bd-ad8d-e35a39571e2a" class="">在集群中部署高可用的Kibana</h3><figure id="06e7932c-0582-43ed-8ea7-da12b3a43aa1" class="image"><a href="ElasticSea%20eebed/Untitled%2021.png"><img style="width:1828px" src="ElasticSea%20eebed/Untitled%2021.png"/></a></figure><p id="ea5ebd54-f761-4348-a41e-cce2cee10c2e" class="">
+</p><h2 id="49f9d02b-72e2-4195-ab42-ff5ee5ce7df8" class="">Hot &amp; Warm架构与Shard Filtering</h2><h3 id="bb1c6bb0-0083-4d69-ac58-54d8ebef7428" class="">什么是Hot &amp; Warm架构</h3><ul id="e3b14dc1-6bf1-4875-bec2-bb8f8f9ea801" class="bulleted-list"><li style="list-style-type:disc">数据通常不会有Update操作；适用于Time Based索引数据（生命周期管理），同时数据量比较大的场景。</li></ul><ul id="add8ef5f-fe7c-46ee-96a2-1050d8aa9942" class="bulleted-list"><li style="list-style-type:disc">引入Warm节点，低配置大容量的机器存放老数据，以降低部署成本。</li></ul><ul id="8f4600df-9616-44fc-b65b-9d53e98cd2ed" class="bulleted-list"><li style="list-style-type:disc">两类不同的Data节点，不同的硬件配置<ul id="9e42776d-9f22-4bd9-8e00-e9c31ace10e1" class="bulleted-list"><li style="list-style-type:circle">Hot节点（通常使用SSD）：索引不断有新的文档写入。通常使用SSD。</li></ul><ul id="77d89ede-e5cf-466a-82a7-491da751e12c" class="bulleted-list"><li style="list-style-type:circle">Warm节点（通常使用HDD）：索引不存在新的文档写入。同时也不存在大量的数据查询。</li></ul></li></ul><h3 id="6cb3d019-1f1d-4b1a-a9ba-87472436bdcc" class="">Hot节点</h3><ul id="0b3bc494-38f2-416e-9634-46352630be88" class="bulleted-list"><li style="list-style-type:disc">用于数据的写入<ul id="b9d241c2-ab22-4442-bfa9-b0846917bb95" class="bulleted-list"><li style="list-style-type:circle">Indexing对CPU和IO都有很高的要求。所以需要高配置的节点。</li></ul><ul id="a0d7dc82-e414-4cb3-9fa1-c4fe861521b8" class="bulleted-list"><li style="list-style-type:circle">存储的性能要好，建议使用SSD。</li></ul><figure id="adc6fbb0-e84c-447b-b598-0e44560cb4c8" class="image"><a href="ElasticSea%20eebed/Untitled%2022.png"><img style="width:1056px" src="ElasticSea%20eebed/Untitled%2022.png"/></a></figure></li></ul><h3 id="f5a3eabb-b0b9-4f6a-97e2-45d082369805" class="">Warm节点</h3><ul id="e4556849-932e-4617-bab6-84228cb58edc" class="bulleted-list"><li style="list-style-type:disc">用于保存只读的索引，比较旧的数据。<ul id="5c54f095-b45f-41a4-a5ab-ed28abef5397" class="bulleted-list"><li style="list-style-type:circle">通常使用大容量的磁盘（通常是Spinning Disks）</li></ul></li></ul><figure id="4f454053-aaae-443b-965a-214493955c36" class="image"><a href="ElasticSea%20eebed/Untitled%2023.png"><img style="width:1068px" src="ElasticSea%20eebed/Untitled%2023.png"/></a></figure><h3 id="13de898a-45f8-4f85-9cef-819401ae5273" class="">配置Hot &amp; Warm架构</h3><ul id="28ed65ba-d666-46be-a105-ebb2995dfd87" class="bulleted-list"><li style="list-style-type:disc">使用Shard Filtering，步骤分为：<ul id="a7e01162-09ca-4090-b9a4-e25487edd446" class="bulleted-list"><li style="list-style-type:circle">标记节点</li></ul><ul id="107a6000-6e34-4b82-b557-6314ac0458be" class="bulleted-list"><li style="list-style-type:circle">配置索引到Hot节点</li></ul><ul id="e5c6475f-eed3-448e-a0aa-76c97a4f8283" class="bulleted-list"><li style="list-style-type:circle">配置索引到Warm节点</li></ul></li></ul><p id="43835e44-e8f0-4c6f-9217-53783c818fc5" class=""><strong>标记节点</strong></p><ul id="e3ac0040-3c30-42bc-8031-a66e2521e5f5" class="bulleted-list"><li style="list-style-type:disc">需要通过<code>node.attr</code> 来标记一个节点<ul id="cd4adc7e-b442-4c47-9863-d8ef6521d40f" class="bulleted-list"><li style="list-style-type:circle">节点的attribute可以是任何键值对，<code>my_node_type</code> 名字可自定义</li></ul><ul id="3a90548b-8480-4ceb-94c4-1728a9d43e4d" class="bulleted-list"><li style="list-style-type:circle">可以通过-E命令或者elasticsearch.yml指定</li></ul><pre id="0701039c-cd6b-46b2-b9d3-f43659a12520" class="code"><code>#标记一个Hot节点
+bin/elasticsearch -E node.name=hotnode -E cluster.name=mxy -E path.data=hot_data -E node.attr.my_node_type=hot
+
+#标记一个Warm节点
+bin/elasticsearch -E node.name=warmnode -E cluster.name=mxy -E path.data=wam_data -E node.attr.my_node_type=hot
+
+#在查看节点属性
+GET /_cat/nodeattrs?v
+node     host      ip        attr              value
+warmnode 127.0.0.1 127.0.0.1 my_node_type      warm
+hotnode  127.0.0.1 127.0.0.1 my_node_type      hot</code></pre></li></ul><p id="6b0ba841-0d48-41bf-b116-72fd1fc93580" class=""><strong>配置Hot数据</strong><div class="indented"><pre id="ac0b1342-36ce-4496-a223-da9226e469b1" class="code"><code>#定义索引,使它的分片放在属性为my_node_type&quot;: &quot;hot&quot;的节点上
+PUT logs-2019-06-27
+{
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 2,
+    &quot;number_of_replicas&quot;: 0,
+    &quot;index.routing.allocation.require.my_node_type&quot;: &quot;hot&quot;
+  }
+}
+
+#kibana查看分片情况,索引的2个分片分布在hotnode节点上
+GET /_cat/shards?v
+index                shard prirep state   docs  store ip        node
+logs-2019-06-27      1     p      STARTED    0   283b 127.0.0.1 hotnode
+logs-2019-06-27      0     p      STARTED    0   283b 127.0.0.1 hotnode</code></pre></div></p><p id="ee4780f3-e9ad-4e01-9977-3ed2acc71520" class=""><strong>旧数据移动到Warm节点上</strong></p><ul id="4c831bce-f6be-4451-ba5a-bbce6c46f426" class="bulleted-list"><li style="list-style-type:disc">Index.routing.allocation是一个索引级的dynamic setting, 可以通过API在后期进行设置<ul id="20f45112-f7a6-4f4b-a199-0f5f5b2eba98" class="bulleted-list"><li style="list-style-type:circle">Curator/Index Life Cycle Management Tool</li></ul></li></ul><pre id="ec48d991-5244-4f2c-bdaf-b3c0bbb818c0" class="code"><code>#旧数据移动到Warm节点上
+PUT logs-2019-06-27/_settings
+{
+  &quot;index.routing.allocation.require.my_node_type&quot;: &quot;warm&quot;
+}
+
+#kibana查看分片情况,索引的2个分片在warmnode节点上
+GET /_cat/shards?v
+index                shard prirep state   docs  store ip        node
+logs-2019-06-27      1     p      STARTED    0   283b 127.0.0.1 warmnode
+logs-2019-06-27      0     p      STARTED    0   283b 127.0.0.1 warmnode</code></pre><p id="608290f2-b3db-494f-b3b3-1f555f9f3ad6" class="">
+</p><h3 id="5fc6f02f-89be-4b6a-a6ab-2c2f2180d2a6" class="">Rack Awareness</h3><div id="fa2eb60a-2cbd-4615-9828-d2b53096db1d" class="column-list"><div id="ec251bf8-9929-4969-aa79-64977737c4d7" style="width:50%" class="column"><figure id="e0321ed0-e7ef-45f2-8f95-4baf2fdbe6da" class="image"><a href="ElasticSea%20eebed/Untitled%2024.png"><img style="width:528px" src="ElasticSea%20eebed/Untitled%2024.png"/></a></figure></div><div id="6bde9c2b-8fd8-4be9-8d20-d1d77a60904b" style="width:50%" class="column"><figure id="cdaf2905-6772-4dce-9ecc-93ab166b0b48" class="image"><a href="ElasticSea%20eebed/Untitled%2025.png"><img style="width:672px" src="ElasticSea%20eebed/Untitled%2025.png"/></a></figure></div></div><ul id="f6b837c4-4fff-4991-91fd-35a9bf328d56" class="bulleted-list"><li style="list-style-type:disc">ES的节点可能分布在不同的机架上<ul id="e57f7621-07a6-4e9f-b69f-c00def7ec193" class="bulleted-list"><li style="list-style-type:circle">当一个机架断电,可能会同时丢失几个节点</li></ul><ul id="0b4247ff-07ee-4fce-8474-5bf9c1a27c2b" class="bulleted-list"><li style="list-style-type:circle">主分片和它的副本分片,在同一个机架上,就有可能导致数据丢失</li></ul><ul id="679ffcf3-6284-4913-bac1-5356a991f2cf" class="bulleted-list"><li style="list-style-type:circle">通过Rack Awareness机制,避免将主分片和它的副本分片分配在一个机架上.</li></ul></li></ul><p id="dc8065fe-31fb-4a40-9151-3810aa085a28" class="">标记节点<div class="indented"><pre id="46d4b2de-3db7-4846-85ee-c50388df8ec2" class="code"><code>bin/elasticsearch -E node.name=node1  -E cluster.name=mxy -E path.data=node1_data -E node.attr.my_rack_id=rack1
+bin/elasticsearch -E node.name=node2  -E cluster.name=mxy -E path.data=node2_data -E node.attr.my_rack_id=rack1
+bin/elasticsearch -E node.name=node3  -E cluster.name=mxy -E path.data=node3_data -E node.attr.my_rack_id=rack2
+bin/elasticsearch -E node.name=node4  -E cluster.name=mxy -E path.data=node4_data -E node.attr.my_rack_id=rack2
+#查看集群属性
+GET /_cat/nodeattrs?v</code></pre></div></p><p id="3a124a36-e614-47c4-8850-d0ed28dfbd1b" class="">打开Rack Awareness功能<div class="indented"><pre id="72625c16-d58f-4588-b63f-c4bde1ea0556" class="code"><code>PUT _cluster/settings
+{
+  &quot;persistent&quot;: {
+    &quot;cluster.routing.allocation.awareness.attributes&quot;:
+      &quot;my_rack_id&quot;
+  }
+}</code></pre></div></p><p id="723fb386-e41a-4fd1-9ae5-7353116f86b2" class="">创建新的索引，发现主分片和它的副本分片不会在同一个Rack<div class="indented"><pre id="23703fd6-8e1e-4c1d-affe-925ac10898e9" class="code"><code>PUT my_index1
+{
+  &quot;settings&quot;: {
+    &quot;number_of_shards&quot;: 2, 
+    &quot;number_of_replicas&quot;: 1
+  }
+}
+
+#查看分片
+GET /_cat/shards?v
+</code></pre></div></p><h3 id="0e894a59-f268-427a-9c9c-1c68077f1fb1" class="">Forced Awareness(未完)</h3><p id="6d644a12-24d8-45b6-8813-089aca28c7cb" class="">限制分片在指定的几个Rack上</p><figure id="823151a5-e102-4fb2-ac8f-dc8c8a12dd36" class="image"><a href="ElasticSea%20eebed/Untitled%2026.png"><img style="width:528px" src="ElasticSea%20eebed/Untitled%2026.png"/></a></figure><pre id="417a495f-55ce-4f2b-924b-9bec4d215cb8" class="code"><code></code></pre><p id="8820913c-d13e-4a79-ab5e-d79fa977c9d2" class="">
+</p><p id="e9b46cb6-6913-4706-8322-37a7c431dd6a" class="">
+</p><p id="0b7ee5f3-2d6d-4c97-b1fb-be4bb77db824" class="">
+</p><h2 id="e80fc624-fa31-4324-99b3-63cc21e90963" class="">分片的设计和管理（未完）</h2><h3 id="977a730e-94f8-47be-82ce-668b57ddf64d" class="">单个分片</h3><ul id="91a3f7e4-5388-4149-a8c7-8b7aa228e303" class="bulleted-list"><li style="list-style-type:disc">7.0以后，索引默认只有1个主分片。<ul id="23229c9a-ede6-4ff3-9d1d-ae8fefdb4d08" class="bulleted-list"><li style="list-style-type:circle">单个分片，查询算分，聚合不准的问题都可得以避免</li></ul></li></ul><ul id="78cfff36-7d1c-4b65-b523-6abceb2244f0" class="bulleted-list"><li style="list-style-type:disc">单个分片，集群无法为索引实现数据水平扩展</li></ul><h3 id="b1804c55-3be4-475f-ad4f-ddd2045513c7" class="">两个分片</h3><ul id="68ea36fd-80e4-4f3a-852b-1677b88e3354" class="bulleted-list"><li style="list-style-type:disc">当分片数&lt;节点数，此时集群增加一个节点后，ES会自动进行分片的移动，也叫Shard Rebalancing</li></ul><p id="10d262a4-497a-460e-98ad-403774dae8c5" class="">
+</p><p id="1c70c39b-35fd-4dc1-af8c-bbfded4fe458" class="">
+</p><h1 id="476605f3-940d-437d-88aa-b4cd1b8e0e44" class="">压力测试</h1></div></article></body></html>

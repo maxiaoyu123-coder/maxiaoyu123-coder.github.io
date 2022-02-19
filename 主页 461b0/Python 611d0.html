@@ -1,0 +1,744 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Python</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="611d0b4a-d385-4eac-b861-a3aae7575a57" class="page sans"><header><img class="page-cover-image" src="Python%20611d0/R3ddde5ed7ef784d5a9ad8d5f2a35b36c.jpg" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="https://tse4-mm.cn.bing.net/th/id/OIP.IKXBvY53d_ZKGGorUMbtSAHaHa?pid=ImgDet&amp;w=600&amp;h=600&amp;rs=1"/></div><h1 class="page-title">Python</h1></header><div class="page-body"><div id="cd758ef6-8f39-4572-bad4-af09d0d40f62" class="column-list"><div id="cc0df588-416c-4c68-a515-152867402279" style="width:31.25%" class="column"><p id="14640790-142a-47c3-9f4f-a05b2e0cd6b0" class="">常量怎么写？</p><p id="7d051e05-f1d8-4974-8b41-ab0930d363c4" class="">
+</p><p id="0b9ac0be-47b6-4d59-b71d-01f540494926" class="">数据类型有哪些？</p><p id="0ac51a00-7ac1-47c8-8438-08f99f808610" class="">
+</p><p id="49e5aa6c-7c6b-4d3a-acf4-6725c2fcd275" class="">引用是什么？</p><p id="5f3ab385-b0fc-4666-b5ec-5162126cbfa3" class="">x=10; y=x; x=20 此时y等于几？</p><p id="6da19e06-97f6-4f7a-943a-cd405fa02d51" class="">
+</p><p id="dfadc797-11b6-4ac8-9d15-3d6b4ac26118" class="">
+</p><p id="539c71ca-3a14-42ec-be83-36853663e8b8" class="">
+</p><p id="e9016cf1-1a74-41f1-9fe7-c5eecfd9ccb6" class="">
+</p><p id="f2990075-ab0a-478c-909b-49de9f25d3cf" class="">
+</p><p id="9fd397ac-bb70-4ff5-a206-2024ff91f399" class="">
+</p><p id="f90375cf-3426-4d10-8630-d330ccdb8fd4" class="">
+</p><p id="f5955e21-fcc1-4792-9a98-206c5bd81961" class="">
+</p><p id="95cb023d-a72a-4d29-84f0-7d352a8384bd" class="">
+</p><p id="2ca09b16-eef6-4247-a18a-c985b7792657" class="">
+</p><p id="ca475245-1db8-4cf2-a3dd-45f2fec30df6" class="">有几种赋值？列举并演示一下</p><p id="9c878893-96ee-4b2c-acbd-eacae53f39fc" class="">
+</p><p id="2cad2148-f06e-44a5-9bcb-0ddcd5b2153c" class="">
+</p><p id="1eb3b0a1-2ba9-4888-977d-255daeadc258" class="">
+</p><p id="1a005691-ed2a-408b-997e-a0713cc19fbd" class="">
+</p><p id="7cf7b828-4920-4a03-94df-73f963c5ae93" class="">
+</p><p id="d1380b54-6bad-40cf-8a20-61f54a053125" class="">
+</p><p id="6947875c-aa65-4d31-aed7-57cc2be036f1" class="">格式化主要有两种，演示一下</p><p id="ead76232-3464-4ebc-b955-ea9cf42e9436" class="">
+</p><p id="d52e27fd-78c7-4340-8a86-fc18f70c4bbc" class="">
+</p><p id="272294c7-20cd-4e88-9d80-45456812f0df" class="">
+</p><p id="03fb11c7-256e-4f8f-aa82-30d57556c472" class="">
+</p><p id="d08d819a-f5c3-4f9e-a5c1-358fd8ab9ddf" class="">
+</p><p id="a308b084-41b0-4e4e-8c5b-0bc2cdd16a5e" class="">
+</p></div><div id="2a66e8e4-b9fe-4dbc-8a0e-dfa3a1d1306a" style="width:100%" class="column"><p id="e5bc2ca2-0520-4676-a4e1-c38f51499397" class="">变量<div class="indented"><p id="e57297d3-fe63-4af7-946c-5c2bdeaf299a" class="">常量:不变的,大写约定</p><p id="bd9f9fff-84df-4ec2-8fc6-dd29fb279a90" class="">数据类型:<div class="indented"><p id="f45e08a6-69db-49ba-b758-b2ad6cf7ff4e" class="">整形</p><p id="4fba0ec1-f676-4e0b-96a5-b14e51811b5f" class="">浮点</p></div></p><p id="c58d9bca-c33b-4be9-a645-8f52a0270aa3" class="">变量引用计数与回收<div class="indented"><p id="91a9c123-3f77-4bed-9735-203d1e48ab52" class="">引用: 变量使用对象的内存空间
+<code>x = 10</code>
+<code>y = x</code>  y指向10的内存空间
+<code>x =11</code>  y仍指向10的内存空间
+引用计数, x与y,以及list都引用对象10,引用计数是3
+<code>x = 10</code> 
+<code>y = x</code> 
+<code>list = [5, x]</code>  list[1] #间接引用
+当引用计数为0,对象的内存空间将被回收</p></div></p><p id="d7dc7bac-4573-42ce-a8bb-bfdc212ea90a" class="">变量创建:对象-变量名-堆区-栈区<div class="indented"><p id="631cb6c5-54e2-4915-8b42-28be756eb19b" class="">1.在堆区创建对象的内存空间(有个内存地址)</p><p id="b92f105c-a02f-4236-b86c-0b0ed1143330" class="">2.在栈区创建一个变量名,它内存地址</p></div></p><p id="7c4d575a-0136-4258-b287-2806ea07594c" class="">赋值运算符</p><pre id="2fc054fa-6e2e-4333-89fc-86df176e2ed4" class="code"><code>简单赋值 a = 10 
+链式赋值	a = b= 10 
+交叉赋值 a, b = b, a 
+自赋值	a += 1
+解压赋值
+	取前三:   x,y,z,*_ = [1,2,3,4,5]
+	取前几个后几个: x,y,z,*_ = [1,2,3,4,5]
+	取后三:	  *_,x,y,z = [1,2,3,4,5]
+	字典，只取key: x, y, z = {&#x27;a&#x27;: 1, &#x27;b&#x27;: 2, &#x27;c&#x27;}
+</code></pre><p id="ecdb8019-f5b0-4a77-adfd-cd96952b63a6" class="">
+</p><pre id="5e73f561-1ae8-4966-a750-ce51d8470119" class="code code-wrap"><code>字符串格式化
+	string.format,2,6+支持/兼容性更好,建议
+		 string = &#x27;hello, {} {} {}&#x27;.format(a,b,c)
+		 string = &#x27;hello, {job} {name}&#x27;.format(name=&#x27;tom&#x27;,job=&#x27;engineer&#x27;)
+		 &#x27;{x:=&lt;10}&#x27;.format(x=&#x27;开始执行&#x27;) 在变量右侧填充
+		 &#x27;{x:=&gt;10}&#x27;.format(x=&#x27;开始执行&#x27;) 在变量左侧填充
+		 &#x27;{x:.3f}&#x27;.format(x=1231231.12312313)
+	f 3.5=&gt;支持
+		name = &#x27;Johnson&#x27;
+		job = &#x27;Engineer&#x27;
+		string = f&#x27;{name} is {job}&#x27;
+
+		num1 = 10
+		num2 = 20
+		string = f&#x27;The total num is {10 + 20}&#x27;
+		print(string)
+		total num is 30</code></pre><p id="296e71a2-7dff-4c25-be2a-3a06929d8ea5" class="">
+</p><h3 id="bb9c843f-0ae6-43c1-9f5c-86404da15695" class="">查看package保存的路径</h3><pre id="f4c2e2cf-4980-4366-9dd9-c00b7adce7fa" class="code"><code>python -m site --user-site</code></pre><p id="442e6ad3-3ac9-4088-a717-6c8c4724e0de" class="">
+</p><h1 id="cf150a32-cfb3-4868-800a-1001753c6f91" class="">python基础知识点</h1><ul id="ffc33b87-06de-46b0-baf2-a236138c8def" class="bulleted-list"><li style="list-style-type:disc">变量<ul id="61bfbfd2-6efe-45f1-8fa2-504b62b18bc1" class="bulleted-list"><li style="list-style-type:circle">数据类型<ul id="0100f4d0-8066-4d26-b610-098b70ab5387" class="toggle"><li><details open=""><summary>字符串</summary><pre id="8c08f646-bd2a-4d59-92e4-29585e254ec0" class="code"><code></code></pre></details></li></ul><ul id="e8296934-5671-4e63-b9ce-e089a35aac54" class="toggle"><li><details open=""><summary>列表</summary><p id="31aa94a5-1c6c-4609-b409-152cd2fe1903" class="">
+</p></details></li></ul><ul id="ae8ba885-de07-4107-8db6-fbbfe2c80089" class="bulleted-list"><li style="list-style-type:square">字典</li></ul><ul id="f5044e51-c5ff-434f-a993-61ec533967ee" class="bulleted-list"><li style="list-style-type:square">元组</li></ul></li></ul><ul id="56c08a71-9c58-4b4f-b621-1d5fccc8acb9" class="bulleted-list"><li style="list-style-type:circle">赋值方式</li></ul><ul id="8ed444ce-3620-4d9a-a13b-c515c666b329" class="bulleted-list"><li style="list-style-type:circle">copy</li></ul><ul id="2a4d3996-dd42-43ea-8241-e4520b5e636d" class="bulleted-list"><li style="list-style-type:circle">直接与间接引用</li></ul><ul id="85b2d0f9-97fb-4532-9e31-45eda38ea1d9" class="bulleted-list"><li style="list-style-type:circle">扩展知识点<ul id="d4c786eb-eb79-415d-b1bc-d9cc243e5702" class="bulleted-list"><li style="list-style-type:square">垃圾回收GC<ul id="f9dc61a4-a861-4d50-b2af-b2be03a27c7b" class="bulleted-list"><li style="list-style-type:disc">列表在内存中的存储方式</li></ul><ul id="a2d1562f-e080-4a0d-b1d1-98922f7af506" class="bulleted-list"><li style="list-style-type:disc">标记清除机制</li></ul><ul id="0be842fb-295f-42a8-80af-c89f1d4cc0a6" class="bulleted-list"><li style="list-style-type:disc">分代回收</li></ul></li></ul></li></ul></li></ul><ul id="31e8685e-2d70-4c2d-9440-d34aa5b73723" class="bulleted-list"><li style="list-style-type:disc">用户交互的输入</li></ul><ul id="1d07a11f-9d3c-4fb1-a58e-ba468de61a92" class="bulleted-list"><li style="list-style-type:disc">格式化输出</li></ul><ul id="673d716b-d0f7-41f0-ad94-179c0c1d8ed3" class="bulleted-list"><li style="list-style-type:disc">数据类型分为可变与不可变类型<p id="91b83181-d898-4f62-af04-33de815b9b3e" class="">
+</p></li></ul><ul id="e75114ad-6095-43d3-8f0d-76b9faecb32d" class="bulleted-list"><li style="list-style-type:disc">条件判断<ul id="00aef39a-285b-4010-a5a5-33467a3a3763" class="bulleted-list"><li style="list-style-type:circle">条件</li></ul><ul id="e264beeb-0471-4ae0-8b47-9492d8d117a7" class="bulleted-list"><li style="list-style-type:circle">基本运算符<ul id="9c95430e-d9d4-4835-be4f-9a959bb07d9d" class="bulleted-list"><li style="list-style-type:square">比较运算符<ul id="e4619296-36a7-4331-9d9c-293ae8435885" class="bulleted-list"><li style="list-style-type:disc">显示</li></ul></li></ul></li></ul><ul id="9dd52f84-5f65-41fc-a57d-2482c3505611" class="bulleted-list"><li style="list-style-type:circle">逻辑运算符与优先级</li></ul><ul id="24371e8d-8d4d-4c3f-b7c0-5fb69abe3e4f" class="bulleted-list"><li style="list-style-type:circle">成员运算与身份<mark class="highlight-orange">运算</mark></li></ul><ul id="06caad33-8878-4a73-87ea-24aab2ff51b6" class="bulleted-list"><li style="list-style-type:circle">if判断语句<ul id="a21de169-f91c-4754-aef6-4089da9676db" class="bulleted-list"><li style="list-style-type:square">显式布尔值<ul id="70fc5b0a-94d6-4333-9a6e-0e0707a59233" class="bulleted-list"><li style="list-style-type:disc">比较运算符</li></ul><ul id="84ca4488-650d-412d-bee4-23ccd93909b4" class="bulleted-list"><li style="list-style-type:disc">True、False</li></ul></li></ul><ul id="5eca00e6-128a-4ee0-8783-9a25e26335d4" class="bulleted-list"><li style="list-style-type:square">隐式布尔值: 所有值可以当成值去用<ul id="916914c8-19a2-4808-ba20-0831d5433e9b" class="bulleted-list"><li style="list-style-type:disc">None</li></ul><ul id="f743f63a-bd3c-4194-9cff-87f77cfd9af4" class="bulleted-list"><li style="list-style-type:disc">0、空字符串、空列表、空字典代表False；其他代表True</li></ul></li></ul><ul id="883f9db1-50f3-46e6-b9e5-3bbdc70cd9d6" class="bulleted-list"><li style="list-style-type:square">逻辑运算符: not、and、or</li></ul><ul id="4dddd15d-9343-4df6-981f-e81369c088bc" class="bulleted-list"><li style="list-style-type:square">成员运算符in<ul id="5102ea80-7e6a-40af-92ce-563f90024641" class="bulleted-list"><li style="list-style-type:disc">字符串的</li></ul><ul id="6e99277c-3c86-40f3-b094-5c177db96369" class="bulleted-list"><li style="list-style-type:disc">列表的</li></ul><ul id="19b4c8b7-c281-4bcf-a06b-aab14d2d8d71" class="bulleted-list"><li style="list-style-type:disc">字典的，in在keys中寻找匹配的</li></ul></li></ul></li></ul></li></ul><ul id="82f89eef-279c-4f4f-86ca-97b27ea0398a" class="bulleted-list"><li style="list-style-type:disc">循环<ul id="4c4d58ca-af85-4503-bfb0-7884728a3376" class="bulleted-list"><li style="list-style-type:circle">关键字<ul id="19f9e8ab-c225-4533-b173-dad98449f3ab" class="bulleted-list"><li style="list-style-type:square">continue</li></ul><ul id="0e25c15d-c9c2-4462-97ef-7b39a1f74576" class="bulleted-list"><li style="list-style-type:square">break</li></ul></li></ul><ul id="5cc078ef-8337-4a68-bc6b-656614f4d7a3" class="bulleted-list"><li style="list-style-type:circle">while<ul id="a01cfe77-ee94-4adb-83a8-2475d10bac05" class="bulleted-list"><li style="list-style-type:square">continue、else、break</li></ul><ul id="3b3d4b29-c3c2-426d-8209-fb11e06a95a8" class="bulleted-list"><li style="list-style-type:square">break与条件改成failure</li></ul></li></ul><ul id="3c17c80f-b4cf-45e0-a463-6b602dba6373" class="bulleted-list"><li style="list-style-type:circle">for，遍历取值比while更好<ul id="d283d4e0-9999-44e2-a549-5288c42d4819" class="bulleted-list"><li style="list-style-type:square"><code>else</code> for循环正常结束则触发else(没有被break打断)</li></ul></li></ul><ul id="23351aaf-3dc2-4892-aead-edb92872ef0c" class="bulleted-list"><li style="list-style-type:circle">range</li></ul><ul id="4fd85573-3aff-45dc-9067-3b6f360c1012" class="bulleted-list"><li style="list-style-type:circle">扩展知识<ul id="e17110b5-ce67-4496-915a-f7f2c6ce41c7" class="bulleted-list"><li style="list-style-type:square">循环引起的内存泄露</li></ul></li></ul></li></ul><ul id="029569fc-bc03-4606-9194-009731fa6774" class="bulleted-list"><li style="list-style-type:disc">字符编码</li></ul><ul id="787b2cfd-ec46-4616-a6b1-0ad252d54f42" class="bulleted-list"><li style="list-style-type:disc">文件操作</li></ul><ul id="5344120a-8a32-4720-a516-e15b5c6a3bb2" class="bulleted-list"><li style="list-style-type:disc">函数<ul id="d9fa02ab-f15e-49bd-b1e1-ef575ea97375" class="bulleted-list"><li style="list-style-type:circle">全局作用域与局部作用域</li></ul><ul id="44e1545a-537e-46ec-b2ae-595a676895a0" class="bulleted-list"><li style="list-style-type:circle">名称空间</li></ul><ul id="da43bace-a606-4693-ab64-8e677840ba76" class="bulleted-list"><li style="list-style-type:circle">闭包函数</li></ul><ul id="b9fe2612-0d6d-4190-85a6-aa93d7da1d81" class="bulleted-list"><li style="list-style-type:circle">传参</li></ul><ul id="c53e5e16-d8c6-4359-a852-dd3100c9fcdc" class="bulleted-list"><li style="list-style-type:circle">装饰器</li></ul><ul id="4e547658-c85b-4254-9f8f-113cda58e920" class="bulleted-list"><li style="list-style-type:circle">可迭代器<ul id="17975d37-7558-4831-9dfa-5cf2fb90ca7f" class="bulleted-list"><li style="list-style-type:square">三元表达器</li></ul></li></ul><ul id="2e7bb127-d3db-43e9-8ea4-6cb16c3e7795" class="bulleted-list"><li style="list-style-type:circle">生成器</li></ul><ul id="b06f0920-68ce-4b12-b44b-612fdbcfb00a" class="bulleted-list"><li style="list-style-type:circle">yield</li></ul><ul id="6795a55b-3522-4022-b098-97e68be28cad" class="bulleted-list"><li style="list-style-type:circle">递归</li></ul><ul id="7f9bc73e-587c-4bca-a1e2-b831d9be8c40" class="bulleted-list"><li style="list-style-type:circle">匿名函数<ul id="52e0e38f-af29-44da-a0c2-f306c3ccaa50" class="bulleted-list"><li style="list-style-type:square">map/filter/reduce</li></ul></li></ul><ul id="f4def8fb-50a7-43f8-9e6f-2993bfc16873" class="bulleted-list"><li style="list-style-type:circle">type hint功能，在调用函数时，向使用者提示参数和返回值的数据类型<pre id="707e6b68-010e-4b7a-a455-5c7761e306e0" class="code"><code>def register(name:str, age:int, hobbies:tuple)-&gt;int:
+  print(name)
+  print(age)
+  print(hobbies)
+
+res = register(&#x27;maxaoyu&#x27;,34,&#x27;walking&#x27;)
+print(res)
+
+print(register.__annotations__) #显示type hint信息
+{&#x27;name&#x27;: &lt;class &#x27;str&#x27;&gt;, &#x27;age&#x27;: &lt;class &#x27;int&#x27;&gt;, &#x27;hobbies&#x27;: &lt;class &#x27;tuple&#x27;&gt;, &#x27;return&#x27;: &lt;class &#x27;int&#x27;&gt;}</code></pre></li></ul></li></ul><ul id="1f59109e-aa7d-43b6-85de-07237299522b" class="bulleted-list"><li style="list-style-type:disc">模块<pre id="bf59baf6-096b-4499-9031-26d9c5140f1a" class="code"><code>import 
+寻找并加载模块的优先顺序
+1. 内置模块(默认加载到内存)
+2. 从硬盘找，按照sys.path指示的路径
+sys.path是一个列表，存放着一系列的文件夹，第一个文件夹是存放当前执行文件的
+sys.module是一个字典，显示了已经加载到内存的模块
+
+流程：
+1.先看内存中这个模块在不在
+2.如果不在，再从硬盘找，按照sys.path路径寻找模块
+3.运行模块，产生名称空间，直到整个程序执行完后释放
+
+</code></pre></li></ul><p id="c02d8e8b-8fcd-43d8-b485-8cee22b2d4c1" class="">
+</p><ul id="1fbd26ef-3e39-405d-a8df-f87f5e58c83b" class="bulleted-list"><li style="list-style-type:disc">global与nonlocal</li></ul><p id="2ec711c9-de79-4ebc-8421-012626f38ed3" class="">
+</p><p id="012e85d8-767b-400c-b9d6-b7da0c8d189a" class="">
+</p><p id="0436f42c-7749-4637-8d81-8dc5ecb6b25d" class="">
+</p></div></p></div></div></div></article></body></html>

@@ -1,0 +1,838 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>针对K8S的动态发现</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="14c7a53d-cff5-4cf8-abb1-db74e73a13b8" class="page sans"><header><h1 class="page-title">针对K8S的动态发现</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 29, 2021 10:44 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h1 id="7262f2b2-b078-49be-819e-733c8c944185" class="">介绍</h1><p id="51ecbfc5-8e44-40cb-8774-ba9fb563a01a" class=""><strong>k8s动态发现</strong>是指Prometheus server通过访问K8S的API的方式能够自动发现target，有五种target：node，pod，service，endpoint，ingress。</p><p id="46d8df60-d3e2-4bc4-9098-ef4002890412" class=""><em>比如以下示例，通过指定Kubernetes_sd_config的模式为node，prometheus就会自动从K8S API中发现所有的node节点并作为当前job监控的target，发现的节点</em><em><code>/metrics</code></em><em>接口是默认的kubelet的HTTP接口, </em><em><code>注意不是https</code></em>。</p><pre id="9f891d82-a994-4a27-a19f-c086c836858b" class="code code-wrap"><code>- job_name: &#x27;kubernetes-node&#x27;
+	      kubernetes_sd_configs:
+      - role: node</code></pre><p id="1d4dcd8f-ece6-46d2-8e2b-90dd4c2cf6d5" class="">
+</p><p id="989f3588-06ae-4cd3-a93c-ab6a6573c955" class="">参考：</p><figure id="796968aa-358a-4ff3-bd6a-7440bcdc6925"><a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Configuration | Prometheus</div><div class="bookmark-description">Prometheus is configured via command-line flags and a configuration file. While the command-line flags configure immutable system parameters (such as storage locations, amount of data to keep on disk and in memory, etc.), the configuration file defines everything related to scraping jobs and their instances, as well as which rule files to load.</div></div><div class="bookmark-href"><img src="https://prometheus.io/assets/favicons/favicon.ico" class="icon bookmark-icon"/>https://prometheus.io/docs/prometheus/latest/configuration/configuration/</div></div><img src="https://prometheus.io/assets/favicons/android-chrome-192x192.png" class="bookmark-image"/></a><figcaption>官方介绍</figcaption></figure><figure id="bf45ef9f-a157-4429-a034-fccfd58cade3"><a href="https://blog.csdn.net/weixin_35688430/article/details/114312537" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">监控数据指标Kubernetes-metrics Prometheus_鱼的博客-CSDN博客</div><div class="bookmark-description">对于Kubernetes的集群监控一般我们需要考虑一下几方面 Kubernetes节点的监控；比如节点的cpu、load、fdisk、memory等指标 内部系统组件的状态；比如kube-scheduler、kube-controller-manager、kubedns/coredns等组件的运行状态 编排级的metrics；比如Deployment的状态、资源请求、调度和API延迟等数据指标</div></div><div class="bookmark-href"><img src="https://g.csdnimg.cn/static/logo/favicon32.ico" class="icon bookmark-icon"/>https://blog.csdn.net/weixin_35688430/article/details/114312537</div></div><img src="https://img-blog.csdnimg.cn/2021030314311237.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zNTY4ODQzMA==,size_16,color_FFFFFF,t_70" class="bookmark-image"/></a><figcaption>还未看完，介绍如何实现动态发现的</figcaption></figure><figure id="7a548e73-0a9f-4183-bd36-a38d6e8bd4e7"><a href="https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus-kubernetes.yml" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">prometheus/prometheus</div><div class="bookmark-description">You can&#x27;t perform that action at this time. You signed in with another tab or window. You signed out in another tab or window. Reload to refresh your session. Reload to refresh your session.</div></div><div class="bookmark-href"><img src="https://github.com/favicon.ico" class="icon bookmark-icon"/>https://github.com/prometheus/prometheus/blob/main/documentation/examples/prometheus-kubernetes.yml</div></div><img src="https://opengraph.githubassets.com/dc5ab6f6e1838217fd0b9a172770973fcba6a3c154ea92d361e07be520114173/prometheus/prometheus" class="bookmark-image"/></a><figcaption>关于Prometheus K8S动态发现的范例</figcaption></figure><p id="e65d8e53-8047-4fbf-aba6-5db813e07e73" class="">
+</p><h1 id="59e6b617-269d-4755-a5c5-52517b29ccea" class="">五种发现</h1><h2 id="aa442388-9b24-4843-8891-c7a1b6321154" class="">node</h2><p id="93460acd-5e84-4fb3-89bb-5537766b934a" class="">动态发现集群节点target，一个节点一个target，默认是kublet的端口号，协议是http。</p><p id="fe044949-42af-4bfd-a1bd-53b4c920e5ca" class="">有以下标签可供使用我们作relabel：</p><ul id="77492feb-cd05-4913-924c-790a58d689ed" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_node_name</code>: The name of the node object.</li></ul><ul id="6684509d-43b3-4f60-bb60-ca8a0f104d34" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_node_label_&lt;labelname&gt;</code>: Each label from the node object.</li></ul><ul id="87342a40-a926-44ac-b253-4a38101fbf6a" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_node_labelpresent_&lt;labelname&gt;</code>: <code>true</code> for each label from the node object.</li></ul><ul id="39d426ee-99f8-4d5c-831a-7272217a0b59" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_node_annotation_&lt;annotationname&gt;</code>: Each annotation from the node object.</li></ul><ul id="f58c5a02-37f8-4837-ac42-b465de910552" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_node_annotationpresent_&lt;annotationname&gt;</code>: <code>true</code> for each annotation from the node object.</li></ul><ul id="3d4561c6-6327-4c56-8f87-ad22f3b800d8" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_node_address_&lt;address_type&gt;</code>: The first address for each node address type, if it exists.</li></ul><p id="d8929228-d988-4f6d-97bc-43f7d3528cab" class="">In addition, the instance label for the node will be set to the node name as retrieved from the API server.</p><p id="431c5762-6883-4576-970c-b7d87e59a3fa" class=""> 节点的node-expoter是以pod部署，并通过service暴露出去的， 所以role这里使用endpoints，prometheus server寻找endpoints的对象，然后使用relabel的keep，过滤出<code>__meta_kubernetes_endpoints_name</code> 为<code>node-exporter</code>的target</p><p id="7d8951bb-7d85-495b-af2f-b1c5cc23fb0b" class="">示例：<div class="indented"><pre id="b2b4bebc-7a68-471e-af49-bf9d04a782d3" class="code code-wrap"><code>scrape_configs:
+      - job_name: &#x27;node-exporter&#x27;
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          regex: &#x27;node-exporter&#x27;
+          action: keep</code></pre></div></p><p id="0a4470b3-1223-4437-a1ee-03bb51978dc6" class="">
+</p><h2 id="d289dcf8-0183-439b-a2d2-d53c91d568a0" class="">kubernetes-apiservers</h2><p id="d6543641-d82d-4e69-8839-6a0d9c15b06a" class="">apiserver作为endpoint是由一个default命名空间中名为kubernetes的service暴露的，所以先找role为endpoints的，但是结果还包含其他的endpoints，这些不相关的endpoints不是我们想要发现的，所以还要使用relabel的keep，通过三个元标签__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name， 依次匹配即可过滤出来。</p><p id="17fbd076-651d-493d-bfcc-58633c47a37f" class="">过滤出来的就是target实例了，apiserver访问target实例的/metrics就能提取到metrics数据了。</p><p id="3414213f-bef3-412e-a49a-74325afc3b29" class="">示例：</p><pre id="43371f74-6daf-499c-80b2-5e69fc835261" class="code code-wrap"><code>#
+scrape_configs:
+- job_name: &#x27;kubernetes-apiservers&#x27;
+  kubernetes_sd_configs:
+  - role: endpoints  
+  scheme: https
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  authorization:
+    credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+  # Keep only the default/kubernetes service endpoints for the https port. This
+  # will add targets for each API server which Kubernetes adds an endpoint to
+  # the default/kubernetes service.
+  relabel_configs:
+  - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+    action: keep
+    regex: default;kubernetes;https</code></pre><h2 id="0da1b576-d19d-4b90-9ded-8b55c4b37e42" class="">Pod</h2><p id="c5b55a5d-8e17-41ec-a636-c4ebbf18d700" class="">有以下标签可供使用我们作relabel</p><p id="28851b22-3b2f-4aaa-b6fe-ebcfb6857672" class="">The <code>pod</code> role discovers all pods and exposes their containers as targets. For each declared port of a container, a single target is generated. If a container has no specified ports, a port-free target per container is created for manually adding a port via relabeling.</p><pre id="cc577282-4f63-446d-9ad3-b9e0edb2ccd9" class="code code-wrap"><code># Example scrape config for pods
+#
+# The relabeling allows the actual pod scrape to be configured
+# for all the declared ports (or port-free target if none is declared)
+# or only some ports.
+- job_name: &#x27;kubernetes-pods&#x27;
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  # Example relabel to scrape only pods that have
+  # &quot;example.io/should_be_scraped = true&quot; annotation.
+  #  - source_labels: [__meta_kubernetes_pod_annotation_example_io_should_be_scraped]
+  #    action: keep
+  #    regex: true
+  #
+  # Example relabel to customize metric path based on pod
+  # &quot;example.io/metric_path = &lt;metric path&gt;&quot; annotation.
+  #  - source_labels: [__meta_kubernetes_pod_annotation_example_io_metric_path]
+  #    action: replace
+  #    target_label: __metrics_path__
+  #    regex: (.+)
+  #
+  # Example relabel to scrape only single, desired port for the pod
+  # based on pod &quot;example.io/scrape_port = &lt;port&gt;&quot; annotation.
+  #  - source_labels: [__address__, __meta_kubernetes_pod_annotation_example_io_scrape_port]
+  #    action: replace
+  #    regex: ([^:]+)(?::\d+)?;(\d+)
+  #    replacement: $1:$2
+  #    target_label: __address__
+  - action: labelmap
+    regex: __meta_kubernetes_pod_label_(.+)
+  - source_labels: [__meta_kubernetes_namespace]
+    action: replace
+    target_label: kubernetes_namespace
+  - source_labels: [__meta_kubernetes_pod_name]
+    action: replace
+    target_label: kubernetes_pod_name
+- job_name: &#x27;kubernetes-pods&#x27;
+  kubernetes_sd_configs:
+  - role: pod
+  relabel_configs:
+  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+    action: keep
+    regex: true
+  - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+    action: replace
+    target_label: __metrics_path__
+    regex: (.+)
+  - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+    action: replace
+    regex: ([^:]+)(?::\d+)?;(\d+)
+    replacement: $1:$2
+    target_label: __address__
+  - action: labelmap
+    regex: __meta_kubernetes_pod_label_(.+)
+  - source_labels: [__meta_kubernetes_namespace]
+    action: replace
+    target_label: kubernetes_namespace
+  - source_labels: [__meta_kubernetes_pod_name]
+    action: replace
+    target_label: kubernetes_pod_name</code></pre><ul id="a766c2f9-5b4c-49a7-94bc-c8b48ab03b96" class="bulleted-list"><li style="list-style-type:disc"></li></ul><ul id="040691fe-9ae0-47f2-a9c8-beff1ad800fd" class="bulleted-list"><li style="list-style-type:disc">kube-state-metrics，<mark class="highlight-red">还需要部署kube-state-metric deployment才能采集到这方面的监控数据。</mark>获取Kubernetes中各种资源的最新状态，如 deployment或者daemonset。</li></ul><p id="f941c647-61e4-4f54-a1c6-0efdf3b12558" class="">动态发现cAdvisor metrics<div class="indented"><p id="f98c9425-a955-4593-8998-1a580e1580c0" class="">cAdvisor会自动采集当前节点上容器CPU、内存、文件系统，网络等资源的使用情况。</p><p id="fe6ddbce-a3a4-4d67-a2e8-802c801f4ed3" class="">从Kubernetes 1.7.3开始,cAdvisor的metrics不在各节点kubelet的4149端口的<code>/metrics</code>上，而是在apiserver的<code>/metrics/cadvisor</code>上，所以在17.3之后的版本采用以下方式采集Kubelet cAdvisor的metrics。</p><pre id="3b89fa87-81a6-4838-825b-4e13a4dc106f" class="code code-wrap"><code>#示例
+# Scrape config for Kubelet cAdvisor.
+#
+# This is required for Kubernetes 1.7.3 and later, where cAdvisor metrics
+# (those whose names begin with &#x27;container_&#x27;) have been removed from the
+# Kubelet metrics endpoint.  This job scrapes the cAdvisor endpoint to
+# retrieve those metrics.
+#
+# In Kubernetes 1.7.0-1.7.2, these metrics are only exposed on the cAdvisor
+# HTTP endpoint; use the &quot;/metrics&quot; endpoint on the 4194 port of nodes. In
+# that case (and ensure cAdvisor&#x27;s HTTP server hasn&#x27;t been disabled with the
+# --cadvisor-port=0 Kubelet flag).
+#
+# This job is not necessary and should be removed in Kubernetes 1.6 and
+# earlier versions, or it will cause the metrics to be scraped twice.
+- job_name: &#x27;kubernetes-cadvisor&#x27;
+
+  # Default to scraping over https. If required, just disable this or change to
+  # `http`.
+  scheme: https
+
+  # Starting Kubernetes 1.7.3 the cAdvisor metrics are under /metrics/cadvisor.
+  # Kubernetes CIS Benchmark recommends against enabling the insecure HTTP
+  # servers of Kubernetes, therefore the cAdvisor metrics on the secure handler
+  # are used.
+  metrics_path: /metrics/cadvisor
+
+  # This TLS &amp; authorization config is used to connect to the actual scrape
+  # endpoints for cluster components. This is separate to discovery auth
+  # configuration because discovery &amp; scraping are two separate concerns in
+  # Prometheus. The discovery auth config is automatic if Prometheus runs inside
+  # the cluster. Otherwise, more config options have to be provided within the
+  # &lt;kubernetes_sd_config&gt;.
+  tls_config:
+    ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+    # If your node certificates are self-signed or use a different CA to the
+    # master CA, then disable certificate verification below. Note that
+    # certificate verification is an integral part of a secure infrastructure
+    # so this should only be disabled in a controlled environment. You can
+    # disable certificate verification by uncommenting the line below.
+    #
+    # insecure_skip_verify: true
+  authorization:
+    credentials_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+
+  kubernetes_sd_configs:
+  - role: node
+
+  relabel_configs:
+  - action: labelmap
+    regex: __meta_kubernetes_node_label_(.+)</code></pre></div></p><p id="4907d2da-9898-43af-b8cb-0785f515d056" class="">
+</p><h2 id="8f97c823-da2b-490b-aaa5-cd0c9bb5b38b" class=""><strong>kubernetes-service-endpoints</strong></h2><p id="4d8d57db-a9d1-48de-96b1-8ea14b044cba" class="">
+</p><p id="ecf2faf5-68ab-4aa5-b5e1-9abdf36ab4d5" class="">有以下元标签可以使用: <div class="indented"><ul id="255fa014-f86b-4d4c-8056-ce89c39fc1f5" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_namespace</code>: The namespace of the service object.</li></ul><ul id="0c847deb-9683-49d9-9e7b-f50912ebc3fe" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_annotation_&lt;annotationname&gt;</code>: Each annotation from the service object.</li></ul><ul id="8d803e90-cb0d-4537-a4a6-434aa623a19f" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_annotationpresent_&lt;annotationname&gt;</code>: &quot;true&quot; for each annotation of the service object.</li></ul><ul id="f204aad5-5c90-4fb5-8759-a5f9b41c1de9" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_cluster_ip</code>: The cluster IP address of the service. (Does not apply to services of type ExternalName)</li></ul><ul id="d9413519-3072-4940-8cbf-2deacf5895db" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_external_name</code>: The DNS name of the service. (Applies to services of type ExternalName)</li></ul><ul id="e6e4326c-3a6c-4def-86bb-9aefc6e0463d" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_label_&lt;labelname&gt;</code>: Each label from the service object.</li></ul><ul id="18e88eef-cac2-4242-9ecb-7f8292444b37" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_labelpresent_&lt;labelname&gt;</code>: <code>true</code> for each label of the service object.</li></ul><ul id="89409ad9-a3f7-4f90-b9ef-7c52759fecca" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_name</code>: The name of the service object.</li></ul><ul id="8977b660-66a6-4a8c-b91d-c0702ba30211" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_port_name</code>: Name of the service port for the target.</li></ul><ul id="9244dc30-6a2a-423b-87f4-32846fea0f03" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_port_protocol</code>: Protocol of the service port for the target.</li></ul><ul id="a22294ad-c17c-47d3-95d2-6a7aec6ccbfa" class="bulleted-list"><li style="list-style-type:disc"><code>__meta_kubernetes_service_type</code>: The type of the service.</li></ul></div></p><pre id="31251fcf-df3b-43e5-bf24-94ee77f19e1e" class="code code-wrap"><code>- job_name: &#x27;kubernetes-service-endpoints&#x27;
+        kubernetes_sd_configs:
+        - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+          action: keep
+          regex: true
+        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+          action: replace
+          target_label: __scheme__
+          regex: (https?)
+        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+          action: replace
+          target_label: __metrics_path__
+          regex: (.+)
+        - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+          action: replace
+          target_label: __address__
+          regex: ([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+        - source_labels: [__meta_kubernetes_namespace]
+          action: replace
+          target_label: kubernetes_namespace
+        - source_labels: [__meta_kubernetes_service_name]
+          action: replace
+          target_label: kubernetes_name</code></pre><p id="6781045b-802c-4bcf-bb21-896ec5686a95" class="">
+</p><p id="774c191d-b431-4931-9566-1286b2064858" class="">
+</p><p id="09b51bd7-5b87-4752-b853-b35838e6f355" class="">
+</p><p id="201b7694-192a-4ad2-ac63-23378910a688" class="">通过字段<code>kubernetes_sd_configs</code>，使Prometheus server通过访问K8S API接口的方式<strong>动态发现K8S集群中的</strong>node，pod，apiserver等实例.</p><p id="87a0e27d-6168-4a61-8af1-2175d595aaa0" class=""><code>role: endpoints</code> 动态发现node</p><pre id="a72d7a84-291d-4213-9547-6f9302bcecb5" class="code code-wrap"><code> scrape_configs:
+      - job_name: &#x27;node-exporter&#x27;
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          regex: &#x27;node-exporter&#x27;
+          action: keep</code></pre><p id="16d2a86a-2005-4715-993f-2f45321008c1" class="">
+</p><p id="d47af24d-ab18-4ab9-8c2e-5831801b06f8" class="">
+</p><p id="a6b0c402-e3c5-4c2a-b5ea-ddb3cff9edfe" class="">
+</p></div></article></body></html>

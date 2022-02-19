@@ -1,0 +1,767 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Nexus</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="b4f66cff-2bf9-429a-ba28-ec9fbbd736f0" class="page sans"><header><h1 class="page-title">Nexus</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@August 24, 2021 1:07 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><p id="00b7b503-e3ec-4ce7-9ef4-22ea0ec25da3" class="">官方安装指南：<a href="https://help.sonatype.com/repomanager3/installation/system-requirements#SystemRequirements-Java">https://help.sonatype.com/repomanager3/installation/system-requirements#SystemRequirements-Java</a></p><nav id="5005db03-e42d-46bb-94ea-5ab4b77a903a" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5491650a-7daa-456d-9ca0-92efa3af57c1">安装</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#966b4dda-d829-4216-9a91-c57507a8c203">Maven概念</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#dee6c4c9-37af-40a2-a5c3-8011bde3e61c">Nexus概念</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bfabe508-2332-41d6-89be-bb0c88372521">maven仓库</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#66052b3b-67c0-4b9c-a9c3-4c1377c6fffa">在Jenkinsfile中实现上传java制品库</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2f73f5a1-0aeb-40a8-8cf2-55d584a5e2a7">Jenkinsfile发布制品</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0f0fae86-bf95-43af-b5e5-c8860b775adc">报错</a></div></nav><h1 id="5491650a-7daa-456d-9ca0-92efa3af57c1" class="">安装</h1><p id="c78428f6-f731-46ed-aaab-fc16a3a28286" class="">主要参考：<a href="https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/">https://devopscube.com/how-to-install-latest-sonatype-nexus-3-on-linux/</a></p><ul id="56ebb4d7-d957-4be5-a68c-307cb6068789" class="bulleted-list"><li style="list-style-type:disc">安装要求<ul id="f14593da-c037-41d2-958b-f905cace40a8" class="bulleted-list"><li style="list-style-type:circle">Minimum 1 VCPU &amp; 2 GB Memory</li></ul><ul id="6738027c-d96c-4a32-9db2-52197548bd66" class="bulleted-list"><li style="list-style-type:circle">Server firewall opened for port 22 &amp; 8081</li></ul><ul id="24be4e61-9709-4fb4-9097-1d407a281bff" class="bulleted-list"><li style="list-style-type:circle">OpenJDK 8</li></ul><ul id="35b0fae3-859c-481c-85b7-c4d7b0f4f664" class="bulleted-list"><li style="list-style-type:circle">All Nexus processes should run as a non-root nexus user.</li></ul><ul id="22e2ab6a-26b5-4252-bdb3-81b2db3cee27" class="bulleted-list"><li style="list-style-type:circle">在生产环境，最好把数据目录挂载到一个专用存储上，方便恢复</li></ul></li></ul><ul id="2c6f9881-3c38-41d7-8e10-fad20e751de7" class="bulleted-list"><li style="list-style-type:disc">特点<ul id="25aff709-f568-4d1d-a381-7aa97aad550c" class="bulleted-list"><li style="list-style-type:circle">基于本地文件系统，无需数据库</li></ul><ul id="dfde3891-76e6-4bb0-ac41-3496215a7c9e" class="bulleted-list"><li style="list-style-type:circle">支持界面上传组件</li></ul><ul id="23ca3640-21d2-4aa1-ae6c-99ff74fc317c" class="bulleted-list"><li style="list-style-type:circle">支持REST API</li></ul><ul id="e21c4392-2041-42c1-b8c5-4f3fd2f0ed90" class="bulleted-list"><li style="list-style-type:circle">支持代理仓库，宿主仓库，仓库组</li></ul><ul id="921b77d5-5a28-4312-a4f3-8505cfa3ed9a" class="bulleted-list"><li style="list-style-type:circle">细粒度的安全控制</li></ul></li></ul><ul id="8121262b-f4af-4b4f-923c-9ca5a76ca499" class="bulleted-list"><li style="list-style-type:disc">二进制安装<ul id="0b461945-5288-4e58-bc68-90c7313855e6" class="bulleted-list"><li style="list-style-type:circle">下载链接：https://help.sonatype.com/repomanager3/download/</li></ul><ul id="bd366741-ad3b-494e-a390-eb7181b54d1e" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">安装</mark><pre id="d7dc5684-8627-45b8-b294-ae5a2e1b7afa" class="code code-wrap"><code>#时间同步问题
+yum install java-1.8.0-openjdk.x86_64 -y
+tar xf nexus-3.33.1-01-unix.tar.gz -C /opt/
+mkdir -p /opt/sonatype-work   #用于数据和日志等
+useradd nexus
+chown -R nexus:nexus /opt/nexus-3.33.1-01 /opt/sonatype-work
+vi /opt/nexus-3.33.1-01/bin/nexus.rc  #编辑，使用nexus用户启动</code></pre></li></ul><ul id="316fd99a-59c6-4e7e-a528-fea717536595" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-orange">启动</mark><pre id="34f6ba58-4eeb-4b4f-8f86-2edb72768587" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;/etc/systemd/system/nexus.service
+[Unit]
+Description=nexus service
+After=network.target
+
+[Service]
+Type=forking
+LimitNOFILE=65536
+User=nexus
+Group=nexus
+ExecStart=/opt/nexus-3.33.1-01/bin/nexus start
+ExecStop=/opt/nexus-3.33.1-01/bin/nexus stop
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable --now nexus
+
+#查看日志./sonatype-work/log/nexus.log, 显示Started Sonatype Nexus OSS 3.33.1-01表示启动</code></pre></li></ul><ul id="d457a66c-c6fc-41e8-8cae-e83ac634cef4" class="bulleted-list"><li style="list-style-type:circle">补充：<ul id="f1ede0c4-a96c-41eb-9166-5c64d199716b" class="bulleted-list"><li style="list-style-type:square">日志位于：sonatype-work/log/</li></ul><ul id="a6a3389c-3536-4d2c-84b1-dd8181a624f7" class="bulleted-list"><li style="list-style-type:square">默认端口8081</li></ul><ul id="88a0e031-20b7-4e84-b46c-253bc0103a3a" class="bulleted-list"><li style="list-style-type:square">修改数据目录方法, <mark class="highlight-teal">-Dkaraf.data参数. nexus.vmoptions文件的内容可保持默认(目前还不清楚其他参数作用)</mark><pre id="ce02c262-0003-4ee4-a8a1-7cf3989ca41d" class="code code-wrap"><code>vi /app/nexus/bin/nexus.vmoptions   
+-Xms2703m
+-Xmx2703m
+-XX:MaxDirectMemorySize=2703m
+-XX:+UnlockDiagnosticVMOptions
+-XX:+UnsyncloadClass
+-XX:+LogVMOutput
+-XX:LogFile=../sonatype-work/nexus3/log/jvm.log
+-XX:-OmitStackTraceInFastThrow
+-Djava.net.preferIPv4Stack=true
+-Dkaraf.home=.
+-Dkaraf.base=.
+-Dkaraf.etc=etc/karaf
+-Djava.util.logging.config.file=etc/karaf/java.util.logging.properties
+-Dkaraf.data=/nexus/nexus-data
+-Djava.io.tmpdir=../sonatype-work/nexus3/tmp
+-Dkaraf.startLocalConsole=false</code></pre></li></ul></li></ul></li></ul><ul id="ad43312b-2208-480f-b965-9c17ea15a94a" class="bulleted-list"><li style="list-style-type:disc">Docker部署<ul id="0dae3306-315e-428e-ab68-dbb0427315cc" class="bulleted-list"><li style="list-style-type:circle">注意<ul id="cfbd5ffd-63b8-4dfc-a2a8-44d58f0ffb3a" class="bulleted-list"><li style="list-style-type:square">镜像：<a href="https://hub.docker.com/r/sonatype/nexus3/">https://hub.docker.com/r/sonatype/nexus3/</a></li></ul><ul id="aa237caf-e98d-49fa-94da-ec8921ac4ec4" class="bulleted-list"><li style="list-style-type:square">/opt/sonatype/nexus 容器中的软件目录</li></ul><ul id="cf19f6e8-bdd0-4c93-b779-6bf09eb2d49d" class="bulleted-list"><li style="list-style-type:square">持久化：/nexus-data 是容器中的数据目录，配置/日志/存储，挂载卷需可写，UID200</li></ul><ul id="daa23874-6e0a-46bf-a35e-a7d0cf134f69" class="bulleted-list"><li style="list-style-type:square">环境变量 <code>INSTALL4J_ADD_VM_PARAMS</code> 用于向启动脚本传递参数，默认值：<code>-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs</code> ,可以像这样调整：<p id="5248d7d5-ab5b-458b-a1fb-003ceb775ee0" class=""><code>$ docker run -d -p 8081:8081 --name nexus </code><mark class="highlight-teal"><code>-e INSTALL4J_ADD_VM_PARAMS=&quot;-Xms2703m -Xmx2703m -XX:MaxDirectMemorySize=2703m -Djava.util.prefs.userRoot=/some-other-dir&quot;</code></mark><code> sonatype/nexus3</code></p></li></ul><ul id="35515aff-0241-42b6-8729-0c29beca167c" class="block-color-orange bulleted-list"><li style="list-style-type:square">镜像已配置足够的文件句柄限制，默些容器平台可能会限制故加上如下<code>-ulimit nofile=65536:65536</code></li></ul><ul id="f34c8bfd-acb6-42d5-b227-66bb06c28d88" class="bulleted-list"><li style="list-style-type:square">用户admin/密码在admin.password文件</li></ul></li></ul><ol type="1" id="f1c03723-aa8d-4619-907f-589128fbd438" class="numbered-list" start="1"><li>创建用户和组（id200）<p id="4274328a-cf29-403b-87b9-0069d95435c8" class=""><code>groupadd -g 200 nexus &amp;&amp; useradd -u 200 -g 200 nexus</code></p></li></ol><ol type="1" id="1fb81b5c-4670-471c-950c-1a543274c281" class="numbered-list" start="2"><li>创建数据目录<p id="ba4d577a-b147-4d47-b270-c6723c540d23" class=""><code>mkdir /data/nexus &amp;&amp; chown nexus:nexus /data/nexus</code></p></li></ol><ol type="1" id="5b0819b7-5abf-4baa-aa9c-42a51cf9ff89" class="numbered-list" start="3"><li>启动容器<p id="916b338e-8221-40d9-be4c-85ee1390ee7e" class=""><code>docker run --name nexus -p 8081:8081 -v /tmp/nexus:/nexus-data docker.io/sonatype/nexus3:latest</code></p></li></ol></li></ul><ul id="87b34fe3-839d-4fd2-8404-94298f3f089b" class="bulleted-list"><li style="list-style-type:disc">Kubernetes安装（空）</li></ul><p id="22fdf2e8-1469-4d37-8404-135411ea4eb3" class="">
+</p><h1 id="966b4dda-d829-4216-9a91-c57507a8c203" class="">Maven概念</h1><ul id="f73a0e71-1f64-4879-b6b2-b46ee311a3de" class="bulleted-list"><li style="list-style-type:disc">组件（也叫制品）<ul id="c1daad17-5046-4ede-8795-a39560e012d0" class="bulleted-list"><li style="list-style-type:circle">Component是类似库或框架的资源，在运行时、集成或单元测试执行时<strong>用作软件应用程序的一部分</strong>，或作为<strong>构建过程的一部分</strong>。它可以是一个完整的应用程序，也可以是一个像图像一样的静态资源。</li></ul><ul id="6c6108ca-44ec-488e-8d3f-35739f02d330" class="bulleted-list"><li style="list-style-type:circle">通常，这些组件<strong>是各种文件的归档</strong>，包括:<ul id="13ed6549-7e66-4c51-bf19-6bd94187ff0d" class="bulleted-list"><li style="list-style-type:square">类文件中的Java字节码</li></ul><ul id="5f13b5fa-f79c-436f-a385-ee867d1547b9" class="bulleted-list"><li style="list-style-type:square">C对象文件</li></ul><ul id="5c5c23c5-6ce4-4d5c-a23e-55acf8a82d02" class="bulleted-list"><li style="list-style-type:square">文本文件，如属性文件，XML文件，JavaScript代码，HTML, CSS</li></ul><ul id="e1655a99-4d95-4799-909c-3e8bacea49f1" class="bulleted-list"><li style="list-style-type:square">二进制文件，如图像，PDF文件，声音文件</li></ul></li></ul><ul id="72507a68-2094-429b-8711-e4385f04e51b" class="bulleted-list"><li style="list-style-type:circle">组件使用<strong>多种形式归档</strong>，以下都是组件：<ul id="cc8d7343-40fe-47e1-9589-a6a5ccf49ac0" class="bulleted-list"><li style="list-style-type:square">Java JAR、WAR、EAR格式</li></ul><ul id="6c6acfac-fb83-4d8c-9600-88b9ae1d806c" class="bulleted-list"><li style="list-style-type:square">普通ZIP或.tar.gz文件</li></ul><ul id="66c2da42-80cc-443b-9524-8a77c3a6a210" class="bulleted-list"><li style="list-style-type:square">其他包格式，如NuGet包，Ruby gems, NPM包</li></ul><ul id="575515e6-97af-49d2-9c62-5d70abc06898" class="bulleted-list"><li style="list-style-type:square">可执行格式，如.exe或.sh文件，Android APK文件，各种安装程序格式</li></ul></li></ul><ul id="3337d472-d94f-4215-bb73-a1b253199802" class="bulleted-list"><li style="list-style-type:circle"><strong>组件可以由多个嵌套组件本身组成</strong>。例如一个打包为WAR组件的Java web应用程序, 包含许多JAR组件和许多JavaScript库。所有这些都是在其他上下文中独立的组件，并且恰好包含在WAR组件中。</li></ul><ul id="7948c2de-3cbc-4a29-855c-891fd7cdfc76" class="bulleted-list"><li style="list-style-type:circle">组件提供了所有的<strong>构建块</strong>和特性，允许开发团队通过<strong>组装</strong>它们并<strong>添加自己的业务相关组件来</strong>创建功能全面、功能强大的应用程序，从而创建功能强大的应用程序。</li></ul><ul id="57151cf5-e8cb-4065-b2f1-3f8ee4473ba4" class="bulleted-list"><li style="list-style-type:circle">不同的工具链中，组件被称为artifact(制品)、package(包)、bundle、archive(归档)和其他术语。概念和思想保持不变，组成部分用作通用术语。</li></ul><p id="bc7cc731-557b-4769-bcca-f20ec22f8ef0" class="">组件由<strong>一组特定的值(坐标)标识</strong>。这些坐标的一般集合是<strong>组、名称和版本</strong>的用法。这些坐标的名称和用法随使用的工具链而变化。组件还可以作为进一步元数据的锚。</p></li></ul><ul id="4b2e96c8-dd63-4a18-9516-e0f3f5b98674" class="bulleted-list"><li style="list-style-type:disc">资产<ul id="107d4a7e-0ba2-4e06-afcb-b2c1069c5f10" class="bulleted-list"><li style="list-style-type:circle">POM文件(元数据：用于描述组件的依赖关系)属于组件的资产</li></ul><ul id="e1a0ede7-580c-45d2-82e8-02e067b888d5" class="bulleted-list"><li style="list-style-type:circle">比如POM文件<strong>commons-lang-1.2.0.pom是</strong>组件<strong>commons-lang-1.2.0.jar的资产</strong></li></ul></li></ul><ul id="e619993b-3739-4815-90c3-7ec5644ce8e4" class="bulleted-list"><li style="list-style-type:disc">组件库<p id="b80137a8-71f4-476e-8462-e5d869f3ec44" class="">存在各种各样的组件，而且开源社区和私有供应商不断地创建更多的组件。每天都有在不同平台上用不同语言编写的库和框架用于应用程序开发。通过<strong>将多个组件的特性与您自己的包含应用程序代码的自定义组件相结合</strong>来为特定域创建应用程序，构建应用程序已成为一种默认模式。</p><p id="66d6360c-5114-4112-92a3-da31ed3a4f1a" class="">为了简化组件的使用，将它们聚合为组件的集合。这些被称为存储库，通常在internet上作为服务提供。在不同的平台上，registry等术语用于相同的概念。这类资料库的例子如下:</p><ul id="165793d9-d853-428c-b11f-22aa478c969d" class="bulleted-list"><li style="list-style-type:circle"><strong>Central Repository, also known as </strong><mark class="highlight-teal"><strong>Maven Central</strong></mark></li></ul><ul id="cd9aa94f-c0f3-420b-b305-96bec81dfdcf" class="bulleted-list"><li style="list-style-type:circle">NuGet Gallery</li></ul><ul id="3d66f8ea-6f44-462c-b678-9e7ce71cf5b9" class="bulleted-list"><li style="list-style-type:circle">RubyGems.org</li></ul><ul id="d818799d-60c4-4341-b892-1858a530e633" class="bulleted-list"><li style="list-style-type:circle">npmjs.org</li></ul><p id="364ccd3f-d621-4ab2-bcdf-416c97e2f126" class="">这些资料库中的组件可由下列多种工具访问:<div class="indented"><ul id="4dc74500-28d5-4544-ae0c-749b59c43f73" class="bulleted-list"><li style="list-style-type:disc">package managers like npm, nuget, gem</li></ul><ul id="845b05e5-6afd-4c1b-977d-f18497efb92a" class="bulleted-list"><li style="list-style-type:disc">build tools such as <mark class="highlight-teal"><strong>Maven</strong></mark>, Gradle, rake, grunt</li></ul><ul id="a0b80d0e-860e-4cd9-be0c-475ef7ea3980" class="bulleted-list"><li style="list-style-type:disc">IDE’s such as Eclipse, IntelliJ, Visual Studio</li></ul></div></p></li></ul><ul id="8bf16812-4039-43e4-81d4-07fd10a42946" class="bulleted-list"><li style="list-style-type:disc">仓库格式<p id="d7f5804f-ecd1-4f95-a900-190d320ab720" class="">不同的存储库使用<strong>不同的技术来存储</strong>并向客户端工具公开其中的组件。这定义了存储库格式，因此与存储库交互的工具密切相关。</p><p id="cdcef68c-255a-4175-9b2d-87759ecbbe5d" class="">Maven存储库格式<strong>依赖于</strong>由组件标识符定义的<strong><mark class="highlight-teal">特定目录结构</mark></strong>和用于元数据的<strong><mark class="highlight-teal">大量XML格式文件</mark></strong>。组件交互是通过简单的HTTP命令和一些额外的与XML文件的自定义交互来执行的。</p><p id="cc0780aa-c3c0-4b2d-933b-72dcf4adf2e6" class="">其他存储库格式使用数据库进行存储和REST API交互，或者使用不同的目录结构和特定格式的文件进行元数据交互。</p></li></ul><ul id="a415a92b-05e9-4115-b2f5-bf811a6ed2a1" class="bulleted-list"><li style="list-style-type:disc">Nexus仓库分为<ul id="22c53d22-802a-4ee5-836a-b73d2251f5ce" class="bulleted-list"><li style="list-style-type:circle">制品仓库（公司研发的软件所放置的仓库）</li></ul><ul id="9f7b6c35-e442-4ee7-8dcf-f2ebc6481db4" class="bulleted-list"><li style="list-style-type:circle">依赖仓库（依赖的jar包）<ul id="841c2389-d8a6-4db4-a1c2-c1b0bcc39756" class="bulleted-list"><li style="list-style-type:square">私服仓库（本地maven私服，加快构建速度）</li></ul><ul id="63b77cf9-8f4b-4e67-aaac-54e5b5403b2f" class="bulleted-list"><li style="list-style-type:square">代理仓库（将公网或三方提供的仓库代理到本地）</li></ul></li></ul></li></ul><ul id="cd1fadd4-137f-4c9c-bfb4-aaa9326b6774" class="bulleted-list"><li style="list-style-type:disc"><strong>Maven格式的仓库</strong><ul id="a36a0a8b-dae0-4de6-be6a-2137480b1785" class="bulleted-list"><li style="list-style-type:circle">Maven格式的仓库中，二进制组件的主要类型是jar和war</li></ul><ul id="d5f2acf2-7071-43dc-b446-29726b8d9071" class="bulleted-list"><li style="list-style-type:circle">每个软件组件均由称为<mark class="highlight-red">POM的XML文档</mark>描述</li></ul><ul id="804c1666-ad5c-42a0-98d7-b7e09ef9e899" class="bulleted-list"><li style="list-style-type:circle">POM<mark class="highlight-red">描述项目的信息</mark>，并<mark class="highlight-red">列出项目的依赖项</mark>(即当前组件成功编译或执行所依赖的其他组件)</li></ul><ul id="6cc6391d-cd95-4ca6-90f3-6452bb299770" class="bulleted-list"><li style="list-style-type:circle">Maven下载机制<ol type="1" id="39e2c3eb-3111-4ee5-8ffe-84d92ebcbcd4" class="numbered-list" start="1"><li>当Maven从仓库下载组件(如依赖项或插件)时，它也会下载该组件的POM</li></ol><ol type="1" id="a090c960-e18a-4dc1-89cc-e6526eba2138" class="numbered-list" start="2"><li>根据这个POM，Maven然后下载该组件所依赖的其他组件以及这些组件的POM（联想YUM）</li></ol><ul id="bb674020-d58e-42f7-a70c-3845557831f8" class="bulleted-list"><li style="list-style-type:square">补充：Maven与Maven仓库进行交互以搜索二进制组件，对它们管理的项目进行建模，并从存储库按需检索组件。）</li></ul></li></ul><ul id="fdcbf724-8c7e-4ee1-ba6b-40e32c229c27" class="bulleted-list"><li style="list-style-type:circle">Maven中央仓库：当maven采用默认mirror时，它将从中央库中检索组件。</li></ul><ul id="00313598-097a-4cd5-98aa-0ac4d362635a" class="bulleted-list"><li style="list-style-type:circle">Maven的组件坐标<ul id="6d8b76f7-18c9-4025-8d0c-48939f168b37" class="bulleted-list"><li style="list-style-type:square">制品坐标：每个制品的标识符</li></ul><ul id="c2dd6037-8349-4e44-9a3a-d7673ac8ddf3" class="bulleted-list"><li style="list-style-type:square">制品坐标组成：groupId,artifactId,version,packaging，也称为GAV坐标</li></ul><ul id="5d0e267d-2eb0-436b-9be4-aa2ef5241b45" class="bulleted-list"><li style="list-style-type:square">GAV坐标是Maven管理依赖关系的基础，描述了四大元素：<ul id="f0c3fb9e-be6b-4775-b574-98c43b658b2b" class="bulleted-list"><li style="list-style-type:disc">groupId：一组组件的标识，将一组组件分为一个逻辑组<ul id="645fb44c-d977-4024-8e39-c325d84c07f4" class="bulleted-list"><li style="list-style-type:circle">通常将组设计为生产特定软件组件所依据的组织</li></ul><ul id="d44ed549-0eef-4bcc-9e81-b20bf85a527b" class="bulleted-list"><li style="list-style-type:circle">例如由Apache Software Foundation的Maven项目生产的软件组件可在groupId下获得org.apache.maven</li></ul></li></ul><ul id="349347ff-9ec4-4725-95e3-5cce09c3beee" class="bulleted-list"><li style="list-style-type:disc">artifactId：组件标识符，软件组件的描述性名称</li></ul><ul id="f1421c83-0020-4510-8937-1ae2d27095ec" class="bulleted-list"><li style="list-style-type:disc">version：项目的版本应遵循已建立的语义版本控制惯例<ul id="98c13ff7-1c26-4242-ae14-e6e43af0377e" class="bulleted-list"><li style="list-style-type:circle">例如，组件具有的主发行版是1，次发行版是2和发行版3，则版本是1.2.3</li></ul><ul id="6e4db090-6c40-495a-8fc4-d5a3bbd7c04e" class="bulleted-list"><li style="list-style-type:circle">版本可以包含字母+数字组成的限定符，表示发行状态，比如1.2.3-BETA，表示测试阶段</li></ul></li></ul><ul id="250c82f1-1585-4132-ba53-089179c1b8a4" class="bulleted-list"><li style="list-style-type:disc">packaging：描述二进制软件格式的任何文件</li></ul></li></ul></li></ul><ul id="9cb84fd0-e18c-4b4e-991a-ee29aba8f4d9" class="bulleted-list"><li style="list-style-type:circle">与Maven存储库进行交互的工具将组件坐标转换为对应的URL，如Maven工具正在组件org.apache.commons.1.2.0.common-lang则转换为<pre id="44c6fe33-a3d4-4654-b8cb-aff485d660ac" class="code code-wrap"><code>&lt;repoURL&gt;/org/apache/commons/commons-lang/1.2.0/commons-lang-1.2.0.jar
+&lt;repoURL&gt;/org/apache/commons/commons-lang/1.2.0/commons-lang-1.2.0.pom</code></pre></li></ul><ul id="c41dd014-e9b4-48a5-a665-62d5314c9ca4" class="bulleted-list"><li style="list-style-type:circle">Maven的release和snapshot<ul id="4867233e-64d2-4d1f-99e4-f7289d061e12" class="bulleted-list"><li style="list-style-type:square">两种Maven库存储：发布库和快照库<ul id="03e1c1bc-3f65-473d-abde-d6d3ffe4b7f3" class="bulleted-list"><li style="list-style-type:disc">发布库用于稳定的静态发布组件</li></ul><ul id="4dd550c1-89ac-4a36-9684-29b87c8c291b" class="bulleted-list"><li style="list-style-type:disc">快照库是经常更新的存储库，用于存储不断开发的项目中的二进制软件组件</li></ul></li></ul><ul id="7e137260-5c7c-4d40-8dc5-4475fee90152" class="bulleted-list"><li style="list-style-type:square">虽然可以创建一个同时服务于发布和快照的存储库，但通常将存储库分为多个发布库和快照库，<strong>这些发布库或快照库服务于不同的开发者并维护用于部署组件的不同标准和过程</strong>，就像网络差异一样，发布库被视为生产网络，快照库视为开发网络。尽管快照库上存在与部署到发布库相关联的一样的高级别的过程，但是快照组件可以被频繁的部署和更改，而无需考虑稳定性和可重复性。</li></ul><ul id="f286375d-9daf-43c3-8cf1-00e16b419c29" class="bulleted-list"><li style="list-style-type:square">两种组件：发布组件和快照组件<ul id="031379c1-3c8b-4f7b-869e-700d65ee069b" class="bulleted-list"><li style="list-style-type:disc">发布组件：由特定版本的“发布”创建的组件<ul id="09b8a6c1-8f85-42e2-8ce2-b3ef112e71c2" class="bulleted-list"><li style="list-style-type:circle">比如存储在中央仓库的1.2.0版本发布的commons-lang，此发布组件<strong>commons-lang-1.2.0.jar</strong>以及相关POM文件<strong>commons-lang-1.2.0.pom</strong>是静态对象，它们在中央存储库永远不会更改。</li></ul><ul id="dcab3a33-f3d0-4e6f-8c70-b08656bb0af7" class="bulleted-list"><li style="list-style-type:circle">发布的组件被认为是坚固、稳定和永久的，以<strong>确保</strong>随着时间的推移依赖于它们的构建是可重复的。</li></ul><ul id="6d6b992f-1076-4171-bed9-1aa3b200179d" class="bulleted-list"><li style="list-style-type:circle">已发布的JAR组件与<strong>PGP签名、MD5和SHA</strong>校验相关联，可用于验证二进制软件组件的真实性和完整性。</li></ul></li></ul><ul id="02bd2417-b1eb-4f2f-b7c2-f0c91075e07c" class="bulleted-list"><li style="list-style-type:disc">快照组件：在软件项目的开发过程中生成的组件<ul id="ab53889d-670a-449a-ba57-c029270ffc40" class="bulleted-list"><li style="list-style-type:circle">快照组件的名称既带有版本号还带有时间戳。</li></ul><ul id="eae7a3b9-be70-4339-b10b-c9754f6ab4fd" class="bulleted-list"><li style="list-style-type:circle">比如commons-lang 1.3.0的快照名称可能是<strong>commons-lang-1.3.0-20090314.182342-1.jar，</strong>相关POM文件<strong>commons-lang-1.3.0-20090314.182342-1.pom</strong>, MD5以及SHA文件也有相似的名称。</li></ul><ul id="e2ccce69-d0ca-435f-a007-b02aa9732889" class="bulleted-list"><li style="list-style-type:circle">为了在软件组件的开发过程中促进协作，maven知道如何查询snapshot组件的元数据，从而检索出此依赖组件的最新版本。</li></ul><figure id="c8c2aa32-d3fe-464d-a378-ca9e85f5c7a4" class="image"><a href="Nexus%20b4f66/Untitled.png"><img style="width:192px" src="Nexus%20b4f66/Untitled.png"/></a></figure><p id="de49f27d-9b20-4622-9c79-851a6e9c6c28" class="">
+</p></li></ul></li></ul></li></ul></li></ul><h1 id="dee6c4c9-37af-40a2-a5c3-8011bde3e61c" class="">Nexus概念</h1><h3 id="bfabe508-2332-41d6-89be-bb0c88372521" class="">maven仓库</h3><ul id="3458f75c-8374-4352-b830-7a3f68b876d3" class="bulleted-list"><li style="list-style-type:disc">以保存的组件来分类, 有以下仓库种类<ul id="a993f4b3-fded-4aca-9cd3-eeae224af510" class="bulleted-list"><li style="list-style-type:circle">代理: 公共组件<ul id="f78f4db7-c714-470f-a115-e331c1f4657f" class="bulleted-list"><li style="list-style-type:square">maven-central <strong>代理</strong>Maven中央仓库，策略(policy)为release：只下载和缓存中央仓库的发布版本组件, 预创建仓库</li></ul><ul id="3efa790c-2416-4225-b2d8-fbb952e52b32" class="bulleted-list"><li style="list-style-type:square">其他远程仓库(名字自定义) 用来代理其他远程仓库，策略为release，只下载和缓存发布版本组件</li></ul></li></ul><ul id="7f77d071-ec4e-4c94-9235-85e5850da880" class="bulleted-list"><li style="list-style-type:circle">宿主仓库: 企业内部的组件<ul id="01a97a0e-2dff-488d-93ae-f857746d3b6d" class="bulleted-list"><li style="list-style-type:square">maven-releases 策略为release的宿主类型仓库，用来保存(官方叫部署)<strong>企业内部的</strong>发布版本组件, 预创建仓库</li></ul><ul id="c2264abf-3cf6-4f05-a45e-6e46ecc419b6" class="bulleted-list"><li style="list-style-type:square">maven-snapshots 策略为snapshot的宿主类型仓库，用来保存(官方叫部署)<strong>企业内部的</strong>快照版本组件, 预创建仓库</li></ul><ul id="9da7f373-58b6-4b88-9b40-e1870676a14a" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-orange">maven-public 策略为mixed(包括快照和发布)，将所有策略为快照和发布的仓库聚合，并以一致的地址对外提供服务</mark>, 预创建仓库</li></ul></li></ul><ul id="f3549259-a0c2-47dc-91ab-94e26562b427" class="bulleted-list"><li style="list-style-type:circle">第三方仓库: 第三方不公开的组件<ul id="350cb23e-a669-46b9-895a-edeb3979ad35" class="bulleted-list"><li style="list-style-type:square">3rd party(已不是预置,手动创建hosted类型仓库即可)，策略为release的宿主类型仓库，用来保存(官方叫部署)无法从公共仓库获得的第三方发布版本组件。</li></ul></li></ul><p id="9ed5e873-4bb3-4ede-a64f-14449d54d5a9" class=""><mark class="highlight-teal">补充：maven实践 p153</mark></p></li></ul><ul id="ebb57408-347a-4e5f-b9bd-cc599474401b" class="bulleted-list"><li style="list-style-type:disc">在Nexus可创建的仓库类型<ul id="99ac830d-1fb6-41ff-9c54-bb1f46e80060" class="bulleted-list"><li style="list-style-type:circle">代理仓库 →maven-proxy</li></ul><ul id="15aa02ca-5cac-412e-8019-df5aceb08526" class="bulleted-list"><li style="list-style-type:circle">宿主仓库 存储组织内部的或者第三方的(无法从公共的远程仓库获得的) →maven-hosted</li></ul><ul id="4dc1681a-b3fe-4a97-bade-0c446dcf3d89" class="bulleted-list"><li style="list-style-type:circle">仓库组 → maven-public</li></ul><p id="70e5681a-10f9-4a3b-9250-fd876730dcbf" class="">maven可透过仓库组(仅统一服务，自己没东西)访问宿主仓库或代理仓库下载组件，代理仓库从远程仓库(中央或其他)下载并缓存组件</p><figure id="7cb3be0a-4634-442c-acdd-c03338dba865" class="image"><a href="Nexus%20b4f66/Untitled%201.png"><img style="width:624px" src="Nexus%20b4f66/Untitled%201.png"/></a></figure></li></ul><p id="7030361a-9607-4b48-b0d1-282edd93e562" class="">
+</p><ul id="6e0dc553-96ae-48d5-bf92-7f56a9ab34a2" class="bulleted-list"><li style="list-style-type:disc">代理仓库的属性<ul id="34418186-afb6-4a46-8610-cef0ee8ed373" class="bulleted-list"><li style="list-style-type:circle">Maximum component age 组件过期时间，默认-1表示永不过期</li></ul><ul id="2298b06d-75d1-40a8-b9ef-990c01067986" class="bulleted-list"><li style="list-style-type:circle">Maximum metadata age 从远端仓库下载的元数据的过期时间</li></ul></li></ul><p id="c5241a44-2655-42eb-9a6b-657fa9ef8816" class="">
+</p><pre id="900a6b4e-afe1-416d-a649-48d235357e3f" class="code code-wrap"><code>&lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;nexus&lt;/id&gt;
+      &lt;repositories&gt;
+        &lt;repository&gt;
+          &lt;id&gt;nexus&lt;/id&gt;
+          &lt;name&gt;nexus&lt;/name&gt;
+          &lt;url&gt;http://192.168.31.102:8081/repository/maven-public/&lt;/url&gt;
+          &lt;releases&gt;true&lt;/releases&gt;
+          &lt;snapshots&gt;true&lt;/snapshots&gt;
+        &lt;/repository&gt;
+      &lt;/repositories&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;nexus&lt;/id&gt;
+          &lt;name&gt;nexus&lt;/name&gt;
+          &lt;url&gt;http://192.168.31.102:8081/repository/maven-public/&lt;/url&gt;
+           &lt;releases&gt;true&lt;/releases&gt;
+           &lt;snapshots&gt;true&lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+    &lt;profile&gt;
+  &lt;/profiles&gt;</code></pre><p id="8e23acca-fa06-4d43-93c2-ea12b60cf76f" class="">
+</p><hr id="369b5846-d6f1-4823-aaad-bb5cc7977e12"/><h1 id="66052b3b-67c0-4b9c-a9c3-4c1377c6fffa" class="">在Jenkinsfile中实现上传java制品库</h1><ol type="1" id="96836aac-6841-4f59-9e64-d196528b701e" class="numbered-list" start="1"><li>在Nexus创建制品库<ol type="a" id="edc2713a-4296-4b5e-b1aa-99ece6d8577f" class="numbered-list" start="1"><li>主页上点击齿轮，进入配置界面</li></ol><ol type="a" id="db5c5e98-bbaa-49bc-ab49-9ecc9aa55a1c" class="numbered-list" start="2"><li>创建Blob Store（仓库保存于在这样的存储中，默认已有一个default，故可以选择不创建新的）</li></ol><ol type="a" id="a2ee4520-b591-4c21-a4fb-9496fdad7aa0" class="numbered-list" start="3"><li>创建制品库，选择maven2(hosted)类型的库（比如maven-hosted），定义名称（比如hosted），指定为release或snapshot类型的库(根据制品是快照还是发布而定)，Blob Store保持default，点击保存</li></ol></li></ol><ol type="1" id="bedcc297-a171-47ac-9fa4-7a2cc4e7d87f" class="numbered-list" start="2"><li>在maven配置文件settings中添加,在servers标签下添加<pre id="62a3db31-8fb4-49bd-ae76-b54d2062318e" class="code code-wrap"><code>&lt;servers&gt;
+  &lt;server&gt;
+    &lt;id&gt;maven-hosted&lt;/id&gt;     #制品库名称，与第一步的制品库名字对应
+    &lt;username&gt;admin&lt;/username&gt;  #登陆nexus的用户名和密码
+    &lt;password&gt;admin&lt;/password&gt;
+  &lt;/server&gt;
+&lt;/servers&gt;</code></pre></li></ol><ol type="1" id="4b8ea0a6-8e99-4da7-9fff-43d9113b4447" class="numbered-list" start="3"><li>配置Jenkinsfile<pre id="06875e26-2ff5-46ff-a885-33370d5b86c0" class="code code-wrap"><code>stage(&quot;build&quot;){
+    steps{
+       script{
+            mvnHome = tool &quot;M3&quot;
+            sh &quot;${mvnHome}/bin/mvn clean package&quot;
+            
+            jarName = sh(returnStdout: true, script: &quot;cd target; ls *.jar&quot;).trim()
+            pom = readMavenPom file: &#x27;pom.xml&#x27;   
+            pomGroupId = &quot;${pom.groupId}&quot;
+            pomArtifact = &quot;${pom.artifactId}&quot;
+            pomVersion = &quot;${pom.version}&quot;
+            pomPackaging = &quot;${pom.packaging}&quot;
+            sh  &quot;&quot;&quot;
+              cd target
+              ${mvnHome}/bin/mvn deploy:deploy-file -Dmaven.test.skip=true \    
+                                                    -Dfile=${jarName} \
+                                                    -DgroupId=${pomGroupId} \
+                                                    -DartifactId=${pomArtifact} \
+                                                    -Dversion=${pomVersion} \
+                                                    -Dpackaging=${pomPackaging} \
+                                                    -DrepositoryId=maven-hosted \
+                                                    -Durl=http://10.19.34.11:8081/repository/maven-hosted/
+            &quot;&quot;&quot;
+        }                                       
+    }
+}</code></pre><p id="2f248f66-9ead-43dd-b619-f20322320dc4" class="">知识点：</p><ul id="5ea77b29-fc93-4f22-926a-819396efe233" class="bulleted-list"><li style="list-style-type:disc">mvn上传制品命令</li></ul><ul id="dae051d6-71c5-4500-b0c4-fe410df9b3a8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">使用readMavenPom</mark></li></ul></li></ol><h1 id="2f73f5a1-0aeb-40a8-8cf2-55d584a5e2a7" class="block-color-orange">Jenkinsfile发布制品</h1><p id="100414e4-6cb2-4a54-be38-e2dc86e47f87" class="">实现：从制品库提取制品并安装到应用服务器上</p><ol type="1" id="e0536f31-d918-4781-9f96-9195ada86323" class="numbered-list" start="1"><li>安装Maven Artifact Choice插件</li></ol><ol type="1" id="331d8c84-7111-48b0-acc6-014c16334a63" class="numbered-list" start="2"><li>勾选<strong>参数化</strong>(如果没有勾选)，选择要添加的参数类型Extensible Choice，开始定义参数(组ID/制品ID/packaging信息来自POM文件)</li></ol><div id="25a82d45-d5a4-4cc4-b784-b24d51db1a4c" class="column-list"><div id="dd6fa5f5-ed1f-4a26-9e21-5641cf138e08" style="width:56.25%" class="column"><figure id="3f23ab9f-18a1-44a9-94bc-78b8a55f118d" class="image"><a href="Nexus%20b4f66/Untitled%202.png"><img style="width:864px" src="Nexus%20b4f66/Untitled%202.png"/></a></figure></div><div id="7e73f583-63bf-49bd-b31a-3f5841244bc2" style="width:43.75000000000001%" class="column"><figure id="0996ddd3-b35c-4a3e-85f6-16fc04af0268" class="image"><a href="Nexus%20b4f66/Untitled%203.png"><img style="width:918px" src="Nexus%20b4f66/Untitled%203.png"/></a></figure></div></div><ol type="1" id="7371ead5-4777-460d-9b6e-94738326803f" class="numbered-list" start="3"><li><mark class="highlight-yellow">编辑Jenkinsfile(还不知如何用来发布)</mark></li></ol><pre id="3d683e2c-9d26-425c-a45b-516446e9bb0e" class="code code-wrap"><code>String artifactUrl = env.artifactUrl
+
+</code></pre><p id="6cad25d9-8dc3-4802-9c35-f75088829490" class="">
+</p><h1 id="0f0fae86-bf95-43af-b5e5-c8860b775adc" class="">报错</h1><figure id="435b155e-ceb0-4ed5-9468-6763154adba2" class="image"><a href="Nexus%20b4f66/Untitled%204.png"><img style="width:918px" src="Nexus%20b4f66/Untitled%204.png"/></a></figure><pre id="88a9593a-6a5a-4872-a235-7dfc47989fcc" class="code code-wrap"><code>
+上传快照组件报错
+执行命令：opt/apache-maven-3.8.1/bin/mvn deploy:deploy-file -s /opt/apache-maven-3.8.1/conf/settings.xml -Dmaven.test.skip=true -Dfile=my-app-1.1-SNAPSHOT.jar -DgroupId=com.mycompany.app -DartifactId=my-app -Dversion=1.1-SNAPSHOT -Dpackaging=jar -DrepositoryId=maven-hosted -Durl=http://10.19.34.11:8081/repository/maven-hosted/
+
+报错：
+transfer failed for http://10.19.34.11:8081/repository/maven-hosted/com/mycompany/app/my-app/1.1-SNAPSHOT/my-app-1.1-20210911.013350-1.jar, status: 400 Repository version policy: RELEASE does not allow version: 1.1-20210911.013350-1
+
+原因：maven-hostd库是发布库，所以上传失败</code></pre></div></article></body></html>

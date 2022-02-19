@@ -1,0 +1,762 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Harbor</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="35badb1f-fe4b-439a-af9f-916a1b290ec5" class="page sans"><header><img class="page-cover-image" src="https://ansilh.com/23-harobor/01-private-registry/harbor.jpg" style="object-position:center 35.47%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🗼</span></div><h1 class="page-title">Harbor</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 21, 2021 2:24 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h1 id="d9162c9e-597c-4d0b-a3fb-111a5c72cc12" class="">部署Harbor</h1><p id="e31e58e6-61f1-4e56-a208-09558350fe81" class="">当需要大规模使用docker hub时，大家都从官方仓库拉取镜像，非常占带宽，此时就需要私有仓库（registry），registry本就是一个服务，直接起用registry容器即可。但是通过registry配置私有仓库，功能弱，权限控制简单，删除镜像麻烦等问题，临时应急才用，一般选用harbor，harbor是把官方仓库加以拓展，功能性更强。</p><p id="57f8dfad-cf7e-4c98-ba44-c11f9d95b978" class="">部署harbor之前先安装<a href="../../K8S%2088060/Docker%2024357/Docker%201c2c4.html"><span class="icon">🐳</span>Docker</a>和<a href="../../K8S%2088060/Docker%2024357/docker-com%207b439.html"><span class="icon">🐙</span>docker-compose</a>.</p><hr id="cab7ad9c-5035-475e-a6f1-50baed08fe25"/><h2 id="1fbd75c1-3551-4a94-832f-8c69ac111abc" class="">自签证书</h2><p id="702ea720-2d34-44eb-a212-c1cee9e36662" class="">创建一个临时目录</p><pre id="d70b0c67-c9d3-482d-b3d9-0ad2473f1558" class="code code-wrap"><code>mkdir ~/harbor_certs/
+cd ~/harbor_certs/</code></pre><p id="48c6327c-1e50-4821-816e-4df0c660ee03" class="">
+</p><p id="017edd00-a271-4196-bbc3-ed9ee3eb7127" class="">创建CA密钥和证书</p><pre id="b9eaf2d6-f7fc-452e-981e-bdd50937687e" class="code code-wrap"><code>openssl genrsa -out ca.key 4096
+openssl req -x509 -new -nodes -sha512 -days 36500 \
+ -subj &quot;/C=CN/ST=Shanghai/L=Shanghai/O=zhi/OU=zhi/CN=root&quot; \
+ -key ca.key \
+ -out ca.crt</code></pre><p id="472e32e6-5a8e-48fc-9487-17d36885a19f" class="">
+</p><p id="dffb57f4-2c35-43e6-abe0-c9a8d4d830ca" class="">创建CSR(Ceertificate Signing Request)</p><pre id="1d7fc64d-f6fe-4d50-a919-e52ea79714e8" class="code code-wrap"><code>openssl genrsa -out harbor.key 4096
+openssl req -sha512 -new \
+  -subj &quot;/C=CN/ST=Shanghai/L=Shanghai/O=mxy/OU=mxy/CN=harbor.mxy.com&quot; \
+  -key harbor.key \
+  -out harbor.csr
+
+#注意这个证书是授予reg.zh.com,所以harbor主机名也必须是reg.zh.com,否则下面的错: 
+#Get https://reg.zh.com/v2/: x509: certificate is valid for harbor, not reg.zh.com
+#509证书中的信息:
+#CN: CommonName
+#OU: OrganizationalUnit指的是部门
+#O: Organization指的是公司
+#L: Locality
+#S: StateOrProvinceName
+#C: CountryName
+#比如CN=Sample Cert, OU=R&amp;D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE</code></pre><p id="7cd43345-e529-49ae-8b94-168960de270c" class="">
+</p><p id="fff840ba-61c6-4277-ba5c-7bbc14173ac1" class="">生成并签发证书</p><pre id="cf05b702-c2b3-46cc-96c3-3cd9ae0469ff" class="code code-wrap"><code>openssl x509 -req -sha512 -days 36500 \
+  -CA ca.crt -CAkey ca.key -CAcreateserial \
+  -in harbor.csr \
+  -out harbor.crt
+</code></pre><p id="b853e20c-7349-4811-87d1-8a7fd5ce341f" class="">
+</p><p id="d9f09cbe-a8e2-4bf2-8355-9a223bb82c7a" class="">为harbor创建一个证书目录</p><pre id="fc4be927-1b1a-41fa-ba58-afb36df1561c" class="code code-wrap"><code>mkdir -p /etc/docker/certs
+cp harbor.crt harbor.key /etc/docker/certs/</code></pre><p id="36581c1b-aaae-4713-956a-baf62a938fea" class="">
+</p><hr id="96c001ed-99bf-40bd-a8bd-88a87a9e44b6"/><h2 id="f5d3737c-9936-4b5e-b6ca-8b9658f37888" class="">下载harbor离线包并修改配置文件</h2><p id="904f97d8-994a-4b16-a468-a46cc0e5ac57" class="">下载链接：<a href="https://github.com/goharbor/harbor/releases">https://github.com/goharbor/harbor/releases</a></p><p id="0d3e2164-a247-4ceb-8bba-506143a16da3" class="">下载和解压压缩包</p><pre id="aca43197-08b1-4421-8b83-fbad707314c0" class="code code-wrap"><code>wget https://github.com/goharbor/harbor/releases/download/v2.0.1/harbor-offline-installer-v2.0.1.tgz
+tar xf harbor-offline-installer-v2.0.1.tgz  -C /opt</code></pre><p id="241ea51f-b4c9-431b-b616-c66ed385bb07" class="">
+</p><p id="bf1f1b72-1413-48f3-8d70-3bc0a30ce0d8" class="">修改配置文件</p><pre id="795ca6cc-20df-4702-b67d-ca7fa9d0b8e8" class="code code-wrap"><code>cp /opt/harbor/harbor.yml.tmpl /opt/harbor/harbor.yml
+sed -i &#x27;/^hostname/s#reg.mydomain.com#habor.mxy.com#g&#x27; /opt/harbor/harbor.yml
+sed -i &#x27;s#/your/certificate/path#/etc/docker/certs/harbor.crt#g&#x27; /opt/harbor/harbor.yml
+sed -i &#x27;s#/your/private/key/path#/etc/docker/certs/harbor.key#g&#x27; /opt/harbor/harbor.yml
+sed -i &#x27;s#Harbor12345#test#g&#x27; /opt/harbor/harbor.yml</code></pre><p id="1da716c8-bb7c-4164-a603-1528a889591f" class="">
+</p><p id="00f35e75-6851-47d0-a0a4-dfc1c80e52a4" class="">生成文件</p><pre id="2f9a2b80-6c89-4668-b41b-5514dd650bac" class="code code-wrap"><code>cd /opt/harbor	
+./prepare  执行 拉取镜像
+./install.sh 执行</code></pre><p id="c65ea80f-8ae8-4d50-961f-6b1927eaeb6f" class="">
+</p><p id="a0e8eae4-35c8-4af4-9094-08ffe61b6e92" class="">部署harbor</p><pre id="66f18162-e1ed-4070-b057-32c9645b5331" class="code code-wrap"><code>docker-compose -f /opt/harbor/docker-compose.yml up -d
+[http://reg.longchuang.com](http://reg.longchuang.com/)			用户名：admin				密码：test</code></pre><p id="08915070-3ece-4d67-8046-96328f03b73d" class="">
+</p><p id="bf4541ea-4774-487e-9bf9-1fa6aa1f2de8" class="">成功启动可以看到这个结果</p><pre id="9d733224-26db-4c18-b331-7bef473a1173" class="code code-wrap"><code>[Step 5]: starting Harbor ...
+Creating network &quot;harbor_harbor&quot; with the default driver
+Creating network &quot;harbor_harbor-clair&quot; with the default driver
+Creating network &quot;harbor_harbor-notary&quot; with the default driver
+Creating network &quot;harbor_harbor-chartmuseum&quot; with the default driver
+Creating network &quot;harbor_notary-sig&quot; with the default driver
+Creating harbor-log ... done
+Creating redis         ... done
+Creating registry      ... done
+Creating registryctl   ... done
+Creating chartmuseum   ... done
+Creating harbor-portal ... done
+Creating harbor-db     ... done
+Creating notary-signer ... done
+Creating clair             ... done
+Creating harbor-core   ... done
+Creating notary-server     ... done
+Creating nginx             ... done
+Creating harbor-jobservice ... done
+Creating clair-adapter     ... done
+✔ ----Harbor has been installed and started successfully.----</code></pre><p id="0ea6e6ad-8d7d-4925-a48c-d4fda561a6c7" class="">使用docker-compose检查状态</p><pre id="e2f544e0-cf52-4931-8cf6-4ce0bec96779" class="code code-wrap"><code>[root@jenkins harbor]# docker-compose ps
+      Name                     Command               State                      Ports                   
+--------------------------------------------------------------------------------------------------------
+harbor-core         /harbor/entrypoint.sh            Up                                                 
+harbor-db           /docker-entrypoint.sh            Up      5432/tcp                                   
+harbor-jobservice   /harbor/entrypoint.sh            Up                                                 
+harbor-log          /bin/sh -c /usr/local/bin/ ...   Up      127.0.0.1:1514-&gt;10514/tcp                  
+harbor-portal       nginx -g daemon off;             Up      8080/tcp                                   
+nginx               nginx -g daemon off;             Up      0.0.0.0:80-&gt;8080/tcp, 0.0.0.0:443-&gt;8443/tcp
+redis               redis-server /etc/redis.conf     Up      6379/tcp                                   
+registry            /home/harbor/entrypoint.sh       Up      5000/tcp                                   
+registryctl         /home/harbor/start.sh            Up</code></pre><p id="795caed3-0200-4fe9-9030-e9df9c3de928" class="">
+</p><p id="f33f8343-59e3-41f2-b1e3-6cfdc74e4a41" class="">访问,用户名是admin, 密码是test</p><figure id="96e39617-2f03-4162-8df2-56aec7443c80" class="image"><a href="Harbor%2035bad/Untitled.png"><img style="width:1220px" src="Harbor%2035bad/Untitled.png"/></a></figure><p id="e2927158-dcec-4e44-b232-9dd6da59178d" class="">
+</p><p id="21cf7725-75a3-4d48-bd9a-d1406767c91e" class="">Harbor部署完毕.</p><p id="cb3ce6b8-044c-4cf4-9d12-a9df8861cc0b" class="">
+</p><hr id="e56be776-4dd5-4795-8766-117052a52029"/><h1 id="d0803e80-c932-4688-9e25-62a113acb982" class="">上传镜像</h1><p id="1c0053e0-3796-4a9d-881f-b44bc186bb58" class="">在Harbor上创建一个用户.</p><figure id="36ca3a9d-298c-4b34-9926-735e3344d523" class="image"><a href="Harbor%2035bad/Untitled%201.png"><img style="width:336px" src="Harbor%2035bad/Untitled%201.png"/></a></figure><p id="c2502b9f-4ab0-4d3d-8349-7d864881824b" class="">在Harbor上创建一个项目,并设置用户是这个项目的管理者. </p><div id="3cba4ea6-4b45-4fe5-aa5f-ad1419333f17" class="column-list"><div id="0771fd43-71ba-4f28-a3dc-b1f782b1d797" style="width:28.125%" class="column"><figure id="faaf8f4d-1cb7-4436-8115-c775236f37e9" class="image"><a href="Harbor%2035bad/Untitled%202.png"><img style="width:472px" src="Harbor%2035bad/Untitled%202.png"/></a></figure></div><div id="aa079b6a-2393-4fc3-97eb-8b086cd986e4" style="width:40.625%" class="column"><figure id="b7945432-aac8-4183-8cb7-2dd139c57585" class="image"><a href="Harbor%2035bad/Untitled%203.png"><img style="width:612px" src="Harbor%2035bad/Untitled%203.png"/></a></figure></div><div id="5a8726db-fa58-4456-bfb5-4484eba83944" style="width:28.125%" class="column"><figure id="d5f2351e-4975-44f4-8996-bb0afa525991" class="image"><a href="Harbor%2035bad/Untitled%204.png"><img style="width:483px" src="Harbor%2035bad/Untitled%204.png"/></a></figure></div><div id="5f2278cc-a035-4bf4-a239-2821192aa1db" style="width:3.1250000000000258%" class="column"><p id="bc7a6579-1b19-416f-a1fa-d3b9a2c7bedc" class="">
+</p></div></div><p id="55f5b51d-85fa-4f4d-9e39-a95a42cc43f4" class="">
+</p><p id="748e97d4-5ac8-47bc-a8fc-2896d61271bd" class="">为docker复制一份harbor的证书</p><pre id="2d53f7c8-583a-4efa-ac82-ba9cc7c4c5da" class="code"><code>#默认,docker会在/etc/docker/certs.d/{主机名}目录下寻找证书和密钥.
+mkdir -p /etc/docker/certs.d/reg.zh.com
+
+#将harbor主机名和地址映射加入docker的hosts文件
+cat &gt;&gt;/etc/hosts &lt;&lt;EOF
+10.19.34.121 reg.zh.com
+EOF
+
+#获取harbor的ROOT证书
+openssl s_client -showcerts -connect reg.zh.com:443 &lt;/dev/null | sed -ne &#x27;/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p&#x27; &gt; /etc/docker/certs.d/reg.zh.com/ca.crt
+
+#登陆
+docker login reg.zh.com
+
+#如果不分配证书则登陆时发生下面错误
+Get https://reg.zh.com/v2/: x509: certificate signed by unknown authority#</code></pre><p id="d253296a-a930-4067-b25d-40fd9ff32224" class="">
+</p><p id="b0161f19-410b-4464-ba9b-36f0d5811ed4" class="">然后docker用这个用户登陆并上传镜像, 上传时镜像名称改为</p><pre id="4373754e-739b-41e5-95b0-04691bad56de" class="code"><code>#先修改镜像名称. 仓库名称结构: [harbor主机名]/[项目名]/[镜像名],本例中harbor主机是reg.zh.com,项目是springboot,镜像是springboot:v1
+docker tag springboot:v1 reg.zh.com/springboot/springboot:v1
+
+#推送
+docker push reg.zh.com/springboot/springboot:v1</code></pre><p id="4e7e13ca-5e01-4d75-a914-b3a74bdefaa8" class="">
+</p><hr id="6d8a4185-52da-4d3e-aad1-a611634c6a8e"/><h1 id="a6ee2a1c-7816-4fd1-8dfc-969dd62299d5" class="">K8S资源清单</h1><pre id="02d4e1df-c2ce-4fee-926a-ef855147f42c" class="code"><code>kubectl create secret generic registry-pull-secret \
+    --from-file=.dockerconfigjson=/root/.docker/config.json \
+    --type=kubernetes.io/dockerconfigjson \
+    --namespace=ms</code></pre><p id="f736759c-e089-4b1b-ba95-ee33745cd95b" class="">
+</p><p id="8f56c670-849b-49b3-ae4b-aa8a7b4f983f" class="">
+</p><p id="b3f4fd43-7f0a-446b-8669-c98971148763" class="">参考</p><figure id="08bb9881-6c57-4163-ab7a-18be4dcb4755"><a href="https://ansilh.com/23-harobor/01-private-registry/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">:: Kubernetes From Scratch - Ansil</div><div class="bookmark-description">All container images that we used in the previous examples were downloaded from Docker Hub which is a public registry. But in production environments , we have to use private image registry so that we will have better control of images and its security.</div></div><div class="bookmark-href"><img src="https://ansilh.com/images/favicon.png" class="icon bookmark-icon"/>https://ansilh.com/23-harobor/01-private-registry/</div></div><img src="https://ansilh.com/23-harobor/01-private-registry/harbor.jpg" class="bookmark-image"/></a></figure><p id="1e38315a-1b5b-42e4-9125-61aa55448f37" class="">
+</p></div></article></body></html>

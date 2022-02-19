@@ -1,0 +1,714 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Prometheus</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3b0729ba-77ab-470f-94ad-f4939f0d6a73" class="page sans"><header><img class="page-cover-image" src="Prometheus%203b072/running-prometheus-on-kubernetes.webp" style="object-position:center 91.10000000000001%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Prometheus%203b072/1200px-Prometheus_software_logo.svg.png"/></div><h1 class="page-title">Prometheus</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 22, 2021 6:10 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><div id="c479a064-94dd-4f02-8396-b75cc2db6ab0" class="collection-content"><h4 class="collection-title">知识结构</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="caa64edb-6137-4a22-a433-e29edbd84fb5"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64.html">基础知识</a></td><td class="cell-&lt;A&lt;a"><time>@April 29, 2021 10:24 AM</time></td><td class="cell-R^yv"></td></tr><tr id="da29141b-5c33-4b73-b474-12cc95bb103f"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/Exportor%20da291.html">Exportor </a></td><td class="cell-&lt;A&lt;a"><time>@April 29, 2021 10:24 AM</time></td><td class="cell-R^yv"></td></tr><tr id="0f217252-581e-4d9e-94e4-39bdae534403"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/%E5%9C%A8K8S%E4%B8%AD%E9%83%A8%E7%BD%B2Pro%200f217.html">在K8S中部署Prometheus Server</a></td><td class="cell-&lt;A&lt;a"><time>@April 29, 2021 10:33 AM</time></td><td class="cell-R^yv"></td></tr><tr id="de535166-1883-4be5-9d10-ab3dd82405de"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/Alertmanag%20de535.html">Alertmanage</a></td><td class="cell-&lt;A&lt;a"><time>@April 29, 2021 11:59 AM</time></td><td class="cell-R^yv"></td></tr><tr id="14c7a53d-cff5-4cf8-abb1-db74e73a13b8"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/%E9%92%88%E5%AF%B9K8S%E7%9A%84%E5%8A%A8%E6%80%81%E5%8F%91%E7%8E%B0%2014c7a.html">针对K8S的动态发现</a></td><td class="cell-&lt;A&lt;a"><time>@April 29, 2021 10:44 PM</time></td><td class="cell-R^yv"></td></tr><tr id="2aee1a41-3a0f-4371-8aa5-cb045618fc27"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/kube%20state%202aee1.html">kube state metrics</a></td><td class="cell-&lt;A&lt;a"><time>@May 14, 2021 3:47 PM</time></td><td class="cell-R^yv"></td></tr><tr id="4609e3f4-1701-495e-90e8-9021a1a2be71"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/Relabeling%204609e.html">Relabeling</a></td><td class="cell-&lt;A&lt;a"><time>@October 27, 2021 8:37 PM</time></td><td class="cell-R^yv"></td></tr><tr id="fbc56884-95b9-44fe-934c-b168e565ad76"><td class="cell-title"><a href="Prometheus%203b072/%E7%9F%A5%E8%AF%86%E7%BB%93%E6%9E%84%20c479a/%E7%9B%91%E6%8E%A7Kubernet%20fbc56.html">监控Kubernetes系统</a></td><td class="cell-&lt;A&lt;a"><time>@November 2, 2021 6:27 PM</time></td><td class="cell-R^yv"></td></tr></tbody></table></div><p id="2f564e5c-933a-4931-aaa3-ffad4ceb04ce" class="">
+</p><hr id="6e2f70ff-9def-4aef-81ba-d2146e4c7cff"/><h2 id="6ee1255f-0364-4a6e-a373-ed89c4f70d33" class="">5.2. 二进制部署或容器部署</h2><h3 id="81dd33bf-39d0-4bf6-aff1-1436717c7fb0" class="">5.2.1. 二进制安装</h3><figure id="4e49e5e1-ea23-4aef-b718-8989914b3415"><a href="https://prometheus.io/download/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Download | Prometheus</div><div class="bookmark-description">We provide precompiled binaries and Docker images for most officially maintained Prometheus components. If a component is not listed here, check the respective repository on Github for further instructions. There is also a constantly growing number of independently maintained exporters listed at Exporters and integrations. The Prometheus monitoring system and time series database.</div></div><div class="bookmark-href"><img src="https://prometheus.io/assets/favicons/favicon.ico" class="icon bookmark-icon"/>https://prometheus.io/download/</div></div></a><figcaption>官网下载连接</figcaption></figure><p id="168fa997-f20e-4266-9e14-dc51859ffe09" class="">验证hash</p><pre id="683df433-b7b1-4f09-a4fd-0a9fdbf06312" class="code code-wrap"><code>sha256sum /tmp/alertmanager-0.21.0.linux-amd64.tar.gz</code></pre><p id="698508c2-4b93-4889-b636-8da108984165" class="">解压到安装目录</p><pre id="062c925c-c2d3-4340-80ab-aa2a19696756" class="code code-wrap"><code>tar xf /tmp/alertmanager-0.21.0.linux-amd64.tar.gz -C /opt/
+ln -s /opt/alertmanager-0.21.0.linux-amd64 /opt/alertmanager</code></pre><p id="d1cc2933-6772-44ec-93e0-d9aaf0dd4719" class="">开机自启</p><pre id="d6ee0e7e-a598-4043-850f-cd7c70949120" class="code code-wrap"><code>cat &lt;&lt;EOF &gt;/usr/lib/systemd/system/alertmanager.service
+[Unit]
+Description=Prometheus Alertmanager Service daemon
+After=network.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+ExecStart=/opt/alertmanager/alertmanager \
+ --config.file=/opt/alertmanager/alertmanager.yml \
+ --storage.path=/opt/alertmanager/data/ \
+ --data.retention=120h \
+ --web.external-url=http://192.168.186.7:9093 \
+ --web.listen-address=0.0.0.0:9093
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF</code></pre><figure id="bb9b2491-afa1-4acd-9840-d3b74db21443" class="image"><a href="Prometheus%203b072/Untitled.png"><img style="width:624px" src="Prometheus%203b072/Untitled.png"/></a></figure><hr id="0ff24f63-1c3e-42ba-926f-abaa60573073"/><h2 id="b71353b1-18e2-4566-b832-56b6e7361baa" class="">5.3. 告警配置</h2><h3 id="a1b7a089-9e59-421c-90d3-a4d8740d119a" class="">5.3.1. Prometheus关联</h3><p id="00333a7a-df76-455c-ac84-947aed484182" class="">编辑Prometheus的主配置文件prometheus.yml</p><p id="ab40dcd5-7f4a-458e-8c42-c0f80842d35a" class="">加入关联Alertmanager组件的访问地 址，示例如下:</p><pre id="ac211655-ee8a-4f1b-a6c3-233e86c77fbb" class="code code-wrap"><code>alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+      - 127.0.0.1:9093   #alertmanager与Prometheus在一个主机上</code></pre><p id="d5562a66-5176-4baf-bc3a-4ca7c5309755" class="">在prometheus.yml文件中创建一个 Prometheus job来监控Alertmanager组件示例地址，内容如下：</p><pre id="0e6fc74d-c67d-4649-81d8-7ed066be667e" class="code code-wrap"><code>scrape_configs:
+  - job_name: &#x27;alertmanager&#x27;
+      static_configs:
+      - targets: [&#x27;127.0.0.1:9093&#x27;]   #alertmanager与Prometheus在一个主机上</code></pre><p id="fbb5afea-2f3b-4d34-8c11-49000aed8560" class="">在prometheus.yml文件中创建rule_files, 指定在哪个目录加载rule文件.</p><pre id="d1b8286f-788a-4ea0-baf5-41d15448a214" class="code code-wrap"><code>rule_files:
+  - &quot;/opt/prometheus/rules/*_rules.yml&quot;</code></pre><p id="43d033c6-1c8a-4e6e-be9b-592fcd3dd866" class="">创建rule目录文件,</p><pre id="3c25dc6a-d738-4663-b3ea-df951f935e46" class="code code-wrap"><code>mkdir /opt/prometheus/rules/
+vi </code></pre><p id="d12b61e1-4b8e-4de5-a763-1e30d5ed7db2" class=""> 以创建一个node UP告警为例</p><p id="65e771ad-2e35-4da5-931d-1a4918ae60e5" class="">创建一个rule文件.</p><pre id="22ed3d79-4a78-4b04-99b9-c9d8f887345e" class="code code-wrap"><code>cat &lt;&lt;EOF &gt;/opt/prometheus/rules/node_rules.yml
+groups:
+- name: UP
+  rules:
+  - alert: node
+	    expr: up{job=&quot;node&quot;} == 0
+    for: 3m
+    labels:
+      severity: critical
+    annotations:
+      description: Node has been down for more than 5 minutes.
+      summary: Node down
+EOF</code></pre><p id="bb5e1e2a-2d50-4918-9ef2-e8982284e651" class="">检查一下语法</p><pre id="b2880c34-f95f-4d16-9c48-d72f44886055" class="code code-wrap"><code>#promtools与prometheus在同一级目录下
+./promtool check rules rules/up_rules.yml</code></pre><p id="bbda27ea-e267-40a4-8dd2-a86fa6d84077" class="">热重启prometheus, 然后访问http://地址/rules查看rule是否生效.</p><p id="a4fcb23e-ca0d-4891-b9c2-55d96da467ec" class="">
+</p><p id="dc458514-8129-49a2-bc45-1392e81fbff5" class="">关闭node-01的node_exporter, 然后观察一下http://地址:9090/alerts, 出现了一条状态为pending的告警.</p><figure id="aae53e09-3140-4e9d-9736-194f7507ea25" class="image"><a href="Prometheus%203b072/Untitled%201.png"><img style="width:1908px" src="Prometheus%203b072/Untitled%201.png"/></a></figure><p id="94caf0f4-df9a-4226-a324-f0ae4671274e" class="">一个告警信息在生命周期内可能会有三种状态</p><p id="f6c5f0c8-af30-4fcd-88b7-c24fbf56197a" class="">·Interval，没有满足触发条件，告警未激活状态。 ·Pending，已满足触发条件，但未满足告警持续时间的状态，即未 满足告警中for子句中指定的持续时间。 ·Firing，已满足触发条件且已经超过for子句中指定的持续时间时的 状态。带有for子句的告警将首先转换为Pending状态，然后转换为Firing状 态，至少需要两个计算周期告警才被触发。从Pending状态到Firing状态 的转换，确保了告警的有效性。而没有for子句的告警会自动从Inactive 状态转换为Firing状态，只需要一个计算周期即可被触发。</p><p id="3c58e6eb-5fad-4b12-a498-7f743994354c" class="">在一系列的运行过程中，Prometheus还将为Pending或Firing状态的 每个告警创建一个ALERTS指标名称，格式如下,当告警处于激活状态（Pending或Firing）时，样本值为1，其他状 态时样本值为0。</p><figure id="954cad19-b72d-4bc5-a055-453024f604eb" class="image"><a href="Prometheus%203b072/Untitled%202.png"><img style="width:960px" src="Prometheus%203b072/Untitled%202.png"/></a></figure><p id="f35fa5ec-7f6d-4a74-834e-42cd4c6c6630" class="">当告警信息被发送到指定的Alertmanager组件后，我们使用浏览器 访问Alertmanager Web示例地址http://192.168.186.7:9093/#/alerts，也可 以查看接收到的告警信息.</p><figure id="50112809-4ccf-4584-86c9-0a9d6a197052" class="image"><a href="Prometheus%203b072/Untitled%203.png"><img style="width:1158px" src="Prometheus%203b072/Untitled%203.png"/></a></figure><p id="1fa378f5-5714-40c5-a812-08057599ce04" class="">
+</p><h3 id="830c717b-528e-4e38-aa1f-ba14f055e230" class="">Prometheus从收集监控目标信息开始，到 触发一条告警的过程</h3><p id="8ead17be-2ab0-413b-9897-782e31ea5536" class="">1）定义规则。 在Prometheus配置文件中，配置scrape_interval:15s（默认值是 1min）为收集监控目标信息的采集周期，并且配置对应的告警规则。 scrape_interval可以是全局设置，也可以是单metric定义。 2）周期计算。 对相应的表达式进行计算时，在Prometheus配置文件中配置 evaluation_interval:15s（默认值是1min）为告警规则计算周期， evaluation_interval只是全局计算周期值。 3）告警状态转换。 ·当首次发现告警规则条件成立，即表达式为真，并且没有满足告 警规则中for子句中指定的持续时间时，告警状态切换为PENDING。 ·若下一个计算周期中，表达式仍然为真，并且满足告警规则中for 子句中指定的持续时间时，告警状态转换成FIRING，即为active，告警 被Prometheus发送到Alertmanager组件。若下下个计算周期，表达式还是为真，并且满足告警规则中for子 句中指定的持续时间时，持续发送告警到Alertmanager组件。 ·直到某个计算周期，表达式为假，告警状态会变为inactive，并且 会有一个resolve被发送给Altermanger，用于说明此告警已解决。</p><p id="5a3faea1-4c17-4698-b3cc-50da16a4ab55" class="">
+</p><hr id="3069d9b9-fc8b-4c72-9138-f95c70b866bd"/><h2 id="cf0ac0ce-a3fa-41a4-8b0d-72395c4da143" class="">5.4 告警接收</h2><h1 id="af8d3d75-2298-4cc6-9f3e-f562ebdff8da" class="">容器指标采集</h1><h2 id="de0a36fb-baab-42e6-8f3d-5c7e4bd663ac" class="">cAdvisor介绍</h2><p id="e9dc4290-0a06-407c-bb85-cee66c40d918" class="">cAdvisor可提供数据的可视化界面，并且可监控容器所在宿主 机中的资源使用情况，只监控单一主机。只需在宿主机上部署cAdvisor容器，用户就可通过Web界面或REST 服务访问当前节点和容器的详尽性能数据（CPU、内存、网络、磁盘、 文件系统等）。</p><figure id="551d05a8-6856-4441-8e80-caa84d849d6b" class="image"><a href="Prometheus%203b072/Untitled%204.png"><img style="width:528px" src="Prometheus%203b072/Untitled%204.png"/></a></figure><p id="3458cd31-4529-435e-8f77-f74539d1ec4e" class="">在容器集群的环境中，通过Docker stats命令对一台台机器收集容器 的度量指标显然是不现实的。在Kubenetes（有时简称k8s）设计之初就 考虑到了这一点，因此它将Google开源的一个容器指标收集工具cAdvisor集成到了Kubelet中。在集群中，Kubelet会驻留在集群的每一个 节点上，因此cAdvisor也将随之运行在所有节点上。cAdvisor使用Go语言开发，利用Linux的cgroups获取容器的资源使用信息.</p><p id="26214b81-f643-4af5-a32b-23f54c831ffc" class="">cAdvisor可以对节点机器上的资源及容器进行实时监控和性能数据采集，包括CPU使用情况、内存使用情况、网络吞吐量及文件系统使用 情况, 还提供基础查询界面和 http接口, 同时它消耗的资源也比较少. cAdvisor内置了对Prometheus的支持.</p><p id="215179b2-1a8b-4000-8942-732f5cbdbd07" class="">cAdvisor也有一定的局限性，即只能监控一个Docker主机。对于多节点的场景，就需要在所有的主机上都各安装一个 cAdvisor。另外，在图表中的数据仅仅显示时长为2分钟，并没有查看长期数据趋势的方法。它也没有生成告警的机制，如果资源使用率较高则 可能存在风险。采用cAdvisor与Prometheus结合的解决方案是一个非常 不错的选择.</p><h2 id="27739d54-de21-4356-9661-85e2c3816f70" class="">安装</h2><p id="cd679718-6a68-4899-abb7-069ef5623579" class="">cAdvisor安装非常简单. </p><p id="27256e63-f3d1-4475-9ebe-9b5a106dc529" class="">二进制方式</p><pre id="ba6fc63f-6b7d-4ad4-97c1-60ef8aa86208" class="code code-wrap"><code>mkdir /opt/cadvisor-v0.37.5
+curl -L https://github.com/google/cadvisor/releases/download/v0.37.5/cadvisor -o /opt/cadvisor-v0.37.5/cadvisor &amp;&amp; \
+cd /opt/cadvisor-v0.37.5/ &amp;&amp; ./cadvisor -port=8080 &gt;&gt;/var/log/cadvisor.log</code></pre><p id="07412c0c-2851-4c29-b4f8-38a687750292" class="">容器方式</p><pre id="7e799810-10cc-4641-b757-41a892086c25" class="code code-wrap"><code>docker pull google/cadvisor:latest</code></pre><p id="2a22a838-8858-4af6-ac93-a73aa712c46b" class="">部署完成后, http://地址:8080/metrics就能查看到cAdvisor输出的容器指标数据了, 接下来再让Prometheus取走数据.</p><p id="7c623dd0-bfa6-44dc-a250-1efe1192c78c" class="">
+</p><h2 id="29108824-0899-4941-a42b-3bb17ee8e896" class="">cAdvisor+Prometheus+Grafana组合</h2><figure id="96853944-c009-4aae-a549-d4560b93e75b" class="image"><a href="Prometheus%203b072/Untitled%205.png"><img style="width:816px" src="Prometheus%203b072/Untitled%205.png"/></a></figure><p id="cc7975ea-69ff-4af1-bb66-3f6783aa9ed9" class="">通过Node exporter抓取物理主机运行的状态，容器则通过 cAdvisor对Docker引擎抓取容器的运行状态，然后汇总到Prometheus， 再通过AlertManager实现告警，形成完整的解决方案</p><hr id="e8278d90-1bf5-441e-9bae-73b6d8168aaf"/><h1 id="7503423d-7b35-4a06-a2f7-3ff5c906f8b8" class="">helm方式部署Prometheus</h1><p id="6ebd447c-7182-491c-b07a-03a1fec0a996" class="">传统方式部署步骤相对复杂，使用helm方式部署Prometheus更加简单. </p><figure id="c7ca6c7e-4308-44e9-9d30-a06b6de8de59"><a href="https://artifacthub.io/packages/helm/prometheus-community/prometheus" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">prometheus 13.8.0 · prometheus/prometheus-community</div><div class="bookmark-description">Prometheus is a monitoring system and time series database.</div></div><div class="bookmark-href"><img src="https://artifacthub.io/static/media/logo.png" class="icon bookmark-icon"/>https://artifacthub.io/packages/helm/prometheus-community/prometheus</div></div><img src="https://artifacthub.io/static/media/artifactHub.png" class="bookmark-image"/></a><figcaption>Prometheus的helm仓库</figcaption></figure><p id="cd0c3a08-da1d-4044-a510-5d816663a673" class="">部署前需要安装好helm软件和Persistent Volume.</p><p id="bb526c7d-9fde-44d8-8f87-1486a94de37a" class="">
+</p><p id="022063b9-f88b-42ee-8eb5-7e8ecb273b58" class="">在K8S的管理节点(能够用admin账号访问的)上添加两个repo.</p><pre id="6aff391d-478b-4b57-8fcf-8271b9957e98" class="code code-wrap"><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo add kube-state-metrics https://kubernetes.github.io/kube-state-metrics
+helm repo update</code></pre><p id="804a7202-6e30-4f14-a9b0-7d68681f0953" class="">
+</p><p id="6b6ce62d-197a-42c9-8d18-9c3be4f3c962" class="">创建一个名为monitoring的namespace</p><pre id="102a05a7-310c-4f01-82a2-2ab2e930f076" class="code code-wrap"><code>kubectl create namespace monitoring</code></pre><p id="435e9028-239c-413e-ba6a-0ede6ee68ce2" class="">
+</p><p id="010c335d-f934-4cc2-8f2b-20053870852f" class="">部署Prometheus</p><pre id="06207142-f395-48c2-ad74-696d3870da7c" class="code code-wrap"><code>helm install kube-prometheus prometheus-community/prometheus -n monitoring</code></pre><p id="a48ac37b-60c3-449a-ae3f-cd7cf0c91fc7" class="">
+</p><p id="12381ba3-a729-44c9-ad32-4c580726ada6" class="">
+</p><p id="7cdd8b77-7172-47e7-aef6-462299cf9307" class="">
+</p></div></article></body></html>

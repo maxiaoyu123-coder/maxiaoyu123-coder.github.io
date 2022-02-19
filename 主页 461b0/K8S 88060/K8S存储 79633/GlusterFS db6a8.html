@@ -1,0 +1,923 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>GlusterFS</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="db6a8290-1e13-4fca-9527-e5a4d475628a" class="page sans"><header><img class="page-cover-image" src="GlusterFS%20db6a8/gluster2015-160505195645-thumbnail-4.jpg" style="object-position:center 48.89%"/><h1 class="page-title">GlusterFS</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 21, 2021 10:35 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><div id="9a2639f8-b43f-4f1c-aa7f-0f1fd86868f3" class="column-list"><div id="c82954d7-fe51-4fba-b9ea-2bc6b3db181f" style="width:12.5%" class="column"><p id="f02d7a9c-2930-4da4-a0ec-7ebcb4ebd0d2" class="">
+</p><p id="eeed24f7-fa1a-432f-9e85-caf35527f2d2" class="">这点与Ceph相似,可能也考虑到了元数据节点会是存储集群的瓶颈. </p><p id="c0040c4b-9035-4716-a843-c7a38cfb844b" class="">
+</p><p id="d2ce557f-c4c7-413b-98c1-c0b0204d9a30" class="">
+</p><p id="0ad0f170-f161-4ad6-b8cc-2ee57bd69a6b" class="">
+</p><p id="34a15aa4-cac8-4680-85f2-4ff52940bfa7" class="">
+</p><p id="fde30758-3bba-41df-a544-146adec28678" class="">第二点说的这个表,据视频得知, 它作为GFS挂载点目录的一个扩展属性存在, 客户端在进入GFS挂载点, 对该挂载点目录作Lookup时会获取到.</p><p id="629b1aaf-00da-408e-a654-a3094fa726e9" class="">
+</p><p id="d22a8cb6-2ad4-45a2-bbb4-1a3b0da7c4c6" class="">
+</p><p id="56d36f48-1dc4-4f59-8b52-44a7f34ae6a3" class="">
+</p><p id="4f0546e8-66f0-44f3-9111-e4c8f72e465e" class="">
+</p><p id="546a538a-3961-45a7-bcf6-126b9b2d6c11" class="">
+</p><p id="ec330fc7-44a9-4d3a-a3dc-7ea67b4414f8" class="">
+</p><p id="918ea8ec-09a3-4279-8b17-6e1df2cbe3cd" class="">
+</p><p id="7dc2003e-3f8d-4454-afa5-a1d3f882ee00" class="">
+</p><p id="9e457b96-dd43-4bc6-90fb-396b1dce3ed5" class="">
+</p><p id="e3fd2ed0-c90d-4ebd-bb51-a3d25c2bbe1f" class="">
+</p><p id="e05cdcef-1925-4d6e-b671-9f2c379898a6" class="">
+</p><p id="7a2bf691-b33d-48c0-ac42-a7a39e92604d" class="">
+</p><p id="6f5e61fc-6e68-4b78-b04e-12b2ab30ca76" class="">
+</p><p id="a30abaca-3766-41c1-9590-59262014ef5f" class="">
+</p><p id="d4d8bec6-9ed3-465e-88ec-7abd4860983b" class="">
+</p><p id="51e43985-752c-4dd4-9363-81a902129961" class="">
+</p><p id="0839d6b1-d79f-4f89-b6c4-be98338afd35" class="">
+</p><p id="ac193a24-d06f-41e1-a6f9-2daec551e926" class="">
+</p><p id="cb76c190-eb4c-41fe-b66e-b9f7bb03d3a6" class="">
+</p><p id="35fd738a-b8ea-4a55-97ad-93c9d7906350" class="">
+</p><p id="0e8b4a31-b377-46df-a8ad-e221d2023e20" class="">
+</p><p id="37f854d7-ac82-478b-b435-ec34dd7d8d0e" class="">
+</p><p id="4c48951c-55c3-4bbe-baa8-5717dbf2c8cc" class="">
+</p><p id="09630213-048f-41f5-b3e6-7991788c73e9" class="">
+</p><p id="66c3af92-cf65-4767-8dcd-7ef326d86f37" class="">
+</p><p id="e6b507cb-bc4a-4858-9628-bdf4b0d81213" class="">
+</p><p id="daf8a3ea-8b75-4df6-bf15-98276f811684" class="">
+</p><p id="075909c6-79bd-4814-a3cd-9af5bd1b4f58" class="">
+</p><p id="3010f927-2987-4bcf-8fc1-38e6dedbc18a" class="">
+</p><p id="86654b05-18ef-4951-b0e6-676858a7c3f0" class="">
+</p><p id="36f28d4b-d031-4e43-b36b-859f59cadcd7" class="">
+</p><p id="f10f9698-d305-434f-86cb-334cf3f8eaeb" class="">
+</p><p id="55b383b8-79d9-4be3-90a5-c0038477dfd6" class="">
+</p><p id="9e934d87-a318-4df7-ba14-bdb4835317f0" class="">
+</p><p id="9e334411-9005-468a-97a8-f3c9046aff8f" class="">
+</p><p id="0e8e3de9-dfff-414a-8d33-785d577b5663" class="">
+</p><p id="118e5408-e2dd-4550-9b8e-33231c0ca372" class="">
+</p><p id="24e5d8ac-5c93-4a7f-b757-ab04fa151bf7" class="">
+</p><p id="2e49d322-2b64-4e18-8cd0-1f2225b404d0" class="">
+</p><p id="4f361de8-e0e4-4856-b838-4da7e342462e" class="">
+</p><p id="ecbb84c5-a46d-4b54-8a9f-b56466a00193" class="">
+</p><p id="a42eac6f-1121-469f-87ca-64e72c300969" class="">
+</p><p id="a84c01d6-b352-4434-b7a7-6e6ddcc2a9ea" class="">
+</p><p id="8072c8ca-d525-421a-93eb-9be9a5c0e028" class="">
+</p><p id="347da50a-dc0a-4ec2-9331-9a0800ef662b" class="">
+</p><p id="4f1e578b-a981-438a-93a4-84c94cda33d7" class="">
+</p><p id="fd2cb815-2e76-41e3-9931-9ff0a13a49e9" class="">
+</p><p id="96d32e7b-2763-4567-b462-4a143994ca7c" class="">
+</p><p id="345dcc5c-df66-4b36-8e21-25d5f88fd233" class="">
+</p><p id="808003f2-a852-4422-8b98-a94b3456159d" class="">
+</p><p id="ad0dd73a-7d01-4fb9-994e-4637fd38f560" class="">
+</p><p id="ff357a62-d436-4459-b9b4-aefe8b9ea071" class="">
+</p><p id="6ae7a38c-0cd7-4ec0-9195-c58c674a2e1b" class="">
+</p><p id="61fd4ab5-6501-4e83-9386-a00a622870f8" class="">
+</p><p id="f47342ae-73b0-48c2-8acf-f82791c3eb53" class="">
+</p><p id="c8c13ea0-e320-4a35-a7d6-b56092837eba" class="">
+</p><p id="7b32865f-c120-4ce1-83c2-b28db2b88246" class="">
+</p><p id="9b8af1c7-32c7-493e-a6af-c807ded1e91b" class="">
+</p><p id="2ee37de3-cf1e-4497-b5f3-01fe55e48732" class="">
+</p><p id="1a5c29aa-822e-4066-9617-987c747cb05a" class="">
+</p><p id="cb2cbe12-8262-4764-83a6-9b376ed60eed" class="">
+</p><p id="1ffbdf3e-6b6e-43b7-9fd8-141c3d5acf45" class="">
+</p><p id="57666a4e-23aa-4f4a-a2c3-91519dcdc2a7" class="">
+</p><p id="23b89fe2-c3a0-4fbb-847a-8e74e89a314e" class="">
+</p><p id="c3187d88-a22f-4af2-bcc3-887ef3e8ba9d" class="">
+</p><p id="3cf58916-fd5a-4e41-9ce4-9d93766922dc" class="">
+</p><p id="ab3161c3-cd5d-4cdc-86be-e70e1ec52db8" class="">
+</p><p id="26c988ab-37f4-440e-b491-23060ca283a5" class="">
+</p><p id="bfe1b9bb-537a-48b7-876f-0b92379ff05a" class="">
+</p><p id="04e4e37c-e710-4b8c-9544-a86eeace587c" class="">
+</p><p id="d5bda153-30cf-4ec6-8fa4-7dd11a9d7a15" class="">
+</p><p id="adb10246-4a19-4afd-985c-4f49b8b2418c" class="">
+</p><p id="3b086c7a-3811-48d1-a4b7-6ff5c79a1253" class="">
+</p><p id="8f632200-d250-4015-83bb-60e811cd66ce" class="">
+</p><p id="05f49047-5ced-46df-be73-d65cd94e8d8a" class="">
+</p><p id="20ed2f71-8ad3-4961-aa46-bdb29edb87e6" class="">
+</p><p id="e79fc68e-1c93-444c-8ccc-c47bf545b307" class="">
+</p><p id="629590a9-392d-4bfb-88e5-c99828ea7a62" class="">
+</p><p id="2606f45d-08f6-4d7a-8a48-f98e6d077df9" class="">
+</p><p id="484b976d-0f8b-4958-89a9-452014b39b2d" class="">
+</p><p id="bf24e317-3c74-4f7a-a49c-f70a64f9fe2a" class="">
+</p><p id="7d251b04-d951-4054-888c-d337d5733cf4" class="">
+</p><p id="c567d910-15a9-449c-bf01-180bd079edcb" class="">
+</p><p id="1884cada-2d40-4f38-b350-c1985e6b3cb7" class="">
+</p><p id="572950cc-cf0e-40e8-8332-0e8e6b90ce52" class="">
+</p><p id="653e81a7-4093-4596-b1e5-230870ff6fbb" class="">
+</p><p id="737724f7-c80f-4eeb-89e6-9a9a49232505" class="">
+</p><p id="58e1437b-c0f0-41db-b7e8-128294479a36" class="">
+</p><p id="96fa3b75-8323-4667-87ce-bc8782a4ebbd" class="">
+</p><p id="0a254d73-6166-4160-8237-846f6dc5bdec" class="">
+</p><p id="8ab108e9-38c4-49df-b717-6110a2c196ad" class="">
+</p><p id="7443591e-6cf3-40d7-bf0e-4304cb048bd6" class="">
+</p><p id="3a05426d-ec0d-4b3d-923e-7067d85a0608" class="">
+</p><p id="a024080d-1d9f-4c36-9499-f1dba536e859" class="">
+</p><p id="d1be7238-bd9f-44b7-b077-8faf330f1fa6" class="">
+</p><p id="5ae5b23f-4ffb-49d1-be4d-4c42415797b0" class="">
+</p><p id="c3604ccd-f41a-47c7-be7b-065906ebc580" class="">
+</p><p id="c06fbd23-229e-4f9a-a395-1b78870d65ee" class="">
+</p><p id="a73ef505-a5e3-4c1d-a15f-f09699daaa84" class="">
+</p><p id="b9d69fde-f09e-4d69-9b28-012ab520fed6" class="">
+</p><p id="e387b8b9-7814-43ee-ada3-b736eb0b1c85" class="">
+</p><p id="306139ad-7575-4a37-8745-1422971b3012" class="">
+</p><p id="220adc4e-a21e-484f-b4b1-1d56a7e93f42" class="">
+</p><p id="d7c03a7a-cb8e-4db8-95e1-6ebfcac1bc22" class="">
+</p><p id="296b3504-c710-4f17-826f-4437bbd58206" class="">
+</p><p id="dea9896f-9d24-4bab-bab1-5ecdc1663615" class="">
+</p><p id="36c7e058-0796-46f5-87b3-d5da6d6953cb" class="">
+</p><p id="ef6aecf3-7c33-4ed5-a800-ce742290c89d" class="">
+</p><p id="e87c2ace-b000-44ab-a9c5-ab58298bed80" class="">
+</p><p id="ab61fb80-2123-46d8-924e-1da05582703e" class="">
+</p><p id="c9d8ace5-0965-4fb1-b9bd-b4c9efbc35bc" class="">
+</p><p id="6e23af02-9c57-4cbd-81f9-10de8789af35" class="">
+</p><p id="662d844e-2f2b-4eae-ab5d-66e372ce76b8" class="">
+</p><p id="6973c448-130e-449c-9d3b-3babae0b2a23" class="">
+</p><p id="0a76d5bd-8cae-454a-a72f-c2cdf8c3e97b" class="">
+</p><p id="67bd1a15-6871-43a0-89de-662139a26b2c" class="">
+</p><p id="d0a95ed4-1c7a-4503-8715-f8dc4e315cbd" class="">
+</p><p id="917c92d2-b69c-4915-91e9-9c2af6c76297" class="">
+</p><p id="26ff2013-d7da-44a7-a755-4af3e70df7ad" class="">
+</p><p id="9ec11918-2fbd-47d0-9f33-18d448d7938c" class="">
+</p><p id="f790c0c5-2a28-40c6-a434-9bb27e2f6f3e" class="">
+</p><p id="79a7d682-ad6c-4a37-9c7d-4843c3c33848" class="">
+</p><p id="8c9a4bc5-7d22-4d98-bfdf-ba35ce334bae" class="">
+</p><p id="68061174-7c75-47d8-ba8c-5b36071a8d8c" class="">
+</p><p id="95c7150a-9680-4c6c-a094-51656421ae32" class="">
+</p><p id="2b60b7f6-9b83-4d0c-b231-2d019ba7e0aa" class="">
+</p><p id="79940653-f1e7-4977-9136-5cf96f3f54e4" class="">
+</p><p id="b103b80c-984b-4565-b6b0-23f8d0249047" class="">
+</p><p id="0d260ee0-1079-485f-ae47-1031f1e5e78c" class="">
+</p><p id="171c0096-0a57-4593-b0e5-9b8624b0c079" class="">
+</p><p id="f0afab6e-165e-4e71-bf8e-198ea2f06b0b" class="">
+</p><p id="6527a1a3-3ab1-468e-85f1-c59e22c692ab" class="">
+</p><p id="03d7fb51-2b71-430c-bd81-f09426546475" class="">
+</p><p id="d6f29cb8-b101-4850-b353-bc2e362895f6" class="">
+</p><p id="45d31078-ea24-4675-9bd5-aaf59b9e99b9" class="">
+</p><p id="c6defff1-e879-431c-af3d-0e2bc907dc89" class="">
+</p><p id="3daab041-82bd-49fc-9ac5-e0649c98653b" class="">
+</p><p id="4df6a3e4-ea07-4e6d-8f1b-513a7b52952f" class="">
+</p><p id="31f418a9-35f5-418a-918f-41750a2f01c0" class="">
+</p><p id="e327790a-a89b-4561-96c6-5ccb8fbf9d30" class="">
+</p><p id="967dd5ae-d629-4e06-af47-09d8d2db1005" class="">
+</p><p id="524da7ba-d3cc-4224-971f-f71caa2595bb" class="">
+</p><p id="fdec6a66-61db-4f00-b123-99356ae7f962" class="">
+</p><p id="057aa106-a0ee-4927-94fa-be30c8349dce" class="">
+</p><p id="e121d2c0-3a87-4243-89c4-f34ff215dbf0" class="">
+</p><p id="e27eb452-5ef5-4ab7-b072-740c60e74409" class="">
+</p><p id="bface913-fc68-4615-887b-353ae0098c6f" class="">
+</p><p id="bec49162-480e-4da9-90de-18076ac2c65f" class="">
+</p><p id="a035c591-c732-401e-bcab-79ef3378d42b" class="">
+</p><p id="5a100e97-cee9-4aa4-b6bf-b3051ccd603b" class="">
+</p><p id="3bbb000c-8fb2-41f8-a406-53868f3a9c63" class="">
+</p><p id="e85a3b14-9fc6-48a8-a8b3-914448249d95" class="">
+</p><p id="f83c9a37-3d6c-4451-ae40-c7a837c3c7b0" class="">
+</p><p id="c75775f4-47f2-456f-8678-85fbce501e9f" class="">DHT信息保存在目录的扩展属性中.新增brick后,老目录的DHT不变, 而新目录采用新的DHT,执行重分配后所有目录都使用新的DHT.</p><p id="9d01c0af-05a6-4b9f-913f-7129a2bd7281" class="">
+</p><p id="271d417e-4af8-4fbd-84ae-07f4a7a18bac" class="">
+</p><p id="1039950c-29c7-4752-bc55-efcae58e0a02" class="">
+</p><p id="2fc0b997-8b78-4ae1-88d1-9f86728f1f58" class="">
+</p><p id="5945504e-98fe-485e-9729-05c3b396e444" class="">
+</p><p id="056ae8ce-d25e-42e2-afa2-ecb420645352" class="">
+</p><p id="cc5a9f87-a43d-461d-87a7-66bb8daaee55" class="">
+</p><p id="29d21c68-f571-4a50-980c-c8b83c9c4dcf" class="">
+</p><p id="0219aba1-0dbf-4b89-8bda-3e14870e49db" class="">
+</p><p id="b1bb2563-18e9-40ec-a67b-2139be2f2afa" class="">
+</p><p id="10f31b03-3064-46f5-8f95-a5d3d19bbf49" class="">
+</p><p id="b854be1e-7f7a-4ffc-a0c4-d00ef68ee435" class="">
+</p><p id="6ee90331-5397-4444-85d9-041d404486a6" class="">
+</p><p id="78629789-cb70-4061-930b-f0eacf566293" class="">
+</p><p id="e6416468-1afc-4fe5-abcb-1d7f2d0250ef" class="">
+</p><p id="31e624ab-e2fb-4559-9d04-22192b1f3e3a" class="">
+</p><p id="8686dfab-3636-4172-9eb1-6db69eaf7d75" class="">
+</p><p id="bc46f033-39b8-4d97-9d70-04554f620d5f" class="">
+</p><p id="385fef0f-42e0-43c7-a737-d6c049da7669" class="">
+</p><p id="8f82c0fc-1c01-48d1-9d87-a0479b5ae657" class="">
+</p><p id="29e8df12-c1ae-4e14-a2b8-343b4e0a76d5" class="">
+</p><p id="cf603c26-98c4-4028-bfae-cef9e274e843" class="">
+</p><p id="ea5b9829-d4e8-4947-bf11-d9d975c96064" class="">
+</p><p id="baa22042-3c63-4991-b384-62b7c8bd297b" class="">
+</p><p id="cb5b46d4-a5c4-4ccf-b30f-3ba4c18781f6" class="">
+</p><p id="e3c6fcae-901c-4351-aa23-01c10a63360a" class="">
+</p><p id="b4294f98-5024-41ed-ad13-3ac268ff71b3" class="">
+</p><p id="b64827a1-f15c-4dc1-a759-61561519fcba" class="">
+</p><p id="233e766c-c258-4f09-a13e-bfa5efd42f08" class="">
+</p><p id="b3f4565b-dec2-434c-b1d3-316716453edd" class="">
+</p><p id="18efb813-7f3a-482d-b341-5c2d833f0a9a" class="">
+</p><p id="524932de-aa1b-41ae-86e6-f123bb560d44" class="">
+</p><p id="0725fff9-b1ed-4066-9c05-89ca6b5fb1a2" class="">
+</p><p id="02d6c7d4-951a-41cf-8bbc-f95a9fa3f992" class="">
+</p><p id="c03e588e-1d12-40b3-a208-08635fa8d6e1" class="">
+</p><p id="3cefc5f5-44cd-4d10-a68b-562f74d6576c" class="">
+</p><p id="4f805f50-ce85-465c-bd27-932aeaf3bbf2" class="">
+</p><p id="5748bc4e-1690-4f81-ab58-ffd8c2b6a72f" class="">
+</p><p id="fbc721fc-cd92-4c09-86f1-638e5f0d12a6" class="">
+</p><p id="317ce34d-6418-47c3-9222-1d3101527efd" class="">
+</p><p id="b46220b7-1e68-4deb-9f46-5a47feba9743" class="">
+</p><p id="c996bc3f-14b4-48c7-9247-ad268e186b38" class="">
+</p><p id="0886266d-3000-4737-a397-f3642770005f" class="">
+</p></div><div id="5ead5c19-f50a-448f-af0a-24c841e5d6b0" style="width:87.5%" class="column"><figure id="bd372a1d-d52e-432d-bc63-59baf650834e"><a href="https://docs.gluster.org/en/latest/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Gluster Docs</div><div class="bookmark-description">GlusterFS is a scalable network filesystem suitable for data-intensive tasks such as cloud storage and media streaming. GlusterFS is free and open source software and can utilize common off-the-shelf hardware. To learn more, please see the Gluster project home page.</div></div><div class="bookmark-href"><img src="https://docs.gluster.org/en/latest/assets/images/favicon.png" class="icon bookmark-icon"/>https://docs.gluster.org/en/latest/</div></div></a></figure><h2 id="919014a2-5304-4ebc-b011-b106cc631c4d" class="">介绍</h2><p id="5674ca01-afc7-4200-91b0-d301074277f0" class="">GlusterFS是免费开源的分布式存储软件, 它可以提供网络文件系统, 利用几台普通服务器就能够部署一套存储集群, 具有高性能, 高可用, 可扩展的特点.</p><p id="2c611de8-328a-4556-b7fc-c92abc04d879" class="">brick, 逻辑单位, 可以是一个磁盘或一个LUN或一个目录.</p><p id="14fce583-3371-44b3-8388-03b3815409bd" class="">
+</p><h2 id="7314af8f-66e6-4294-8139-cbdca9615fa6" class="">弹性Hash算法</h2><p id="88e01b8a-ee4d-49bd-8b93-4bddc0082333" class="">GFS没有元数据节点,读写之前客户端依靠算法确定在哪个brick上(即集群节点上的磁盘)执行读写操作, 算法叫做Davies-Meyer, 是一种一致性Hash算法. 客户端每次在GFS文件系统中读和写文件前, 都要做一次计算以完成定位, 计算过程如下:</p><figure id="903b8afe-e994-48a4-bc7d-c34656e3f1d5" class="image"><a href="GlusterFS%20db6a8/Untitled.png"><img style="width:576px" src="GlusterFS%20db6a8/Untitled.png"/></a></figure><ol type="1" id="a5575f15-baa0-4c22-b459-4120f636c73c" class="numbered-list" start="1"><li> 将文件名, 不包含后缀, 带入算法, 得出32为的Hash值.</li></ol><ol type="1" id="a870973d-65e3-40c3-b908-6bd34db3d0c9" class="numbered-list" start="2"><li>客户端此前会得到一张表: 卷与Hash范围的关系表DHT. 根据此表, Hash值将映射到某节点的brick上, 就此完成定位.</li></ol><ol type="1" id="f8c4556a-2260-4223-8df4-57239445bac8" class="numbered-list" start="3"><li>定位完成后, 客户端在节点的brick目录中寻找文件.</li></ol><figure id="2d15cf21-c2be-4422-aa49-1c06faae1807" class="image"><a href="GlusterFS%20db6a8/Untitled%201.png"><img style="width:768px" src="GlusterFS%20db6a8/Untitled%201.png"/></a></figure><hr id="f0347a03-918d-4d26-8fd4-36f2c461451a"/><h2 id="d30e22f9-a1bc-4e7b-8109-ffbed7d15325" class="">卷类型</h2><h3 id="587d4654-483a-4410-b8aa-da4bb79af145" class="">哈希卷</h3><p id="e3cac7dd-258e-4839-9c31-65d97ce9f1b9" class="">一个文件只存在于一个brick(磁盘上), 磁盘损坏文件丢失, 生产环境不适用.</p><figure id="a6d18a0b-4fd4-45cd-acb3-8134e1388b84" class="image"><a href="GlusterFS%20db6a8/Untitled%202.png"><img style="width:288px" src="GlusterFS%20db6a8/Untitled%202.png"/></a></figure><h3 id="404a8783-03f2-4401-842e-759baddc859c" class="">复制卷</h3><p id="79f3afbb-814e-45be-95ca-ff54bad8ad4b" class="">文件同步地复制到多个brick上.存储率与性能按副本数呈反比下降. 至少跨主机作副本.</p><figure id="fe4c088e-2c7d-4cdb-894a-da3348d5546d" class="image"><a href="GlusterFS%20db6a8/Untitled%203.png"><img style="width:336px" src="GlusterFS%20db6a8/Untitled%203.png"/></a></figure><h3 id="e2d006d3-9e03-4b60-ba65-d598910ef762" class="">混合卷</h3><p id="0d645830-9ad7-4e63-9515-2720316e6ef8" class="">哈希加复制, 先组成大的哈希卷, 每个哈希卷再划分复制卷. 用的比较多.</p><figure id="3a60b68e-00db-4fd2-bcaf-1d04c611f733" class="image"><a href="GlusterFS%20db6a8/Untitled%204.png"><img style="width:384px" src="GlusterFS%20db6a8/Untitled%204.png"/></a></figure><hr id="18a550b5-faa5-4cc8-b2f6-0c85a67ceca3"/><h2 id="806aa9d8-0056-4a2e-a6d9-726262d8b685" class="">接口</h2><figure id="6a686fa6-86d1-45dc-8b07-c8b3b29d515c" class="image"><a href="GlusterFS%20db6a8/Untitled%205.png"><img style="width:528px" src="GlusterFS%20db6a8/Untitled%205.png"/></a></figure><h3 id="235e18e5-e724-447f-9e63-06c3e4fa8618" class="">Fuse接口</h3><p id="74e644ad-e585-4bc9-86d6-66f27d10f0a3" class="">通过Fuse访问Gluster提供的文件系统, 通过Fuse也能访问CephFS提供的文件系统.</p><p id="7bc7fc34-ead9-4f70-b5cb-93d4aed4a90d" class="">Fuse是POSIX接口.</p><figure id="ffb5f7ed-d3ca-49ea-bbaa-6e1a127c2ea9" class="image"><a href="GlusterFS%20db6a8/Untitled%206.png"><img style="width:384px" src="GlusterFS%20db6a8/Untitled%206.png"/></a></figure><p id="d4ea8cba-9892-4373-b631-8f7480e351a2" class="">
+</p><figure id="1e22c051-11b4-4313-b1a1-0c8765139495" class="image"><a href="GlusterFS%20db6a8/Untitled%207.png"><img style="width:384px" src="GlusterFS%20db6a8/Untitled%207.png"/></a></figure><h3 id="faa37a2f-513e-44c0-8203-4c2c5a19598d" class="">NFS接口</h3><figure id="607514df-f90c-4739-ae0c-51ae969a9919" class="image"><a href="GlusterFS%20db6a8/Untitled%208.png"><img style="width:576px" src="GlusterFS%20db6a8/Untitled%208.png"/></a></figure><h3 id="77a1c6f3-a006-417c-9352-4eb98221a9f2" class="">SMB接口</h3><h3 id="c20585eb-0bfc-4fc1-b6d4-8b296f5f4be4" class="">qemu接口</h3><p id="513d0ee7-2b07-4621-b453-2ae9b3928d3e" class="">KVM的qemu接口, KVM虚拟机的设备, 比如磁盘, 是靠qemu模拟出来的, qemu为Gluster做了原生的驱动,通过qemu可以将Gluster提供的存储空间虚拟成块设备.</p><h3 id="36094c85-d422-44b1-9cb5-f9f73b818e8c" class="">Cinder接口</h3><p id="4dcb991e-c83a-4142-9fca-992610b0896c" class="">Openstack通过Cinder,将Gluster提供的存储空间以块设备的形式提供给它的虚机使用.</p><hr id="6ee2ecab-2341-45ad-a4fb-8dd067f2c53b"/><h1 id="225ef0ee-b7b5-471e-b046-bb4fa23bce39" class="">自动修复</h1><p id="9557ea46-da67-41ce-9863-da607ee9b89d" class="">当用户访问目录时, GFS检查到文件不一致, 先进行数据修复即把好文件同步给坏文件, 然后再提供给用户.</p><figure id="e91468a4-a8aa-45f8-a8eb-63b666d07407" class="image"><a href="GlusterFS%20db6a8/Untitled%209.png"><img style="width:672px" src="GlusterFS%20db6a8/Untitled%209.png"/></a></figure><hr id="d31e2f78-e61b-4dd9-8c1b-84fbf096bfc4"/><h1 id="b3dff6bd-7625-418d-a4c5-aa94508bcf4a" class="">弹性哈希</h1><p id="49d30765-ad39-4bf7-82b1-5847a2a58dfb" class="">DHT即目标哈希与brick(集群节点上的磁盘)之间的映射表, 但是DHT无法在brick增减时做到更好, 所以GFS在其基础之上增加了弹性的特性.</p><figure id="238555dd-2ef6-498f-b5ce-12e5ce0c1496" class="image"><a href="GlusterFS%20db6a8/Untitled%2010.png"><img style="width:336px" src="GlusterFS%20db6a8/Untitled%2010.png"/></a></figure><p id="43b570e8-2243-479e-a529-9d64a423c7bf" class="">弹性特性体现在以下: </p><ul id="9fa1453c-696b-4554-984e-bd43dd238ece" class="bulleted-list"><li style="list-style-type:disc">当增加一个新brick后, 分布于各老brick上的已有的目录中文件不动, 而新创建目录则按新的DHT(即含新brick在内的)进行放置. 因为新加入brick引起的重平衡会造成集群性能下降, 势必影响客户端IO性能. 管理员可以在GFS集群空闲时手动进行重平衡.<figure id="c0bf8a7d-ab61-4fb4-97a5-41607668aaa4" class="image"><a href="GlusterFS%20db6a8/Untitled%2011.png"><img style="width:384px" src="GlusterFS%20db6a8/Untitled%2011.png"/></a></figure></li></ul><ul id="6cadeef9-a9d4-4867-8fbf-ca64cbbc5e94" class="bulleted-list"><li style="list-style-type:disc">文件更名后, FileA变成FileB导致新文件名由映射到原来的A变成映射到B,如立即实时迁移文件, 比如是大文件,可能会造成集群性能下降,所以文件不动, 在B上创建一个名为FileB的链接文件, 链接到A上名为FileA的实质文件. <figure id="1de7eb87-fef8-4629-8c1a-7719ec0d58ee" class="image"><a href="GlusterFS%20db6a8/Untitled%2012.png"><img style="width:384px" src="GlusterFS%20db6a8/Untitled%2012.png"/></a></figure></li></ul><ul id="67e8a6a1-e5d7-401f-b0fe-039c3173b1f0" class="bulleted-list"><li style="list-style-type:disc">虽然按DHT算法文件数量会平均分布于各Brick上, 但是文件大小不一会造成brick承载的数据量不一样. 比如Brick2超过阈值, Brick2采用符号链接的方式, 将新文件放到更加空闲的Brick1上. <figure id="74d8d26b-f7a6-4bb8-b11f-ef785c636f84" class="image"><a href="GlusterFS%20db6a8/Untitled%2013.png"><img style="width:384px" src="GlusterFS%20db6a8/Untitled%2013.png"/></a></figure></li></ul><p id="848a793d-64a5-4718-a8cc-1a115e881d97" class="">重分配<div class="indented"><figure id="acf39e09-0134-4429-b28f-3c0749e8ddb9" class="image"><a href="GlusterFS%20db6a8/Untitled%2014.png"><img style="width:288px" src="GlusterFS%20db6a8/Untitled%2014.png"/></a></figure></div></p><hr id="a387a38d-cbb9-4822-bbd6-f8253765a5d7"/><h1 id="a02069ba-95fe-44ec-b1c9-05353a97b088" class="">部署</h1><p id="e7507f0c-dbe6-45c5-bc09-9f45ec581e5e" class="">双网卡, 2块磁盘作brick(其中一块作复制). 目前稳定版本是3.6</p><p id="c1bc35c4-34e3-4c51-b482-1c7089db8215" class="">官网下载链接: <a href="https://bits.gluster.org/pub/gluster/glusterfs/3.4.2/x86_64/">https://bits.gluster.org/pub/gluster/glusterfs/3.4.2/x86_64/</a></p><div id="b90c886f-cc47-4961-9fee-7063acca4767" class="collection-content"><h4 class="collection-title">节点信息</h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>节点</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>管理地址</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>私有地址</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>磁盘</th></tr></thead><tbody><tr id="174f3f19-33d2-4c5a-bf84-d244d177bece"><td class="cell-title"><a href="GlusterFS%20db6a8/%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF%20b90c8/glusterfs-%20174f3.html">glusterfs-node01</a></td><td class="cell-o{[P">192.168.31.30</td><td class="cell-__A`">172.16.30.1</td><td class="cell-t_A?">三块</td></tr><tr id="6449ca7a-a6cd-4ba3-92a5-cb47ce7c25c6"><td class="cell-title"><a href="GlusterFS%20db6a8/%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF%20b90c8/glusterfs-%206449c.html">glusterfs-node02</a></td><td class="cell-o{[P">192.168.31.31</td><td class="cell-__A`">172.16.30.2</td><td class="cell-t_A?">三块</td></tr><tr id="ddbe6e4b-46af-4985-bf3b-edef2ef1616e"><td class="cell-title"><a href="GlusterFS%20db6a8/%E8%8A%82%E7%82%B9%E4%BF%A1%E6%81%AF%20b90c8/glusterfs-%20ddbe6.html">glusterfs-node03</a></td><td class="cell-o{[P">192.168.31.32</td><td class="cell-__A`">172.16.30.3</td><td class="cell-t_A?">三块</td></tr></tbody></table></div><p id="3f6c2d5a-5e67-4ab5-9a65-6fcde24bc0ca" class="">
+</p><h3 id="9c0b5d14-9608-42b7-a82f-9a1c04ebbabb" class="">环境要求</h3><pre id="6420e821-ef2b-486e-985d-1c69ac7228a9" class="code"><code>#主机名配置
+cat &gt;&gt;/etc/hosts &lt;&lt;EOF
+192.168.31.30 glusterfs-node01
+192.168.31.31 glusterfs-node02
+192.168.31.32 glusterfs-node03
+EOF
+
+#时间同步设置
+systemctl enable --now chronyd
+
+#关闭防火墙和selinux</code></pre><h3 id="b1bd3f0d-046c-4505-8001-5e17ed5852a0" class="">在节点安装glusterfs-server</h3><pre id="080c9cb1-635a-4709-8414-8fb201a3fe49" class="code"><code>yum install -y centos-release-gluster
+yum install -y gluster-server</code></pre><h3 id="9fb38015-731d-4ccc-ace1-1bcd9cc0d4cc" class="">磁盘配置</h3><p id="208f53c2-9efb-4643-ad71-01ad2bd2319b" class="">在所有节点上执行.</p><pre id="9a6135b6-8c6d-4a90-a29c-17e1a89c8b57" class="code"><code>mkdir /brick1
+mkfs.xfs -L /brick1 /dev/sdb
+cat &gt;&gt;/etc/fstab &lt;&lt;EOF
+LABEL=/brick1 /brick1  xfs      defaults        1 1
+EOF
+mount -a
+systemctl enable --now glusterd</code></pre><h3 id="8234d957-1749-44ac-8a70-ef020613d81d" class="">创建受信任池|存储集群</h3><p id="7a4301b0-1202-4112-b832-be0aa05e1fb4" class="">受信任池就是GlusterFS集群, 在节点一上执行下面的操作, 添加其他节点, 集群就搭建好了.</p><pre id="1c2a3ecf-f3d8-4f1b-a2f1-cfbf990c5f4f" class="code"><code>[root@glusterfs-node01 ~]# gluster peer probe glusterfs-node02
+peer probe: success
+[root@glusterfs-node01 ~]# gluster peer probe glusterfs-node03
+peer probe: success</code></pre><p id="805170be-d8fe-4f1f-a66b-5971d28d2d16" class="">检查节点状态</p><pre id="1c0ff5c1-1d45-4f84-8104-cf7c1d8a40e4" class="code"><code>[root@glusterfs-node01 ~]# gluster peer status
+Number of Peers: 2
+
+Hostname: glusterfs-node02
+Uuid: 6b79d3af-8820-4e64-b3bb-1817eefb91df
+State: Peer in Cluster (Connected)
+
+Hostname: glusterfs-node03
+Uuid: c76cbfdb-34e6-4726-bd0f-7f41a15f638a
+State: Peer in Cluster (Connected)</code></pre><h3 id="49ad3dd2-6bf8-40d1-9815-4086c9139dc5" class="">创建一个哈希卷</h3><p id="714ba8e6-1242-456f-9177-946e541d6469" class="">创建卷. gluster volume create &lt;卷名称&gt; &lt;节点名称&gt;:/&lt;brick名称&gt;/&lt;目录名称&gt;</p><pre id="5324eb5a-899e-4fce-bc1c-1842d686744f" class="code"><code>gluster volume create project1 glusterfs-node01:/cephfs/project1 glusterfs-node02:/cephfs/project1 glusterfs-node03:/cephfs/project1
+</code></pre><p id="5f72e21f-9ba1-4ff2-a0fc-729db352bcf8" class="">启动卷. gluster volume start &lt;卷名称&gt;</p><pre id="9344cc22-029a-4c5b-87d4-32b1b0684476" class="code"><code>[root@glusterfs-node01 ~]# gluster volume start project1</code></pre><p id="a6bedaa1-1c43-4658-927f-18b733de40e3" class="">查看卷的状态. gluster volume info &lt;卷名称&gt;</p><pre id="75803373-c732-4a77-af93-3e8a66f5ea29" class="code"><code>[root@glusterfs-node01 ~]# gluster volume info project1</code></pre><p id="eb26f726-6100-473d-8901-f0a2eeb80086" class="">在客户端作挂载测试</p><pre id="baed1ccc-6446-4e06-b3f1-6dd7d8efd0be" class="code"><code>#设置集群节点主机名
+[root@localhost ~]# cat &gt;&gt;/etc/hosts &lt;&lt;EOF
+192.168.31.30 glusterfs-node01
+192.168.31.31 glusterfs-node02
+192.168.31.32 glusterfs-node03
+EOF
+#安装客户端软件
+[root@localhost ~]# yum install -y centos-release-gluster
+[root@localhost ~]# yum install -y glusterfs-fuse
+</code></pre><p id="4cf80eb4-79a3-4d82-9e31-53ad1de512ca" class="">挂载, 格式: mount -t glusterfs &lt;任意节点主机名&gt;:/&lt;卷名&gt; /mnt</p><pre id="2fdb1a7f-9acb-4b8a-a9e2-1da897e0804e" class="code"><code>[root@localhost ~]# mount -t glusterfs glusterfs-node01:/project1 /mnt</code></pre><h3 id="60bf37e3-dfbb-414a-88b0-a55f90affba7" class="">创建一个复制卷</h3><p id="8aaa04f7-9628-4875-b697-66fd84367d02" class="">创建一个包含2个副本的复制卷, 任意2个节点损坏, 卷中数据都是安全的, 一个卷需要有三个副本, 避免脑裂, 下面示例就有三个副本.</p><pre id="a5d26f42-f77f-48d9-93b0-e67f02044b41" class="code"><code>[root@glusterfs-node01 ~]# gluster volume create project2 replica 3 glusterfs-node01:/cephfs/project2 glusterfs-node02:/cephfs/project2 glusterfs-node03:/cephfs/project2
+```</code></pre><p id="86754d7b-6fa0-457f-b8d6-c81f3907b1e0" class="">启动</p><pre id="ec5b17e5-8533-42ee-be56-854aaebf5d59" class="code"><code>[root@glusterfs-node01 ~]# gluster volume start project2</code></pre><p id="1de18592-fd37-49e0-9497-c1e81ffd50dc" class="">查看状态</p><pre id="a9cb1b18-f2c9-4bd9-a7cc-3483e3a3e6e5" class="code"><code>[root@glusterfs-node01 ~]# gluster volume info project2</code></pre><p id="f8d7c8e4-1b3e-4acf-aabb-dfb0284dcb4f" class="">在客户端挂载测试, 写入一个文件, 然后观察各节点上的brick中都有123.txt文件.</p><pre id="804ffcd8-ee42-4334-a086-e8a9a63a2ba6" class="code"><code>[root@localhost /]# mount -t glusterfs glusterfs-node02:/volume02 /mnt
+[root@localhost /]# echo 123 &gt;/mnt/123.txt</code></pre><figure id="a6391721-b1bd-4282-a303-cf9f79610f5a" class="image"><a href="GlusterFS%20db6a8/Untitled%2015.png"><img style="width:336px" src="GlusterFS%20db6a8/Untitled%2015.png"/></a></figure><h1 id="9bad3dc2-fadf-40c0-8404-4d48dddfcbc8" class="">管理命令</h1><h3 id="b45fb869-ef2b-4a72-bdc6-bc3f3871d53c" class="">节点的增加,删除</h3><pre id="df73ad36-6588-4353-a4c4-f045da802b1e" class="code"><code>gluster peer probe &lt;节点&gt;
+gluster peer detach &lt;节点&gt;
+gluster peer status</code></pre><h3 id="5a242fb3-3fb1-4c1e-9210-151f8b8eba97" class="">brick的添加,删除</h3><pre id="29b1fe57-f9c8-4f2b-800e-cfb523d1ffc2" class="code"><code>gluster volume remove-brick testvol glusterfs-node02:/brick1/b2 glusterfs-node03:/brick1/b3</code></pre><h3 id="af56dd6c-1a63-4552-bba5-4a6f40fc6832" class="">卷的扩展</h3><p id="d95043f1-1002-4bea-8476-a56ea09dd61b" class="">gluster volume add-brick &lt;卷名&gt; &lt;节点名&gt;:&lt;brick目录&gt;</p><p id="63411bdf-3fb4-4f95-b633-0dacc5bafabf" class="">当节点上的brick加入到卷中, 加完后, 在客户端观察到卷的容量增加了.</p><pre id="75c0a813-0fac-4c8e-9f5b-12f0768eaf51" class="code"><code>[root@glusterfs-node01 ~]# gluster volume add-brick testvol glusterfs-node02:/brick1/b2 glusterfs-node03:/brick1/b3
+
+[root@glusterfs-node01 ~]# gluster volume info testvol</code></pre><h3 id="7303177f-fae1-4bcb-ae8a-c2451142d2ea" class="">卷的重平衡</h3><p id="1337928a-076c-4d1a-8dd4-653e20eec90d" class="">格式: volume rebalance &lt;卷名&gt; [fix-layout] {start|stop|status} [force]</p><p id="8e6c9cb2-5f6e-4c69-b409-fbd8c2cf476b" class="">对卷作重平衡, 开始重平衡后, 使用status查看重平衡的执行进度.</p><pre id="681dfa3f-d112-4037-820a-6a12cbb81bbf" class="code"><code>[root@glusterfs-node01 ~]# gluster volume rebalance testvol start
+[root@glusterfs-node01 ~]# gluster volume rebalance testvol status
+                                    Node Rebalanced-files          size       scanned      failures       skipped               status  run time in h:m:s
+                               ---------      -----------   -----------   -----------   -----------   -----------         ------------     --------------
+                        glusterfs-node02                0        0Bytes             0             0             0            completed        0:00:00
+                        glusterfs-node03                0        0Bytes             0             0             0            completed        0:00:00
+                               localhost                1        4Bytes             1             0             0            completed        0:00:00
+volume rebalance: testvol: success</code></pre><p id="f719c1a3-3613-4501-85d2-bf1bde7046ad" class="">对卷只做Hash的重分布, 比如说, 新增了一个brick,但是目前不宜作重平衡, 所以只对卷所对应的目录的DHT表作更新, 这样当有新文件创建时, 新brick就能参与了, 然后等到GlusterFS不繁忙的时候再做重平衡.</p><pre id="d57517cf-7883-4a19-96fb-bef85e46e961" class="code"><code>[root@glusterfs-node01 ~]# gluster volume rebalance testvol fix-layout start
+[root@glusterfs-node01 ~]# gluster volume rebalance testvol status
+                               Node                                    status           run time in h:m:s
+                          ---------                               -----------                ------------
+                   glusterfs-node02                               fix-layout completed        0:0:0
+                   glusterfs-node03                               fix-layout completed        0:0:0
+                          localhost                               fix-layout completed        0:0:0
+volume rebalance: testvol: success
+</code></pre><h3 id="93e78230-1e75-4011-b4f9-d2e1730d9bb1" class="">删除卷信息同步</h3><figure id="000ec99f-265a-47ab-8a17-cb5f593e1b87" class="image"><a href="GlusterFS%20db6a8/Untitled%2016.png"><img style="width:240px" src="GlusterFS%20db6a8/Untitled%2016.png"/></a></figure><figure id="8896fdbf-553e-499e-9345-223fabb21501" class="image"><a href="GlusterFS%20db6a8/Untitled%2017.png"><img style="width:480px" src="GlusterFS%20db6a8/Untitled%2017.png"/></a></figure><h3 id="978a9a91-7aaa-4583-b5dd-8c4f362c17c2" class="">卷的访问控制</h3><p id="529f5d9a-ab6f-4d5f-b2ce-d268036b3f12" class="">可以设置哪些地址的主机可以挂载卷, 下面示例将只允许192.168.1.254主机挂载volume02卷.</p><pre id="457f28ca-e8c8-4750-aea7-c8c286c1c0ae" class="code"><code>[root@glusterfs-node01 ~]# gluster volume set volume02 auth.reject *
+[root@glusterfs-node01 ~]# gluster volume set volume02 auth.allow 192.168.1.254</code></pre><h3 id="17afeed3-d463-443e-9c94-ff6ace2f2a6e" class="">优化</h3><p id="5bef49c5-ac86-4f66-b40b-470f040cd969" class="">
+</p><figure id="8dfdb20f-e2a9-4fa8-9c42-250f6cf88ab0" class="image"><a href="GlusterFS%20db6a8/Untitled%2018.png"><img style="width:480px" src="GlusterFS%20db6a8/Untitled%2018.png"/></a></figure><h3 id="8b99995f-c474-47bc-bfc9-ba6352d7cebf" class="">网络性能测试</h3><p id="2782a399-f8fa-4af5-88b7-af2b67a237d2" class="">iperf -s 和iperf -c</p><h3 id="23526b78-0dab-4bfd-aee6-2da744bbf8e1" class="">卷检查命令</h3><figure id="1b987e1b-fde2-4e57-88ef-a8353e799b51" class="image"><a href="GlusterFS%20db6a8/Untitled%2019.png"><img style="width:288px" src="GlusterFS%20db6a8/Untitled%2019.png"/></a></figure></div></div></div></article></body></html>

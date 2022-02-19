@@ -1,0 +1,695 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>环境变量/构建参数/及其他变量</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f2993883-6143-4542-87f9-e24197ee99c4" class="page sans"><header><h1 class="page-title">环境变量/构建参数/及其他变量</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@September 11, 2021 7:34 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>tag</th><td></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><h1 id="d66a8c7a-aa96-4add-b100-b349caaf9d90" class="">环境变量</h1><ul id="cad95fc7-7ba0-49a2-ae3a-bf8c65bb3a39" class="bulleted-list"><li style="list-style-type:disc">分为JENKINS内置环境变量和自定义环境变量</li></ul><ul id="388bebba-f593-4267-a1c7-4abbe2d0a253" class="bulleted-list"><li style="list-style-type:disc">JENKINS内置环境变量: 可以被看作是<strong>pipeline与Jenkins交互的媒介</strong>。<p id="6b8ae848-1326-402d-8faf-0c2c618d96c8" class="">比如，可以在pipeline中通过BUILD_NUMBER变量知道构建任务的当前构建次数。</p></li></ul><ul id="1352951b-02ce-4faa-8535-50aaa86ad05c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">自定义的环境变量与普通变量有什么区别？</mark><ul id="32ded262-fb5a-4161-a7f8-314bc2a0c6ea" class="bulleted-list"><li style="list-style-type:circle">在申明式脚本中, 自定义环境变量定义在environment{}; 而普通变量定义在script块中如<code>script{ def 变量名=值 }</code></li></ul><ul id="6a059354-6915-47bf-bf07-278389ae54f1" class="bulleted-list"><li style="list-style-type:circle">自定义环境变量的作用域可以是pipeline范围和stage范围; 而普通变量的作用域是pipeline范围</li></ul><ul id="33cca0d7-0108-466a-841d-cd358ab6c045" class="bulleted-list"><li style="list-style-type:circle">可以将pipeline正确运行所需的环境变量统一定义在environment{}中,比如: sonarqube/gitlab/nexus地址, 凭证等; </li></ul></li></ul><ul id="9f05e19e-6f22-4217-9813-c5b4db70ca1a" class="bulleted-list"><li style="list-style-type:disc">查看所有内置环境变量的值：<code>sh &quot;printenv | sort&quot;</code> (jenkinsfile中运行)<p id="c6bdb5e6-4c1e-4dba-bd6e-aabc3f31b957" class="">查看内置环境变量有哪些：<code>http://主机地址:8080/env-vars.html/</code></p></li></ul><ul id="f883e5e2-0363-4228-9dd1-83c371a19d07" class="bulleted-list"><li style="list-style-type:disc">如环境变量未定义, 使用env前缀访问返回null, 而无前缀访问则返回异常property not found</li></ul><ul id="beb1a7c8-bd27-4c25-a13e-27955e86f1c0" class="bulleted-list"><li style="list-style-type:disc"><strong>环境变量的值是string类型，即赋值时被转换成了string</strong>，需toList(), toBoolean(), toInteger(), toFloat()等转换<ul id="6ff3bcf5-e2c8-4fd0-ac53-55da9ea6567c" class="bulleted-list"><li style="list-style-type:circle"><strong>因为在 Jenkins 文件中所有设置的值都会被当成 String</strong></li></ul></li></ul><ul id="3f73659d-68b6-46af-ba7f-12148659b9f6" class="bulleted-list"><li style="list-style-type:disc">引用环境变量的格式: env.BUILD_NUMBER和BUILD_NUMBER</li></ul><ul id="d98fea53-195f-42ef-bea4-a7927b567bba" class="bulleted-list"><li style="list-style-type:disc">自定义环境变量名可以驼峰或者全大写</li></ul><ul id="d32de5e4-cf49-4495-a1ad-fa69884decc1" class="bulleted-list"><li style="list-style-type:disc">在environment块中定义环境变量的方式，注意要加上引号，普通字符串单引号，其他情况双引号<pre id="304aef9b-39e1-4801-8889-7cff5c259997" class="code code-wrap"><code>environment {
+jobName = &#x27;example&#x27;  //赋值字符串
+jobName = &quot;${JOB_NAME.split(&#x27;/&#x27;)[-1]}&quot;   //赋值变量
+ENV_NAME = &quot;${env.BRANCH_NAME == &quot;develop&quot; ? &quot;staging&quot; : &quot;production&quot;}&quot;  //判断赋值
+LS = &quot;${sh(script:&#x27;ls -lah&#x27;, returnStdout: true).trim()}&quot;  //step赋值
+}</code></pre></li></ul><ul id="5d09b3c3-f512-462f-96cc-1a5ed96b4e07" class="bulleted-list"><li style="list-style-type:disc">定义环境变量的三种方式和优先级<pre id="c6dba9fd-73b9-4c14-bc66-ddb582b07c47" class="code code-wrap"><code>#申明式，如在jenkinsfile开头位置则整个pipeline可引用；如放在stage则只有该stage可引用
+environment {
+   var1 = value1
+}
+
+#脚本式或申明式的script{}中
+env.var1 = value1
+
+#withEnv属于step,等号两边不可空格
+withEnv([&quot;var1=value&quot;, &quot;var2=value&quot;]){
+  sh &quot;echo ${env.var1}&quot;
+}</code></pre><p id="1a07fc97-c22a-405e-964d-0af6d4fb54d7" class="">环境变量覆盖问题:<div class="indented"><ol type="1" id="0b7213ae-afdf-4149-aef9-7402aad020d6" class="numbered-list" start="1"><li>withEnv可以覆盖任意环境变量</li></ol><ol type="1" id="259ec389-0568-4630-8b4a-1d7c30fbc501" class="numbered-list" start="2"><li>stage级环境变量可以覆盖pipeline级</li></ol><ol type="1" id="bc296c2f-656c-46a6-907e-75abc30b38a2" class="numbered-list" start="3"><li>脚本式环境变量只能重写脚本式环境变量</li></ol></div></p></li></ul><ul id="7a410234-8666-4fc7-9839-fb6f344d0675" class="bulleted-list"><li style="list-style-type:disc">tools{}与environment{}<ul id="1624817a-da4c-492b-a51a-7addb7eb06f3" class="bulleted-list"><li style="list-style-type:circle">tools{}可理解为针对工具的environment, 为工具提供环境变量PATH</li></ul><ul id="74acc025-4538-45c5-a187-fdb3fcdcb279" class="bulleted-list"><li style="list-style-type:circle">不用tools, 在environment中亦可实现工具PATH的添加:<pre id="634409c4-5848-4a4a-a884-e0350fea8442" class="code code-wrap"><code>environment{
+  PATH = &quot;${SONARSCANNER_HOME}/bin:${MAVEN_HOME}/bin:${PATH}&quot;
+  SONARSCANNER_HOME = &quot;/opt/sonar-scanner-4.2.0.1873-linux&quot;
+  MAVEN_HOME = &quot;/opt/apache&quot;
+}</code></pre></li></ul></li></ul><ul id="4c24e0e5-af72-4e16-afcd-d88a905b318c" class="bulleted-list"><li style="list-style-type:disc">如环境变量未定义, 使用env前缀访问返回null, 而无前缀访问则pipeline终止返回异常property not found</li></ul><ul id="ca578823-e2a0-4d9e-942e-8fe514b381e5" class="bulleted-list"><li style="list-style-type:disc">在environment块中为变量赋值时, 值可以是字符串(即使数字,保存的也是字符串数字)/变量/groovy表达式:<ul id="9a151330-8fe2-430e-aa44-94b45028a55b" class="bulleted-list"><li style="list-style-type:circle">groovy表达式: <code>ENV_NAME = &quot;${env.BRANCH_NAME == &#x27;develop&#x27; ? &#x27;staging&#x27; : &#x27;production&#x27;}&quot;</code></li></ul><ul id="5049f711-6eef-4cbb-838a-57d34cfdd786" class="bulleted-list"><li style="list-style-type:circle">变量：<code>jobName = &quot;${JOB_NAME.split(&#x27;/&#x27;)[-1]}&quot; </code> 记住:在使用变量时，必须用双引号</li></ul></li></ul><ul id="ff53cfc6-cfef-44a7-995a-4b883b760c88" class="bulleted-list"><li style="list-style-type:disc">在文件夹下的job，它的JOB_NAME是文件夹/JOB，如何将文件夹名字去除: <code>JOB_NAME.split(&#x27;/&#x27;)[-1]</code></li></ul><p id="12d050c9-087b-4b6f-949a-866786efdc88" class="">
+</p><h3 id="1baa5bd5-1f1e-41c9-9cd3-b4b14da38f2d" class="">环境变量与凭证</h3><p id="65171bfa-968f-48e9-84ef-07622967649a" class="">赋值: <code>名称 = credentials(&#x27;凭证ID&#x27;)</code></p><p id="4b73a136-7303-46a1-adba-0c1b98e7f33e" class="">secret类型，直接引用变量名即可</p><p id="ae10ee43-dfc0-4282-8cda-624f403cd646" class="">用户名密码类型，这样引用：<div class="indented"><p id="fa008bdb-fb61-4d0d-9481-d6c206d4cb56" class="">用户：<code>变量名_USR</code> ;  密码：<code>变量名_PSW</code></p></div></p><p id="bd7b9c33-095c-4670-b82a-3fe0a1db8744" class=""><mark class="highlight-teal">在sh中，若有</mark><mark class="highlight-teal"><strong>凭证变量，</strong></mark><mark class="highlight-teal">注意，</mark><mark class="highlight-teal"><strong>使用单引号</strong></mark><mark class="highlight-teal">, 因为若用双引则Groovy将进行变量替换则导致凭证泄露，console Output中也会对此进行warning</mark></p><h1 id="f56fa8d9-65c0-44c6-8549-9bd797490a15" class="">构建参数</h1><ul id="5c726e8b-f45b-4451-a517-6a788c957bcb" class="bulleted-list"><li style="list-style-type:disc">与环境变量一样, 构建参数也都是字符串类型, 无论赋数字还是布尔</li></ul><ul id="e32679e5-6004-4436-9cb2-eb0c4c59f448" class="bulleted-list"><li style="list-style-type:disc">添加构建参数后在第一次build时,是看不到输入参数页面的, 因为参数写在pipeline脚本中,只有构建参数这部分代码被运行过,jenkins才知道.问题无法绕过.</li></ul><ul id="4b478ece-e305-400d-b366-2d4a16c55411" class="bulleted-list"><li style="list-style-type:disc">构建参数可以与环境变量同名, 所以请注意: <ul id="443c007e-fd33-44da-af3b-87e4cdbe7bf7" class="bulleted-list"><li style="list-style-type:circle">如构建参数没有与环境变量同名: 用params.前缀或env.前缀,或无前缀,都可以访问到</li></ul><ul id="99fc7751-56d5-4a71-8727-2e7751e3a7c9" class="bulleted-list"><li style="list-style-type:circle">如同名,则env.前缀和无前缀都指向环境变量的值, 而params.前缀指向构建参数的值</li></ul><p id="4de13da1-582d-45a8-8bfc-87db49d3ae17" class="">网上有这样使用的:</p><pre id="5c8bee7c-6347-44b6-b7f7-6cc7202d66da" class="code code-wrap"><code>
+environment {
+    AWS_ECR_ACCOUNT_ID=&quot;${params.AWS_ECR_ACCOUNT_ID}&quot;
+    AWS_ACCESS_KEY_ID=&quot;${params.AWS_ACCESS_KEY_ID}&quot;
+    AWS_SECRET_ACCESS_KEY=&quot;${params.AWS_SECRET_ACCESS_KEY}&quot;
+    AWS_SESSION_TOKEN=&quot;${params.AWS_SESSION_TOKEN}&quot;
+}
+
+parameters {
+    string(name: &#x27;AWS_ECR_ACCOUNT_ID&#x27;, defaultValue: &#x27;&#x27;, description: &#x27;AWS ECR account ID&#x27;)
+    password(name: &#x27;AWS_ACCESS_KEY_ID&#x27;, defaultValue: &#x27;&#x27;, description: &#x27;The AWS access key ID&#x27;)
+    password(name: &#x27;AWS_SECRET_ACCESS_KEY&#x27;, defaultValue: &#x27;&#x27;, description: &#x27;The AWS secret access key&#x27;)
+    password(name: &#x27;AWS_SESSION_TOKEN&#x27;, defaultValue: &#x27;&#x27;, description: &#x27;The AWS session token&#x27;)
+}</code></pre></li></ul><h1 id="17a93079-0215-4005-91aa-be4484d9572c" class="">generic webhook trigger的参数</h1><p id="692ec5e1-73e2-421c-a9f0-e80f52e55661" class="">这里针对它所有类型的参数</p><ul id="3db97954-5e6d-4baa-bae5-f2e3d625bdde" class="bulleted-list"><li style="list-style-type:disc">是环境变量, 所以env.前缀可访问, 无前缀也可访问</li></ul><ul id="e4cb5786-7151-4169-8f69-311715385e38" class="bulleted-list"><li style="list-style-type:disc">generic webhook trigger的post parameter的value filter：删除被正则匹配的部分</li></ul><ul id="bc57cd36-8c37-4b35-ac7a-a60017b167b7" class="bulleted-list"><li style="list-style-type:disc">利用git webhook参数与构建参数同名，实现：git触发时采用git参数的值; 非git触发时采用构建参数的值<p id="489b7d92-1d2b-4fa9-956f-a5017089c1ed" class="">因为git webhook参数是环境变量，当它定义时，env.前缀和无env.前缀都指向git webhook参数的值，而不会指向同名的构建参数</p><p id="d00eb370-1ad2-4105-9683-6d4bd46142d5" class="">
+</p></li></ul><h2 id="1a725569-caf4-44a9-bcc8-474500f93be3" class="">可能会用到自定义环境变量</h2><ul id="e51c4898-8fe3-4ace-b040-76cd3c3b20a1" class="bulleted-list"><li style="list-style-type:disc">JAVA_TOOL_OPTIONS<ul id="8bdfe0bc-0cd2-43eb-a313-ffb60d6755b0" class="bulleted-list"><li style="list-style-type:circle">名字里虽有“TOOL”，但是其角色是“JAVA_OPTIONS”。类似<a href="https://www.java.com/zh_CN/about/whatis_java.jsp?bucket_value=desktop-chrome59-osx10125&amp;in_query=no">java</a>命令行中这样的选项<figure id="be7b4652-97af-430e-84bc-f7568a3f042b" class="image"><a href="https://yqfile.alicdn.com/42e0835f75c7f79d9b15e52035916867b84ad538.jpeg"><img src="https://yqfile.alicdn.com/42e0835f75c7f79d9b15e52035916867b84ad538.jpeg"/></a></figure></li></ul><ul id="3f7833da-b31d-4630-a506-9d9be4fd13b6" class="bulleted-list"><li style="list-style-type:circle">有时候需要调整jvm配置，但没有办法通过配置文件或者<a href="https://docs.oracle.com/javase/tutorial/essential/environment/cmdLineArgs.html">java</a>命令行选项来做到这一点<ul id="3e59f9ff-01b2-4245-8ecb-2c6e6dabeecf" class="bulleted-list"><li style="list-style-type:square">比如，<a href="https://github.com/cloudera/Impala">Impala: Real-time Query for Hadoop</a>，一个守护进程，管理员没有发现配置方法。此时要给<a href="https://github.com/cloudera/Impala">Impala</a>启动的<a href="https://en.wikipedia.org/wiki/Java_virtual_machine">JVM</a>传递参数，只有使用JAVA_TOOL_OPTIONS环境变量了</li></ul><ul id="fc2cbc1c-0d61-4655-b263-06750acd81e4" class="bulleted-list"><li style="list-style-type:square">比如，对Jenkins容器agent的maven目录，传入JAVA_TOOL_OPTIONS=“-Duser.home=/var/maven”</li></ul></li></ul><ul id="4da2c8ee-e6b7-41aa-a038-0cde441f96a4" class="bulleted-list"><li style="list-style-type:circle">在Jenkinsfile中的例子 <figure id="14168d25-31de-472a-9491-8c198c2ba1ee" class="image"><a href="%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%20%E6%9E%84%E5%BB%BA%E5%8F%82%E6%95%B0%20%20f2993/Untitled.png"><img style="width:1206px" src="%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%20%E6%9E%84%E5%BB%BA%E5%8F%82%E6%95%B0%20%20f2993/Untitled.png"/></a></figure><p id="5cd8b1fe-83e2-436b-b37e-9c44f63cff4c" class="">
+</p><p id="ae2d8454-1369-4132-9f90-69606a0b6ca9" class="">
+</p><p id="d7d2f87b-6dfc-42b7-9922-1ef9b3fbdce9" class="">
+</p></li></ul></li></ul></div></article></body></html>

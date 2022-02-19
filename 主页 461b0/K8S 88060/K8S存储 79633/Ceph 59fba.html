@@ -1,0 +1,883 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Ceph</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="59fba13f-a802-4ec9-a4de-c5782ffc1931" class="page sans"><header><img class="page-cover-image" src="Ceph%2059fba/ceph-glitter-logo-creative-metal-grid-background-ceph-logo-brands-besthqwallpapers.com-1920x1080.jpg" style="object-position:center 35.62%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Ceph%2059fba/images.png"/></div><h1 class="page-title">Ceph</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 21, 2021 10:35 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><figure id="1485f66f-e56c-41bf-9964-58f32e173d90"><a href="http://docs.ceph.org.cn/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">欢迎来到 Ceph 世界 - Ceph Documentation</div></div><div class="bookmark-href"><img src="http://docs.ceph.org.cn/_static/favicon.ico" class="icon bookmark-icon"/>http://docs.ceph.org.cn/</div></div><img src="http://docs.ceph.org.cn/_static/logo.png" class="bookmark-image"/></a><figcaption>官网手册</figcaption></figure><nav id="91b7081b-7a14-45be-921a-4377bdee862e" class="block-color-gray_background table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b7fcc77d-ec5b-459f-aea7-cf4b84a8f6b6">传统的分布式存储系统</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0d09e508-ecf5-4f56-86aa-ca697057aa01">Ceph介绍</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c745a8bf-832a-40bc-94c1-91b83aaf2394">RADOS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4705ce25-20fd-4d89-a189-0f86dc93c2fd">OSD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d6fa7bb2-ee16-4017-8479-38a4b5dced18">MON</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dcbeca10-490d-44fd-850e-13857b2e0693">MGR</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f2cfe114-4593-4568-ac82-41ec78da387f">Pool与PG</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dc7ff3b7-2720-44ae-a6ed-5db16ee640cc">存储过程</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#33ce7c48-4575-4696-b1ff-de26232cc286">IO算法流程</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ca3e3a30-7889-4e6a-8ac5-758dc5dd1bfd">集群IO流程</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#40e0043f-36aa-42da-9a72-5cce3e1ac6f7">数据抽象接口CephFS, Librados, RadosGW, RBD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e3f7520e-7f78-48d8-a23a-b1d390a3a334">RBD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#38fd8d04-95c2-41bb-8b31-0f8a95b47410">RGW</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b79457bf-3205-4ed9-be68-b4e8885acc02">MDS</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6350325e-da9f-4588-b085-69ac71736ac3">Object</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#7172adb1-e75f-4e16-adda-65c6cec464aa">Ceph支持三种接口</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#684b57db-3ef2-42e0-b3fe-327524fcb066">集群拓扑与网络</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f36b6256-4ab4-4d11-b80a-cbaeca3fd198">部署Ceph</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ceeefe16-fed5-43c3-b5f0-5459ed77eab7">安装要求</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3d691ee3-b227-4039-8a83-f3c710cf737b">环境准备</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d1dcd97d-f172-4fb5-b991-8dcf81bdfc71">安装Ceph集群</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cd84c607-b0b3-4ca0-aeb6-943e035060f3">创建用于部署Ceph的特定用户账号</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2d05e824-f5ed-4d34-b823-4605ba3fa7e8">在管理节点上安装ceph-deploy</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e2ec16b8-11c9-4415-977a-abf3266bb303">部署Ceph集群</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#07e2c0bb-c7a2-43c5-bd6d-7d9e9e49d5c2">向RADOS集群添加OSD</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7630a672-a628-4581-b24b-dac30d5f4a4e">从RADOS集群中移除OSD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#484dd12d-a26f-428f-977a-f19e55a14746">部署CephFS接口</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#157c548c-1e9b-4a30-b592-1a0af3d5eb4e">介绍</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#1e0c480e-13a0-4969-bae9-a12b0d9e52e6">配置CephFS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f2fafe44-8796-4305-b83f-0abddb4f68a0">在客户端以kernel client形式挂载cephFS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b8d8d6b6-a9e5-480e-a741-f8dab5e2f352">在客户端以fuse形式挂载cephFS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#233381dd-47b8-4a67-95bd-e1772cdfadb7">MDS主备与主主切换</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a90d593f-9f1d-4ee4-ac23-f4f1d0d35985"></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cbe30cbc-3cba-4f81-832e-e36111a00dbb">RBD</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#888ff80b-a2ef-4662-a249-943a1402bb64">介绍</a></div></nav><h1 id="b7fcc77d-ec5b-459f-aea7-cf4b84a8f6b6" class="">传统的分布式存储系统</h1><p id="9a1ee1a9-5888-4526-a527-06478b7fb56c" class="">存储系统, 比如我们经常使用的文件系统, 为了有效放置和索引数据, 它会存放两种数据即元数据和数据. 可以联想XFS和EXT3, 数据是用户真正存入的信息, 而元数据是为了索引数据和保存权限和属主属组等属性. 分布式存储系统其实就是将元数据和数据分布于多台主机之上, 这些主机联合起来组成一套存储集群.</p><figure id="b105e7e1-97f8-4111-a99e-30ff1b52ac31" class="image"><a href="Ceph%2059fba/Untitled.png"><img style="width:720px" src="Ceph%2059fba/Untitled.png"/></a></figure><p id="6bd64c28-dba7-48d5-8db3-8a4c79c9f871" class="">
+</p><figure id="21114a0d-df51-4b0e-a747-70ddb9e5d6d0" class="image"><a href="Ceph%2059fba/Untitled%201.png"><img style="width:1748px" src="Ceph%2059fba/Untitled%201.png"/></a></figure><p id="c4f8a2be-0127-4433-9046-a4c4ba06b26e" class="">
+</p><figure id="20b56867-1ce6-4d10-905b-75222a19db22" class="image"><a href="Ceph%2059fba/Untitled%202.png"><img style="width:1692px" src="Ceph%2059fba/Untitled%202.png"/></a></figure><p id="956a54e5-d03e-4586-ab6d-18686b554970" class="">
+</p><figure id="fc45c294-dcef-4b1b-804a-cad12e4aebf0" class="image"><a href="Ceph%2059fba/Untitled%203.png"><img style="width:1678px" src="Ceph%2059fba/Untitled%203.png"/></a></figure><p id="2bda39c9-1e1b-4d41-a647-c77192800b45" class="">
+</p><figure id="abfc11cf-cafa-4c11-b801-b7592452d9aa" class="image"><a href="Ceph%2059fba/Untitled%204.png"><img style="width:1701px" src="Ceph%2059fba/Untitled%204.png"/></a></figure><p id="ccf93562-5d94-40e8-92bb-38496d2ead4b" class="">
+</p><figure id="16206202-9ea0-4b8f-9c69-6bd7ead91673" class="image"><a href="Ceph%2059fba/Untitled%205.png"><img style="width:1691px" src="Ceph%2059fba/Untitled%205.png"/></a></figure><p id="fd768d01-ad92-49e4-9c70-eb15f5ab404b" class="">
+</p><figure id="b1ee7075-4cac-4e3d-951f-a292908a0b5b" class="image"><a href="Ceph%2059fba/Untitled%206.png"><img style="width:1519px" src="Ceph%2059fba/Untitled%206.png"/></a></figure><p id="1ac0a1cd-a080-48b4-a431-2180da5e9a9b" class="">
+</p><figure id="30301dc6-4a0c-49ab-9edd-a927e8fcccc4" class="image"><a href="Ceph%2059fba/Untitled%207.png"><img style="width:827px" src="Ceph%2059fba/Untitled%207.png"/></a></figure><p id="280a5a7a-ef86-43d9-b943-310b0cf086bb" class="">
+</p><hr id="cf4ebff3-af21-4e39-a9e7-3ea4814f713f"/><h1 id="0d09e508-ecf5-4f56-86aa-ca697057aa01" class="">Ceph介绍</h1><p id="ddf05d38-8f06-4520-a508-f379c9bea467" class="">Ceph是一个分布式的存储系统，它把一个待管理的数据流(如一个文件的内容)切分为一个到多个的<mark class="highlight-teal">固定大小(默认4M)</mark>的<mark class="highlight-teal">对象数据</mark>(object),按照算法,放入<mark class="highlight-teal">数据节点</mark>. 对象数据等同于上节说到的数据块. <mark class="highlight-red">这里的对象数据(object)指的是固定大小的存储块, 与&quot;对象存储&quot;概念没有关系.</mark></p><p id="c92e24fd-2520-4e46-847e-9274a088fc02" class="">对象数据(object)的底层服务是由多个主机组成的存储集群, 这集群也被称为RADOS(Reliable Automatic Distributed Store)存储集群.</p><p id="11abcbc3-5b8b-4eed-ace6-3a5b9d4772e2" class="">分布式存储系统的元数据节点是集群的瓶颈, 因为针对写请求它要决定数据放置于哪个数据节点或针对读请求它要计算出数据位于哪个数据节点, 即元数据节点起到路由的作用,所以分布式存储系统都是让客户端自己计算出所对应的数据节点. <mark class="highlight-teal">Ceph没有负责维护数据对象(理解为数据块)的元数据的节点, </mark><mark class="highlight-teal">客户端</mark><mark class="highlight-teal">通过Crush算法自行计算找到数据所在的数据节点.</mark></p><p id="99815c8f-6d0b-4e92-b5f6-0855aa18c71e" class="">Ceph使用<mark class="highlight-teal">RADOS</mark>系统提供对象数据(object)存储, 由librados封装库提供对外接口, 为了方便用户使用在其之上又开发出RadosGW, RBD和CephFS, 作为RADOS存储服务的客户端它们把RADOS的存储服务接口(librados)分别从不同的角度作了进一步抽象, 因而各自适应不同的使用场景, 即RadosGW是对象存储, RBD(Rados Block Device)是块存储, CephFS是文件存储.</p><div id="d8f97673-dd9e-47aa-b4b8-31c8a90fc6f3" class="column-list"><div id="57d7980b-a703-4f68-80b3-98091588c461" style="width:50%" class="column"><figure id="2eb05edf-429e-4356-92e3-b01a5ab3fe90" class="image"><a href="Ceph%2059fba/Untitled%208.png"><img style="width:768px" src="Ceph%2059fba/Untitled%208.png"/></a></figure></div><div id="bf2e96cb-68aa-4861-bc96-356aff631ddd" style="width:50%" class="column"><figure id="2a8f37eb-ff33-4268-91e0-a77ca5479f60" class="image"><a href="Ceph%2059fba/Untitled%209.png"><img style="width:1685px" src="Ceph%2059fba/Untitled%209.png"/></a></figure></div></div><hr id="0a9c3d99-717c-4600-8e26-8fc6040cdeb8"/><h1 id="c745a8bf-832a-40bc-94c1-91b83aaf2394" class="">RADOS</h1><p id="1c41f3e3-6bf2-4583-ab62-d1dda2c006ef" class="">RADOS存储集群的大致逻辑是将一个文件切分为大小一致的数据对象(因为RADOS集群是基于对象管理), 对象经过CRUSH算法最终映射并存储到OSD(即某台主机的磁盘上), 整个集群有多少台主机多少OSD多少其他组件的状态都由MON监控和维护, 整个集群的指标信息由MGR负责采集它缓存起来交给第三方监控软件.</p><h3 id="4705ce25-20fd-4d89-a189-0f86dc93c2fd" class="">OSD</h3><p id="6629c260-b7c8-45ab-9c8e-1d8147c718a2" class="">对象存储设备, 每一个对象存储设备就是一块磁盘, 每一个对象存储设备都有一个专用的OSD守护进程, 比如6个磁盘对应地就有6个OSD进程(ceph-osd00-05). 一台主机上可以有多个OSD, 多个主机联合起来组成一个RADOS存储集群.</p><p id="37d227d0-3885-4d89-bab7-c69cf8013fd1" class="">OSD负责存储数据, 数据副本,数据恢复, 数据重均衡, 提供监控信息给MON和MGR. </p><p id="596df51e-a93c-40ae-b9c5-ec6af3aa11ec" class="">至少要有个3个OSD才能实现数据的冗余. 但是3个OSD放在一个主机上,都能实现ODS级别冗余, 还需要考虑主机级冗余和跨机柜冗余.</p><h3 id="d6fa7bb2-ee16-4017-8479-38a4b5dced18" class="">MON</h3><p id="31fc7d2c-3592-4110-9635-edb6d24d5045" class="">监视器组件服务,<mark class="highlight-teal"> 监控集群中的所有组件</mark>并维护<mark class="highlight-teal">集群元数据</mark>(不是数据的元数据, Ceph没有这样的节点), 是出于维<mark class="highlight-teal">护集群正常运行</mark>而创造的节点. </p><p id="2f2e827b-5c04-4f3d-b715-4dad0aff5824" class="">监视整个Ceph集群运行的视图<div class="indented"><p id="662a784c-e999-4283-8cc2-bec93c6f2388" class="">Cluster Map就是集群元数据,译为集群运行图, Cluster Map是整个<mark class="highlight-teal">RADOS系统的关键数据结构</mark>,描述了集群有多少组件及其情况, 细分为OSD运行图,MON运行图, MGR运行图, CRUSH运行图,PG运行图等.</p></div></p><p id="7d54396e-41b0-4ce1-bcbb-d7ad42f6a4e2" class="">维护集群的健康状态</p><p id="f4878325-6d67-4daf-841f-4814dd09c488" class="">还负责维护认证信息并执行认证, 比如来自客户端与OSD间的, 客户端与监视器, OSD与监视器.</p><p id="bc80210f-ff18-42c4-bd27-bc30a07f745c" class="">监视器故障意味RADOS无法使用, 为保证节点级冗余, 可设置多个监视器(一个集群3-7),通过Paxos算法维持集群元数据的同步，通常要有三个监视器, 保证高可用和避免瓶颈.</p><p id="b8af07c7-2a1f-413a-84b1-3de2670b3560" class="">
+</p><h3 id="dcbeca10-490d-44fd-850e-13857b2e0693" class="">MGR</h3><p id="3dd5abd0-91a2-4f91-9323-b9928b259473" class="">负责定期收集指标,缓存下来以待外部查询.</p><p id="67115145-6e25-49a1-8f52-b6edcaaa843c" class="">负责维护ceph自己开发的的插件, 这些插件提供了与zabbix, Prometheus, cephmetrics交互的接口. </p><p id="e4e787c5-3be9-4d7f-84cc-0d05f767968d" class="">提供了Dashboard工具</p><p id="9cb87417-ab34-425c-93eb-d85fe5cef820" class="">1+冗余，1个active，多个standby</p><p id="56cf22a2-b03f-4c5a-a4de-36634be5c1a6" class="">
+</p><hr id="17fcea84-8799-4d45-bf59-2dea388c34db"/><h1 id="f2cfe114-4593-4568-ac82-41ec78da387f" class="">Pool与PG</h1><p id="6817306a-e078-4517-8854-7aedca30890a" class="">Pool位于接口层与RADOS集群之间, 为什么需要存储池而不是直接到RADOS集群呢? 因为RADOS集群的存储空间是一个平面的, 可以联想在草原上各家的羊群不会散养在一起,而是圈养在各自的牧场里, 同理, 为了方便管理每个接口都有自己专用的Pool, 即根据实际需要在存储空间中划分出对应的pool,  比如CephFS服务需有两个Pool, 一个保存元数据,另一个保存数据, 而RadosGW需要3-4个存储池.</p><p id="e48db32b-adbc-49c5-867d-8203401140b5" class=""><div class="indented"><p id="bd9cc5a2-0156-4e97-b450-0aa19490aa41" class="">所有对象数据都存在于某个Pool中，Pool是<mark class="highlight-teal">放置规则</mark>的粒度(比如pool可以规定它必须使用SSD)</p></div></p><figure id="bf4a9b22-bc70-47c3-858b-ea8a92efa348" class="image"><a href="Ceph%2059fba/Untitled%2010.png"><img style="width:576px" src="Ceph%2059fba/Untitled%2010.png"/></a></figure><p id="d544a032-ceda-4607-a161-fb3d2949cd12" class="">在Pool中,直接以<mark class="highlight-teal">对象数据</mark>进行管理(比如数据冗余,恢复等)那么粒度太大, 所以又划分出PG(placement group)译为放置组, 它包含了若干数据对象, 它们以一个整体单元进行数据冗余和恢复等. PG数量是在创建Pool时指定的, 与pool的副本数也有关系, 比如pool副本数为2那么有3个PG存在于不同的OSD上. PG在OSD的存在形式就是一个目录, 引入PG是为了更好地放置数据对象和定位数据对象.</p><p id="e5d0b157-16c2-4cff-b693-5a24cefd28ea" class="">兼容POSIX接口的文件系统会有两种数据, 元数据和数据, 所以CephFS有两个Pool, 一个保存元数据,另一个保存数据. RadosGW需要3-4个存储池. 不论哪种接口, 都必须经过Pool. </p><h3 id="dc7ff3b7-2720-44ae-a6ed-5db16ee640cc" class="">存储过程</h3><p id="cf147d89-77f8-4985-aee3-8d424d325c9e" class="">placement group, 译为放置组, 是组成Pool的基本单位, 用来放置Object的逻辑载体. PG是在创建Pool时指定的, 与pool的副本数也有关系, 比如pool副本数为2那么有3个PG存在于不同的OSD上. PG在OSD的存在形式就是一个目录, 引入PG是为了更好地放置数据对象和定位数据对象.</p><p id="c865d12d-2fab-47b3-9778-a6238e9bb9c2" class="">数据是如何存储的? </p><ol type="1" id="3b10db19-85d3-476b-a2f6-fd258b110883" class="numbered-list" start="1"><li>当存储文件时, 首先必须通过某一种客户端接入, 或者通过librados自己开发的或RBD,RadosGW,Ceph中任一个; 然后文件被切割为固定大小的数据对象(object).</li></ol><ol type="1" id="b119ceec-4086-4152-9100-d0301ff53d04" class="numbered-list" start="2"><li>开始存放数据 <ol type="a" id="0b86f9a1-e035-439c-a560-c574fa06ac8d" class="numbered-list" start="1"><li>首先向指定pool作请求, 先将对象数据名称作一致性哈希映射对应Pool中一个PG上.</li></ol><ol type="a" id="e0c46b1f-0c61-4285-b391-eaf2a590dec0" class="numbered-list" start="2"><li>再通过一致性哈希映射到OSD, 根据pool的副本数找到足量的OSD. pool类型是管理pool如何冗余的: PG </li></ol><p id="3a259ffd-923b-4131-9469-9e9a3fdda713" class="">
+</p></li></ol><ol type="1" id="0aeed3cf-276c-43b3-9093-cf16cc24c248" class="numbered-list" start="3"><li>pool是逻辑的,</li></ol><p id="83d6741b-f488-42fc-ab95-901018f4cf44" class="">在pool中又进一步划分出了PG,  </p><hr id="e9a0228b-008d-4d58-9283-7d90b80ebec2"/><h2 id="33ce7c48-4575-4696-b1ff-de26232cc286" class="">IO算法流程</h2><figure id="2cb2051d-6eb1-4008-bd25-5e6b98f0f33b" class="image"><a href="Ceph%2059fba/Untitled%2011.png"><img style="width:672px" src="Ceph%2059fba/Untitled%2011.png"/></a></figure><p id="cd92a000-7161-4836-b9c2-941067e1604a" class="">
+</p><ol type="1" id="49e3f753-5536-4fd7-8aa1-2800c85d8fbf" class="numbered-list" start="1"><li>File用户需要读写的文件。File-&gt;Object映射：
+• a. ino (File的元数据，File的唯一id)。
+• b. ono(File切分产生的某个object的序号，默认以4M切分一个块大小)。
+• c. oid(object id: ino + ono)。</li></ol><ol type="1" id="45980ebc-7559-44fb-86c7-ca1d003d21ab" class="numbered-list" start="2"><li>Object是RADOS需要的对象。Ceph指定一个静态hash函数计算oid的值，将oid映射成一个近似均匀分布的伪随机值，然后和mask按位相与，得到pgid。Object-&gt;PG映射：
+• a. hash(oid) &amp; mask-&gt; pgid 。
+• b. mask = PG总数m(m为2的整数幂)-1 。</li></ol><ol type="1" id="30b9621c-a3f1-4dd4-adfe-47322c379b12" class="numbered-list" start="3"><li>PG(Placement Group),用途是对object的存储进行组织和位置映射, (类似于redis cluster里面的slot的概念) 一个PG里面会有很多object。采用CRUSH算法，将pgid代入其中，然后得到一组OSD。PG-&gt;OSD映射：
+• a. CRUSH(pgid)-&gt;(osd1,osd2,osd3) 。</li></ol><hr id="790fb4fc-5ee6-43cd-9881-65a28a0ea11f"/><h2 id="ca3e3a30-7889-4e6a-8ac5-758dc5dd1bfd" class="">集群IO流程</h2><p id="2c78dc36-a06e-4920-a184-e838f1602278" class="">
+</p><figure id="37077bdd-bc47-44b3-a317-8af2f4ffa616" class="image"><a href="Ceph%2059fba/Untitled%2012.png"><img style="width:528px" src="Ceph%2059fba/Untitled%2012.png"/></a></figure><ol type="1" id="f7f8c422-a04c-4c6e-8949-6dc52f6f3ecb" class="numbered-list" start="1"><li>Client连接Monitor, 获取Cluster Map信息.</li></ol><ol type="1" id="4f3e0f1f-aadd-4d90-9823-e9cfda67f2c1" class="numbered-list" start="2"><li>Client开始读写IO, 根据Cluster Map信息中的元数据和crshmap算法, 找到对应的OSD节点.</li></ol><ol type="1" id="0294394a-b25d-4add-9feb-005416ca8e46" class="numbered-list" start="3"><li>如果是写IO请求, OSD节点在写数据的同时还会将数据写到其他OSD节点上, 其他OSD节点在这里扮演&quot;Replication&quot;.</li></ol><ol type="1" id="fc4a0bbe-8a4b-4f11-b90b-fcc385c513a6" class="numbered-list" start="4"><li>待OSD节点和其他Replication都完成数据写入, OSD节点向Client响应读写IO</li></ol><hr id="9d7359cf-57d4-4b6e-8a04-007635c87f79"/><h2 id="40e0043f-36aa-42da-9a72-5cce3e1ac6f7" class="">数据抽象接口CephFS, Librados, RadosGW, RBD</h2><figure id="f599d59d-353c-4d43-81b7-bd45e29486b1" class="image"><a href="Ceph%2059fba/Untitled%2013.png"><img style="width:432px" src="Ceph%2059fba/Untitled%2013.png"/></a></figure><p id="49e28a5c-755c-40bc-b78b-7d0f862adaa0" class="">RADOS存储集群不能直接拿来使用, 必须透过接口才能与其交互.</p><p id="a0f8fb6a-0608-4940-99ce-09966eaa9a3a" class="">CephFS是最早提出来的接口, 客户端主机可以像NFS那也直接使用, 它提供了网络共享文件系统服务.</p><p id="048add78-bcb2-42e4-b05e-fecae15e68f8" class="">Librados是RADOS存储集群的API接口, 它支持C, C++, Java, Python, Ruby和PHP等编程语言, 程序员按照Librados API规范编写APP向RADOS集群读写数据.</p><p id="02f8a2d4-b5a9-4aff-901f-7e706acf44b4" class="">为了方便直接使用, 进一步开发出RadosGW和RBD两种接口. RadosGW提供对象存储服务,Restful风格的交互. RBD(Rados Block Device)提供了块存储服务, 直接作为块设备挂载.</p><p id="4833c10c-edd9-4579-92ef-3908c1a49240" class="">CephFS, Librados, RadosGW, RBD作为接口层, 提供给开发者或者运维人员使用, 接口层收到请求后, 按照处理逻辑顺序, 交给Pool, 即存储池, 它是逻辑上的概念.</p><h2 id="e3f7520e-7f78-48d8-a23a-b1d390a3a334" class="">RBD</h2><p id="81f4388f-7cfc-405f-9198-c9dcba322abe" class="">RBD全称RADOS block device，是Ceph对外提供的块设备服务。</p><h2 id="38fd8d04-95c2-41bb-8b31-0f8a95b47410" class="">RGW</h2><p id="d3ca14e7-e604-403f-afa2-8c717ae8d9f0" class="">RADOS gateway, 是Ceph对外提供的对象存储服务的入口, 接口与S3和swift兼容. Load Balancer通常用Nginx, 实现RGW的负载分摊和冗余.</p><h3 id="b79457bf-3205-4ed9-be68-b4e8885acc02" class="">MDS</h3><p id="7bc4807d-3f8a-480d-ac8f-3f8a8dc2695e" class="">对外提供CephFS的元数据</p><p id="834e5276-aa8d-47a8-9a81-c8d78243bf3c" class="">对外提供CephFS服务.  它将底层RADOS存储集群的存储空间抽象成POSIX文件系统, 所以我们可以像NFS那样挂载, 可以在其中执行ls命令. 记住, 块存储和对象存储是不使用MDS的. </p><p id="67dc8333-3def-4c35-a003-5f29697b6f9c" class="">在Ceph中, 共享文件系统的原始数据和元数据是分开存放的, 元数据存放和目录结构管理放在MDS, 原始数据存储放在OSD.</p><figure id="095833ef-c84e-4dba-b6f0-e7813761dcc5" class="image"><a href="Ceph%2059fba/Untitled%2014.png"><img style="width:336px" src="Ceph%2059fba/Untitled%2014.png"/></a></figure><hr id="e239aea0-92bf-4766-bc6f-9e6b35ba70e7"/><h1 id="6350325e-da9f-4588-b085-69ac71736ac3" class="">Object</h1><p id="e6055406-3359-4864-86c5-f570851c1f85" class="">Ceph最底层的存储单元是Object对象，每个Object包含元数据和原始数据。</p><figure id="f969930d-c506-471b-8c21-4a1a9ca1c820" class="image"><a href="Ceph%2059fba/Untitled%2015.png"><img style="width:576px" src="Ceph%2059fba/Untitled%2015.png"/></a></figure><hr id="c02a4df6-226f-47be-9c69-81056c4f8c5f"/><h1 id="7172adb1-e75f-4e16-adda-65c6cec464aa" class="">Ceph支持三种接口</h1><ul id="c3c993ab-0e20-448b-9e92-82f82cb28992" class="bulleted-list"><li style="list-style-type:disc">对象存储(不清楚) </li></ul><ul id="471b1b1b-825e-454c-887f-77d04eaa43ad" class="bulleted-list"><li style="list-style-type:disc">块存储<p id="d6898fa7-48b7-4e77-9d70-71bc3881c7ec" class="">支持精简配置、快照、克隆</p></li></ul><ul id="7eb1b072-e84f-4c80-8263-9eeee4783b55" class="bulleted-list"><li style="list-style-type:disc">文件共享<p id="f24a70a1-4d59-4b0a-8706-0d11d2b58ce0" class="">Posix接口,支持快照</p></li></ul><hr id="3f659d29-fb16-49c2-a759-2d104ee28122"/><h1 id="684b57db-3ef2-42e0-b3fe-327524fcb066" class="">集群拓扑与网络</h1><p id="c90ff5a9-bd27-46ed-b491-173c58b07d50" class="">添加主机或添加磁盘会引起OSD的重均衡, 很可能占用很大的网络带宽, 对客户端的IO造成影响, 为避免这种情况出现, 可以为Ceph集群内部组件交互创建一个专用网络.</p><p id="9faafcd5-f470-472f-aa1e-7c26ccbe5411" class="">如下图, Public Network提供给客户端访问Ceph之用, Cluster Network提供给Ceph集群内部组件交互之用.</p><p id="cd8219bf-b6ee-47d5-8894-a8bf1588ffab" class="">
+</p><figure id="99dce363-a4ee-40e1-9670-39fe1c654d16" class="image"><a href="Ceph%2059fba/Untitled%2016.png"><img style="width:384px" src="Ceph%2059fba/Untitled%2016.png"/></a></figure><hr id="63c3bde1-3f84-4fab-b965-308da82a2f10"/><h1 id="f36b6256-4ab4-4d11-b80a-cbaeca3fd198" class="">部署Ceph</h1><h2 id="ceeefe16-fed5-43c3-b5f0-5459ed77eab7" class="">安装要求</h2><p id="e006ffa2-5585-41d3-b11e-63e7f691aa5d" class="">最少三台服务器用于部署, 硬件配置2C4G, 每台至少挂三块硬盘测试虚机每块5G).</p><p id="926e1a29-4e49-41ba-ab10-bf79939946cc" class="">mon3个, mgr2个, mds2个</p><p id="86561295-7489-4b7e-953b-0e70f53149f4" class="">
+</p><h2 id="3d691ee3-b227-4039-8a83-f3c710cf737b" class="">环境准备</h2><ul id="5ee97542-7f2d-4984-b484-d71429f4abb2" class="bulleted-list"><li style="list-style-type:disc">禁用iptables和Selinux</li></ul><ul id="66e3fecc-90d4-45fa-a310-fbfee98e216c" class="bulleted-list"><li style="list-style-type:disc">主机名解析</li></ul><pre id="3f8ef35a-701d-4961-a9b3-a53fd22e349a" class="code"><code>#关闭防火墙
+systemctl disable --now firewalld
+#关闭selinux
+sed -i &#x27;s#^SELINUX=disabled#^SELINUX=enabled#&#x27; /etc/selinux/config
+#关闭NetworkManager
+systemctl disable --now NetworkManager
+#添加主机名与IP对应关系
+cat &gt;&gt;/etc/hosts &lt;&lt;EOF
+192.168.31.20 
+192.168.31.21
+192.168.31.22
+192.168.31.23
+EOF
+#设置主机名
+hostnamectl set-hostname cephnode01
+hostnamectl set-hostname cephnode02
+hostnamectl set-hostname cephnode03
+#同步网络时间和修改时区
+yum makecache &amp;&amp; yum install chrony -y &amp;&amp; systemctl enable --now chronyd
+cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+#设置文件描述符
+cat &gt;&gt;/etc/security/limits.conf &lt;&lt;EOF
+* soft nofile 65535
+* hard nofile 65535
+EOF
+
+#优化内核参数
+cat &gt;&gt;/etc/sysctl.conf &lt;&lt;EOF
+kernel.pid_max = 4194303
+vm.swappiness = 0
+EOF
+sysctl -p
+
+#在cephnode01上配置免密登陆cephnode02,cephnode03
+ssh-copy-id cephnode01
+ssh-copy-id cephnode02
+ssh-copy-id cephnode03
+
+#通过数据预读并且记载到随机访问内存方式提高磁盘读操作.(不清楚)
+echo &quot;8192&quot; &gt; /sys/block/sd[x]/queue/read_ahead_kb
+
+#I/O schedule, sas/sata用deadline, ssd用
+echo &quot;deadline&quot; &gt; /sys/block/sd[x]/queue/scheduler
+echo &quot;noop&quot; &gt; /sys/block/sd[x]/queue/scheduler</code></pre><h2 id="d1dcd97d-f172-4fb5-b991-8dcf81bdfc71" class="">安装Ceph集群</h2><p id="af65e1ef-011b-4492-be5f-f220a5861cdd" class="">13版本rpm-mimic. 14版本rpm-nautilus</p><p id="6681a5d0-22fd-4dee-bbde-d7a384fbdc6a" class="">在管理节点上, 安装YUM源</p><pre id="5c418d4e-7e6f-4cbd-9eaf-d9624e6f579e" class="code"><code>#安装ceph的YUM源
+cat &gt;/etc/yum.repos.d/ceph.repo &lt;&lt;&#x27;EOF&#x27;
+[ceph]
+name=Ceph packages for $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/$basearch
+gpgcheck=0
+priority=1
+
+[ceph-noarch]
+name=Ceph noarch packages
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/noarch
+gpgcheck=0
+priority=1
+
+[ceph-source]
+name=Ceph source packages
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/SRPMS
+gpgcheck=0
+priority=1
+EOF
+
+#安装epel源
+yum install epel-release -y
+</code></pre><h3 id="cd84c607-b0b3-4ca0-aeb6-943e035060f3" class="">创建用于部署Ceph的特定用户账号</h3><p id="2ceb504d-d4b2-413f-bd07-315fad3b8eba" class="">创建用户</p><pre id="e5660208-933c-44d2-a815-1aaca63c2a96" class="code"><code>
+useradd cephadm
+echo &quot;cephadm&quot; | passwd --stdin cephadm
+echo &quot;cephadm         ALL=(root) NOPASSWD: ALL&quot; &gt;/etc/sudoers.d/cephadm
+chmod 0440 /etc/sudoers.d/cephadm
+su - cephadm
+sudo -l</code></pre><p id="af7a99d9-15a6-4e62-921c-1bdc569bc335" class="">管理终端, 这里选择mon01, 能够免密ssh其他主机.</p><pre id="63a81269-cb3c-4000-a3f9-098611382059" class="code"><code>su - cephadm
+ssh-keygen -t rsa -P &#x27;&#x27;
+#mon01访问自己可以免密
+ssh-copy-id -i .ssh/id_rsa cephadm@localhost
+#所有主机用同一对公私钥,互相访问就都可以免密了.
+scp -r .ssh cephadm@192.168.31.21:/home/cephadm
+scp -r .ssh cephadm@192.168.31.22:/home/cephadm
+scp -r .ssh cephadm@192.168.31.23:/home/cephadm</code></pre><p id="0005d60c-026c-4ade-855d-4be505cecdc9" class="">为了后续管理之便,建议修改管理节点上的配置文件~/.ssh/config文件，设定其访问ｃｅｐｈ各节点时默认使用的用户名为ｃｅｐｈａｄｍｉｎ，从而避免每次执行ceph-deploy时都要使用--username指定用户名．</p><pre id="970b9190-71b2-4af2-9803-91b280a542a5" class="code"><code>cat &gt;~/.ssh/config &lt;&lt;EOF
+Host stor01
+   Hostname stor01.mxy.com
+   User cephadm
+Host stor02
+   Hostname stor02.mxy.com
+   User cephadm
+Host stor03
+   Hostname stor03.mxy.com
+   User cephadm
+EOF</code></pre><h3 id="2d05e824-f5ed-4d34-b823-4605ba3fa7e8" class="">在管理节点上安装ceph-deploy</h3><p id="c4851470-ead2-4e18-8977-3276dfcbe69e" class="">通过在管理节点上执行ceph-deploy来完成ceph集群的部署.这里首先在管理节点安装ceph-deploy及其依赖包.</p><pre id="8a73ef67-d381-4488-8077-090263124ca5" class="code"><code>yum install python2-pip ceph-deploy -y 
+yum install ceph-deploy python-setuptools python2-subprocess32</code></pre><h2 id="e2ec16b8-11c9-4415-977a-abf3266bb303" class="">部署Ceph集群</h2><p id="947828dc-c5b7-4ad4-abd1-e45a9d65e891" class="">在管理节点上, 切换到cephadm用户, 创建一个目录用于存放ceph集群相关的所有文件.</p><pre id="c124ad19-3909-49aa-962b-1c76f0097d02" class="code"><code>
+[cephadm@mon01 ~]$ mkdir ceph-cluster
+[cephadm@mon01 ~]$ cd ceph-cluster</code></pre><p id="2e6504eb-4d31-4f04-b5b0-a034e469d08f" class="">初始化第一个MON节点,准备创建集群.</p><p id="e94c9ea2-c6cf-4c9b-adf7-75db50743bbf" class="">在本示例中, mon01主机名即第一台主机. 运行如下命令即可生成初始配置．初始化第一个MON节点的命令格式为&quot;ceph-deploy new {initial-monitor-node(s)}&quot;，初始化生成了ceph主配置文件，mon节点通信时使用的密钥环.</p><pre id="f8a1963a-6d5a-455b-ad25-5413625f4e6f" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy new --cluster-network 172.16.1.0/24 --public-network 192.168.31.0/24 mon01.ilinux.io
+
+#主配置文件解释．
+[global]
+fsid = b28d1f76-79e6-4959-9380-0922a7289d0b　#ceph集群的ID
+public_network = 192.168.31.0/24
+cluster_network = 172.16.1.0/24
+mon_initial_members = mon01
+mon_host = 192.168.31.20
+auth_cluster_required = cephx
+auth_service_required = cephx
+auth_client_required = cephx</code></pre><p id="ff6885c1-c82a-4fba-b7d4-d1f25ff51129" class="">安装Ceph集群</p><p id="a4707be1-6d65-4b26-993c-8763078e342b" class="">ceph-deploy可以登陆各主机, 自动添加ceph的yum源,然后完成安装. 但是因为ceph的YUM源来自国外, 所以自己手动安装YUM源, 安装时注意版本要一致.</p><p id="6aeaa636-a20e-4faf-b92a-9ba3a45cc9cc" class="">在其他节点上安装ceph的YUM源和epel的YUM源.</p><pre id="222788dc-35c9-4e70-bcf3-8a52f2da8c7a" class="code"><code>#安装ceph的YUM源
+cat &gt;/etc/yum.repos.d/ceph.repo &lt;&lt;&#x27;EOF&#x27;
+[ceph]
+name=Ceph packages for $basearch
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/$basearch
+gpgcheck=0
+priority=1
+
+[ceph-noarch]
+name=Ceph noarch packages
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/noarch
+gpgcheck=0
+priority=1
+
+[ceph-source]
+name=Ceph source packages
+baseurl=https://mirrors.tuna.tsinghua.edu.cn/ceph/rpm-mimic/el7/SRPMS
+gpgcheck=0
+priority=1
+EOF
+
+yum install epel-release -y</code></pre><p id="9f37ad63-1427-448a-abd5-b2771e48ca52" class="">安装集群</p><pre id="616ff887-2c2c-4dff-a744-5e4d9084a194" class="code"><code>[cephadm@mon01 ~]$ ceph-deploy install --no-adjust-repos mon01 mon02 mon03 stor04</code></pre><p id="254946ba-f708-43e1-a59e-2aa9c6f28a24" class="">根据ceph.conf主配置文件, ceph-deploy开始初始化MON守护进程, 并收集所有密钥.</p><pre id="1fe79f94-bcf3-4585-995c-2195a0e23560" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy mon create-initial
+#产生了在引导启动对应组件时所需的密钥环
+ceph.bootstrap-mds.keyring
+ceph.bootstrap-mgr.keyring
+ceph.bootstrap-osd.keyring
+ceph.bootstrap-rgw.keyring
+#产生了客户端超级管理员的密钥环．
+ceph.client.admin.keyring</code></pre><p id="4fef1def-c313-432d-bdb9-f17e15ba2a54" class="">ceph命令用于集群管理, 它需要访问/etc/ceph目录下的ceph-deploy和ceph.client.admin.keyring才能与集群交互. 在ceph-deploy配置目录下使用ceph-deploy admin mon01命令, 这样管理节点MON01上就能正确使用ceph命令了. 如果需要在管理节点以外的其他节点上执行ceph命令, 那么把主配置文件和ceph.client.admin.keyring拷贝到其他节点. </p><pre id="8e3d51cc-6df5-47a7-b78c-f2c7f9b2e124" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy admin mon01
+#拷贝完成后,/etc/ceph/ceph.client.admin.keyring文件属主属组root,400权限,为了让cephadm用户能够读,使用setfacl命令.
+[cephadm@mon01 /]$ setfacl -m u:cephadm:r /etc/ceph/ceph.client.admin.keyring
+#测试一下ceph命令是否能正常使用
+[cephadm@mon01 /]$ ceph -s</code></pre><p id="6aca79aa-9afe-46d1-990c-b8cc67dd839e" class="">
+</p><p id="43230314-13ab-46db-bcec-0c441b243c04" class="">部署mgr, 在mon01主机上启动一个mgr服务, L版本之后至少需要一个MGR.</p><pre id="af63e299-cd5e-44d9-b571-db02faacd6f2" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy mgr create mon01</code></pre><h3 id="07e2c0bb-c7a2-43c5-bd6d-7d9e9e49d5c2" class="">向RADOS集群添加OSD</h3><p id="3c460225-7c9a-46d9-8eb4-3a4ab5ee708c" class="">列出并擦净磁盘</p><pre id="4e980650-0e3a-49f7-8dde-76e5f154b14a" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy disk list stor01 stor02 stor03</code></pre><p id="e205dfd1-5036-42a5-a003-e1c655c058ab" class="">如果要加入的磁盘曾经使用过, 擦除, 如果该命令无法擦除则需登陆相应主机上以root用户执行<em>ceph-volume lvm zap —destroy /dev/sdb ,</em>高危操作需谨慎. </p><pre id="5897eeae-4d3b-4642-a047-529374f05da8" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy disk zap stor01 /dev/sdb
+[cephadm@mon01 ceph-cluster]$ ceph-deploy disk zap stor02 /dev/sdb
+[cephadm@mon01 ceph-cluster]$ ceph-deploy disk zap stor03 /dev/sdb</code></pre><p id="989e4c62-0095-4d24-92ab-5cc76e5991ba" class="">添加ODS, 在L版之后默认都是bluestore,</p><pre id="b0e08a70-d40f-41eb-91a0-3af116f967fb" class="code"><code>ceph-deploy osd create --data /dev/sdb stor01
+ceph-deploy osd create --data /dev/sdb stor02
+ceph-deploy osd create --data /dev/sdb stor03
+#bluestore可以将db元数据(--block-db)和db日志(--block-wal)单独放在专用的ssd或nvram上,即--data --block-db --block-wal分别指定,如果没有条件一个--data选项指定所有都放在一个磁盘里
+#ceph-deploy osd create {node} --data /path/to/data --block-db /path/to/db-device
+#ceph-deploy osd create {node} --data /path/to/data --block-wal /path/to/wal-device
+#ceph-deploy osd create {node} --data /path/to/data --block-db /path/to/db-device --block-wal /path/to/wal-device</code></pre><p id="edf2bb13-ac5d-4bcf-bdb3-a7b428a03b70" class="">可以在管理节点上使用&quot;ceph-deploy osd list&quot;列出指定主机上的OSD</p><pre id="e41e08c5-ea23-4db2-9e50-2241da054abd" class="code"><code>[cephadm@mon01 ceph-cluster]$ ceph-deploy osd list stor01</code></pre><p id="0242514f-caba-467e-b48a-fa303b5f449a" class="">也可以使用ceph命令查看OSD的情况</p><pre id="9b8918b3-f2d3-4edc-ae74-1a30a34e8347" class="code"><code>[cephadm@mon01 /]$ ceph osd stat
+[cephadm@mon01 /]$ ceph osd dump
+[cephadm@mon01 /]$ ceph osd ls
+ceph osd df
+ceph osd tree
+ceph -s</code></pre><h3 id="7630a672-a628-4581-b24b-dac30d5f4a4e" class="">从RADOS集群中移除OSD</h3><p id="a7075717-0efc-4abd-b884-e266324c6c51" class="">Ceph集群中一个OSD对应一个磁盘设备并且由一个OSD服务进行管理. 当磁盘设备故障或出于某种原因需要移除OSD时, 需要先停止对应的OSD服务而后进行移除操作．对于Ｌ版及之后的来说，停止和移除命令格式如下：</p><ol type="1" id="7c4ca068-0322-467e-bb2c-b7a5453dcb89" class="numbered-list" start="1"><li>停用OSD: ceph osd out {osd-num}</li></ol><ol type="1" id="117bc431-5568-4c29-965f-463d9a146af3" class="numbered-list" start="2"><li>停止进程: sudo systemctl stop ceph-osd@{osd-num}</li></ol><ol type="1" id="3b905ca4-bf7f-4a64-a202-c6495fcc7e7d" class="numbered-list" start="3"><li>移除设备: ceph osd purge {id} —yes-i-really-mean-it</li></ol><p id="94f7796c-c2d5-4c5f-a2f1-31f067c22d97" class="">若类似如下的OSD的配置信息存在于ceph.conf配置文件中,管理员在删除OSD之后手动将其删除.</p><pre id="5bd95c7f-a938-48a0-b4af-878dd8e972d0" class="code"><code>[osd.1]
+		host = {hostname}</code></pre><p id="e4ff02c7-2f1f-4915-848e-cd23d189e488" class="">对于L版之前的, 管理员需要执行如下步骤删除OSD设备:</p><ol type="1" id="7c4750c3-e7fc-4a32-bbba-c8ed5c671b44" class="numbered-list" start="1"><li>在CRUSH运行图中移除设备: ceph osd crush remove {name}</li></ol><ol type="1" id="4c42f5c2-770d-427c-ae14-4b00ddf1103e" class="numbered-list" start="2"><li>移除OSD的认证key: ceph auth del osd.{osd-num}</li></ol><ol type="1" id="caca965a-b03c-4c39-993c-1882026a4e47" class="numbered-list" start="3"><li>最后移除OSD设备: ceph osd rm {osd-num}</li></ol><p id="e999e5b2-6c78-447c-b1a1-10350956418a" class="">至此RADOS存储集群已经部署完成了．</p><hr id="630ef29a-60cf-453c-bb37-8ab2269e651e"/><h2 id="484dd12d-a26f-428f-977a-f19e55a14746" class="">部署CephFS接口</h2><h3 id="157c548c-1e9b-4a30-b592-1a0af3d5eb4e" class="">介绍</h3><p id="cfe3046b-3885-4784-93a3-869d04ef09e5" class="">CephFS是与POSIX兼容的文件系统, 能够提供对Ceph存储集群的文件访问, <strong>与NFS|GFS一样对外提供共享文件系统.</strong> Jewel版本(10.2.0)是第一个包含稳定CephFS的Ceph版本. </p><p id="665e8caf-42cf-452f-b1cf-a5df8d4ac3ef" class="">MDS(ceph-mds): Metadata Server, 管理着CephFS的元数据.CephFS需要至少一个元数据服务(Meta Data Server - MDS)运行, MDS管理着存储CephFS上的文件相关的元数据, 并协调着对Ceph存储系统的访问.</p><figure id="f8e6d843-7e5e-4d2f-b8a4-605be11db5ed" class="image"><a href="Ceph%2059fba/Untitled%2014.png"><img style="width:336px" src="Ceph%2059fba/Untitled%2014.png"/></a></figure><h3 id="1e0c480e-13a0-4969-bae9-a12b0d9e52e6" class="">配置CephFS</h3><p id="7445ccf4-974b-45fd-8fd9-79faaed73433" class="">要使用CephFS, 至少需要一个metadata server进程. 可以手动创建一个MDS, 也可以使用ceph-deploy或者ceph-ansible来部署MDS.</p><pre id="0872cde9-17fb-4e02-ac35-7617612e742b" class="code"><code>#登陆到ceph-deploy工作目录内执行, 可加一个或以上的节点名.格式:ceph-deploy mds create 节点名1 [节点名2] [..]
+ceph-deploy mds create stor01 stor02
+
+#检查集群有多少个MDS
+ceph -s
+
+#创建pool
+ceph osd pool create cephfs-data 16 16
+ceph osd pool create cephfs-metadata 16 16
+#创建CephFs
+ceph fs new cephfs cephfs-metadata cephfs-data
+#
+ceph fs status cephfs
+#在monitor上创建一个用户, 用于访问CephFS.
+ceph auth get-or-create client.cephfs mon &#x27;allow r&#x27; mds &#x27;allow rw&#x27; osd &#x27;allow rw pool=cephfs-data, allow rw pool=cephfs-metadata&#x27;
+#验证Key是否生效
+ceph auth get client.cephfs
+#检查
+ceph mds stat
+ceph fs ls
+ceph fs status
+</code></pre><h2 id="f2fafe44-8796-4305-b83f-0abddb4f68a0" class="">在客户端以kernel client形式挂载cephFS</h2><pre id="e058dc27-023c-4b5d-8fd6-56ca1c1085ee" class="code"><code>#创建挂载目录, 比如创一个目录cephfs
+mkdir /cephfs
+
+#在ceph节点上查看密文, 该密文用于客户端与monitor交互.
+ceph auth get client.cephfs
+
+#在节点挂载目录. name=参数是cephFS的名称, secret=参数是密文.
+mount -t ceph 10.19.34.21:6789,10.19.34.22:6789,10.19.34.23:6789:/ /cephfs/ -o name=cephfs,secret=AQD3rHNguCm6CRAAHEaU0B6DNIx3N9pMjYuFZQ==
+
+#写入fstab
+#在客户端,复制密文到配置文件,然后写fstab.
+cat &gt;/etc/ceph/admin.secret &lt;&lt;EOF
+AQD3rHNguCm6CRAAHEaU0B6DNIx3N9pMjYuFZQ==
+EOF
+echo &quot;10.19.34.21:6789,10.19.34.22:6789,10.19.34.23:6789:/     /mnt/ceph    ceph   name=cephfs,secretfile=/etc/ceph/admin.secret,noatime,_netdev    0       0&quot; &gt;&gt;/etc/fstab
+
+#验证是否挂载成功
+stat -f /cephfs</code></pre><p id="664cde31-4c11-4785-a45b-289e4e366df2" class="">
+</p><h2 id="b8d8d6b6-a9e5-480e-a741-f8dab5e2f352" class="">在客户端以fuse形式挂载cephFS</h2><pre id="f0c81d23-66d1-428e-90ad-e9074abe5927" class="code"><code>#安装ceph-common和ceph-fuse
+yum install -y ceph-common ceph-fuse
+
+#将集群的ceph.conf和将cephfs账号拷贝到客户端
+scp ceph集群节点地址:/etc/ceph/ceph.conf /etc/ceph/
+ssh ceph集群节点地址 &#x27;ceph auth get client.cephfs&#x27; 1&gt;/etc/ceph/ceph.client.cephfs.keyring
+#使用ceph-fuse挂载
+ceph-fuse --keyring /etc/ceph/ceph.client.cephfs.keyring --name client.cephfs -m 10.19.34.21:6789,10.19.34.22:6789,10.19.34.23:6789 /cephfs
+#验证
+stat -f /cephfs
+#自动挂载
+echo &quot;id=cephfs,conf=/etc/ceph/ceph.conf /cephfs fuse.ceph _netdev,defaults 0 0&quot; &gt;&gt;/etc/fstab</code></pre><p id="98875365-de53-44eb-b72e-8218d379fc97" class="">
+</p><h2 id="233381dd-47b8-4a67-95bd-e1772cdfadb7" class="">MDS主备与主主切换</h2><p id="1494e3fd-4a0f-49ad-8cbf-3e9b4516b1ea" class="">当一个MDS造成cephfs的性能瓶颈时, 应该配置多个活动的MDS(如何定位瓶颈). 当多个客户端上的应用程序在并行地执行大量元数据操作, 并且分别由自己单独的工作目录时, 很适合作多主MDS模式.</p><p id="5cdcea17-2d4b-4356-b903-742f422e584d" class="">每个cephfs文件系统都有一个max_mds设置, 可以理解为它将控制创建多少个主MDS. 注意只有当实际的MDS个数大于或者等于max_mds设置的值时,mdx_mds设置才会生效.例如,如果只有一个MDS守护进程在运行,并且max_mds被设置为两个, 则不会创建第二个主MDS.</p><pre id="e87d74a2-3665-4825-9ef5-cd46c2f374f1" class="code"><code>ceph fs set &lt;fs&gt; max_mds 2</code></pre><p id="181f96cb-76fc-44fa-b1e0-1416dc448ebb" class="">为什么需要备用MDS? 如果其中一个主MDS出现故障, 需要备用MDS来接管, 因此, 对于高可用性系统, 实际配置max_mds时, 最好比系统中MDS总数少一个. 可以配置ceph不需要备用MDS, 否则会出现&quot;insufficient standby daemons available&quot;告警信息:</p><pre id="f0d7a604-5c8c-4dd1-ba21-d82bbd95313f" class="code"><code>ceph fs set &lt;fs&gt; standby_count_wanted 0</code></pre><p id="ed8333d7-0f12-4666-8e92-687433a35654" class="">192.168.31.20</p><h3 id="a90d593f-9f1d-4ee4-ac23-f4f1d0d35985" class=""></h3><hr id="b836c4d2-36db-4dcf-9c7c-587fd12d2a3d"/><h1 id="cbe30cbc-3cba-4f81-832e-e36111a00dbb" class="">RBD</h1><h2 id="888ff80b-a2ef-4662-a249-943a1402bb64" class="">介绍</h2><p id="b3b972e0-a70c-47f1-a437-4f1ea4d88f38" class="">RBD, RADOS Block Device的简称, RBD块存储</p><hr id="acaa0b15-113e-4173-9c36-81a186e978b5"/><p id="5d252459-dc28-4d1a-92e7-29fe53d2f963" class="">
+</p><p id="ff44c915-6307-438f-a1eb-44a934ac4cbc" class="">
+</p><p id="dd1506df-0a09-431c-9cb2-e042babf768e" class="">
+</p><div id="dd7bfcf4-86b1-4471-9fe8-f4d9d644b813" class="collection-content"><h4 class="collection-title"></h4><table class="collection-content"><thead><tr><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesTitle"><path d="M7.73943662,8.6971831 C7.77640845,8.7834507 7.81338028,8.8943662 7.81338028,9.00528169 C7.81338028,9.49823944 7.40669014,9.89260563 6.91373239,9.89260563 C6.53169014,9.89260563 6.19894366,9.64612676 6.08802817,9.30105634 L5.75528169,8.33978873 L2.05809859,8.33978873 L1.72535211,9.30105634 C1.61443662,9.64612676 1.2693662,9.89260563 0.887323944,9.89260563 C0.394366197,9.89260563 0,9.49823944 0,9.00528169 C0,8.8943662 0.0246478873,8.7834507 0.0616197183,8.6971831 L2.46478873,2.48591549 C2.68661972,1.90669014 3.24119718,1.5 3.90669014,1.5 C4.55985915,1.5 5.12676056,1.90669014 5.34859155,2.48591549 L7.73943662,8.6971831 Z M2.60035211,6.82394366 L5.21302817,6.82394366 L3.90669014,3.10211268 L2.60035211,6.82394366 Z M11.3996479,3.70598592 C12.7552817,3.70598592 14,4.24823944 14,5.96126761 L14,9.07922535 C14,9.52288732 13.6549296,9.89260563 13.2112676,9.89260563 C12.8169014,9.89260563 12.471831,9.59683099 12.4225352,9.19014085 C12.028169,9.6584507 11.3257042,9.95422535 10.5492958,9.95422535 C9.60035211,9.95422535 8.47887324,9.31338028 8.47887324,7.98239437 C8.47887324,6.58978873 9.60035211,6.08450704 10.5492958,6.08450704 C11.3380282,6.08450704 12.040493,6.33098592 12.4348592,6.81161972 L12.4348592,5.98591549 C12.4348592,5.38204225 11.9172535,4.98767606 11.1285211,4.98767606 C10.6602113,4.98767606 10.2411972,5.11091549 9.80985915,5.38204225 C9.72359155,5.43133803 9.61267606,5.46830986 9.50176056,5.46830986 C9.18133803,5.46830986 8.91021127,5.1971831 8.91021127,4.86443662 C8.91021127,4.64260563 9.0334507,4.44542254 9.19366197,4.34683099 C9.87147887,3.90316901 10.6232394,3.70598592 11.3996479,3.70598592 Z M11.1778169,8.8943662 C11.6830986,8.8943662 12.1760563,8.72183099 12.4348592,8.37676056 L12.4348592,7.63732394 C12.1760563,7.29225352 11.6830986,7.11971831 11.1778169,7.11971831 C10.5616197,7.11971831 10.056338,7.45246479 10.056338,8.0193662 C10.056338,8.57394366 10.5616197,8.8943662 11.1778169,8.8943662 Z M0.65625,11.125 L13.34375,11.125 C13.7061869,11.125 14,11.4188131 14,11.78125 C14,12.1436869 13.7061869,12.4375 13.34375,12.4375 L0.65625,12.4375 C0.293813133,12.4375 4.43857149e-17,12.1436869 0,11.78125 C-4.43857149e-17,11.4188131 0.293813133,11.125 0.65625,11.125 Z"></path></svg></span>Name</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th></tr></thead><tbody><tr id="33bbe91b-32ac-4f00-9af6-7aa4cdf8c7f4"><td class="cell-title"><a href="Ceph%2059fba/Untitled%20D%20dd7bf/Rook-Ceph%2033bbe.html">Rook-Ceph</a></td><td class="cell-BPth"><time>@April 28, 2021 7:33 PM</time></td><td class="cell-slBZ"></td></tr><tr id="ca1dfbbb-1e4e-4499-8ea5-2254f7cccd31"><td class="cell-title"><a href="Ceph%2059fba/Untitled%20D%20dd7bf/Page%203%20ca1df.html">Page 3</a></td><td class="cell-BPth"><time>@April 28, 2021 7:33 PM</time></td><td class="cell-slBZ"></td></tr></tbody></table></div></div></article></body></html>

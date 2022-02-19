@@ -1,0 +1,720 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>gitlab</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2113d453-fe6d-4852-af27-99e94b278224" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🌖</span></div><h1 class="page-title">gitlab</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@May 1, 2021 6:14 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="b4f1c3c8-c97b-4e10-98e9-30bba752eace" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#4a72f8f4-b19c-4be4-958d-55ef445e972d">安装</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#761b824e-9931-47da-84bf-ad5447a3c2c4">二进制</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#c496e473-3885-4b61-b820-c5b20788dbe6"><mark class="highlight-orange">Helm安装</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5746f823-2b08-498a-b4a7-f49e12db8a84"><mark class="highlight-orange">疑问</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6802b19e-263b-441d-8757-ea44af79e849">概念</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#26daf24c-8403-4891-be4e-d554faf24c5f">仓库</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#878e20cb-57ca-44bd-a5a5-5fe529a46308">git流程：</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d158714e-83d8-4c9a-b01f-317d357024b0">权限</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#28098a39-e935-4b07-9dd2-e7d83a7249c2">创建组和用户</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b794c45d-2523-4aad-b535-a045d9332bba">git workfolow</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5f81b881-44d6-4440-8e33-f8afad842bb1">Git的基础操作</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b32f8050-4b8b-4818-a65d-2a7a2ab9ae0f">容器化部署</a></div></nav><p id="4d3de647-db9b-4afd-865b-f631d17af682" class="">学习参考： <a href="https://chegva.com/3229.html">https://chegva.com/3229.html</a></p><p id="f439627e-3d1c-44e3-80ea-180c900e756b" class="">官方文档：<a href="https://docs.gitlab.com/charts/">https://docs.gitlab.com/charts/</a>  <div class="indented"><p id="029c31b7-77b2-4f88-baa6-367453a71860" class=""><a href="https://docs.gitlab.com/omnibus/maintenance/index.html#get-service-status">https://docs.gitlab.com/omnibus/maintenance/index.html#get-service-status</a></p></div></p><h1 id="4a72f8f4-b19c-4be4-958d-55ef445e972d" class="">安装</h1><h2 id="761b824e-9931-47da-84bf-ad5447a3c2c4" class="">二进制</h2><pre id="62c1f8b6-7928-4431-b531-e976c2ee4549" class="code code-wrap"><code>yum install curl policycoreutils openssh-server openssh-clients policycoreutils-python postfix -y
+systemctl enable --now postfix 
+
+curl -L https://mirrors.tuna.tsinghua.edu.cn/gitlab-ce/yum/el7/gitlab-ce-10.0.6-ce.0.el7.x86_64.rpm -o /tmp/gitlab-ce-10.0.6-ce.0.el7.x86_64.rpm
+rpm -ivh /tmp/gitlab-ce-10.0.6-ce.0.el7.x86_64.rpm
+
+#修改/etc/gitlab/gitlab.rb，
+#1.将external_url改为http://IP地址
+#2.(根据需要)默认使用80(web使用nginx)和8080(unicorn)，如8080端口冲突,添加unicorn[&#x27;port&#x27;]=9092；如80端口也冲突，添加nginx[&#x27;listen_port&#x27;]=9091
+
+
+#重新生成配置同时启动, 启动后就可以用浏览器访问IP地址了，使用root账号。
+gitlab-ctl reconfigure
+
+#查看一下状态
+gitlab-ctl status</code></pre><h2 id="c496e473-3885-4b61-b820-c5b20788dbe6" class=""><mark class="highlight-orange">Helm安装</mark></h2><p id="17fe1d9e-9187-40e7-89cf-4af9729c4140" class="">官方参考: <a href="https://docs.gitlab.com/charts/installation/deployment.html">https://docs.gitlab.com/charts/installation/deployment.html</a></p><pre id="bda5cba4-df6a-4d72-a6d0-6e4e8fa1d9aa" class="code code-wrap"><code>helm repo add gitlab https://charts.gitlab.io/
+
+</code></pre><p id="45153893-4deb-4324-ba21-af4c4b973b17" class="">
+</p><p id="017caf67-61d9-4274-b937-a68ee5b30c0a" class="">
+</p><h1 id="5746f823-2b08-498a-b4a7-f49e12db8a84" class=""><mark class="highlight-orange">疑问</mark></h1><ol type="1" id="583af9d3-62b0-4011-9c93-3ca770c5b45c" class="numbered-list" start="1"><li><code>origin</code> 是什么？</li></ol><h1 id="6802b19e-263b-441d-8757-ea44af79e849" class="">概念</h1><h2 id="26daf24c-8403-4891-be4e-d554faf24c5f" class="">仓库</h2><p id="e588c280-100c-4f32-b642-568640a73dad" class="">受到git版本控制的目录叫做仓库repo，git能跟踪和纪录它的更新</p><ul id="28fd7979-6c9e-4561-8fcb-5812a6e345fb" class="bulleted-list"><li style="list-style-type:disc">.git子目录 存放版本控制相关的信息</li></ul><ul id="4ed0d349-b9e2-4885-9a92-0d75a6fe0461" class="bulleted-list"><li style="list-style-type:disc">分支，仓库里有且只有一个主分支，正式版本都在主分支上发布，而在其他分支上进行开发<ul id="32679678-6059-480e-8747-9a01e5a2b672" class="bulleted-list"><li style="list-style-type:circle">默认主分支master</li></ul></li></ul><ul id="6daea3cb-137b-44d7-9dda-2c9336737fbc" class="bulleted-list"><li style="list-style-type:disc">HEAD and refs指出了目前仓库的最新状态</li></ul><h2 id="878e20cb-57ca-44bd-a5a5-5fe529a46308" class="">git流程：</h2><ol type="1" id="0b875d0d-bc8b-4c98-b5d8-b6a0ba76eba9" class="numbered-list" start="1"><li>克隆代码到本地库<p id="17efd0be-1ace-4906-9aa8-7aa58e6e0a64" class="">开发从gitlab上，将某项目某分支克隆到本地(<code>git clone -b 分支</code>)，形成一个<strong>本地库repo</strong></p></li></ol><ol type="1" id="100373bb-6153-4f76-8f5c-c5110e4fe348" class="numbered-list" start="2"><li>修改代码后<ol type="a" id="fdaee2a6-8e6d-475f-9c8a-3fe222d0185c" class="numbered-list" start="1"><li>添加新文件或修改文件后， <code>git add .</code> ，添加到<strong>暂存区</strong></li></ol><ol type="a" id="1b17d474-9541-4299-9a0a-accdd962acd7" class="numbered-list" start="2"><li> 确认可提交，执行 <code>git commit -m </code>，将暂存区的代码<strong>提交到本地库</strong>，以便版本控制, 方便回退之前版本</li></ol><ol type="a" id="42c89279-f902-4692-9d87-22814fb01096" class="numbered-list" start="3"><li><strong>提交到gitlab上项目分支</strong>(<code>git push -u origin 分支</code>)<ul id="4fc6dfba-329f-479e-8e72-6f1bdbe49877" class="bulleted-list"><li style="list-style-type:disc">提交流程也叫merge pull（将本地库变化内容合并到远程仓库的分支上）</li></ul></li></ol></li></ol><p id="9168f9d9-81c8-4232-a79f-7a8956151869" class="">
+</p><p id="4a9eecb4-55cf-4659-9318-7f7bf52b5dde" class="">commit与push区别: </p><ul id="ac749929-8e57-4f55-b908-a53c73d8b0b5" class="bulleted-list"><li style="list-style-type:disc">在本地commit, 是把修改纳入本地库的版本控制, 防止丢失, 也可方便回退到上一版本</li></ul><ul id="927bb6ad-d534-4c5d-9d43-19feaa3f8121" class="bulleted-list"><li style="list-style-type:disc">有些修改当前是不需要同步到gtilab的，由用户自己决定, 什么时候需要同步再push到gitlab</li></ul><h1 id="d158714e-83d8-4c9a-b01f-317d357024b0" class="">权限</h1><p id="3caa7f73-b4aa-4fc6-90f1-769d0ccbb816" class="">参考：<a href="https://blog.csdn.net/u012045045/article/details/107128076/">https://blog.csdn.net/u012045045/article/details/107128076/</a></p><ul id="74285527-db60-41d6-aa53-b24e54a262f7" class="bulleted-list"><li style="list-style-type:disc">角色：Guest、Reporter、Developer、Maintainer、Owner</li></ul><ul id="6410467e-b7c2-4013-92b9-e3a0fddcc95c" class="bulleted-list"><li style="list-style-type:disc">Maintainer能够push代码到受保护分支，而Developer只能创建Merge Request，这就为团队推行强制代码审查并做到有迹可循提供了技术保证</li></ul><p id="72d2024a-58d3-4227-a3de-d13dae7b0548" class="">
+</p><h1 id="28098a39-e935-4b07-9dd2-e7d83a7249c2" class="">创建组和用户</h1><ul id="6d6c933f-134b-4165-bc80-8d85ed3ba59b" class="bulleted-list"><li style="list-style-type:disc">创建用户：扳手→ Users→New use</li></ul><ul id="793f62e2-d0ae-4f15-afa3-1c89305c8705" class="bulleted-list"><li style="list-style-type:disc">创建组：扳手→Groups</li></ul><ul id="f54d29b1-c86d-46d5-b5ad-067a2a269bc2" class="bulleted-list"><li style="list-style-type:disc">组名不可与用户名相同</li></ul><ul id="8bf0bcfc-57bd-44e9-a9c5-de73d3ba2866" class="bulleted-list"><li style="list-style-type:disc">用户添加到组：扳手→ Groups→组名→Add user(s) to the group</li></ul><ul id="7a4e1451-6c0f-41b9-903f-aefab8d2f4a8" class="bulleted-list"><li style="list-style-type:disc">设置用户的密码（在用户创建之后）：扳手→ Users→ 用户名→Edit →Password → <figure id="673de904-00b9-4907-a2b1-29aebd761ff8" class="image"><a href="gitlab%202113d/Untitled.png"><img style="width:816px" src="gitlab%202113d/Untitled.png"/></a></figure></li></ul><h1 id="b794c45d-2523-4aad-b535-a045d9332bba" class="">git workfolow</h1><figure id="2862e3b4-20ad-4cff-8572-cadc55462edc"><a href="https://www.ruanyifeng.com/blog/2012/07/git.html" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Git分支管理策略</div><div class="bookmark-description">如果你严肃对待编程，就必定会使用&quot; 版本管理系统&quot;（Version Control System）。 眼下最流行的&quot;版本管理系统&quot;，非 Git 莫属。 相比同类软件，Git有很多优点。其中很显著的一点，就是版本的分支（branch）和合并（merge）十分方便。有些传统的版本管理软件，分支操作实际上会生成一份现有代码的物理拷贝，而Git只生成一个指向当前版本（又称&quot;快照&quot;）的指针，因此非常快捷易用。 但是，太方便了也会产生副作用。如果你不加注意，很可能会留下一个枝节蔓生、四处开放的版本库，到处都是分支，完全看不出主干发展的脉络。 Vincent Driessen提出了一个分支管理的 策略 ，我觉得非常值得借鉴。它可以使得版本库的演进保持简洁，主干清晰，各个分支各司其职、井井有条。理论上，这些策略对所有的版本管理系统都适用，Git只是用来举例而已。如果你不熟悉Git，跳过举例部分就可以了。 一、主分支Master 首先，代码库应该有一个、且仅有一个主分支。所有提供给用户使用的正式版本，都在这个主分支上发布。 Git主分支的名字，默认叫做Master。它是自动建立的，版本库初始化以后，默认就是在主分支在进行开发。 二、开发分支Develop 主分支只用来分布重大版本，日常开发应该在另一条分支上完成。我们把开发用的分支，叫做Develop。 这个分支可以用来生成代码的最新隔夜版本（nightly）。如果想正式对外发布，就在Master分支上，对Develop分支进行&quot;合并&quot;（merge）。 Git创建Develop分支的命令： 　　git checkout -b develop master 将Develop分支发布到Master分支的命令： 　　# 切换到Master分支 　　git checkout master 　　# 对Develop分支进行合并 　　git merge --no-ff develop 这里稍微解释一下，上一条命令的--no-ff参数是什么意思。默认情况下，Git执行&quot;快进式合并&quot;（fast-farward merge），会直接将Master分支指向Develop分支。 使用--no-ff参数后，会执行正常合并，在Master分支上生成一个新节点。为了保证版本演进的清晰，我们希望采用这种做法。关于合并的更多解释，请参考Benjamin Sandofsky的 《Understanding the Git Workflow》 。 三、临时性分支 前面讲到版本库的两条主要分支：Master和Develop。前者用于正式发布，后者用于日常开发。其实，常设分支只需要这两条就够了，不需要其他了。 但是，除了常设分支以外，还有一些临时性分支，用于应对一些特定目的的版本开发。临时性分支主要有三种： 　　*</div></div><div class="bookmark-href"><img src="http://www.ruanyifeng.com/favicon.ico" class="icon bookmark-icon"/>https://www.ruanyifeng.com/blog/2012/07/git.html</div></div><img src="http://www.ruanyifeng.com/blogimg/asset/201207/bg2012070502.png" class="bookmark-image"/></a></figure><p id="327acf3e-f9d3-4aff-ac48-baf1783ec994" class="">
+</p><h1 id="5f81b881-44d6-4440-8e33-f8afad842bb1" class="">Git的基础操作</h1><ul id="f6b6c6d4-b6e1-4b0e-968e-d60d2e7100a7" class="bulleted-list"><li style="list-style-type:disc">创建git仓库<pre id="daa71807-5b49-4f4e-82d7-ec831e769f63" class="code code-wrap"><code>#将一个目录变成一个本地仓库（local repository） 
+git init
+#创建目录并进入目录，然后创建出一个git repository（库），这样在本地就有了一个/home/ubuntu/demorepo仓库。
+mkdir demorepo &amp;&amp; cd demorepo
+git init</code></pre></li></ul><ul id="abf48ae1-823c-49a0-ad5d-c1d821e40517" class="bulleted-list"><li style="list-style-type:disc">拉取git仓库<pre id="68221ba1-b36f-4e26-9289-7ef93caebdba" class="code code-wrap"><code>使用clone命令, 复制一份仓库。
+从git上拉取一个git仓库到本地。
+ubuntu@devopscube:~$ mkdir repo-copy &amp;&amp; cd repo-copy
+ubuntu@devopscube:~/repo-copy$ git clone  /home/ubuntu/demorepo
+Cloning into &#x27;demorepo&#x27;...
+ubuntu@devopscube:~/repo-copy$ ls
+demorepo
+ubuntu@devopscube:~/repo-copy$</code></pre></li></ul><h1 id="b32f8050-4b8b-4818-a65d-2a7a2ab9ae0f" class="">容器化部署</h1><ul id="dd1ac58c-d76e-49c3-ae05-0a054133fd19" class="bulleted-list"><li style="list-style-type:disc">主要涉及3个应用：Redis/Postgresql/Gitlab</li></ul><ul id="e9feab5c-caff-4cf4-8d4a-f0b7ae40bf2f" class="bulleted-list"><li style="list-style-type:disc">镜像不是官方的,一个第三方镜像：sameersbn/gitlab，基本上和官方保持同步更新</li></ul><ul id="9779642d-55d8-4fd7-997f-47955016b4c2" class="bulleted-list"><li style="list-style-type:disc">参考：<a href="https://github.com/sameersbn/docker-gitlab/blob/master/README.md">https://github.com/sameersbn/docker-gitlab/blob/master/README.md</a></li></ul><ol type="1" id="d218b747-aef6-46fd-8c2a-41414df9cd89" class="numbered-list" start="1"><li>创建docker网络，三个容器可用主机名通信<p id="263708ca-5523-424c-8ec6-02627d5f4ed4" class=""><code>docker network create gitlab</code></p></li></ol><ol type="1" id="78928260-e84e-49f5-b92d-cc8f478f4ac7" class="numbered-list" start="2"><li>创建数据目录：<code>mkdir -p /gitlab_data/{postgresql,gitlab,redis} &amp;&amp; chmod -R 777  /gitlab_data</code></li></ol><ol type="1" id="6b0c83ab-3059-41a5-94fb-8c7107b878d6" class="numbered-list" start="3"><li>启动redis容器<p id="946368c4-e4cc-469d-b441-e65e1d83fa6c" class=""><code>docker run -v /gitlab_data/redis:/var/lib/redis -p 6379:6379 --name redis -d --network gitlab sameersbn/redis:latest</code></p></li></ol><ol type="1" id="fa880d35-e3b0-4e59-a33f-7de3dde637eb" class="numbered-list" start="2"><li>启动postgresql容器<ol type="a" id="27a3ea9f-e657-4400-b038-79ac281bc722" class="numbered-list" start="1"><li>编辑文件，保存环境变量<ul id="2afa7689-f6fe-4be9-8581-870150d017c3" class="toggle"><li><details open=""><summary>环境变量文件</summary><pre id="b6a4ca5a-5a98-4772-b155-1fec47f24e0c" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;/gitlab_data/container/pgsql_env.list 
+DB_USER=gitlab
+DB_PASS=passw0rd
+DB_NAME=gitlab_production
+DB_EXTENSION=pg_trgm
+EOF</code></pre></details></li></ul></li></ol><ol type="a" id="65216da5-3263-430f-a50d-857f5148b052" class="numbered-list" start="2"><li>启动容器 <p id="c72028b9-ec6a-4e00-8131-60c1fff49461" class=""><code>docker run -d --network gitlab --env-file pgsql_env.list -v /gitlab_data/postgresql:/var/lib/postgresql -p 5432:5432 --name postgresql sameersbn/postgresql:10</code></p></li></ol></li></ol><ol type="1" id="fa1abc30-7968-4ca7-917a-db54a0a21880" class="numbered-list" start="3"><li>启动gitlab容器<ol type="a" id="a49b058e-d569-4af9-b46c-4bece0113ed8" class="numbered-list" start="1"><li>创建环境变量文件<ul id="57e11122-71f7-4332-9443-2816b5c3de33" class="bulleted-list"><li style="list-style-type:disc">为GITLAB_SECRETS_DB_KEY_BASE，GITLAB_SECRETS_SECRET_KEY_BASE,GITLAB_SECRETS_OTP_KEY_BASE设置64位随机码（需YUM安装<code>pwgen</code>）<p id="f633260e-520c-4cd4-8901-f056b19bb2fc" class=""><code>pwgen -Bsv1 64</code> 将输出结果粘贴到环境变量文件中对应的变量</p></li></ul><ul id="53527b73-48a3-4637-8bed-277ffd3a03c4" class="toggle"><li><details open=""><summary>环境变量文件</summary><pre id="fa0f4521-d198-4018-85b4-e59183643d9f" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;gitlab_env.list
+DEBUG=failure  #打开debug
+TZ=Asia/Shanghai #设置容器的时区
+GITLAB_TIMEZONE=Beijing 
+GITLAB_SECRETS_DB_KEY_BASE=c9zLP7Tst3ggsLbRFNxhpWhHRbWqqLKrtr3qqW4jpxWMHTsRsqzsVKVp9CkVNqtg
+GITLAB_SECRETS_SECRET_KEY_BASE=c9zLP7Tst3ggsLbRFNxhpWhHRbWqqLKrtr3qqW4jpxWMHTsRsqzsVKVp9CkVNqtg
+GITLAB_SECRETS_OTP_KEY_BASE=c9zLP7Tst3ggsLbRFNxhpWhHRbWqqLKrtr3qqW4jpxWMHTsRsqzsVKVp9CkVNqtg
+GITLAB_ROOT_PASSWORD=admin321
+GITLAB_ROOT_EMAIL=517554016@qq.com
+GITLAB_HOST=mxy.gitlab.com    #根据情况配置
+GITLAB_PORT=80                #前端80端口               
+GITLAB_SSH_PORT=22            
+GITLAB_NOTIFY_ON_BROKEN_BUILDS=true
+GITLAB_NOTIFY_PUSHER=false
+GITLAB_BACKUP_SCHEDULE=daily  #Setup cron job to automatic backups.disable, daily, weekly or monthly. Disabled by default
+GITLAB_BACKUP_TIME=01:00 #HH:MM
+DB_TYPE=postgres
+DB_HOST=postgresql
+DB_PORT=5432
+DB_USER=gitlab
+DB_PASS=passw0rd
+DB_NAME=gitlab_production
+REDIS_HOST=redis
+REDIS_PORT=6379
+EOF</code></pre></details></li></ul></li></ol><ol type="a" id="25144ff5-d344-4d4d-93eb-90cbe6278ec8" class="numbered-list" start="2"><li>启动容器<p id="c50f6699-06d6-4b08-b88c-42d87f7fcf5e" class=""><code>docker run --network gitlab --env-file gitlab_env.list -v /gitlab_data/gitlab:/home/git/data -p 2222:22 -p 8888:80 --name gitlab sameersbn/gitlab:11.8.1</code></p></li></ol></li></ol><p id="b8cd79d6-d451-4a8a-a31b-75e7618bed66" class="">
+</p></div></article></body></html>

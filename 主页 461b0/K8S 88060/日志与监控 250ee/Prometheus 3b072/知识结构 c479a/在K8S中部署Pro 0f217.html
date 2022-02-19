@@ -1,0 +1,1419 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>在K8S中部署Prometheus Server</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="0f217252-581e-4d9e-94e4-39bdae534403" class="page sans"><header><img class="page-cover-image" src="%E5%9C%A8K8S%E4%B8%AD%E9%83%A8%E7%BD%B2Pro%200f217/Blog-Kubernetes-Monitoring-with-Prometheus-1-Featured-image.png" style="object-position:center 47.81999999999999%"/><h1 class="page-title">在K8S中部署Prometheus Server</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 29, 2021 10:33 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><p id="aef4d1da-de6c-45fa-9ad4-9fc8ee093921" class="">本文章讲解如何在K8S集群中部署我们的Prometheus监控系统. 将以容器形式在K8S中依次安装Prometheus Server, Alertmanager,Grafana, node-expoter, kube state metric. </p><figure id="781a9c18-ead2-4ae9-846f-f77ac4ba9fd8"><a href="https://devopscube.com/setup-prometheus-monitoring-on-kubernetes/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How to Setup Prometheus Monitoring On Kubernetes Cluster [Tutorial]</div><div class="bookmark-description">This article will guide you through setting up Prometheus on a Kubernetes cluster for monitoring the Kubernetes cluster. This setup collects node, pods, and services metrics automatically using Prometheus service discovery configurations. Prometheus is an open-source monitoring framework. It provides out-of-the-box monitoring capabilities for the Kubernetes container orchestration platform.</div></div><div class="bookmark-href"><img src="https://devopscube.com/wp-content/uploads/2016/07/cropped-devopscube-twitter-dp-192x192.png" class="icon bookmark-icon"/>https://devopscube.com/setup-prometheus-monitoring-on-kubernetes/</div></div><img src="https://devopscube.com/wp-content/uploads/2019/10/kubernetes-design-3-min.png" class="bookmark-image"/></a></figure><h2 id="bbb2697f-c49e-4bd4-83a2-7d2f1baf3f79" class="">部署Prometheus Server</h2><h3 id="9bb5f525-33dc-49d7-8a8c-43b905f729ff" class="">1. 创建命名空间</h3><p id="96164234-3a1c-4f50-8e25-8e796c0bea84" class="">除kube state metric外，所有资源均不属于monitoring命名空间。</p><pre id="93d74d1a-b9ca-4ac2-b963-42dfc45aa016" class="code code-wrap"><code>kubectl create namespace monitoring</code></pre><h3 id="5bd52434-25ac-443f-970a-d24858f8301a" class="">Prometheus使用的RBAC规则</h3><p id="581cdc82-c2ac-4547-bea9-8dd0d379d731" class="">prometheus server需要访问apiserver，故需要为其设置用户名和角色。</p><ul id="a3e2225a-c19f-4e9e-99b8-40ca737304ca" class="toggle"><li><details open=""><summary><code>prometheus-rbac.yaml</code></summary><pre id="18059d5d-7278-4184-9061-33b2cfa92653" class="code code-wrap"><code>apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: prometheus
+rules:
+- apiGroups: [&quot;&quot;]
+  resources:
+  - nodes
+  - nodes/proxy
+  - services
+  - endpoints
+  - pods
+  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+- apiGroups:
+  - extensions
+  resources:
+  - ingresses
+  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;]
+- nonResourceURLs: [&quot;/metrics&quot;]
+  verbs: [&quot;get&quot;]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: prometheus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: prometheus
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: monitoring</code></pre></details></li></ul><h3 id="52a4dc66-3d79-4a05-9adb-53c28c500eab" class="">ConfigMap</h3><p id="abb06fcf-0697-4978-8ecc-ae6ab276dff8" class=""><code>configmap.yaml</code>包含两个配置文件,  一个是主配置文件<code>prometheus.yml</code> .一个是告警规则<code>prometheus.rules</code> .</p><p id="ee936319-ae79-4337-9347-193c7017403c" class=""><code>prometheus.yml</code> 中的job采用了<strong>K8S动态发现</strong>的方式自动添加target(即IP地址:端口)详细解释参考<a href="%E9%92%88%E5%AF%B9K8S%E7%9A%84%E5%8A%A8%E6%80%81%E5%8F%91%E7%8E%B0%2014c7a.html">https://www.notion.so/K8S-14c7a53dcff54cf8abb1db74e73a13b8</a>. </p><p id="a9d0b7c3-d7fa-4d1e-a41e-129a0a5b2e14" class="">kubernetes-apiservers,kubernetes-nodes,node-exporter,kubernetes-service-endpoints这些job的target是动态发现的.</p><p id="f64c9ea4-e661-48a5-9981-aaed4d963a7c" class="">kube-state-metrics这个job的target是静态设置的, 它从<strong>kube-state-metric</strong>服务采集到metrics, 后面会安装kube-state-metric.</p><p id="c2099dde-1b9e-403b-8707-f3322dec47a7" class="">node-exporter这个job需要每个节点上配置node-exporter. 后面章节会以DaemonSet形式部署在K8S中. 也可以在各节点上用二进制部署node-exporter, 但是不方便.</p><ul id="f74ac0a8-e7fb-4b53-864a-0f8c1a3264b9" class="toggle"><li><details open=""><summary><code>configmap.yaml</code> , 根据实际情况调整. </summary><pre id="875317e4-1cbe-4684-8293-6b228606bc67" class="code code-wrap"><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-server-conf
+  labels:
+    name: prometheus-server-conf
+  namespace: monitoring
+data:
+  prometheus.rules: |-
+    groups:
+    - name: devopscube demo alert
+      rules:
+      - alert: High Pod Memory
+        expr: sum(container_memory_usage_bytes) &gt; 1
+        for: 1m
+        labels:
+          severity: slack
+        annotations:
+          summary: High Memory Usage
+  prometheus.yml: |-
+    global:
+      scrape_interval: 5s
+      evaluation_interval: 5s
+    rule_files:
+      - /etc/prometheus/prometheus.rules
+    alerting:
+      alertmanagers:
+      - scheme: http
+        static_configs:
+        - targets:
+          - &quot;alertmanager.monitoring.svc:9093&quot;
+    scrape_configs:
+      - job_name: &#x27;node-exporter&#x27;
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          regex: &#x27;node-exporter&#x27;
+          action: keep
+      
+      - job_name: &#x27;kubernetes-apiservers&#x27;
+        kubernetes_sd_configs:
+        - role: endpoints
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_service_name, __meta_kubernetes_endpoint_port_name]
+          action: keep
+          regex: default;kubernetes;https
+
+      - job_name: &#x27;kubernetes-nodes&#x27;
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        kubernetes_sd_configs:
+        - role: node
+        relabel_configs:
+        - action: labelmap
+          regex: __meta_kubernetes_node_label_(.+)
+        - target_label: __address__
+          replacement: kubernetes.default.svc:443
+        - source_labels: [__meta_kubernetes_node_name]
+          regex: (.+)
+          target_label: __metrics_path__
+          replacement: /api/v1/nodes/${1}/proxy/metrics     
+      
+      - job_name: &#x27;kubernetes-pods&#x27;
+        kubernetes_sd_configs:
+        - role: pod
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+          action: keep
+          regex: true
+        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+          action: replace
+          target_label: __metrics_path__
+          regex: (.+)
+        - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+          action: replace
+          regex: ([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+          target_label: __address__
+        - action: labelmap
+          regex: __meta_kubernetes_pod_label_(.+)
+        - source_labels: [__meta_kubernetes_namespace]
+          action: replace
+          target_label: kubernetes_namespace
+        - source_labels: [__meta_kubernetes_pod_name]
+          action: replace
+          target_label: kubernetes_pod_name
+
+ #kube-state-metrics，还需要部署kube-state-metric deployment才能采集到这方面的监控数据。获取Kubernetes中各种资源的最新状态，如 deployment或者daemonset     
+      - job_name: &#x27;kube-state-metrics&#x27;
+        static_configs:
+          - targets: [&#x27;kube-state-metrics.kube-system.svc.cluster.local:8080&#x27;]
+
+      - job_name: &#x27;kubernetes-cadvisor&#x27;
+        scheme: https
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        kubernetes_sd_configs:
+        - role: node
+        relabel_configs:
+        - action: labelmap
+          regex: __meta_kubernetes_node_label_(.+)
+        - target_label: __address__
+          replacement: kubernetes.default.svc:443
+        - source_labels: [__meta_kubernetes_node_name]
+          regex: (.+)
+          target_label: __metrics_path__
+          replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
+      
+      - job_name: &#x27;kubernetes-service-endpoints&#x27;
+        kubernetes_sd_configs:
+        - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
+          action: keep
+          regex: true
+        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+          action: replace
+          target_label: __scheme__
+          regex: (https?)
+        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+          action: replace
+          target_label: __metrics_path__
+          regex: (.+)
+        - source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
+          action: replace
+          target_label: __address__
+          regex: ([^:]+)(?::\d+)?;(\d+)
+          replacement: $1:$2
+        - action: labelmap
+          regex: __meta_kubernetes_service_label_(.+)
+        - source_labels: [__meta_kubernetes_namespace]
+          action: replace
+          target_label: kubernetes_namespace
+        - source_labels: [__meta_kubernetes_service_name]
+          action: replace
+          target_label: kubernetes_name</code></pre><p id="b625a226-c64c-44bb-a612-11218b9d5e4c" class="">
+</p></details></li></ul><h3 id="022fd6ec-8600-48e6-94a7-7cf3b12f7f99" class="">Prometheus Server</h3><ul id="4df14717-292a-4d02-b567-82b4a433977c" class="toggle"><li><details open=""><summary><code>prometheus-deployment.yaml</code> ,根据实际情况进行调整</summary><pre id="bea23f02-3c70-4d92-bb85-c92c079827bf" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;prometheus-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-deployment
+  namespace: monitoring
+  labels:
+    app: prometheus-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-server
+  template:
+    metadata:
+      labels:
+        app: prometheus-server
+    spec:
+      containers:
+        - name: prometheus
+          image: prom/prometheus
+          args:
+            - &quot;--storage.tsdb.retention.time=12h&quot;
+            - &quot;--config.file=/etc/prometheus/prometheus.yml&quot;
+            - &quot;--storage.tsdb.path=/prometheus/&quot;
+          ports:
+            - containerPort: 9090
+          resources:
+            requests:
+              cpu: 500m
+              memory: 500M
+            limits:
+              cpu: 1
+              memory: 1Gi
+          volumeMounts:
+            - name: prometheus-config-volume
+              mountPath: /etc/prometheus/
+            - name: prometheus-storage-volume
+              mountPath: /prometheus/
+      volumes:
+        - name: prometheus-config-volume
+          configMap:
+            defaultMode: 420
+            name: prometheus-server-conf 
+        - name: prometheus-storage-volume     #在生产环境绝对不要使用这个emptyDir，必须使用persistent volume，切记！
+          emptyDir: {}
+EOF</code></pre></details></li></ul><h3 id="8b0d5292-6410-4f65-96e8-3c252a5aa945" class="">service，暴露Prometheus Server</h3><ul id="a2975477-88f1-4c6c-b474-02de86b09a5c" class="toggle"><li><details open=""><summary><code>prometheus-service.yaml</code>  进行固定集群IP访问</summary><pre id="ed137f13-c78f-4f10-a83f-5d1efd50ac4d" class="code code-wrap"><code>[root@etcd-1 prometheus]# cat prometheus-service.yaml 
+apiVersion: v1
+kind: Service
+metadata:
+  name: prometheus-service
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: &#x27;true&#x27;
+      prometheus.io/port:   &#x27;9090&#x27;
+spec:
+  selector: 
+    app: prometheus-server
+  type: NodePort  
+  ports:
+    - port: 8080
+      targetPort: 9090 
+      nodePort: 30000</code></pre></details></li></ul><p id="643c38fa-7e68-4339-a78c-206a02b2e25a" class="">
+</p><hr id="be34b2e1-3da5-4336-8854-d5cf7d703819"/><h2 id="1611963e-c4ed-4e65-983f-d45d31e47307" class="">部署Kube State Metrics</h2><p id="070dc4ec-9bf1-4ae0-a84a-12aaac2725c2" class=""><mark class="highlight-red">用于获取API对象</mark>(比如pod,deployment, statefulsets)<mark class="highlight-red">的</mark><mark class="highlight-red">metrics数据</mark>.  kube state metrics服务将metrics数据暴露在URI<code>/metrics</code>.</p><p id="79d62f1a-70f9-4a93-ab50-9301df12beee" class="">通过它, 我们可以从K8S采集到如下metrics, 具体的metrics信息可参考: <a href="https://github.com/kubernetes/kube-state-metrics/tree/master/docs">https://github.com/kubernetes/kube-state-metrics/tree/master/docs</a></p><ol type="1" id="eb8ff6c6-d2b1-450a-8f90-726da4b536d6" class="numbered-list" start="1"><li>节点的状态和节点的容量 (CPU and memory)</li></ol><ol type="1" id="c9dcb68b-62da-4a2d-91ed-8ffa1b531cf8" class="numbered-list" start="2"><li>Monitor replica-set compliance (desired/available/unavailable/updated status of replicas per deployment)</li></ol><ol type="1" id="5a9a7691-5ac3-4626-a478-74042d53828c" class="numbered-list" start="3"><li>Monitor pod status (waiting, running, ready, etc)</li></ol><ol type="1" id="b0c2e427-59e8-4351-8c59-57114b7fa415" class="numbered-list" start="4"><li>Monitor the resource requests and limits.</li></ol><ol type="1" id="35da95f7-d1dc-468d-a0f1-4e3045816632" class="numbered-list" start="5"><li>Monitor Job &amp; Cronjob Status</li></ol><p id="d1fbf561-0f7c-420f-abfa-8a37121aea72" class="">注意：这里部署的<mark class="highlight-red_background">所有对象均创建于kube-system命名空间。</mark></p><p id="42129cb4-664a-4d31-b267-d4518038c98c" class=""><strong>RABC，For kube state metrics to access all the Kubernetes API objects</strong></p><ul id="e953a54f-f4c0-41e2-a579-b114c76a37e4" class="toggle"><li><details open=""><summary><code>rbac.yaml </code></summary><pre id="b6da8572-38a4-443e-af4b-2b5d29d91b66" class="code code-wrap"><code>apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+rules:
+- apiGroups:
+  - &quot;&quot;
+  resources:
+  - configmaps
+  - secrets
+  - nodes
+  - pods
+  - services
+  - resourcequotas
+  - replicationcontrollers
+  - limitranges
+  - persistentvolumeclaims
+  - persistentvolumes
+  - namespaces
+  - endpoints
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - extensions
+  resources:
+  - daemonsets
+  - deployments
+  - replicasets
+  - ingresses
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - statefulsets
+  - daemonsets
+  - deployments
+  - replicasets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - cronjobs
+  - jobs
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - autoscaling
+  resources:
+  - horizontalpodautoscalers
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - authentication.k8s.io
+  resources:
+  - tokenreviews
+  verbs:
+  - create
+- apiGroups:
+  - authorization.k8s.io
+  resources:
+  - subjectaccessreviews
+  verbs:
+  - create
+- apiGroups:
+  - policy
+  resources:
+  - poddisruptionbudgets
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - certificates.k8s.io
+  resources:
+  - certificatesigningrequests
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  - volumeattachments
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - admissionregistration.k8s.io
+  resources:
+  - mutatingwebhookconfigurations
+  - validatingwebhookconfigurations
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - networking.k8s.io
+  resources:
+  - networkpolicies
+  verbs:
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: kube-state-metrics
+subjects:
+- kind: ServiceAccount
+  name: kube-state-metrics
+  namespace: kube-system</code></pre><p id="bdfeb475-7c05-4708-84c8-6742df278570" class="">
+</p></details></li></ul><p id="b05ce8a9-05e9-4c12-9b27-a0b382826b74" class=""><strong>Kube State Metrics, 服务就部署在这里</strong></p><ul id="37981e14-cd6f-41b7-a36b-4f77d374be42" class="toggle"><li><details open=""><summary><code>deployment.yaml </code></summary><pre id="9128f47a-c73d-4da7-8c01-9e99a9fa2409" class="code code-wrap"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kube-state-metrics
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kube-state-metrics
+        app.kubernetes.io/version: v1.8.0
+    spec:
+      containers:
+      - image: quay.io/coreos/kube-state-metrics:v1.8.0
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        name: kube-state-metrics
+        ports:
+        - containerPort: 8080
+          name: http-metrics
+        - containerPort: 8081
+          name: telemetry
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8081
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+      nodeSelector:
+        kubernetes.io/os: linux
+      serviceAccountName: kube-state-metrics</code></pre></details></li></ul><p id="7478741e-7608-4e9e-aabb-58594db00826" class=""><strong>service, 暴露Kube State Metrics</strong></p><ul id="5d58b316-7a5b-447d-88e5-1a922a67922f" class="toggle"><li><details open=""><summary><code>service.yaml</code></summary><pre id="5bcd51d7-6fda-4949-b690-27bafb661356" class="code code-wrap"><code>apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/name: kube-state-metrics
+    app.kubernetes.io/version: v1.8.0
+  name: kube-state-metrics
+  namespace: kube-system
+spec:
+  clusterIP: None
+  ports:
+  - name: http-metrics
+    port: 8080
+    targetPort: http-metrics
+  - name: telemetry
+    port: 8081
+    targetPort: telemetry
+  selector:
+    app.kubernetes.io/name: kube-state-metrics</code></pre></details></li></ul><p id="8e264612-00b6-45dd-9f39-27343253b5c5" class=""><em>参考：</em></p><figure id="9327de16-5ce7-420a-abba-f810e33af598"><a href="https://devopscube.com/setup-kube-state-metrics/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How To Setup Kube State Metrics on Kubernetes Cluster</div><div class="bookmark-description">In this blog we will look at what is Kube State Metrics and its setup on Kubernetes. Kube State metrics is s service which talks to Kubernetes API server to get all the details about all the API objects like deployments, pods, daemonsets etc.</div></div><div class="bookmark-href"><img src="https://devopscube.com/wp-content/uploads/2016/07/cropped-devopscube-twitter-dp-192x192.png" class="icon bookmark-icon"/>https://devopscube.com/setup-kube-state-metrics/</div></div><img src="https://devopscube.com/wp-content/uploads/2019/11/kube-state-metrics.png" class="bookmark-image"/></a></figure><p id="2fafcdb5-6d80-49b0-85a2-0e9d40934e89" class="">
+</p><hr id="21581381-05f0-4d25-b242-a6763d8d7fb1"/><h2 id="8efa006f-13b9-4e2e-886e-53699665bed5" class="">部署Alertmanager</h2><p id="e3904d40-eaac-494c-bdd0-240daad2d76e" class=""><em>如果没有,下载地址</em><em><code>git clone https://github.com/bibinwilson/kubernetes-alert-manager.git</code></em></p><p id="697ffd6e-cc82-4874-9ddb-45f6537ba9c4" class="">在Prometheus server的<code>configmap.yaml</code>中, 需要注意的几点: </p><p id="6b17eafa-d659-47a1-acdf-a5fe65fa34b9" class=""><code>alerting</code>, 用于指向alertmanager如下所示:</p><h3 id="67b10d44-ffd4-43a7-a3e0-e1756fced724" class="">AlertManager配置文件</h3><ul id="f49ed145-e570-4071-a04d-2a5961008e59" class="toggle"><li><details open=""><summary><code>AlertManagerConfigmap.yaml</code> 根据实际情况调整</summary><pre id="cb2c68c5-5ac7-48d7-a0d4-6c2a87b91344" class="code code-wrap"><code>kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: alertmanager-config
+  namespace: monitoring
+data:
+  config.yml: |-
+    global:
+    templates:
+    - &#x27;/etc/alertmanager/*.tmpl&#x27;
+    route:
+      receiver: alert-emailer
+      group_by: [&#x27;alertname&#x27;, &#x27;priority&#x27;]
+      group_wait: 10s
+      repeat_interval: 30m
+      routes:
+        - receiver: slack_demo
+        # Send severity=slack alerts to slack.
+          match:
+            severity: slack
+          group_wait: 10s
+          repeat_interval: 1m
+ 
+    receivers:
+    - name: alert-emailer
+      email_configs:
+      - to: demo@devopscube.com
+        send_resolved: false
+        from: from-email@email.com
+        smarthost: smtp.eample.com:25
+        require_tls: false
+    - name: slack_demo
+      slack_configs:
+      - api_url: https://hooks.slack.com/services/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sz4Qk
+        channel: &#x27;#devopscube-demo&#x27;[root@etcd-1 kubernetes-alert-manager]#</code></pre><p id="9375effc-77d9-4f09-be52-58d7ff46203a" class="">对以上配置的解释</p><p id="f13b91d3-e0c3-4a99-a0f0-eff0199d3cae" class="">prometheus的告警规则与alertmanager的routes关联。<div class="indented"><pre id="4384adf4-ebb4-48f1-9eac-726ccc27937f" class="code code-wrap"><code>prometheus.rules: |-
+    groups:
+    - name: devopscube demo alert
+      rules:
+      - alert: High Pod Memory
+        expr: sum(container_memory_usage_bytes) &gt; 1
+        for: 1m
+        labels:
+          severity: slack
+        annotations:
+          summary: High Memory Usage</code></pre></div></p></details></li></ul><p id="3e49148f-f622-4f75-8489-e4fe795cfe21" class="">
+</p><h3 id="94f022d6-954a-4684-8a1c-cfdc5f600a33" class="">Deployment </h3><p id="d3c3f80c-da63-4639-9638-d9d7b8620b38" class="">AlertManager的服务部署在这里，镜像<code>prom/alertmanager:v0.19.0</code></p><ul id="40c04449-8321-47c2-b568-f7ea09215ebe" class="toggle"><li><details open=""><summary><code>Deployment.yaml</code></summary><pre id="c7c8002b-2ec4-4108-8e53-d3eb070f7a20" class="code code-wrap"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alertmanager
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alertmanager
+  template:
+    metadata:
+      name: alertmanager
+      labels:
+        app: alertmanager
+    spec:
+      containers:
+      - name: alertmanager
+        image: prom/alertmanager:v0.19.0
+        args:
+          - &quot;--config.file=/etc/alertmanager/config.yml&quot;
+          - &quot;--storage.path=/alertmanager&quot;
+        ports:
+        - name: alertmanager
+          containerPort: 9093
+        resources:
+            requests:
+              cpu: 500m
+              memory: 500M
+            limits:
+              cpu: 1
+              memory: 1Gi
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/alertmanager
+        - name: templates-volume
+          mountPath: /etc/alertmanager-templates
+        - name: alertmanager
+          mountPath: /alertmanager
+      volumes:
+      - name: config-volume
+        configMap:
+          name: alertmanager-config
+      - name: templates-volume
+        configMap:
+          name: alertmanager-templates
+      - name: alertmanager    #在生产环境绝对不能使用emptydir，必须使用persistent volume.         
+        emptyDir: {}</code></pre></details></li></ul><p id="c0cc9dc0-d769-41a9-9730-73a21423ee29" class="">
+</p><h3 id="7aafd319-847e-43b3-a6ea-cf11c13772c8" class="">Service </h3><p id="5280b55e-516c-4dbf-a368-2954c894dfba" class="">暴露kube state metric, 如此Prometheus Server的job就能够从svc.monitoring.cluster.local采集指标。</p><ul id="a64e6f70-e280-4fdf-bce8-e6c06fb3e7a2" class="toggle"><li><details open=""><summary><code>Service.yaml</code></summary><pre id="08777017-cc9a-4bda-a181-515f4dec158d" class="code code-wrap"><code>apiVersion: v1
+kind: Service
+metadata:
+  name: alertmanager
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: &#x27;true&#x27;
+      prometheus.io/path:   /
+      prometheus.io/port:   &#x27;8080&#x27;
+spec:
+  selector: 
+    app: alertmanager
+  type: NodePort  
+  ports:
+    - port: 9093
+      targetPort: 9093
+      nodePort: 31000</code></pre></details></li></ul><p id="a5a489a9-3488-4718-a5d0-119b3141a4a2" class="">
+</p><h3 id="0ba73403-6aac-4cad-a775-435cd84bda32" class="">创建以上资源</h3><pre id="4fb439c3-7997-4004-bdb2-62abda31842b" class="code code-wrap"><code>kubectl create -f .
+</code></pre><p id="813ba43a-813d-448b-84dc-f9b64df44790" class="">
+</p><p id="67c0c166-c597-4100-b4e5-a09964c94923" class="">参考：</p><figure id="b59086fc-f22b-4575-8f15-0c33db44d0a3"><a href="https://devopscube.com/alert-manager-kubernetes-guide/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Setting Up Alert Manager on Kubernetes - Beginners Guide</div><div class="bookmark-description">AlertManager is an open-source alerting system that works with the Prometheus Monitoring system. In the last article, I have explained Prometheus setup on Kubernetes. In this guide, I will cover the Alert Manager setup and its integration with Prometheus. Note: In this guide, all the Alert Manager Kubernetes objects will be created inside a namespace called monitoring.</div></div><div class="bookmark-href"><img src="https://devopscube.com/wp-content/uploads/2016/07/cropped-devopscube-twitter-dp-192x192.png" class="icon bookmark-icon"/>https://devopscube.com/alert-manager-kubernetes-guide/</div></div><img src="https://devopscube.com/wp-content/uploads/2021/03/k8s-alertmanager.png" class="bookmark-image"/></a></figure><p id="2afb69ae-13f9-44ca-b29a-d8d9310f6403" class="">
+</p><hr id="212ad5d4-4e29-4bfa-9959-b9e517381636"/><h2 id="70858b8c-71a7-4a08-bd24-d13295303357" class="">部署Grafana</h2><p id="c80d2643-a9e7-4575-967c-596a5f9badca" class="">资源清单文件来自于<code>git clone </code><code><a href="https://github.com/bibinwilson/kubernetes-grafana.git">https://github.com/bibinwilson/kubernetes-grafana.git</a></code></p><h3 id="f7f5ebfe-ce7d-4508-bc2e-b52008c24e07" class="">配置文件</h3><ul id="73307850-25bf-432b-ac66-7400c122663d" class="toggle"><li><details open=""><summary><code>grafana-datasource-config.yaml</code></summary><pre id="cc346e64-c753-43fb-afbe-33ec38ab80f3" class="code code-wrap"><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+data:
+  prometheus.yaml: |-
+    {
+        &quot;apiVersion&quot;: 1,
+        &quot;datasources&quot;: [
+            {
+               &quot;access&quot;:&quot;proxy&quot;,
+                &quot;editable&quot;: true,
+                &quot;name&quot;: &quot;prometheus&quot;,
+                &quot;orgId&quot;: 1,
+                &quot;type&quot;: &quot;prometheus&quot;,
+                &quot;url&quot;: &quot;http://prometheus-service.monitoring.svc:8080&quot;,
+                &quot;version&quot;: 1
+            }
+        ]
+    }</code></pre></details></li></ul><p id="09a433b6-db98-46ce-958f-88575fec710a" class="">
+</p><h3 id="714ab823-eb45-48ad-b55b-a5044b563e7e" class="">Deployment</h3><ul id="0ea56269-c084-4798-a43c-92fc7cc81abc" class="toggle"><li><details open=""><summary><code>deployment.yaml</code></summary><pre id="22be397b-c5ba-4410-ac39-7af0a80bc866" class="code code-wrap"><code>apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      name: grafana
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        ports:
+        - name: grafana
+          containerPort: 3000
+        resources:
+          limits:
+            memory: &quot;1Gi&quot;
+            cpu: &quot;1000m&quot;
+          requests: 
+            memory: 500M
+            cpu: &quot;500m&quot;
+        volumeMounts:
+          - mountPath: /var/lib/grafana
+            name: grafana-storage
+          - mountPath: /etc/grafana/provisioning/datasources
+            name: grafana-datasources
+            readOnly: false
+      volumes:
+        - name: grafana-storage
+          emptyDir: {}
+        - name: grafana-datasources
+          configMap:
+              defaultMode: 420
+              name: grafana-datasources</code></pre></details></li></ul><p id="e73a8ce7-1125-4c11-9508-e1680738cc38" class="">
+</p><h3 id="fcc138ec-66ee-4feb-9ba3-60499d7c5d70" class="">Service</h3><ul id="a2eedaac-a7d1-4edd-bec9-ce5195dbd96b" class="toggle"><li><details open=""><summary><code>service.yaml</code></summary><pre id="630e8312-7b37-46e9-8c7c-16a10cc6549f" class="code code-wrap"><code>apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: &#x27;true&#x27;
+      prometheus.io/port:   &#x27;3000&#x27;
+spec:
+  selector: 
+    app: grafana
+  type: NodePort  
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 32000</code></pre></details></li></ul><p id="92034c15-15f2-46e9-b4e6-373993694f30" class="">
+</p><h3 id="61c88334-e796-4eb2-a271-4c820dbe0c7b" class="">创建以上资源</h3><pre id="e720ed29-734c-4b9b-a63a-7c0cf26e5ef0" class="code code-wrap"><code>kubectl create -f .</code></pre><p id="d42361e4-0d95-4aaf-93d2-398b4084f10b" class="">参考：</p><figure id="18c8f110-5751-4c9a-a778-aeb2dcee9fa2"><a href="https://devopscube.com/setup-grafana-kubernetes/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How To Setup Grafana On Kubernetes - Beginners Guide</div><div class="bookmark-description">Grafana is an open-source lightweight dashboard tool. It can be integrated with many data sources like Prometheus, AWS cloud watch, Stackdriver, etc. Running Grafana on Kubernetes When Grafana is used with Prometheus, it caused PromQL to query metrics from Prometheus In our previous posts, we have looked at the following.</div></div><div class="bookmark-href"><img src="https://devopscube.com/wp-content/uploads/2016/07/cropped-devopscube-twitter-dp-192x192.png" class="icon bookmark-icon"/>https://devopscube.com/setup-grafana-kubernetes/</div></div><img src="https://devopscube.com/wp-content/uploads/2021/03/2.png" class="bookmark-image"/></a></figure><p id="dfded9aa-7a1b-4445-899f-e702c0af007f" class="">
+</p><hr id="36486ee7-3f87-4f74-892c-5f41eb13797a"/><h2 id="2130a0fd-6bc4-47c0-a0e4-8757b9eeeafe" class="">部署Ingress Rule</h2><p id="ce271606-c58a-406b-bc53-f49dc43d4fcc" class="">实现用户通过用浏览器直接域名访问Prometheus Server, AlertManager, Grafana。</p><p id="b8e5b7aa-bea8-4c30-beb9-94d23789cffd" class="">这里用的是nginx-ingress，如果K8S集群还没有Ingress Controller， 请参照部署 <a href="../../../%E7%BD%91%E7%BB%9C%20c652c/Ingress%20Ng%20fa372.html">https://www.notion.so/Ingress-Nginx-fa372f01b5214ee79f7fd02976a56e8d</a></p><ul id="a1237199-12c4-4b01-b27c-f989e996c88f" class="toggle"><li><details open=""><summary><code>ingress.yaml</code></summary><pre id="d032399c-ebb3-47e3-8e42-f2cae4d51167" class="code code-wrap"><code>apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus-ui
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  # Use the host you used in your kubernetes Ingress Configurations
+  - host: prometheus.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus-service
+          servicePort: 8080
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: alertmanager-ui
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  # Use the host you used in your kubernetes Ingress Configurations
+  - host: alertmanager.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: alertmanager
+          servicePort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: grafana-ui
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  # Use the host you used in your kubernetes Ingress Configurations
+  - host: grafana.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: grafana
+          servicePort: 8080</code></pre></details></li></ul><p id="c1996f4d-fee6-453d-aa3d-84c9d14c75eb" class="">
+</p><hr id="1485c0c3-7066-4141-aab2-09ec9ea6143d"/><h2 id="cdd7515b-ba8a-4d2c-91b7-bb30750099a8" class="">部署Node Exporter</h2><p id="f9354d53-77e1-4b82-bca5-f1441d83e082" class="">资源清单来自于<code>git clone </code><code><a href="https://github.com/bibinwilson/kubernetes-node-exporter">https://github.com/bibinwilson/kubernetes-node-exporter</a></code> ，以DaemonSet方式部署，每个节点上都有一个Node Exporter Pod并在9100端口暴露<code>/metrics</code> 。</p><h3 id="31640d18-0f3c-4d0f-a90e-cde87783df3c" class="">DeamonSet</h3><ul id="5cf26129-f6c1-4eee-a5dd-1b204504fe26" class="toggle"><li><details open=""><summary><code>daemonset.yaml</code> </summary><pre id="b7353933-aa32-4f1a-b177-58f5a303cf82" class="code code-wrap"><code>apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app.kubernetes.io/component: exporter
+    app.kubernetes.io/name: node-exporter
+  name: node-exporter
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: node-exporter
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: exporter
+        app.kubernetes.io/name: node-exporter
+    spec:
+      containers:
+      - args:
+        - --path.sysfs=/host/sys
+        - --path.rootfs=/host/root
+        - --no-collector.wifi
+        - --no-collector.hwmon
+        - --collector.filesystem.ignored-mount-points=^/(dev|proc|sys|var/lib/docker/.+|var/lib/kubelet/pods/.+)($|/)
+        - --collector.netclass.ignored-devices=^(veth.*)$
+        name: node-exporter
+        image: prom/node-exporter
+        ports:
+          - containerPort: 9100
+            protocol: TCP
+        resources:
+          limits:
+            cpu: 250m
+            memory: 180Mi
+          requests:
+            cpu: 102m
+            memory: 180Mi
+        volumeMounts:
+        - mountPath: /host/sys
+          mountPropagation: HostToContainer
+          name: sys
+          readOnly: true
+        - mountPath: /host/root
+          mountPropagation: HostToContainer
+          name: root
+          readOnly: true
+      volumes:
+      - hostPath:
+          path: /sys
+        name: sys
+      - hostPath:
+          path: /
+        name: root</code></pre></details></li></ul><p id="f00dd787-dbc3-4bd0-a083-6d297f827788" class="">
+</p><h3 id="e8f861b8-e4b1-46a2-8108-bcbca1d8e2cc" class="">Service</h3><ul id="a4b237b3-1633-46da-acf9-db3abc348a0a" class="toggle"><li><details open=""><summary><code>service.yaml</code></summary><pre id="85ff729a-5581-4dd3-831e-acbd468ace4c" class="code code-wrap"><code>kind: Service
+apiVersion: v1
+metadata:
+  name: node-exporter
+  namespace: monitoring
+  annotations:
+      prometheus.io/scrape: &#x27;true&#x27;
+      prometheus.io/port:   &#x27;9100&#x27;
+spec:
+  selector:
+      app.kubernetes.io/component: exporter
+      app.kubernetes.io/name: node-exporter
+  ports:
+  - name: node-exporter
+    protocol: TCP
+    port: 9100
+    targetPort: 9100</code></pre></details></li></ul><p id="91da6ea3-d5c9-4083-8729-6e2c6b0c063b" class="">
+</p><h3 id="631e7f5a-16d0-436a-beab-2330a2b21e74" class="">创建以上资源</h3><pre id="9a47f453-adec-4cb6-b832-86430dd8ea5a" class="code code-wrap"><code>kubectl create -f .</code></pre><p id="d8eb32b7-2563-44b9-8e3c-c7fb52930e89" class="">
+</p><h3 id="49a9688a-7be2-4171-b7c8-0a42726ab837" class="">Node Exporter metrics是如何被动态发现和采集的</h3><p id="5f1bb1a3-2eb7-4fd8-8620-ee0310bd75f6" class="">在Prometheus主配置文件<code>prometheus.yaml</code>中可以看到，job<code>node-exporter</code>会透过K8S API搜索名为<code>node-exporter</code>的<code>endpoints</code> ，就是这样动态发现到Node Exporter的集群地址的。接下来Prometheus从<em>http://endpoints:8080/metrics</em>取指标，8080端口和/metrics是默认的。</p><pre id="a5fc11f0-8c13-4e0f-b412-15f373f73401" class="code code-wrap"><code>- job_name: &#x27;node-exporter&#x27;
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+        - source_labels: [__meta_kubernetes_endpoints_name]
+          regex: &#x27;node-exporter&#x27;
+          action: keep
+#relabel的keep只保留源标签__meta_kubernetes_endpoints_name为node-exporter的target。</code></pre><p id="a208ac4b-0a68-428d-98d4-789a9bad2223" class="">
+</p><h3 id="a584b305-c993-460f-9ba1-c123e9afec0b" class="">查看自动发现到的Node Exporter以及提供的Metrics</h3><p id="af972435-998b-4e83-9242-e83a7d009924" class="">Node Exporter提供的Metrics皆以<code>node_</code>开头</p><p id="e7c0b9f9-b138-4b28-9c61-092bd24ebbbe" class="">
+</p><h3 id="0793d876-69f0-4c9e-ae1e-7038d62182d8" class="">可视化</h3><p id="318f024d-28d5-4edb-9df4-2b9662391f09" class="">在Grafana上对Node Exporter的指标进行可视化，Grafana社区提供了一个Node Exporter模板<a href="https://grafana.com/grafana/dashboards/1860">https://grafana.com/grafana/dashboards/1860</a>, 导入该模板，在根据实际情况进行调整即可。</p><p id="39915f9b-ad02-4f43-b4f3-32ab69b2ccb9" class="">
+</p><p id="b2ac5a78-36da-4ce5-a550-272f8362c53d" class="">参考：</p><figure id="6c410208-b805-40de-aa19-f0c9f729b996"><a href="https://devopscube.com/node-exporter-kubernetes/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">How to Setup Prometheus Node Exporter on Kubernetes</div><div class="bookmark-description">If you want to know how the Kubernetes nodes perform or monitor system-level insights of kubernetes nodes, you need to set up a Prometheus node exporter on Kubernetes cluster. This guide will walk you through the node-exporter setup on a Kubernetes cluster and integrate Prometheus scrape config to scrape the node metrics.</div></div><div class="bookmark-href"><img src="https://devopscube.com/wp-content/uploads/2016/07/cropped-devopscube-twitter-dp-192x192.png" class="icon bookmark-icon"/>https://devopscube.com/node-exporter-kubernetes/</div></div><img src="https://devopscube.com/wp-content/uploads/2021/04/node-exporter-setup.png" class="bookmark-image"/></a></figure><p id="5054f698-6dbc-4d67-9d9b-3960bf3ded38" class="">
+</p></div></article></body></html>

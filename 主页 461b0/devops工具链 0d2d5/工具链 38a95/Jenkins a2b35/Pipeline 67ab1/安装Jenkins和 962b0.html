@@ -1,0 +1,760 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>安装Jenkins和构建工具</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="962b0524-73a4-47c9-8d70-81816fdfcad0" class="page sans"><header><img class="page-cover-image" src="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Rfc5f5fb154c633d3fe7155406e9ab5b8.jfif" style="object-position:center 50%"/><h1 class="page-title">安装Jenkins和构建工具</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 4, 2021 10:41 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>tag</th><td></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="e522097d-d0a0-4f67-ab31-8d925ae8393e" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#25c91139-fc99-4f6e-9054-a4565a673ffa">建议安装LTS版本</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bd04d7aa-1ef9-4d8f-afac-fe14c3701be4">在Linux独立安装Jenkins</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d80d51f1-23b0-43ad-b0cc-7861b8d4f752">Jenkins插件更新源</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9954dc3d-7481-4d90-bffa-45566e4f23c2">官方插件源</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#a7116fda-0861-496b-ae06-acc208e75add">手动安装插件</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#229ac712-3bf6-480f-b276-97b43210b9f6">常用插件</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#cc7a71da-5dbd-4533-98e7-f62c93833bcc">构建工具</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6df01229-569f-40cc-9c6c-5e69ab3090d7">Maven</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5f194149-9485-4dc3-9394-ddff02e0bcae">npm</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#6d1ec95f-fa1a-4314-a65d-c53de9e740c4">备份</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#db7db883-8eae-484d-9a10-86d7e14640d3">恢复</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#fc08dce3-ffa5-4d73-ba16-7c7b23b012b1">Blue Ocean</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d417e071-df50-43da-b744-cff8b780353b">插件安装</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#55b7ba71-e0b2-45ca-8ba9-4810873d8631">ant</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#550fa6b3-e335-4eef-ae2e-a5c9d90b5008">gradle</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#ba218aa1-d00d-46ec-8d4e-1c74f142f6fd">容器化安装</a></div></nav><h1 id="25c91139-fc99-4f6e-9054-a4565a673ffa" class="">建议安装LTS版本</h1><p id="48aab004-e598-42d0-b09b-7b33585206a6" class="">参考： <a href="https://www.jenkins.io/changelog-stable/">https://www.jenkins.io/changelog-stable/</a></p><h1 id="bd04d7aa-1ef9-4d8f-afac-fe14c3701be4" class="">在Linux独立安装Jenkins</h1><ul id="93f4aeb4-35c7-4c84-a146-a0de468786b0" class="bulleted-list"><li style="list-style-type:disc">要求JDK8+以上， 下载二进制： <code>jdk-8u231-linux-x64.tar.gz</code>，按此安装：</li></ul><ul id="dd3d8502-0afd-4f34-a436-1161b83a377b" class="bulleted-list"><li style="list-style-type:disc">安装<p id="01e884ad-7cf3-4153-b8b0-aed4ecac2cc0" class="">国外稳定版本镜像：<a href="http://pkg.jenkins-ci.org/redhat/jenkins.repo">http://pkg.jenkins-ci.org/redhat/jenkins.repo</a></p><p id="88a34c0f-d804-4776-981c-aec4b04c98cf" class="">国内稳定版本镜像：<a href="https://mirrors.tuna.tsinghua.edu.cn/jenkins/redhat-stable/">https://mirrors.tuna.tsinghua.edu.cn/jenkins/redhat-stable/</a></p><pre id="986fc9a2-ac2d-4d7c-8d45-165c9cebff4e" class="code code-wrap"><code>#安装Jenkins
+rpm -ivh https://mirrors.tuna.tsinghua.edu.cn/jenkins/redhat-stable/jenkins-2.277.4-1.1.noarch.rpm
+#修改启用用户
+vim /etc/sysconfig/jenkins
+JENKINS_USER改为&quot;Jenkins&quot;
+#启动Jenkins服务
+systemctl enable --now jenkins</code></pre></li></ul><ul id="f65daf0d-7496-4389-b17e-2c7aecb5b0d1" class="bulleted-list"><li style="list-style-type:disc">初始化<ol type="1" id="b09cda7d-ab12-498e-9a78-806afdd5a588" class="numbered-list" start="1"><li>登陆 http://ip:8080</li></ol><ol type="1" id="e748d87b-2f27-43d4-bfc5-58b7c6b71ea8" class="numbered-list" start="2"><li>解锁<figure id="b8dc81d6-6e6b-4b15-a80d-7689b06c42a2" class="image"><a href="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled.png"><img style="width:384px" src="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled.png"/></a></figure></li></ol><ol type="1" id="e5e0f26c-6b13-4d27-96ac-253d5ecb0924" class="numbered-list" start="3"><li>&quot;选择插件来安装&quot;</li></ol><ol type="1" id="e59106a8-a98d-4854-b111-2d219740939a" class="numbered-list" start="4"><li>选择&quot;无&quot;, 不在此安装插件</li></ol><ol type="1" id="bff316e6-a3a5-4e08-8ffa-abbae1c77a6c" class="numbered-list" start="5"><li>创建管理用户</li></ol></li></ul><h1 id="d80d51f1-23b0-43ad-b0cc-7861b8d4f752" class="">Jenkins插件更新源</h1><p id="774ad7b7-9348-4b41-b8ff-ed50f0e892c8" class="">Manage Jenkins &gt; Manage Plugins &gt; Advanced &gt; Update Site</p><p id="a3245993-4140-4cee-9e31-cce29af6a4de" class="">然后访问https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/页面,找到update-center.json, 复制链接地址,粘贴到Update Site下面的框.</p><figure id="10a795ce-508c-49b8-ba09-5d6d433c4a1a" class="image"><a href="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled%201.png"><img style="width:384px" src="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled%201.png"/></a></figure><p id="0608b899-8565-41bd-9028-3288861b6dc9" class="">添加Pipeline需要的插件</p><ul id="9ffc4f64-58ba-48ce-aaf4-4d1aad0932c0" class="bulleted-list"><li style="list-style-type:disc">Pipeline Utility Steps</li></ul><h1 id="9954dc3d-7481-4d90-bffa-45566e4f23c2" class="">官方插件源</h1><figure id="117a2df4-8d26-4838-9765-1c97baae3a68"><a href="https://plugins.jenkins.io/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Jenkins Plugins</div><div class="bookmark-description">Jenkins - an open source automation server which enables developers around the world to reliably build, test, and deploy their software</div></div><div class="bookmark-href"><img src="https://plugins.jenkins.io/icons-164c6410fca361abf730204885b292b5/favicon.ico" class="icon bookmark-icon"/>https://plugins.jenkins.io/</div></div><img src="https://plugins.jenkins.io/static/15d9b46e20dd35dc5165976039db1eab/b7ef8/jenkins-voltron-271x294x8.png" class="bookmark-image"/></a></figure><p id="21a89b9d-84ec-4a18-a3dd-4cfd55124478" class="">
+</p><h1 id="a7116fda-0861-496b-ae06-acc208e75add" class="">手动安装插件</h1><p id="f75d17e4-30f2-4e9b-8bb3-5dc8510bb0aa" class="">在官方插件源搜索和下载需要的插件包, 然后在&quot;Plugin Manager&quot; &gt; &quot;Advanced&quot; &gt; &quot;Upload Plugin&quot; 上选择包(HPM格式),然后点击&quot;Upload&quot;</p><figure id="f31843bb-1fa5-4e2f-bca1-5cbadda537a7" class="image"><a href="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled%202.png"><img style="width:655px" src="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled%202.png"/></a></figure><h1 id="229ac712-3bf6-480f-b276-97b43210b9f6" class="">常用插件</h1><ul id="7162ace4-f417-417e-8472-e70ffccfc6f9" class="bulleted-list"><li style="list-style-type:disc">Pipeline: GitHub Groovy Libraries： 共享库可保存在Gitlab</li></ul><ul id="cc51c984-6f45-410d-99c6-aed0c55397b6" class="bulleted-list"><li style="list-style-type:disc">git：jenkinsfile可保存在gitlab</li></ul><ul id="fd01cb83-cd42-4e48-a9da-db6d5d3f6dcf" class="bulleted-list"><li style="list-style-type:disc">Pipeline Utility：包含很多steps，比如readJSON.  <a href="https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/">https://www.jenkins.io/doc/pipeline/steps/pipeline-utility-steps/</a></li></ul><ul id="7d59fc6e-cbed-44d7-8b81-316df9405527" class="bulleted-list"><li style="list-style-type:disc">credential: 凭据管理插件<ul id="d8ea16bb-2146-44a2-a879-c78cf3894e2e" class="bulleted-list"><li style="list-style-type:circle">plain credential插件：提供secret file和secret text(保存Token)</li></ul></li></ul><ul id="7e423d6c-8aaa-4779-a3da-196f8c1c1f9d" class="bulleted-list"><li style="list-style-type:disc">blue ocean</li></ul><p id="e4100d62-17e9-46f3-a033-a300ea337d72" class="">
+</p><hr id="840e2015-94d0-4231-9e1d-a1b398ad9ab8"/><h1 id="cc7a71da-5dbd-4533-98e7-f62c93833bcc" class="">构建工具</h1><h2 id="6df01229-569f-40cc-9c6c-5e69ab3090d7" class="">Maven</h2><ul id="45fb3da5-b5e9-414c-8ad2-395ecb0b7680" class="bulleted-list"><li style="list-style-type:disc">配置目的：在jenkinsfile中可以引用<code>mvn</code>家目录的文件路径。</li></ul><ul id="8ce44ae3-ee0c-40f5-9b33-701afba48227" class="bulleted-list"><li style="list-style-type:disc">先决条件<ul id="4da4195b-a909-42a3-8d10-7238d6bf83db" class="bulleted-list"><li style="list-style-type:circle">JDK：在maven3.3 以上的版本需要JDK版本1.7+。内存：没有最低限制。</li></ul><ul id="3d1ce052-b5ba-42d7-a21c-1feed844e74b" class="bulleted-list"><li style="list-style-type:circle">磁盘：1G+可用磁盘空间。 操作系统：没有限制。</li></ul></li></ul><ul id="03922d1e-dc64-45c0-9a2b-7304acddacc5" class="bulleted-list"><li style="list-style-type:disc">安装过程<ol type="1" id="bbbf530d-eb06-46e8-b3e4-573b53049d80" class="numbered-list" start="1"><li>Jenkins服务器上安装<pre id="47cfa7fe-7572-4e8f-9ccb-817892b3e4c9" class="code code-wrap"><code>curl -L https://mirrors.sonic.net/apache/maven/maven-3/3.8.1/binaries/apache-maven-3.8.1-bin.tar.gz -o /tmp/apache-maven-3.8.1-bin.tar.gz
+tar zxf /tmp/apache-maven-3.8.1-bin.tar.gz -C /opt/
+#设置全局变量（/etc/profile）
+cat &lt;&lt;&#x27;EOF&#x27; &gt;&gt;/etc/profile
+export MAVEN_HOME=/opt/apache-maven-3.8.1
+export PATH=$PATH:$MAVEN_HOME/bin
+EOF
+source /etc/profile
+mvn --version</code></pre></li></ol><ol type="1" id="a30925e8-020b-444d-b09b-1bd3e36745b4" class="numbered-list" start="2"><li>Jenkins配置maven工具<p id="31a36cf8-20e2-41ab-9667-2082b2a29bcf" class=""><em>系统设置-&gt;全局工具配置</em></p><figure id="158300c0-332c-4a95-bec3-23504674abed" class="image"><a href="https://zeyangli.github.io/chapter4/static/image/04/01-maven3.png"><img style="width:672px" src="https://zeyangli.github.io/chapter4/static/image/04/01-maven3.png"/></a></figure></li></ol><ul id="7c725fa9-a3ff-4129-a1a6-4a2392c60303" class="bulleted-list"><li style="list-style-type:circle">在脚本式引用示例：<pre id="71a14cbb-17b7-4382-86ad-af05fb404836" class="code code-wrap"><code>node {
+  stage (&quot;build&quot;){
+    mavenHome = tool &#x27;M3&#x27;
+    sh &quot;${mavenHome}/bin/mvn -v&quot;
+  }
+}</code></pre></li></ul><ul id="a651a5d6-5287-4e89-8a34-e15b1ca5eee3" class="bulleted-list"><li style="list-style-type:circle">申明式引用示例：<pre id="2310904a-090d-4011-a383-f709225c7052" class="code code-wrap"><code>pipeline {
+    agent {...}
+    tools { maven &#x27;M3&#x27; }  //为MAVEN_HOME创建环境变量
+    stages{
+        stage(&#x27;test&#x27;){
+		        sh &quot;mvn clean package&quot;  //此处mvn不需要绝对路径了
+        }
+    }</code></pre></li></ul></li></ul><h2 id="5f194149-9485-4dc3-9394-ddff02e0bcae" class="">npm</h2><ul id="0e90d755-c84f-4e28-9b8f-3dd98fbe2e71" class="bulleted-list"><li style="list-style-type:disc">前端项目构建工具，官网：<a href="https://nodejs.org/en/download/">https://nodejs.org/en/download/</a></li></ul><ul id="447231b8-b277-403c-9bfb-e3a7861206c7" class="bulleted-list"><li style="list-style-type:disc">安装<pre id="a9e48571-3573-4f2e-9906-c51288b4a165" class="code code-wrap"><code>
+wget https://nodejs.org/dist/v14.16.1/node-v14.16.1-linux-x64.tar.xz
+tar xf node-v14.16.1-linux-x64.tar.xz -C /opt/
+cat &lt;&lt;&#x27;EOF&#x27; &gt;&gt;/etc/profile
+export NODE_HOME=/opt/node-v14.16.1-linux-x64
+export PATH=$NODE_HOME/bin:$PATH
+EOF
+source /etc/profile
+node -v
+npm -v
+npm config set registry https://registry.npm.taobao.org   设置淘宝源
+npm config set cache  &quot;/opt/npmcache/&quot;   设置缓存路径
+
+#npm构建命令需在项目目录内执行：
+npm install &amp;&amp; npm run build</code></pre></li></ul><ul id="951881ec-39fa-4dc6-95af-3ead98a9fe43" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">jenkins安装插件NodeJS</mark></li></ul><p id="e54922a2-3372-41bd-94c3-0f892aaad164" class="">
+</p><h1 id="6d1ec95f-fa1a-4314-a65d-c53de9e740c4" class="block-color-orange">备份</h1><ul id="241c1e23-e2b1-4fb7-919e-e91c2408e650" class="block-color-orange bulleted-list"><li style="list-style-type:disc">参考： <a href="https://blog.csdn.net/weixin_36854967/article/details/84314177">https://blog.csdn.net/weixin_36854967/article/details/84314177</a></li></ul><ol type="1" id="441478be-0b53-4d6d-84cd-35572055bfa3" class="block-color-orange numbered-list" start="1"><li>下载插件ThinBackup</li></ol><ol type="1" id="9c88419a-4fd7-472b-8154-371b00237b9a" class="block-color-orange numbered-list" start="2"><li>“管理jenkins”&gt;“ThinBackup”&gt;“setting”，设置备份<ul id="316928b2-a224-4472-ad56-70b38ac9a1fa" class="bulleted-list"><li style="list-style-type:disc">备份目录：比如/tmp/jenkins-backup/</li></ul><ul id="090f8546-2296-4bf2-adce-e880a6620674" class="bulleted-list"><li style="list-style-type:disc">设置自动备份时间: <code>0 0 * * 6 </code> 表示每周六0点备份一次<ul id="62003d89-1c9a-44e4-be1b-82e6b0b3bf41" class="toggle"><li><details open=""><summary>配置规则</summary><pre id="e9a33159-1ae2-4b6f-940f-6cd4c0d5b7d7" class="code code-wrap"><code>类似UNIX cron语法，一段 cron 包含5个字段。使用空格或tab分隔
+
+格式为：
+ 分钟：0~59
+ 小时：0~23
+ 一月某一天：1~31
+ 月份：1~12
+ 星期几：0~7
+ 还可以使用以下字符，一次性指定多个值
+ *：匹配所有值
+ M-N：匹配M到N之间的值
+ M-N/X：指定M到N范围内，以X值为步长
+ A,B,C：逗号分隔枚举多个值
+
+有时候存在大量同一时刻执行的定时任务，比如N个半夜零点(0 0 * * *)执行的任务，这样会产生负载不均衡，Jenkins提供了H字符来解决这一问题，H表示hash，(0 0 * * *)表示零点0分至0点59分之间任何一个时间点
+
+Jenkins trigger cron 提供了更便捷的写法 @yearly， @monthly，@weekly， @daily，@hourly
+
+缩写
+
+等价写法
+
+描述
+
+@daily 或 @midnight
+
+0 0 * * *
+
+每天午夜0点执行
+
+@hourly
+
+0 * * * *
+
+每个整点0分执行
+
+@monthly
+
+0 0 1 * *
+
+每月1号的午夜执行
+
+@weekly
+
+0 0 * * 0
+
+每周日午夜执行
+
+@yearly 或 @annually
+
+0 0 1 1 *
+
+每年1月1日的午夜执行</code></pre></details></li></ul></li></ul><ul id="8988d152-315e-4951-b431-faa897c7453e" class="bulleted-list"><li style="list-style-type:disc">保存的最大备份文件数</li></ul><ul id="0337bf7e-4100-4841-8cd4-ac903630c0ea" class="bulleted-list"><li style="list-style-type:disc">根据需要配置其他选项<figure id="01d36c58-5748-4789-92b5-2a0063951e52" class="image"><a href="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled%203.png"><img style="width:415px" src="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0/Untitled%203.png"/></a></figure></li></ul><ul id="ed934297-c56e-440b-a4ca-6c7205dae3f1" class="bulleted-list"><li style="list-style-type:disc">保存，开始自动备份</li></ul></li></ol><h1 id="db7db883-8eae-484d-9a10-86d7e14640d3" class="block-color-orange">恢复</h1><p id="43fa62df-6b23-4a2f-8aca-ef0dbb8ac3d8" class="block-color-orange">如果Jenkins故障无可用，执行恢复操作</p><ol type="1" id="44ed1df7-b945-4287-a043-df3c2183d754" class="block-color-orange numbered-list" start="1"><li>确认备份文件存在</li></ol><ol type="1" id="c903a1a7-d90f-4661-ae34-481c74103dae" class="block-color-orange numbered-list" start="2"><li>重新安装Jenkins，安装ThinBackup，在其设置中指定备份目录，将备份文件移至此处</li></ol><ol type="1" id="e7510241-cb48-49c0-b3d0-d0d6cf02d372" class="block-color-orange numbered-list" start="3"><li>点击Restore，选项从哪个备份恢复。</li></ol><h1 id="fc08dce3-ffa5-4d73-ba16-7c7b23b012b1" class="">Blue Ocean</h1><ol type="1" id="c170e955-cc24-49f7-902a-a9f42ac1d334" class="numbered-list" start="1"><li>搜索“BlueOcean”插件，下载重启(搜索出的其他相关插件是它的依赖，这些会一并自动下载)<ol type="a" id="42c4faad-4b31-48e4-b6c8-377f5796c007" class="numbered-list" start="1"><li><code>Some plugins could not be loaded due to unsatisfied dependencies. Fix these issues and restart Jenkins to re-enable these plugins.</code></li></ol></li></ol><p id="e7cd3685-678f-47d6-88d0-23e94518d821" class="">
+</p><p id="48f2624b-f5c0-40b8-8c28-f8c82d3d4de1" class="">
+</p><h1 id="d417e071-df50-43da-b744-cff8b780353b" class="">插件安装</h1><p id="14987948-1096-48ea-b2d8-da0d09b49fdc" class="">国内插件源： <a href="https://updates.jenkins-zh.cn/update-center.json">https://updates.jenkins-zh.cn/update-center.json</a></p><p id="792b9016-7296-469d-960e-d76ce053a60b" class="">更换方法参考：<a href="https://community.jenkins-zh.cn/t/jenkins/26">https://community.jenkins-zh.cn/t/jenkins/26</a></p><p id="e63a05b1-bb50-4d3a-8e85-fa322f4e882b" class="">
+</p><h1 id="55b7ba71-e0b2-45ca-8ba9-4810873d8631" class="">ant</h1><p id="fd8230aa-c0a7-4fd0-8f78-ea9fca19ac2d" class="">
+</p><h1 id="550fa6b3-e335-4eef-ae2e-a5c9d90b5008" class="">gradle</h1><p id="18423905-d69d-4a16-baff-bdac1727c72c" class="">
+</p><h1 id="ba218aa1-d00d-46ec-8d4e-1c74f142f6fd" class="">容器化安装</h1><p id="57fc6ee0-247a-4bd8-87e9-e2d046edba4b" class="">
+</p><p id="4d6c625c-cfaa-43e6-ad07-79a64486b773" class="">
+</p><p id="f0dafe0b-bc48-41a6-93d6-beeba91d34e8" class="">
+</p></div></article></body></html>

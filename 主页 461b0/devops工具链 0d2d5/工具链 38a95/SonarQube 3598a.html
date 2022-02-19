@@ -1,0 +1,1044 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>SonarQube</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="3598a960-d713-4faf-9bf3-942fd3fc63ae" class="page sans"><header><div class="page-header-icon undefined"><img class="icon" src="SonarQube%203598a/download_(1).png"/></div><h1 class="page-title">SonarQube</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@August 24, 2021 1:07 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td><span class="selected-value select-value-color-green">REST API实践未完成</span><span class="selected-value select-value-color-default">多分支代码扫描未完成</span></td></tr></tbody></table></header><div class="page-body"><nav id="b920d78c-0f6c-4e59-b778-0dd3cdeec7fc" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c2709c4f-6eff-4263-892c-58cd34660d10">介绍</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9eb76caa-a98a-4f7c-aa7d-bbb0d436ccc8">组件与服务组成</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f40cfadb-dce7-4c8b-8a1e-c9494bc5fe27">安装</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#22c76983-7930-4285-bc83-3011f07fe6ca">二进制安装</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e3974743-2f97-4843-a7b2-b1f184bef596">容器安装</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bed878be-51d0-4975-9de6-c5e1ff30627e">helm安装</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#81ee79c8-b521-41d2-ac77-7bfc0c81fac3">插件安装</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#80e655fc-3a05-4ce8-ba56-2fa4ab35562a">补充</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f7333e54-97c5-432e-a775-3e29eb6f1d3a">配置</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d442a92a-e53f-4ac0-952d-f3a9053ff0fd">使用scanner</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b02f85fc-ba7d-4c76-a827-db946d279a2f">java扫描</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#33476d2a-9d82-4d0a-a31c-01898c7c28fb">JavaScript扫描</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2225dcb5-0e0d-48d3-aae2-616f053967a4"><mark class="highlight-orange">golang扫描</mark></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f7fba358-c272-41a6-a0a4-09a353e9eda9">在Jenkinsfile集成代码扫描功能</a></div></nav><h1 id="c2709c4f-6eff-4263-892c-58cd34660d10" class="">介绍</h1><ul id="9bad138b-72a6-406b-a604-25958eaee6ad" class="bulleted-list"><li style="list-style-type:disc">静态代码质量分析工具</li></ul><ul id="4209b0e7-1790-4097-94a1-2266b9e18662" class="bulleted-list"><li style="list-style-type:disc">静态分析与动态分析的区别：<ul id="abb0fbb5-7cbf-4a9f-98e4-5413bb920773" class="bulleted-list"><li style="list-style-type:circle">静态分析特点：Static analysis identifies defects before you run a program</li></ul></li></ul><ul id="bbdda0a2-30b9-4b13-9189-5a029bb338de" class="bulleted-list"><li style="list-style-type:disc">sonarqube与sonarlint区别：<a href="https://www.tatvasoft.com/blog/introduction-to-sonarqube-sonarlint/">https://www.tatvasoft.com/blog/introduction-to-sonarqube-sonarlint/</a></li></ul><ul id="856f4af6-38e6-42d9-8ad4-ec056cfcaa4d" class="bulleted-list"><li style="list-style-type:disc"><strong>ensuring code quality and </strong><strong><mark class="highlight-yellow">security of codebases</mark></strong>. It empowers developers to <strong>write cleaner and safer code</strong>. </li></ul><ul id="69998d04-97df-406b-a6e5-2cd93494e78f" class="bulleted-list"><li style="list-style-type:disc">open-source platform developed by SonarSource </li></ul><ul id="839f3b50-fdd4-4a36-8e00-d45d264b119c" class="bulleted-list"><li style="list-style-type:disc">for <mark class="highlight-orange">continuous</mark> <mark class="highlight-teal">inspection of code quality</mark> to perform <strong><mark class="highlight-teal">automatic reviews with </mark></strong><mark class="highlight-orange"><strong>static analysis of code</strong></mark><strong><mark class="highlight-teal"> to detect bugs, code smells, and security vulnerabilities.</mark></strong></li></ul><ul id="71c433e0-3795-4701-9dee-312e6c391e4d" class="bulleted-list"><li style="list-style-type:disc">for guiding development teams during code reviews. It supports a continuous inspection stage.</li></ul><ul id="9777c728-677b-43f5-a17a-7cb33f45f9b4" class="bulleted-list"><li style="list-style-type:disc">The Quality Gate is a key, out-of-the-box feature of SonarQube. It offers a Go / No-Go gate for application promotion.</li></ul><ul id="8a44ce7a-b47b-47e8-b99e-9a1a39be69f7" class="bulleted-list"><li style="list-style-type:disc">SonarQube’s mission is to empower developers first and grow an open community around code quality and security. SonarQube has a great community support, with multiple contributors.</li></ul><p id="e6fad1be-84fd-40ca-9baa-9e0a9d7ba812" class=""><strong>Key Features</strong></p><ul id="98c610ed-534b-47b9-8b78-4d5d2a077481" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Clean as you code</mark></li></ul><ul id="f978d5b3-23b3-4558-bc17-96b9f3edcc0f" class="bulleted-list"><li style="list-style-type:disc">Supports 25+ programming languages</li></ul><ul id="fe534363-5adc-40b2-8e25-86c25fce2e98" class="bulleted-list"><li style="list-style-type:disc">Fixes weaknesses that harm your app</li></ul><ul id="83f2a154-cad9-467e-a695-5f4eff664ad0" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Releases quality code</mark></li></ul><ul id="863cf8a8-724e-41b9-be80-32623b46cb76" class="bulleted-list"><li style="list-style-type:disc">Catches tricky issues</li></ul><ul id="7af45007-6419-4b3d-b763-1253e4f1dc1c" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Enhances workflow</mark></li></ul><ul id="018665f2-0dc8-4163-b5e6-8e4e3d819de3" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Fits well with existing tools</mark></li></ul><ul id="8aa8fbd8-9684-4e13-bc97-b3605ade1a34" class="bulleted-list"><li style="list-style-type:disc">CI/CD integration</li></ul><ul id="52ab5830-044d-485a-9323-f890c60fa9c2" class="bulleted-list"><li style="list-style-type:disc">60+ commercial and community plugins</li></ul><h1 id="9eb76caa-a98a-4f7c-aa7d-bbb0d436ccc8" class="">组件与服务组成</h1><div id="f1799cc7-4e8e-4277-b3fb-6da07874f314" class="column-list"><div id="f65cb9bf-6e1e-4c76-9dc1-5bdd29d5ebd9" style="width:50%" class="column"><figure id="6e008b96-2f8a-4ae0-94ca-e88946271286" class="image"><a href="SonarQube%203598a/Untitled.png"><img style="width:720px" src="SonarQube%203598a/Untitled.png"/></a></figure></div><div id="6fd11c62-1d05-48f6-90e5-5457a06b781b" style="width:50%" class="column"><figure id="f52c552f-44fa-4717-b05c-7766fc17f7b1" class="image"><a href="SonarQube%203598a/Untitled%201.png"><img style="width:1338px" src="SonarQube%203598a/Untitled%201.png"/></a></figure></div></div><ol type="1" id="436c5b99-6ed1-4468-b9f9-7087185486f0" class="numbered-list" start="1"><li>SonarQube服务器上运行三个进程<ul id="508180f1-304d-48f6-a6e2-0c1e005d167d" class="bulleted-list"><li style="list-style-type:disc">web服务器，提供可视化页面</li></ul><ul id="c11daabb-39bb-48a7-a335-49e7f590ee58" class="bulleted-list"><li style="list-style-type:disc">Elasticsearch，提供搜索服务</li></ul><ul id="5deb4e95-62b5-4bca-8c30-4ac0ba59c754" class="bulleted-list"><li style="list-style-type:disc">负责处理代码分析报告并将其保存在数据库中</li></ul></li></ol><ol type="1" id="1748f541-5288-4352-9924-a48090972fb8" class="numbered-list" start="2"><li>数据库要保存的数据：<ul id="b00596c4-1b5b-4d98-b326-97ce5f09ac6c" class="bulleted-list"><li style="list-style-type:disc"><strong>Metrics</strong> and <strong>issues for code quality and security </strong>generated during code scans.</li></ul><ul id="e08dad58-283f-4354-ac14-6c1cd62f6e07" class="bulleted-list"><li style="list-style-type:disc">sonarqube的配置数据</li></ul></li></ol><ol type="1" id="9c7149d4-82a3-4979-a7a4-7e15794c6c7f" class="numbered-list" start="3"><li>One or more scanners running on your build or continuous integration servers to analyze projects.</li></ol><ol type="1" id="f86ad88d-78d2-4158-973e-5a7cef8cb2da" class="numbered-list" start="4"><li>多个插件</li></ol><p id="8a97e5e4-2b81-4807-a2a4-0633bcf9031e" class="">
+</p><p id="9742e6aa-cc70-458a-b89d-26f12f926eb4" class="">（待补充）</p><ul id="ee7e03f9-e5fb-42ae-8e0e-4907a2a5a3ad" class="bulleted-list"><li style="list-style-type:disc">project：项目代表一个被分析的对象</li></ul><ul id="f2b2e006-83ab-4f1d-a71d-18b1b94b3bb3" class="bulleted-list"><li style="list-style-type:disc">scanner可通过用户密码或Token访问sonarqube，sonarqube创建Token方法：<a href="https://docs.sonarqube.org/8.9/user-guide/user-token/">https://docs.sonarqube.org/8.9/user-guide/user-token/</a><ul id="d5483d03-519e-4c20-b2a8-b5e58e7bd966" class="bulleted-list"><li style="list-style-type:circle"><code>sonar-scanner -Dsonar.login=myAuthenticationToken</code></li></ul></li></ul><h1 id="f40cfadb-dce7-4c8b-8a1e-c9494bc5fe27" class="">安装</h1><ul id="69377f96-b5c1-4355-8c3e-11f782fc6d73" class="bulleted-list"><li style="list-style-type:disc">官方建议：生产环境下数据库(PG)单独放在一个主机上，数据库与sonarqube服务器时间必须同步</li></ul><ul id="ee4e012e-4035-412b-8e2a-8dda294a8a99" class="bulleted-list"><li style="list-style-type:disc">参考：<ul id="72e6ad94-4f47-44df-b4fb-8d53f2ce095a" class="bulleted-list"><li style="list-style-type:circle">官方安装指南：<a href="https://docs.sonarqube.org/8.9/setup/operate-server/">https://docs.sonarqube.org/8.9/setup/operate-server/</a>  </li></ul></li></ul><ul id="38274040-a8b1-4122-8d7e-fd3565990ec7" class="bulleted-list"><li style="list-style-type:disc">sonarqube下载，选择LTS版本，此时8.9是LTS，<mark class="highlight-orange">链接：</mark></li></ul><h2 id="22c76983-7930-4285-bc83-3011f07fe6ca" class="">二进制安装</h2><ul id="843aecc2-f710-4d9a-83ca-159f0ad7b6e1" class="toggle"><li><details open=""><summary>部署PG10</summary><pre id="c39ffc01-c4f9-471d-a501-14b10d242391" class="code code-wrap"><code>cat &lt;&lt;EOF &gt;/etc/yum.repos.d/postgresql.repo
+[postgresql]
+name=postgresql
+baseurl=https://download.postgresql.org/pub/repos/yum/10/redhat/rhel-7-x86_64/
+gpgcheck=0
+EOF
+yum install postgresql10-server postgresql10-contrib -y
+
+#初始化
+/usr/pgsql-10/bin/postgresql-10-setup initdb 
+#修改配置(位于最后，修改all数据库: peer改成trust,idnet改成md5; 127.0.0.1/32改成0.0.0.0/0)
+vi /var/lib/pgsql/10/data/pg_hba.conf 
+#修改监听地址-&gt;listen_addresses = &#x27;0.0.0.0&#x27;
+vi /var/lib/pgsql/10/data/postgresql.conf 
+#启动
+systemctl enable --now postgresql-10 
+#检查
+sudo -u postgres /usr/pgsql-10/bin/psql -c &quot;SELECT version();&quot; 
+#创建sonarqubedb数据库，创建sonarqube用户，将数据库sonarqubedb的所有权限赋予sonarqube
+sudo -u postgres psql
+create database sonarqubedb;
+create user sonarqube with encrypted password &#x27;sonarqube&#x27;;
+grant all privileges on database sonarqubedb to sonarqube;
+#退出
+\q </code></pre></details></li></ul><ul id="582294b6-46c4-4ef0-aced-11bf7fb9fa8d" class="toggle"><li><details open=""><summary>安装sonarqube server</summary><pre id="3569bb61-8c85-4a56-823b-021528a8e7e6" class="code code-wrap"><code>cat &lt;&lt;EOF &gt;/etc/sysctl.conf
+vm.max_map_count=262144
+EOF
+sysctl -p
+sysctl fs.file-max
+ulimit -n
+ulimit -u
+yum install java-11-openjdk-devel -y #8.9版本依赖java11
+yum install unzip -y &amp;&amp; unzip sonarqube-8.9.2.46101.zip -d /opt/
+#创建用户(在linux无法以root启动)
+useradd sonarqube
+chown -R sonarqube:sonarqube /opt/sonarqube
+#编辑/opt/sonarqube-8.9.2.46101/conf/sonar.properties
+##配置对pg数据库的访问,插入以下三行
+sonar.jdbc.username=sonarqube
+sonar.jdbc.password=sonarqube
+sonar.jdbc.url=jdbc:postgresql://数据库地址/sonarqubedb
+##配置ES存储路径(默认在$SONARQUBE-HOME/data下,官方建议用快速IO专用卷)（可选的，根据情况，曾询问过也只是挂载了一个HDD盘）
+#sonar.path.data=
+#sonar.path.temp=
+
+#启动服务(自带有一个脚本(bin/linux-x86-64/sonar.sh start）
+#注意ExecStart,确认路径正确，如果有多版本java则可能需要指定jvm的完整路径，8.9是依赖java11版本
+cat &lt;&lt;EOF &gt;/etc/systemd/system/sonarqube.service
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=sonarqube
+Group=sonarqube
+PermissionsStartOnly=true
+ExecStart=/bin/nohup /usr/lib/jvm/java-11-openjdk-11.0.12.0.7-0.el7_9.x86_64/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar /opt/sonarqube/lib/sonar-application-8.9.2.46101.jar
+StandardOutput=syslog
+LimitNOFILE=131072
+LimitNPROC=8192
+TimeoutStartSec=5
+Restart=always
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+EOF
+systemctl enable --now sonarqube
+
+
+#全部安装完毕,执行启动服务命令, 如有错误可按内部启动顺序检查其对应的日志log目录(前提先启动PG数据库):
+tailf /opt/sonarqube-8.9.2.46101/logs/sonar.log
+1.Process[es] is up
+2.Process[web] is up
+3.Process[ce] is up
+4.SonarQube is up
+ss -tunlp有9000(WEB)和9001(ES)端口,表示启动成功
+如果遇到ES报错:failed to retrieve shard stats from node [j6ip9-84QIettM9MaQBSkA]: [sonarqube][127.0.0.1:57515][indices:monitor/stats[n]] request_id [16] timed out after [29630ms] 导致无法启动, 先关闭服务,然后rm -rf /opt/sonarqube/data/es7,重新启动服务，检查ES状态,命令:curl 127.0.0.1:9001/_cluster/health,如果green则OK
+
+#登陆http://10.19.34.11:9000,用户名密码都是admin</code></pre></details></li></ul><ul id="d4f83bfd-d3f1-4020-ab01-a587fe0b7815" class="toggle"><li><details open=""><summary>安装sonarScanner  <a href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/">https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/</a></summary><pre id="31de24a4-0024-4a47-92a1-f28eafb60194" class="code code-wrap"><code>wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.2.0.1873-linux.zip
+unzip sonar-scanner-cli-4.2.0.1873-linux.zip -d /opt/
+
+cat &lt;&lt;&#x27;EOF&#x27; &gt;&gt;/etc/profile
+export SONARSCANNER_HOME=/opt/sonar-scanner-4.2.0.1873-linux
+export PATH=${SONARSCANNER_HOME}/bin:${PATH}
+EOF
+
+source /etc/profile
+sonar-scanner --help
+
+注意：scanner使用自带的jre，这是在./bin/sonar-scanner中指定的：use_embedded_jre=true</code></pre><p id="08e0dd4b-8c22-40fc-932f-c1f953ba7690" class="">到这里就安装完成了</p><p id="26cf9f15-f6f6-495f-a74e-129912b8a083" class="">接下来需考虑是否需要安装插件，比如语言规则/代码覆盖率检查相关的插件.</p></details></li></ul><ul id="35fa865d-8c45-42ec-a2b0-1d106c640897" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">GitlabSSO认证（空）</mark></li></ul><h2 id="e3974743-2f97-4843-a7b2-b1f184bef596" class="">容器安装</h2><ol type="1" id="24312ab7-6d3c-4a79-b4c1-ff719b6d4f8f" class="numbered-list" start="1"><li>修改内核参数<pre id="dbd1aaa2-ed42-4f53-97c2-ecdb33e55576" class="code code-wrap"><code>cat &lt;&lt;EOF &gt;/etc/sysctl.conf
+vm.max_map_count=262144
+EOF
+sysctl -p</code></pre></li></ol><ol type="1" id="ac92c37d-08cf-4507-b4fd-0e7468a022a4" class="numbered-list" start="2"><li>创建Volume<p id="6f93e080-86b0-4a9f-9daa-b42337f34b2b" class=""><code>docker volume create --name sonarqube_data</code></p><p id="670b7a5f-1894-4c5d-b498-ffa1f64b3860" class=""><code>docker volume create --name sonarqube_logs</code></p><p id="d4de2e73-f312-409a-81c3-6193bf192f9b" class=""><code>docker volume create --name sonarqube_extensions</code></p></li></ol><ol type="1" id="6963c5a8-a189-4f0c-ab5a-2727a5fb4ded" class="numbered-list" start="3"><li>运行Sonarqube容器<pre id="b8503d23-08d0-4cd0-8f7f-f61fda8dc9ef" class="code code-wrap"><code>version: &quot;3&quot;
+
+services:
+  sonarqube:
+    image: sonarqube:community
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ports:
+      - &quot;9000:9000&quot;
+  db:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgresql:
+  postgresql_data:</code></pre></li></ol><h2 id="bed878be-51d0-4975-9de6-c5e1ff30627e" class="">helm安装</h2><ul id="bccf3e34-2492-4708-adb5-625149965618" class="bulleted-list"><li style="list-style-type:disc">官方参考：<a href="https://docs.sonarqube.org/8.9/setup/sonarqube-on-kubernetes/">https://docs.sonarqube.org/8.9/setup/sonarqube-on-kubernetes/</a></li></ul><pre id="8d05ccc4-3b2d-420e-97a0-a29fadf4b835" class="code code-wrap"><code>
+克隆chart包 git clone https://github.com/SonarSource/helm-chart-sonarqube
+charts/sonarqube-lts是稳定版
+编辑./charts/sonarqube-lts/requirement.yaml，删除nginx-ingress，留下postgresql
+helm dependency update 自动下载postgresql chart，位于charts目录，加压将目录改成压缩包名称，然后移出压缩包
+编辑postgresql chart的 values.yaml，将global.storageClass设置为local-storage，persistence.enabled设置为true
+创建存储类和PV
+cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+	metadata:
+  name: local-storage
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nexus-pv
+spec:
+  capacity:
+    storage: 20Gi #默认,SONARQUBE pvc模板是20G，所以20G足够了
+  accessModes:
+  - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  local:
+    path: /mnt/data #这里调整：规划好目录
+  nodeAffinity:
+   required:
+     nodeSelectorTerms:
+     - matchExpressions:
+       - key: kubernetes.io/hostname
+         operator: In
+         values:
+         - master01  #这里调整：规划好节点
+EOF
+
+编辑sonarqube的values.yaml, ingress.enabled设置true，ingress.hosts中增加一个host(name: 是主机名)
+安装：在./charts/sonarqube-lts/目录下, helm upgrade --install -n devops sonarqube sonarqube-lts/</code></pre><p id="42d8acd3-f66b-4919-b010-fb52ac4dcdfd" class="">
+</p><h2 id="81ee79c8-b521-41d2-ac77-7bfc0c81fac3" class="">插件安装</h2><ul id="e47be9be-e9ee-46c7-a165-6b3fca3cf7f7" class="bulleted-list"><li style="list-style-type:disc">sonar-java语言规则插件. <strong>8.5+自带此插件，如8.5之前则按下面方法安装插件</strong><pre id="350b56db-d534-47c8-88f8-82011fbb58ac" class="code code-wrap"><code>#下载链接
+https://binaries.sonarsource.com/Distribution/
+#下载对应版本的插件，根据这个链接确认
+https://docs.sonarqube.org/latest/instance-administration/plugin-version-matrix/
+#将jar包放到插件目录$SONARQUBE-HOME/extensions/plugins/
+#重启服务
+</code></pre></li></ul><ul id="f55cb008-b48b-40a7-89db-b8aaa43fa660" class="bulleted-list"><li style="list-style-type:disc">Jacoco插件<p id="cd6b3d9e-92bb-4df0-be49-2b7a4b000ebe" class="">代码链接：<a href="https://github.com/SonarSource/sonar-jacoco/releases/download/1.1.0.898/sonar-jacoco-plugin-1.1.0.898.jar">https://github.com/SonarSource/sonar-jacoco/releases/download/1.1.0.898/sonar-jacoco-plugin-1.1.0.898.jar</a></p><figure id="aaca0c51-3d1e-4e4a-8515-37d1009bac77" class="image"><a href="SonarQube%203598a/Untitled%202.png"><img style="width:1444px" src="SonarQube%203598a/Untitled%202.png"/></a></figure><pre id="722d51f0-2202-44dd-a910-c7158450cf9a" class="code code-wrap"><code># 指定代码覆盖率工具为jacoco
+sonar.core.codeCoveragePlugin=jacoco
+# 指定exec二进制文件存放路径
+sonar.jacoco.reportPaths=target/jacoco.exec</code></pre><pre id="6b056db5-6f9e-4c81-9f6f-698f5ae0e6e0" class="code code-wrap"><code>sonar-scanner -Dsonar.host.url=http://192.168.1.200:9000 \
+-Dsonar.projectKey=devops-jacoco-service \
+-Dsonar.projectName=devops-jacoco-service \
+-Dsonar.projectVersion=1.0 \
+-Dsonar.login=admin \
+-Dsonar.password=admin \
+-Dsonar.ws.timeout=30 \
+-Dsonar.projectDescription=&quot;my first project!&quot; \
+-Dsonar.links.homepage=http://www.baidu.com \
+-Dsonar.sources=src \
+-Dsonar.sourceEncoding=UTF-8 \
+-Dsonar.java.binaries=target/classes \
+-Dsonar.java.test.binaries=target/test-classes \
+-Dsonar.java.surefire.report=target/surefire-reports \
+-Dsonar.core.codeCoveragePlugin=jacoco \
+-Dsonar.jacoco.reportPaths=target/jacoco.exec</code></pre></li></ul><p id="6a4d8cdc-f114-46e0-a41a-d4cbddc632e4" class="">
+</p><p id="5bd0dd9a-ac03-42ed-812e-482c9d56852a" class="">
+</p><p id="b8fd382f-8fb4-4ad8-9696-5008dfe1e25b" class="">如需要安装其他插件:</p><ol type="1" id="09c9afbd-f52c-4a59-bcc1-544a6b66ab7a" class="numbered-list" start="1"><li>确认插件版本（sonar可能已自带该插件“bundled”）</li></ol><ol type="1" id="79fee4d8-be6b-46b5-b4ff-f521682f1c4e" class="numbered-list" start="2"><li>下载插件（jar包，如是源码需要maven先打包）</li></ol><ol type="1" id="014672c9-9c6f-428c-907f-74001217080a" class="numbered-list" start="3"><li>jar移动到插件目录（$SONARQUBE-HOME/extensions/plugins/）</li></ol><ol type="1" id="d0d66c76-7df9-45e9-afa7-295013c4d3bc" class="numbered-list" start="4"><li>重启服务</li></ol><h2 id="80e655fc-3a05-4ce8-ba56-2fa4ab35562a" class="">补充</h2><ul id="2f16d366-2484-48b9-afe1-aea1b02bad99" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">中文插件安装</mark></li></ul><ul id="05f2663d-3806-4826-8a26-a58facc4d83b" class="bulleted-list"><li style="list-style-type:disc">&lt;8.9.1版本默认匿名用户可访问所有项目，企业则必须配置为私有(登陆后才可查看), ≥8.9.1则不需配置<figure id="73f73938-c881-4b96-b99e-cfdde03c8dd6" class="image"><a href="SonarQube%203598a/Untitled%203.png"><img style="width:480px" src="SonarQube%203598a/Untitled%203.png"/></a></figure></li></ul><h1 id="f7333e54-97c5-432e-a775-3e29eb6f1d3a" class="">配置</h1><h2 id="d442a92a-e53f-4ac0-952d-f3a9053ff0fd" class="">使用scanner</h2><p id="c7f5851d-2768-4978-ba62-47a1731e22b9" class="">参数：<a href="https://docs.sonarqube.org/latest/analysis/analysis-parameters/">https://docs.sonarqube.org/latest/analysis/analysis-parameters/</a></p><p id="d5dfdfb5-9c10-4d48-bdeb-6f62164a07c3" class="">各种语言扫描的相关信息：<a href="https://docs.sonarqube.org/latest/analysis/languages/overview/">https://docs.sonarqube.org/latest/analysis/languages/overview/</a></p><h3 id="b02f85fc-ba7d-4c76-a827-db946d279a2f" class="">java扫描</h3><p id="6a3e1e0d-5358-4002-8f7a-308405070e9c" class="">注意：需提前在sonarqube上创建project</p><p id="dd0abb04-8d43-484e-b0bb-7622da25a496" class="block-color-orange">问题：<div class="indented"><p id="a5eb958d-e835-44a8-9253-051dfd6c867c" class=""><mark class="highlight-orange">sonar.java.surefire.report 是什么？用来作什么的？</mark></p></div></p><p id="4227b8a7-1fef-49fe-81a8-64684c8f3026" class="">在项目目录中执行scanner命令( 因为扫描需要target目录中的classes，故先完成mvn构建)</p><pre id="9644b6b9-5b7f-44f6-b809-7ddb118feb78" class="code code-wrap"><code>sonar-scanner -Dsonar.host.url=http://10.19.34.20:9000 \
+-Dsonar.projectKey=demo-maven-service \
+-Dsonar.projectName=demo-maven-service \
+-Dsonar.projectVersion=1.0 \
+-Dsonar.login=admin \
+-Dsonar.password=admin \
+-Dsonar.ws.timeout=30 \
+-Dsonar.projectDescription=&quot;my first project!&quot; \
+-Dsonar.links.homepage=http://192.168.31.102/root/simple-java-maven-app-master \
+-Dsonar.links.ci=http://192.168.31.102:8080/job/simple-java-maven-app-master/ \
+-Dsonar.sources=src \
+-Dsonar.sourceEncoding=UTF-8 \
+-Dsonar.java.binaries=target/classes \
+-Dsonar.java.test.binaries=target/test-classes \
+-Dsonar.java.surefire.report=target/surefire-reports
+
+
+---
+sonar.projectKey 项目唯一标识
+sonar.projectName 项目名称，与projectKey一致即可
+sonar.projectDescription项目的描述信息
+sonar.host.url 是sonar server的地址
+sonar.projectVersion，每次扫描都有版本号作为标识，以区分不同扫描结果
+sonar.login和sonar.password是sonar server的账号密码
+sonar.sources=src 源码的目录
+links.homepage 项目的主页（超链接
+sourceEncoding指定扫描时的编码
+java.binaries指定编译后的类文件目录(必填)
+java.test.binaries指定编译后的测试类目录
+java.surefire.report指定测试报告目录。
+sonar.links.homepage 是gitlab仓库链接，在前端的项目信息以超链接呈现
+sonar.links.ci 是jenkins 链接，在前端的项目信息以超链接呈现</code></pre><h3 id="33476d2a-9d82-4d0a-a31c-01898c7c28fb" class="">JavaScript扫描</h3><p id="e2dbfc52-3798-45e9-9d39-bfe831cf3cfc" class="">注意：不需提前在sonarqube上创建project</p><p id="2a6417a3-4510-4cc4-8e5d-a3d76983f9ce" class="">问题：typescript是什么？</p><pre id="25d8a82d-270b-4015-9cd2-9cdb047d4f47" class="code code-wrap"><code>sonar-scanner \
+  -Dsonar.projectKey=demo-devops-ui \
+  -Dsonar.projectName=demo-devops-ui \
+  -Dsonar.sources=src \
+  -Dsonar.host.url=http://192.168.1.200:9000 \
+  -Dsonar.login=0809881d71f2b06b64786ae3f81a9acf22078e8b \
+  -Dsonar.projectVersion=2.0 \
+  -Dsonar.ws.timeout=30 \
+  -Dsonar.projectDescription=&quot;my first project!&quot; \
+  -Dsonar.links.homepage=http://192.168.1.200/devops/devops-maven-service \
+  -Dsonar.links.ci=http://192.168.1.200:8080/job/demo-pipeline-service/ \
+  -Dsonar.sourceEncoding=UTF-8</code></pre><h3 id="2225dcb5-0e0d-48d3-aae2-616f053967a4" class=""><mark class="highlight-orange">golang扫描</mark></h3><pre id="f27953eb-6e50-4798-a3e0-19982a8b21dc" class="code code-wrap"><code>sonar-scanner \
+-Dsonar.projectKey=devops-golang-service \
+-Dsonar.projectName=devops-golang-service \
+-Dsonar.sources=src \
+-Dsonar.login=admin \
+-Dsonar.password=admin \
+-Dsonar.host.url=http://192.168.1.200:9000
+
+
+## 有测试用例的情况
+sonar.exclusions=**/*_test.go
+sonar.tests=.
+sonar.test.inclusions=**/*_test.go</code></pre><p id="f2f5cd45-270f-4855-8486-f622aac91a87" class="">
+</p><p id="6ba52083-e67e-42a8-8438-e870a332c30e" class="">
+</p><p id="eb9a6fa3-0f1f-4025-83d0-16ca6db3924d" class="">
+</p><ul id="362537d0-afad-4164-897a-2be9442a45f2" class="bulleted-list"><li style="list-style-type:disc">命令行方式访问</li></ul><p id="b8073eed-6683-4c75-ac5d-62c516aeea69" class="">
+</p><p id="6d724f59-3143-4e33-879c-aa9297211710" class="">
+</p><p id="1cc2c45b-ff42-46cc-85a7-1b39da6311f9" class="">
+</p><p id="92f04e27-0eb4-403f-bbd6-3356d6877b54" class="">sonarqube</p><ul id="0c49c34c-b4f5-4f60-9083-f431d1888bf3" class="bulleted-list"><li style="list-style-type:disc">添加质量配置和质量域</li></ul><div id="1c941ab2-369f-433b-b004-b440d0066ed1" class="column-list"><div id="849aa598-40d9-4cc9-bdad-dbbf00bc923e" style="width:50%" class="column"><figure id="f001797a-1f34-4048-b761-a8ea2e31b0d1" class="image"><a href="SonarQube%203598a/Untitled%204.png"><img style="width:720px" src="SonarQube%203598a/Untitled%204.png"/></a></figure></div><div id="75115150-c039-456c-9324-015fa3203224" style="width:50%" class="column"><figure id="f776b9b2-10c2-409c-9ccf-19aaa5a7a4e3" class="image"><a href="SonarQube%203598a/Untitled%205.png"><img style="width:1244px" src="SonarQube%203598a/Untitled%205.png"/></a></figure></div></div><p id="154e62d7-ff0a-4252-b54c-3fd70e1549db" class="">
+</p><p id="5b332e59-1faa-45cd-9311-7907f36e2050" class="">
+</p><p id="cd571e3a-3610-42ff-8d77-36124e268d46" class="">
+</p><h1 id="f7fba358-c272-41a6-a0a4-09a353e9eda9" class="">在Jenkinsfile集成代码扫描功能</h1><p id="7be65666-1f5b-4936-a696-ff39a4a2f1cd" class="">下面所有功能以groovy方法形式实现，建议放在共享库，实现这些功能：<div class="indented"><ol type="1" id="fb229be1-bd96-48de-9261-1ec40d77b174" class="numbered-list" start="1"><li>判断项目是否存在，如果不存在则创建项目并为它指定质量阈指定规则</li></ol><ol type="1" id="7642ad02-69ab-4f79-ac2b-2b3e9bbfdf34" class="numbered-list" start="2"><li>执行扫描</li></ol><ol type="1" id="e59950c9-cfa9-4d96-8ca2-3e7cc8e91533" class="numbered-list" start="3"><li>扫描后，如果因为超过质量阈而导致错误，则终止流水线</li></ol><ol type="1" id="20fa1a65-d7e1-450a-a3e2-4cb5c8a64b0f" class="numbered-list" start="4"><li>将扫描的结果返回给gitlab</li></ol><ol type="1" id="0c043f6d-cf6a-463c-ac06-921865287601" class="numbered-list" start="5"><li>在sonar的项目中显示分支信息（默认所有都是master主分支）</li></ol></div></p><p id="e55c41c3-15df-4525-8c41-d7bcabeef209" class="">
+</p><p id="eb3e790a-9cb9-4d00-9e8d-a3d092668823" class=""><div class="indented"><p id="db30eb87-5539-4ef3-9c8e-efc4b28e27bc" class="block-color-orange">暴露的问题</p><ol type="1" id="bc08edd3-3085-4552-a2f4-275e6b8ad471" class="numbered-list" start="1"><li>projectName是什么？</li></ol><p id="18e3fc3e-987c-4760-bd7e-dba0b75dfe03" class="">
+</p></div></p><ol type="1" id="bf63049a-494b-4fbb-8439-a116e6640740" class="numbered-list" start="1"><li>所有功能基于SonarAPI，所以先定义httpReq函数<ol type="a" id="14307470-2c7d-49fc-8950-7bb61a2255af" class="numbered-list" start="1"><li>Jenkins上创建凭据(sonar用户名和密码),命名“sonar-admin-password”</li></ol><ol type="a" id="ddae390b-9809-447e-a7c7-7dca1ecfb6d6" class="numbered-list" start="2"><li>定义函数，用于http请求<pre id="83a45fdc-9f5b-41c5-befa-bb78b706a09e" class="code code-wrap"><code>def HttpReq(httpMode,apiUrl,requestBody){
+    sonarServer = &quot;http://10.19.34.11:9000&quot;
+    result = httpRequest authentication: &#x27;sonar-admin-password&#x27;,
+                            httpMode: &quot;${httpMode}&quot;, 
+                            contentType: &quot;APPLICATION_JSON&quot;,
+                            consoleLogResponseBody: true, 
+                            ignoreSslErrors: true, 
+                            requestBody: &quot;requestBody&quot;,
+                            url: &quot;${sonarServer}/${apiUrl}&quot;
+    return result
+}</code></pre></li></ol><p id="b7d20ddf-d194-482d-beaa-2a632b079c61" class="">
+</p></li></ol><ol type="1" id="7eaadff6-e5fa-4c9f-9e4e-d7b38d04b2d0" class="numbered-list" start="2"><li>判断项目是否存在，如果不存在则创建项目并指定它的质量阈指定规则<ul id="8bae6a46-714c-418c-a9a4-7a85e2579ec9" class="bulleted-list"><li style="list-style-type:disc">sonar上要事先定义好质量阈(quality gate)和指定规则(quality profile)</li></ul><ul id="6496190d-c3a3-432c-9d7a-43f287106eb2" class="bulleted-list"><li style="list-style-type:disc">定义函数<pre id="cf76cff5-f17b-48ec-9c2b-f56ece44e480" class="code code-wrap"><code>//判断是否存在
+def ProjectExist(projectName){
+    apiUrl = &quot;api/projects/search?projects=${projectName}&quot;
+    url = &quot;http://192.168.31.102:9000/${apiUrl}&quot;
+    response = HttpReq(&quot;GET&quot;,&quot;${apiUrl}&quot;,&#x27;&#x27;)
+    response = readJSON text: &quot;&quot;&quot;${response.content}&quot;&quot;&quot;
+    result = response[&quot;paging&quot;][&quot;total&quot;]
+    if (result == 0){
+        return false
+    }else{
+        return true
+    }
+}
+
+//创建sonar项目，以Jenkins的Job来命名
+def CreateProject(projectName){
+    apiUrl = &quot;api/projects/create?name=${JOB_NAME}&amp;project=${JOB_NAME}&quot;
+    response = HttpReq(&quot;POST&quot;,&quot;${apiUrl}&quot;,&#x27;&#x27;)
+    response = readJSON text: &quot;&quot;&quot;${response.content}&quot;&quot;&quot;
+    println response
+}
+
+//qp就是sonar的quality profile，调用时填事先定义的实际名称
+def AssociateProjectQualityprofile(lang,project,qp){
+    apiUrl = &quot;api/qualityprofiles/add_project?language=${lang}&amp;project=${project}&amp;qualityProfile=${qp}&quot;
+    response = HttpReq(&quot;POST&quot;,&quot;${apiUrl}&quot;,&#x27;&#x27;)
+}
+
+//获取质量阈ID，作为指定质量阈API的参数
+def GetQgId(qualityGateName){
+    apiUrl = &quot;api/qualitygates/show?name=${qualityGateName}&quot;
+    response = HttpReq(&quot;GET&quot;,&quot;${apiUrl}&quot;,&#x27;&#x27;)
+    response = readJSON text: &quot;&quot;&quot;${response.content}&quot;&quot;&quot;
+    println response
+    return response[&quot;id&quot;]
+}
+
+//指定质量阈
+def AssociateProjectQualitygate(projectKey,qualityGateName){
+    gateId = GetQgId(qualityGateName)
+    apiUrl = &quot;api/qualitygates/select?projectKey=${projectKey}&amp;gateId=${gateId}&quot;
+    response = HttpReq(&quot;POST&quot;,&quot;${apiUrl}&quot;,&#x27;&#x27;)
+}</code></pre></li></ul></li></ol><p id="06eeba5a-8d2c-4a29-a8d2-7f3521d86244" class="">
+</p><ol type="1" id="c6ec0029-8494-487a-9b8b-2f336eb88ac3" class="numbered-list" start="3"><li>执行扫描<ul id="b3c3fad3-7908-454d-aae1-32f14c90bd7e" class="bulleted-list"><li style="list-style-type:disc">定义函数<pre id="b0dceabc-b338-4cc9-a329-6c33e8b1e294" class="code code-wrap"><code>def SonarScan(projectName,projectDescription,projectPath){
+    sonarServer = &quot;http://10.19.34.11:9000&quot;
+    sonarDate = sh returnStdout: true, script: &#x27;date +%Y%m%d%H%M%S&#x27;
+    sonarDate = sonarDate - &quot;\n&quot;
+    sh &quot;&quot;&quot; 
+    /opt/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner -Dsonar.host.url=${sonarServer} \
+        -Dsonar.projectKey=${projectName} \
+        -Dsonar.projectName=${projectName} \
+        -Dsonar.projectVersion=${sonarDate} \
+        -Dsonar.login=admin \
+        -Dsonar.password=admin \
+        -Dsonar.ws.timeout=30 \
+        -Dsonar.projectDescription=projectDescription \
+        -Dsonar.links.ci=${BUILD_URL} \
+        -Dsonar.links.homepage=${env.srcUrl} \
+        -Dsonar.sources=${projectPath} \
+        -Dsonar.sourceEncoding=UTF-8 \
+        -Dsonar.java.binaries=target/classes \
+        -Dsonar.java.test.binaries=target/test-classes \
+        -Dsonar.java.surefire.report=target/surefire-reports \
+    &quot;&quot;&quot;
+}</code></pre></li></ul></li></ol><p id="782d83ae-1642-4427-ae08-750de723d44e" class="">
+</p><ol type="1" id="c16145a3-8e88-46fa-9506-e61d4048fed5" class="numbered-list" start="4"><li>在执行scanner扫描后，如果因为超过质量阈而导致错误，则终止流水线。<ul id="b7ee608e-1676-45c6-916a-ba60ad5b6e6d" class="bulleted-list"><li style="list-style-type:disc">定义函数（放在共享函数库或直接放在jenkinsfile）<pre id="75e2734e-148e-4c94-893b-aab7f47285e3" class="code code-wrap"><code>//利用sonarAPI api/project_branches/list实现
+def getProjectStatus(projectName){
+    apiUrl = &quot;api/project_branches/list?project=${projectName}&quot;
+    response = HttpReq(&quot;GET&quot;,apiUrl,&#x27;&#x27;)
+    result = readJSON text: &quot;&quot;&quot;${response.content}&quot;&quot;&quot;
+    return result[&quot;branches&quot;][0][&quot;status&quot;][&quot;qualityGateStatus&quot;]   //如扫描未通过则返回ERROR
+}
+</code></pre></li></ul></li></ol><p id="f49480ca-b549-423a-b54b-08483bfd8883" class="">
+</p><ol type="1" id="a431752a-3fcf-4c1f-9f45-fca9ea1bec96" class="numbered-list" start="5"><li>将扫描的结果返回给gitlab<ul id="dafc975f-6525-4acd-bdf5-c98cd6c4aa30" class="bulleted-list"><li style="list-style-type:disc">需要安装sonar-gitlab-plugin插件<ol type="1" id="33ce6d1e-6e9b-4a82-a26c-9cb887c60e1e" class="numbered-list" start="1"><li>下载: <a href="https://github.com/gabrie-allaigre/sonar-gitlab-plugin/tree/4.1.0-SNAPSHOT#fixed">https://github.com/gabrie-allaigre/sonar-gitlab-plugin/tree/4.1.0-SNAPSHOT#fixed</a> （下载4.1版本.   4.0版本报错）</li></ol><ol type="1" id="f567bda1-9ac0-4b0b-a58e-4a82fe460334" class="numbered-list" start="2"><li>编译:<code>mvn clean -Dmaven.test.skip=true package</code> （修改maven国内源, 参考:<a href="Maven%208b2b0.html">https://www.notion.so/Maven-8b2b0f382c4f41dcafc231f7986373d4#5114e80470c64c329c39981c8143301e</a>）</li></ol><ol type="1" id="68550913-1a12-4004-af5d-6be6bcbae308" class="numbered-list" start="3"><li>将jar包移动到插件目录<code>${sonarqube_home}/extensions/plugins/</code>, 该属主属组为sonarqube，然后重启sonarqube</li></ol></li></ul><ul id="1382cba8-6cc4-4ccf-8ba8-689cb0fae114" class="bulleted-list"><li style="list-style-type:disc">在sonar-scanner指令中添加8条相关参数<pre id="69b2361b-6079-4327-8681-9799e0acd8a6" class="code code-wrap"><code>#以下写入共享库或者jenkinsfile
+def Sonarqube(projectName,projectDescription,projectPath){
+    sonarServer = &quot;http://10.19.34.20:9000&quot;
+    sonarDate = sh returnStdout: true, script: &#x27;date +%Y%m%d%H%M%S&#x27;
+    sonarDate = sonarDate - &quot;\n&quot;
+    sh &quot;&quot;&quot; 
+			/opt/sonar-scanner-4.2.0.1873-linux/bin/sonar-scanner -Dsonar.host.url=${sonarServer} \
+	      -Dsonar.projectKey=${projectName} \
+	      -Dsonar.projectName=${projectName} \
+	      -Dsonar.projectVersion=${sonarDate} \
+	      -Dsonar.login=admin \
+	      -Dsonar.password=admin \
+	      -Dsonar.ws.timeout=30 \
+	      -Dsonar.projectDescription=projectDescription \
+	      -Dsonar.links.homepage=http://www.baidu.com \
+	      -Dsonar.sources=${projectPath} \
+	      -Dsonar.sourceEncoding=UTF-8 \
+	      -Dsonar.java.binaries=target/classes \
+	      -Dsonar.java.test.binaries=target/test-classes \
+	      -Dsonar.java.surefire.report=target/surefire-reports \
+	      -Dsonar.gitlab.project_id=${projectId} \   //此行开始以下用于向gitlab返回扫描结果(如不需要可删除这部分，三个变量来自git webhook)
+	      -Dsonar.gitlab.ref_name=${branch} \
+	      -Dsonar.gitlab.commit_sha=${commitSha} \
+	      -Dsonar.dynamicAnalysis=reuseReports \
+	      -Dsonar.gitlab.failure_notification_mode=commit-status \
+	      -Dsonar.gitlab.url=http://10.19.34.11 \
+	      -Dsonar.gitlab.user_token=hpoZsPcHoKQSLNHZyAP_ \
+	      -Dsonar.gitlab.api_version=v4
+    &quot;&quot;&quot;
+}</code></pre></li></ul><p id="95ca94f9-442e-4f93-82e1-48516064bbce" class="">
+</p><ol type="1" id="5edc745b-b7b4-461b-803c-75cd5cef3dab" class="numbered-list" start="6"><li>在pipeline中调用这些函数，实现所有这些功能。<pre id="658cd707-9d30-4a75-9827-72bef867dd36" class="code code-wrap"><code>//这里函数是放在共享库中，所以函数有前缀Sonarqube.
+stage(&quot;codeQulityCheck&quot;){
+            steps{
+                script{
+                    if(Sonarqube.ProjectExist(&quot;${JOB_NAME}&quot;) == false){
+                        Sonarqube.CreateProject(&quot;${JOB_NAME}&quot;)
+                        Sonarqube.AssociateProjectQualityprofile(&quot;java&quot;,&quot;${JOB_NAME}&quot;,&quot;demo&quot;)
+                        Sonarqube.AssociateProjectQualitygate(&quot;${JOB_NAME}&quot;,&quot;demo&quot;)
+                    }
+                    Sonarqube.SonarScan(&quot;${JOB_NAME}&quot;,&quot;${JOB_NAME}&quot;,&#x27;src&#x27;)
+                    if (Sonarqube.getProjectStatus(&quot;${JOB_NAME}&quot;) == &quot;ERROR&quot;){
+                        error &quot;代码质量扫描失败&quot;
+                    }
+                }
+            }
+        }
+    }</code></pre></li></ol></li></ol></div></article></body></html>

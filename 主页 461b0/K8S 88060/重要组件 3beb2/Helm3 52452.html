@@ -1,0 +1,962 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Helm3</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="52452726-238f-42a2-9466-b3e597bff95a" class="page sans"><header><img class="page-cover-image" src="Helm3%2052452/90-Using-Helm-with-Kubernetes.png" style="object-position:center 37.99%"/><h1 class="page-title">Helm3</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 21, 2021 10:34 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td><span class="selected-value select-value-color-orange">chart</span><span class="selected-value select-value-color-pink">helm</span></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="3e591a41-96a6-4581-827a-674e7d4d5a02" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#962f7c16-d08e-43b4-b637-eb5ae2a4f592">概念</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5e5255f9-e9fc-4bd0-a89a-ee0b9eea76f9">安装Helm3</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#922300cb-96df-4918-9451-aa830dfb8ed4">chart</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a504578e-8504-4446-9eb8-e3d16121b46b">简介</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0aab8b4a-5c55-49e9-ac23-1034dce2a434">helm命令归纳</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a7648906-71cd-4d04-a002-87ad33896bba">注意</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0e01695d-d98f-42d0-820c-c56124e15f4a">chart语法</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#0c650d59-af68-4538-9a9d-785389fc7bc2">初识模板指令和命名空间</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a38c9982-1c65-45a6-be02-dc390514dc0d"><code>{{ .Values }}</code></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8d461813-ff84-4dc9-93b6-c3d8c78a0a2e">Functions</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ad14ccd9-69a8-4347-b8f5-566f1cb7d6dd">管道</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#2cac1caf-bf39-41d9-8107-99cdc4e99333">控制结构</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#13a5e105-cd5d-4876-88c9-0f3650f9c5da">变量 </a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#656c417d-21a0-4642-b1a8-af266d0b1122">子模板</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#cc8f883a-e77c-4f28-840e-d243658bae35">注入文件Files</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#19f4c67f-5c3c-4c61-87f6-f4e3cd555547"><mark class="highlight-orange">Chart Dependency</mark></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#34feb023-eb40-4918-b803-43494254b3d4"><mark class="highlight-orange">.helmignore文件</mark></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#cabffeb4-41f2-49db-9b38-5a56553c7adc">添加仓库和搜索chart</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#eed16ae5-9cf0-4c46-aaba-0313020edd94">安装chart</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#840e2f52-559a-459e-aec8-e5c44326c002">自己制作一个chart</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a3db30f6-a082-4132-8a00-d05c79bf1dd0">文件目录结构介绍</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#874f6827-92a0-4222-87d9-75728e934965">示例</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0fbeab3a-af27-4927-82d8-2b3e442acfaf"><strong>helm的基本操作补充</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#278159ec-3dc9-4ee6-9a7f-dadadae9c19e">查看release</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a83b5da0-af10-478d-88ae-7b27cba8a207"><strong>安装release</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#fe22eaa0-d4bf-4603-9c4f-c27d1964ae12"><strong>更新release</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#94a7d188-e62e-43a9-b931-afa6f591e9bb"><strong>卸载release</strong></a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b54a335a-c33b-43b9-a153-565f0b20e1d4"><strong>回滚release</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#48b8ef0c-3ba0-452b-8000-b6a9bcb2d4a9">命令</a></div></nav><h2 id="962f7c16-d08e-43b4-b637-eb5ae2a4f592" class="">概念</h2><ul id="89cdfe9a-6014-49d5-aacd-d2f27a3c3018" class="bulleted-list"><li style="list-style-type:disc">目前最新的版本是3，相比版本2，更加精简和安全。</li></ul><ul id="11103067-7860-4f7e-97a2-69a78f5a1c95" class="bulleted-list"><li style="list-style-type:disc">为什么需要<p id="c9ac9c45-9238-43a0-9ea1-de5e0ab823a7" class="">在没使用helm之前，向kubernetes部署应用，需要依次部署deployment,service,configMap等,步骤繁琐。且随着很多项目微服务化，复杂的应用在容器中部署以及管理带来了很大的挑战。</p><p id="0992fb45-4e9b-4c8b-bf66-1ffcd8b02a88" class="">helm可以将K8S的资源打包，然后保存到仓库里，由仓库存储、分发和共享。helm还支持发布的版本管理和控制,很大程度上简化了Kubernetes应用的部署和管理。helm是K8S的应用包管理工具。</p></li></ul><figure id="41ac1ae7-a1ff-40f9-82c9-a1f8969c01d3" class="image"><a href="Helm3%2052452/Untitled.png"><img style="width:576px" src="Helm3%2052452/Untitled.png"/></a></figure><ul id="7349b47f-d6b5-454f-9296-58f4f27279f4" class="bulleted-list"><li style="list-style-type:disc">基础概念<ul id="3c10a608-c84a-428a-b142-2dbae1c43f23" class="bulleted-list"><li style="list-style-type:circle"><strong>Chart</strong>: 一个Helm包，包含了一个应用所需的所有资源对象的YAML文件，通常以.tgz形式提供，也可以是目录形式。</li></ul><ul id="51465fbd-762d-4ce4-b0dc-bc1f3ff161a6" class="bulleted-list"><li style="list-style-type:circle"><strong>Release</strong>: 在<code>Kubernetes</code>集群上运行的 <code>Chart</code>的一个实例。在同一个集群上，一个 <code>Chart</code>可以安装很多次。每次安装都会创建一个新的<code>release</code>。可以理解为docker的container实例。</li></ul><ul id="c4fe5901-fb99-42b5-aa9b-34e574915daf" class="bulleted-list"><li style="list-style-type:circle"><strong>Repository（仓库）</strong>: 用于存放和共享 Chart 的仓库。</li></ul><ul id="1bd4e279-0e4f-4d5b-8b42-77b709d65f9c" class="bulleted-list"><li style="list-style-type:circle"><strong>Config（配置数据）</strong>：部署时设置到Chart中的配置数据。</li></ul></li></ul><ul id="03b00e65-277b-494c-9930-abb7759984f2" class="bulleted-list"><li style="list-style-type:disc">版本3的区别<ul id="078290d1-cb90-4a27-8ab5-add40e931ab9" class="bulleted-list"><li style="list-style-type:circle">V3在V2的基础上作出了简化和安全性增强。</li></ul><ul id="165fdb6a-7c18-4882-9c42-5bce5f681fce" class="bulleted-list"><li style="list-style-type:circle">V3不再使用Tiller组件。在V2中，Tiller组件负责接收Helm发出的指令，与Kube API Server交互，完成资源对象的部署与管理。然而Tiller的作用范围是整个集群，所以它不适用于多租户的场景。在V3中，管理员能够为Helm设置RBAC权限，租户就能够各自独立地管理应用了。</li></ul><ul id="badce31f-3f38-42c6-b8a4-4ab815a19d52" class="bulleted-list"><li style="list-style-type:circle">Helm版本支持的K8S版本列表。<figure id="65783257-8667-4840-bc00-8bea194062f4" class="image"><a href="Helm3%2052452/Untitled%201.png"><img style="width:384px" src="Helm3%2052452/Untitled%201.png"/></a></figure></li></ul></li></ul><ul id="9e7ebb72-54c2-49b5-a9d8-6bd03e7e851d" class="bulleted-list"><li style="list-style-type:disc">实际工作中的流程<ol type="1" id="d9588fb9-4f14-4dc9-9e55-6ef0cfb35f33" class="numbered-list" start="1"><li>开发人员将开发好的Chart上传到Chart仓库。</li></ol><ol type="1" id="4ec004a7-6fc4-45c0-b8d1-6f5802c76c75" class="numbered-list" start="2"><li>运维人员基于Chart的定义，设置必要的配置数据（Config），使用Helm命令行工具将应用一键部署到K8S集群中，以Release概念管理后续的更新、滚动等。</li></ol><ol type="1" id="a658e797-7856-4e11-adfa-7c0213a66c78" class="numbered-list" start="3"><li>Chart仓库中的Chart可以用于共享和分发</li></ol></li></ul><ul id="25f64b77-e56f-41a2-bfb9-35aa11edfc41" class="bulleted-list"><li style="list-style-type:disc">作为<code>Kubernetes</code>的一个包管理工具，Helm具有如下功能：<ul id="b786201a-e43f-4fd6-88cf-f968dd6207fe" class="bulleted-list"><li style="list-style-type:circle">创建新的<code>chart</code></li></ul><ul id="9c0049f7-9947-42e8-a2d6-eac292102986" class="bulleted-list"><li style="list-style-type:circle"><code>chart</code>打包成<code>tgz</code>格式</li></ul><ul id="4a73be99-e66c-45dc-95b1-fe586ba6439c" class="bulleted-list"><li style="list-style-type:circle">上传<code>chart</code>到<code>chart</code>仓库或从仓库中下载 chart<ul id="15910699-24cd-4050-ada9-84adb9af7444" class="bulleted-list"><li style="list-style-type:square">官方<code>chart</code>仓库是: <a href="https://hub.helm.sh/">https://hub.helm.sh</a></li></ul></li></ul><ul id="f8f7cd22-4c7e-4686-abfb-834345888324" class="bulleted-list"><li style="list-style-type:circle">在<code>Kubernetes</code>集群中安装或卸载<code>chart</code></li></ul><ul id="beace354-bece-4995-9f0a-ec65bd90317b" class="bulleted-list"><li style="list-style-type:circle">用<code>Helm</code>管理安装的<code>chart</code>的发布周期</li></ul></li></ul><h2 id="5e5255f9-e9fc-4bd0-a89a-ee0b9eea76f9" class="">安装Helm3</h2><ol type="1" id="c964511a-abe6-44b7-b711-dc6877b88b66" class="numbered-list" start="1"><li>下载二进制包，解压<pre id="82dd93c2-4e7a-4e83-b17c-ae56be123a91" class="code"><code>curl -L https://get.helm.sh/helm-v3.5.4-linux-amd64.tar.gz -o /tmp/helm-v3.5.4-linux-amd64.tar.gz
+tar -zxvf /tmp/helm-v3.5.4-linux-amd64.tar.gz -C /tmp</code></pre></li></ol><ol type="1" id="208841ad-9523-4d3f-ac6a-f80680d11141" class="numbered-list" start="2"><li>移动目录<pre id="d2668d7b-ea04-4091-a764-b8bb489ec4a9" class="code"><code>mv /tmp/linux-amd64/helm /usr/local/bin/helm</code></pre></li></ol><ol type="1" id="541aed7a-41d2-488a-b97f-7bc1d91e5eea" class="numbered-list" start="3"><li>检查命令<pre id="735cfc08-9a7e-47c6-8764-ecb4b8089076" class="code"><code>helm version</code></pre></li></ol><h1 id="922300cb-96df-4918-9451-aa830dfb8ed4" class="">chart</h1><figure id="2eb0e803-f8ec-4c92-8662-86153d9386fe" class="image"><a href="Helm3%2052452/Untitled%202.png"><img style="width:1400px" src="Helm3%2052452/Untitled%202.png"/></a></figure><h3 id="a504578e-8504-4446-9eb8-e3d16121b46b" class="">简介</h3><ul id="849ac170-47ce-4002-b9fc-29cf44db7e8d" class="bulleted-list"><li style="list-style-type:disc">helm使用一个叫chart的包格式, 就是目录中一堆文件的集合，用来模板化Kubernetes的manifests</li></ul><ul id="5b91a7d2-869a-49c8-bafd-d8e4a4a6889c" class="bulleted-list"><li style="list-style-type:disc">helm先将chart送到模板引擎渲染，再将结果发送到K8S</li></ul><ul id="0e304ebd-ea99-4b69-9fa0-224ea23e6930" class="bulleted-list"><li style="list-style-type:disc">一个chart用作实现一个应用</li></ul><ul id="6be7daf6-a0f9-46fb-949a-68fa1745c5a8" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">打包成版本化的归档</mark></li></ul><ul id="5ff809fa-4c48-4be2-a80a-0789406387bd" class="bulleted-list"><li style="list-style-type:disc">官方指导：<a href="https://helm.sh/docs/topics/charts/">https://helm.sh/docs/topics/charts/</a></li></ul><ul id="8f672860-a191-4c38-bc8a-b44ed8074664" class="bulleted-list"><li style="list-style-type:disc">文件结构<p id="88fcbd6b-5ed6-4f8d-a61d-84cf05fea76b" class="">目录名即chart名, 不加版本信息，如wordpress/，chart名是wordpress<div class="indented"><pre id="9eae2406-d52e-41b1-9de3-9633a6d7e744" class="code"><code>
+wordpress/
+  Chart.yaml          # A YAML file containing information about the chart
+  LICENSE             # OPTIONAL: A plain text file containing the license for the chart
+  README.md           # OPTIONAL: A human-readable README file
+  values.yaml         # The default configuration values for this chart
+  values.schema.json  # OPTIONAL: A JSON Schema for imposing a structure on the values.yaml file
+  charts/             # A directory containing any charts upon which this chart depends.
+  crds/               # Custom Resource Definitions
+  templates/          # A directory of templates that, when combined with values,
+                      # will generate valid Kubernetes manifest files.
+  templates/NOTES.txt # OPTIONAL: A plain text file containing short usage notes</code></pre><ul id="d1d6c9ba-aabf-497f-9adc-b798d2cec0ce" class="bulleted-list"><li style="list-style-type:disc"><code><strong>Chart.yaml</strong></code>: 包含chart的描述信息，基本metadata, 比如name，tag啥的</li></ul><ul id="afc97a38-4a17-43f6-a4cb-6f6d1d29d09a" class="bulleted-list"><li style="list-style-type:disc"><code><strong>templates</strong></code><strong>目录</strong>: <ul id="8603b2c0-a39e-4344-a050-26608fb74f48" class="bulleted-list"><li style="list-style-type:circle">模板文件manifest，被渲染为K8S资源清单，以.yaml为后缀</li></ul><ul id="9866b382-de7e-46a4-a57b-a46efe6c3f62" class="bulleted-list"><li style="list-style-type:circle">子模板文件也叫helpers，存放子模板，它以<code>_</code>开头后缀.tpl, 默认是<code>_help.tpl</code><ul id="1ce3b0dd-f4c7-47bc-9863-19ad397b6d10" class="bulleted-list"><li style="list-style-type:square">子模板是模板片段，可重复在各模板引用，不会被渲染成K8S资源清单</li></ul></li></ul></li></ul><ul id="e8655355-685d-45fb-ae79-541e12be4d57" class="bulleted-list"><li style="list-style-type:disc"><code><strong>values.yaml</strong></code>: 定义<code>Values</code>命名空间对象，可被模板和子模板引用</li></ul></div></p></li></ul><h3 id="0aab8b4a-5c55-49e9-ac23-1034dce2a434" class="">helm命令归纳</h3><pre id="989ba1e8-e81c-41cb-b4bb-e90feac52247" class="code code-wrap"><code>helm create mychart  新建一个helm框架用于开发chart
+helm install release名字 chart路径    #安装chart
+helm install test ./mychart --debug --dry-run 空跑，k8s会检查清单语法，但不会加载资源清单，是测试chart时的验证手段
+helm install test ./mychart --debug --dry-run --disable-openapi-validation 同上且不检查清单语法，是测试chart时的验证手段
+helm get manifest release名字   #列出K8S加载的manifest
+helm uninstall release名字 卸载release
+helm pull chartrepo/chartname 只拉取而不安装
+helm upgrade --install &lt;release name&gt; --values &lt;values file&gt; &lt;chart directory&gt;  安装与更新chart皆可
+helm repo update
+helm dependency update 下载子chart
+helm package &lt;chart目录&gt;  包名=&lt;name&gt;-&lt;version&gt;.tgz</code></pre><h3 id="a7648906-71cd-4d04-a002-87ad33896bba" class="">注意</h3><ul id="79c6d12f-31f2-4f82-84d3-ad8bab0c86c3" class="bulleted-list"><li style="list-style-type:disc">为chart(包或目录名)带上基础版本号</li></ul><ul id="7d3c6741-450c-4530-8cc2-f13feca9a13f" class="bulleted-list"><li style="list-style-type:disc">“子模板”是全局的，不可重复，建议前缀：chart名-</li></ul><ul id="d6f04953-bfa9-4de2-b009-f88d4ce1f12d" class="bulleted-list"><li style="list-style-type:disc">不要写死K8S资源的name字段，长度24以内</li></ul><ul id="aae6bd3c-34f0-43b9-bc9a-66c7220c3684" class="bulleted-list"><li style="list-style-type:disc">Chart.yaml 字段解释<ul id="6bc24e69-dc04-4313-b0ba-244d3929512e" class="bulleted-list"><li style="list-style-type:circle"><code>apiVersion</code> chart apiVersion目前最新v2, helm3+支持；helm3也支持apiVersion v1的chart<p id="2d6b0e4c-622c-47e7-b45f-44220a78530e" class="">调整：v1，dependence字段在requirements.yaml文件；v2, 移到Chart.yaml文件</p></li></ul><ul id="83fad118-b19f-4fc9-a955-4e04200a0740" class="bulleted-list"><li style="list-style-type:circle">dependencies 描述依赖chart<ul id="2dbb16f2-2f30-4d40-a906-c17246c5556b" class="bulleted-list"><li style="list-style-type:square">必须字段：name版本/repository仓库url/version chart的版本</li></ul><ul id="16c0327b-5425-42ba-9cfd-e115191e456a" class="bulleted-list"><li style="list-style-type:square">控制是否加载依赖chart<ul id="8c810903-1880-4488-9cc9-7c2f85651f78" class="bulleted-list"><li style="list-style-type:disc">condition，一个YAML路径，解析父chart的values.yaml，如返回true则加载/false则不加载/没有解析结果则不产生影响.</li></ul><ul id="2b722c2d-ffd6-4d90-b6b9-8624523e8fac" class="bulleted-list"><li style="list-style-type:disc">tags 一个列表，元素是一个YAML路径，解析父chart的values.yaml，任何元素为true则加载. 在父chart的values.yaml中tags必须是顶级字段</li></ul><ul id="0f5e1f26-8690-4e79-b9a9-28d53ff145e3" class="bulleted-list"><li style="list-style-type:disc">condition覆盖tag<pre id="25457347-7470-4fff-8f84-a95cd2e843bf" class="code code-wrap"><code># parentchart/Chart.yaml
+dependencies:
+  - name: subchart1
+    repository: http://localhost:10191
+    version: 0.1.0
+    condition: subchart1.enabled, global.subchart1.enabled
+    tags:
+      - front-end
+      - subchart1
+  - name: subchart2
+    repository: http://localhost:10191
+    version: 0.1.0
+    condition: subchart2.enabled,global.subchart2.enabled
+    tags:
+      - back-end
+      - subchart2
+
+# parentchart/values.yaml
+subchart1:
+  enabled: true
+tags:
+  front-end: false
+  back-end: true </code></pre></li></ul></li></ul></li></ul></li></ul><h2 id="0e01695d-d98f-42d0-820c-c56124e15f4a" class="">chart语法</h2><h3 id="0c650d59-af68-4538-9a9d-785389fc7bc2" class="">初识模板指令和命名空间</h3><ul id="e46d57dc-35ad-4e6a-a55c-5007adf50c6f" class="bulleted-list"><li style="list-style-type:disc"><code>{{ 模板指令 }}</code> 模板指令包括: 命名空间对象/管道/函数/变量/scope/循环/条件 </li></ul><ul id="98fec55e-7c47-4201-a726-dc0a9745f8e6" class="bulleted-list"><li style="list-style-type:disc">命名空间对象namespaced object，比如<code>{{ .Release.name }}</code><ul id="5d83bf47-b821-4d85-8b13-ea6537055be4" class="bulleted-list"><li style="list-style-type:circle">想象倒树形结构，左一<code>.</code>表示根，逐级索引,  模板引擎会将对应的值传入模板<ul id="02bd5e8a-d5ee-401f-b83d-8394b598842e" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-orange"><code>$.</code></mark><mark class="highlight-orange">显式表达顶级根,  因为在循环体和</mark><mark class="highlight-orange"><code>with</code></mark><mark class="highlight-orange"> 体中</mark><mark class="highlight-orange"><code>.</code></mark><mark class="highlight-orange">会发生变化(可理解为相对位置)</mark></li></ul></li></ul><ul id="cd8b1e95-e576-432b-8424-49fe4ca49ab4" class="bulleted-list"><li style="list-style-type:circle">有的对象可以调用方法，如<code>{{ .Files.get &quot;文件名&quot;}}</code> </li></ul><ul id="9086804a-0fc1-4dc2-9bfb-6d1d2bf6858d" class="bulleted-list"><li style="list-style-type:circle">对象可包含一个值如<code>{{ .Release.Name }}</code><p id="3b8aae3f-36ff-4e83-b834-d5b37925fd60" class="">也可包含若干对象如<code>Release</code>对象下有<code>{{Release.Name}}</code>和<code>{{Release.Namespace}}</code></p><p id="e3c1fc1d-1128-48e9-a7b8-3bd344d5e3ab" class="">也可包含function如<code>Files</code>对象的<code>{{ .Files.get &quot;文件名&quot;}}</code>返回文件内容</p></li></ul><ul id="3cfba5c8-8256-4096-ab17-5aa26767d1b9" class="bulleted-list"><li style="list-style-type:circle">Helm内建顶级对象(在被模板引擎处理时Helm建立内建对象，且皆以大写字母开头)<ul id="c4368483-251f-45ce-94b7-e8b9c21df4a8" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Chart }}</code>来源chart.yml</li></ul><ul id="dde6208b-38a2-452a-97b5-ad02baaf5b53" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Values }}</code>，来源values.yml/指定的文件/指定的键值</li></ul><ul id="2fe8afaf-299c-40fe-ad5b-bc0538fa0fa5" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Release }}</code>(对应release.yml)</li></ul><ul id="3a4e1ed4-f232-4103-9cd8-7d22ef78d7ae" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Template }}</code></li></ul><ul id="58423116-4b7f-4e89-8da0-2a5116bbd923" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Capabilities }}</code></li></ul><ul id="b8052e3f-f894-43dc-926d-61bfe322f906" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Files }} </code></li></ul><ul id="c0a6ea96-df97-428b-a522-fcbd24ea341d" class="bulleted-list"><li style="list-style-type:square"><code>{{ .Chart }}</code>: <a href="https://helm.sh/docs/topics/charts/#the-chartyaml-file">https://helm.sh/docs/topics/charts/#the-chartyaml-file</a></li></ul></li></ul></li></ul><h3 id="a38c9982-1c65-45a6-be02-dc390514dc0d" class=""><code>{{ .Values }}</code></h3><ul id="871feaa9-981b-4e83-9aef-2a68093e7a73" class="bulleted-list"><li style="list-style-type:disc">Values对象的数据来源：本char的value.yml,  父chart的value.yml, 命令<code>-f</code>指定的value文件, 命令<code>--set</code>指定的,如<code>--set foo=bar</code><ul id="9c8959b9-6c59-41ed-9140-4845690ada1a" class="bulleted-list"><li style="list-style-type:circle">⚠️<code>--set favorite.drink=coffee</code> , 不用加<code>.Values</code>，因为<code>--set</code>指定的就是Values对象</li></ul><ul id="28d3e76d-ec98-44fc-af25-8fea75a61704" class="bulleted-list"><li style="list-style-type:circle">模板中指定的对象，可来自values.yml，可来自<code>--set</code>指定</li></ul></li></ul><ul id="38a7a3e7-c6ec-4add-93c5-3496f76496e3" class="bulleted-list"><li style="list-style-type:disc">如相同则优先级大的覆盖小的：本char的value.yml &lt; 父chart的value.yml &lt; 命令 <code>-f</code> &lt;命令<code>--set</code></li></ul><ul id="e5abe8b5-808c-4b7c-8390-ef0e589557db" class="bulleted-list"><li style="list-style-type:disc">对象的数据结构<pre id="e3e26ab7-64b0-4ae2-b850-cb50274f1202" class="code code-wrap"><code>name: maxiaoyu  对象只有一个值
+
+favorite:    map结构，一个对象含多个对象
+  drink: coffee   
+  food: pizza
+最好扁平一些，比如
+favoriteFavorite: coffee
+favoriteFood: pizza
+
+pizzaToppings:   对象包含一个列表，用range循环迭代
+  - mushrooms   
+  - cheese
+  - peppers
+  - onions</code></pre></li></ul><ul id="7e47b09a-1606-4ca6-adac-2427b1861473" class="bulleted-list"><li style="list-style-type:disc">将某个对象置空<p id="cdecde11-43b0-4289-8a6f-4f51b11ba078" class=""><code>helm install</code>命令选项<code>--set 命名空间名称=null</code></p></li></ul><h3 id="8d461813-ff84-4dc9-93b6-c3d8c78a0a2e" class="">Functions</h3><ul id="014c99ff-e8aa-4dcf-90a9-6698d56ce92a" class="bulleted-list"><li style="list-style-type:disc"><code>functionName arg1 arg2...</code>   更多地搭配管道，如<code>drink: {{ .Values.coffee | quote | upper }}</code></li></ul><ul id="a8e8aaaa-47a1-43db-98d3-ed519e34cfea" class="bulleted-list"><li style="list-style-type:disc">有60多个函数：<a href="https://godoc.org/text/template">https://godoc.org/text/template</a> ，来自Spring和go模板库</li></ul><ul id="f88f48ac-3940-4ef4-9cb9-b71cb29f71b2" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-teal">function</mark><ul id="939d3085-9e71-40eb-ad7b-351815c9c17d" class="bulleted-list"><li style="list-style-type:circle">逻辑函数<ul id="dbdf9fc6-dc62-474d-99b9-1f07f2b2668b" class="bulleted-list"><li style="list-style-type:square"><code>coalesce .name .parent.name &quot;Matt&quot;</code> <p id="da34e07b-8815-4ae7-b70f-d483ee48e4e1" class="">先判断<code>.name</code>是否有值，有则返回值若没有则继续判断<code>.parent.name</code>，若也没有则返回<code>&quot;Matt&quot;</code></p></li></ul><ul id="8efad2b6-5533-40ab-9e40-a8f1d9e948cc" class="bulleted-list"><li style="list-style-type:square"><code>default &quot;foo&quot; .Bar</code>  若<code>.Bar</code>对象没有值(未赋值或没有该对象)，则返回<code>&quot;foo&quot;</code><p id="3ecf0fa8-1f01-40a6-b894-8137cdd70764" class="">搭配管道<div class="indented"><p id="88ddbfe8-ca86-47b3-bef4-3595d48de651" class=""><code>keyForPractice: {{ .Values.forPractice | default &quot;forPractice&quot; }}</code>  </p><p id="b64ae803-a8c4-4b8c-aba7-03309eb5fb62" class=""><code>drink: {{ .Values.favorite.drink | default (printf &quot;%s-tea&quot; (include &quot;fullname&quot; .)) }}</code></p></div></p><p id="b4b4b5b5-678c-4f93-ae68-75ec5ca33825" class="">某些情况if更合适</p></li></ul></li></ul><ul id="15cacc8c-591f-4cbe-afc3-6f07b10e9eb0" class="bulleted-list"><li style="list-style-type:circle">字符串处理<ul id="7a2361cc-ce97-4190-8239-5f7b597e2170" class="bulleted-list"><li style="list-style-type:square">quote</li></ul><ul id="69f0d82a-6b5c-49dd-b219-6d16344c22a4" class="bulleted-list"><li style="list-style-type:square"><code>trimSuffix &quot;-&quot; &quot;hello-&quot;</code> 返回hello, 消除指定的后缀</li></ul><ul id="2ea47dd2-3e5b-4cce-8f3e-b417f4c6e246" class="bulleted-list"><li style="list-style-type:square"><code>trunc 5 &quot;hello world&quot;</code> 截取前5个字符，-5是后五个. 可用来限制字符串长度</li></ul><ul id="02c7215b-5007-47a8-8205-addd1ece70fb" class="bulleted-list"><li style="list-style-type:square">indent 缩进如<code>{{ &quot;name: hello&quot; | indent 4 }}</code></li></ul><ul id="9306e156-814c-4eac-b12b-dd034b48f4fa" class="bulleted-list"><li style="list-style-type:square">nindent  先加入换行符然后缩进 </li></ul></li></ul><ul id="e2f62677-f603-4e18-a759-516586a253f7" class="bulleted-list"><li style="list-style-type:circle">日期<ul id="669919fb-f397-4687-b12d-536f5432581b" class="bulleted-list"><li style="list-style-type:square">获取日期, 格式yyyy-mm-dd <code>{{ now | htmlDate }}</code></li></ul></li></ul></li></ul><h3 id="ad14ccd9-69a8-4347-b8f5-566f1cb7d6dd" class="">管道</h3><ul id="fc1c96c8-efed-4502-8866-e790cae794e5" class="bulleted-list"><li style="list-style-type:disc">利用管道符号链接多个函数，实现数据的一系列处理：如<code>drink: {{ .Values.coffee | quote | upper }}</code></li></ul><ul id="c5723f9c-4a50-4140-ad52-01dbd184c8e0" class="bulleted-list"><li style="list-style-type:disc">⚠️标准输出是下一个函数的最后参数</li></ul><h3 id="2cac1caf-bf39-41d9-8107-99cdc4e99333" class="">控制结构</h3><ul id="309db851-a063-4a47-8d4e-bfde8bd2239d" class="bulleted-list"><li style="list-style-type:disc">条件表达式if<p id="23f7973e-8b0f-4b2b-bfcc-2a50fc56ceb4" class="">if后面是可以是由PIPELINE链接的表达式（即value+管道+函数），也可以是单独的value（判断是否为空）
+空字符串/空的集合(列字元)/布尔false/数字0/null 皆返回false</p><pre id="0ae47cd5-fcf1-4333-af92-bb9c4e50006b" class="code code-wrap"><code>{{- if PIPELINE }}
+  # Do something
+{{- else if OTHER PIPELINE }}
+  # Do something else
+{{- else }}
+  # Default case
+{{- end }}
+
+示例：
+{{- if eq .Values.favorite.drink &quot;coffee&quot; }}
+mug: &quot;true&quot;
+{{- end }}</code></pre></li></ul><ul id="079477c5-7b57-4587-b03d-cf5cf7e02352" class="bulleted-list"><li style="list-style-type:disc">处理空白行<p id="96b28ff6-5b51-4001-9214-afe3a321b291" class="">模板引擎在渲染时只删除<code>{{}}</code>和其内部的内容，留下空格和换行符号，造成模板出现空白行</p><p id="b5c4eaba-a393-497c-a6d3-89c03cafa89c" class=""><code>{{-</code> 删除左侧空行(包括换行符), <code>-}}</code> 删除右侧空行(包括换行符)</p><pre id="17d83224-b366-4b9e-a0e5-bcaacc097213" class="code code-wrap"><code>我用*标示空白行，
+food: {{ .Values.favorite.food | upper | quote }}*这里是换行
+**{{- if eq .Values.favorite.drink &quot;coffee&quot; }}         {{-向左删除*，这样就没有空白行
+  mug: &quot;true&quot;*这里是换行
+**{{- end }}    {{-向左删除*，这样就没有空白行</code></pre></li></ul><ul id="387818f5-55c1-4aa6-b688-19c706af7b13" class="bulleted-list"><li style="list-style-type:disc">循环表达式range<ul id="c51ce5d4-d817-4d26-9b0a-a8580a9690dc" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">在range块中</mark><mark class="highlight-teal"><code>.</code></mark><mark class="highlight-teal">代表元素, 并且scope变成当前元素，所以在块中引用命名空间对象需借助</mark><mark class="highlight-teal"><code>$</code></mark><mark class="highlight-teal">, 比如</mark><mark class="highlight-teal"><code>$.Chart.Name</code></mark></li></ul><ul id="2acfa066-d0f3-49e0-bd0d-ed2b9d59afc5" class="bulleted-list"><li style="list-style-type:circle"><mark class="highlight-teal">range块定义的变量，作用域只能在range块中</mark></li></ul><pre id="28168db5-b4f7-4986-b879-4cabed0cb9a4" class="code code-wrap"><code>语法结构
+{{- range 列表或者map }}
+{{.}}
+{{- end}}
+.代表元素
+
+例子：value.pizzaToppings对象包含一个列表
+pizzaToppings:
+  - mushrooms
+  - cheese
+  - peppers
+  - onions
+
+{{- range .Values.pizzaToppings }}  range后跟列表类型
+{{.}}  每次迭代插入一行元素
+{{-end}}
+
+得到
+mushrooms
+cheese
+peppers
+onions
+
+range与变量搭配  
+users:    .Values.users对象包含一个map
+  Jim: 11
+  Tom: 22
+
+{{- range $name, $age := .Values.users}}   键值分别赋予$name和$age，这两个变量和test变量的作用域只能在块中
+  name: {{ $name }}
+  age: {{ $age }}
+  {{ test := test }}
+{{- end }}
+
+注意不要写成以下，这是列表结构，$name和$age分别是0和map[Jim:11]，1和map[Tom: 22],切记
+users:
+- Jim: 11
+- Tom: 22</code></pre></li></ul><h3 id="13a5e105-cd5d-4876-88c9-0f3650f9c5da" class="">变量 </h3><ul id="f494ddb5-60ae-4d44-aec9-6cf6e41e0406" class="bulleted-list"><li style="list-style-type:disc">⚠️赋值符号<code>:=</code></li></ul><ul id="1bbbd062-6e22-42e0-9110-b68d48a29d68" class="bulleted-list"><li style="list-style-type:disc">主要搭配range</li></ul><pre id="eab710d3-4f95-465f-b49a-6dca3f56cbf1" class="code code-wrap"><code>{{ $relname := .Release.Name }} 
+
+主要用在range中
+pizzaToppings:
+  - mushrooms
+  - cheese
+  - peppers
+  - onions
+pizzaToppings: |-
+    {{- range $index, $topping := .Values.pizzaToppings }}
+      {{ $index }}: {{ $topping }}
+    {{- end }}</code></pre><h3 id="656c417d-21a0-4642-b1a8-af266d0b1122" class="">子模板</h3><ul id="6a3768d3-ce5e-4a31-b22a-b2502db981e6" class="bulleted-list"><li style="list-style-type:disc">子模板也叫named template、partial或subtemplate</li></ul><ul id="525b5462-dfdb-4f05-81bb-3810b9c8050b" class="bulleted-list"><li style="list-style-type:disc">重复使用的模板语句比如标签相关的，可以独立成子模板，在各模板文件中引用，减少重复代码</li></ul><ul id="dea20381-ead6-4957-810a-b68f6e118603" class="bulleted-list"><li style="list-style-type:disc">子模板集中存放于helpers文件</li></ul><ul id="a99cee46-d839-495c-9c21-d77bfe23634c" class="bulleted-list"><li style="list-style-type:disc">_开头的helpers文件，专门存放子模板，不会被渲染成K8S资源清单，_helpers.tpl 是存放子模版的默认文件</li></ul><ul id="57e8af1e-8373-45c2-bcd2-c87d4e19a3f1" class="bulleted-list"><li style="list-style-type:disc">子模板不可同名否则后覆盖前，通常命名<code>chart名字.有意义名称</code> </li></ul><ul id="274e31b4-13ee-4f9e-be6c-10d3161b17ce" class="bulleted-list"><li style="list-style-type:disc">在子模板文件，用<code>define</code>定义子模板，用<code>block</code>描述子模板作用</li></ul><ul id="af6fd82f-9cbe-4db5-bbb0-da1124eecf1e" class="bulleted-list"><li style="list-style-type:disc">在模板文件用<code>template</code>或<code>include</code>调用子模板，参数1是模板名，参数2是命名空间的scope，通常是<code>.</code><ul id="cdcf026a-2bc4-4eff-ad08-8c0534880186" class="bulleted-list"><li style="list-style-type:circle">include可以搭配管道，故比template更好用</li></ul></li></ul><ul id="e2e1efac-8bd6-4687-8ecf-7f036dff1090" class="bulleted-list"><li style="list-style-type:disc">_helpers.tpl 演示：<pre id="bb208dcf-377f-4fd3-bbc5-5c8540e581b6" class="code code-wrap"><code>{{/* Generate basic labels */}}   block，用于简单描述作用子模板作用
+{{- define &quot;mychart.labels&quot; -}}  定义一个子模板, -}}保证与nindent函数搭配时没有空行
+generator: helm
+date: {{ now | htmlDate }} 
+{{- end }}
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+  labels:
+  {{- include &quot;mychart.labels&quot; . | nindent 4 }}  define用了-}}故无换行，故用nindent，先加换行符再缩进
+data:
+  test: 123</code></pre></li></ul><h3 id="cc8f883a-e77c-4f28-840e-d243658bae35" class="">注入文件Files</h3><ul id="10e86028-52b2-4cff-a304-0b6cc50bfb9c" class="bulleted-list"><li style="list-style-type:disc">对于证书/配置文件等不需渲染可直接放入模板的，使用<code>.Files</code>对象</li></ul><ul id="113a863c-4c40-4830-bada-7d7aab2db9ff" class="bulleted-list"><li style="list-style-type:disc">⚠️Chart必须小于1M，故不要导入过大文件</li></ul><ul id="dda6785b-4e6c-4183-841d-8e0e8f2d12bc" class="bulleted-list"><li style="list-style-type:disc">只要文件在chart目录里,<code>.Files</code>对象都可注入，除了：<ul id="cd82eca7-2a22-410d-b24e-1d20f5383437" class="bulleted-list"><li style="list-style-type:circle">在templates目录的</li></ul><ul id="4ade79cf-4729-4c75-b7dd-9fd87434e225" class="bulleted-list"><li style="list-style-type:circle">.helmignore排除的</li></ul></li></ul><ul id="41a1da14-e885-44a6-8da3-e2661f35bb2a" class="bulleted-list"><li style="list-style-type:disc"><code>{{ .Files.Get &quot;文件名&quot; }}</code>  函数，根据文件名注入文件内容 如<code>{{ .Files.Get &quot;config1.toml&quot; }}</code><pre id="fd6c623d-0f78-4703-b92e-a8972c609482" class="code code-wrap"><code>#比如chart包根目录有config1.toml config2.toml config3.toml配置文件
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  {{- $files := .Files }}  
+  {{- range tuple &quot;config1.toml&quot; &quot;config2.toml&quot; &quot;config3.toml&quot; }} 
+  {{.}}: |-
+      {{ $files.Get . }} 
+  {{- end }}</code></pre></li></ul><ul id="d01f4b89-5eff-430b-9889-c7ca02f4ff77" class="bulleted-list"><li style="list-style-type:disc"><code>{{ .Files.AsConfig &quot;文件名&quot; }}</code> 函数，以YAML map返回文件，键是文件名，值是文件内容<pre id="c340b7fe-ad2f-482b-8acb-e41d19368b25" class="code code-wrap"><code>apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conf
+data:
+{{ (.Files.Glob &quot;foo/*&quot;).AsConfig | indent 2 }}</code></pre></li></ul><ul id="b4798382-5471-4883-b7d2-e3f6e6d01931" class="bulleted-list"><li style="list-style-type:disc"><code>{{ .Files.AsSecret &quot;文件名&quot; }}</code> 函数，以YAML map返回文件，键是文件名，值是以base64编码的文件内容<pre id="9d944e2c-6510-44ec-ad6c-7c0f010c0f45" class="code code-wrap"><code>apiVersion: v1
+kind: Secret
+metadata:
+  name: very-secret
+type: Opaque
+data:
+{{ (.Files.Glob &quot;bar/*&quot;).AsSecrets | indent 2 }}</code></pre></li></ul><h3 id="19f4c67f-5c3c-4c61-87f6-f4e3cd555547" class=""><mark class="highlight-orange">Chart Dependency</mark></h3><p id="7f9fcaf5-d2f4-41ea-b125-4eceae4839d1" class="">某些chart依赖其他chart，如nexus依赖postgresql</p><ul id="f8e7cd27-66d4-452a-b3b8-c6b6efb2dd64" class="bulleted-list"><li style="list-style-type:disc">两种方法：Chart.yaml的dependencies字段/手动放入charts目录<ul id="049533ca-04a9-4025-a9b9-fd4e900c1139" class="bulleted-list"><li style="list-style-type:circle">如已定义dependencies字段，则<code>helm dependency update</code>，将依赖charts下载到charts/</li></ul></li></ul><p id="2b97bb67-083b-4283-bfe1-4a47ebe70321" class="">
+</p><h3 id="34feb023-eb40-4918-b803-43494254b3d4" class=""><mark class="highlight-orange">.helmignore文件</mark></h3><p id="f548f9f1-ccd5-4f76-85e7-0c03cf33c0b4" class="">采用通配方法，指定哪些文件被<code>helm package</code> 打包命令忽略</p><p id="db4fb6f6-b1b8-4251-8095-3229022614c7" class="">
+</p><p id="3d8a7438-7e82-49cc-addd-c35622d79f7a" class="">
+</p><p id="74c74750-2035-4248-9d86-a47590037cf4" class="">
+</p><h2 id="cabffeb4-41f2-49db-9b38-5a56553c7adc" class="">添加仓库和搜索chart</h2><p id="aaf993cf-d715-4dcb-932e-de3fa4b1dac0" class=""><code>https://charts.helm.sh/stable</code>是Helm官方稳定版仓库，添加仓库之后就可以下载需要的chart了。Helm3不再提供默认的Chart仓库。<div class="indented"><pre id="ad982d28-e3ff-43cb-b462-a23a6ba63814" class="code"><code>#添加
+helm repo add stable https://charts.helm.sh/stable
+
+#查看已添加的仓库
+helm repo list
+
+#在部署应用前，应该更新仓库信息，确保本地仓库的元数据信息是最新的
+helm repo update
+
+#删除已添加的仓库
+helm repo remove stable</code></pre></div></p><p id="fb2558ff-1001-4542-ad3a-43c703a6a49c" class="">用命令查询仓库中可部署的Chart。helm search repo用于搜索已经加入本地Helm客户端的仓库（即通过helm repo add命令添加），只搜索本地数据，无须连接网络。<div class="indented"><pre id="328801b4-8ad5-41e7-8b99-76e1d5e7f8d8" class="code"><code>
+#查询已添加的仓库中所有可部署的Chart
+helm search repo</code></pre></div></p><p id="3158e5c5-fca2-44ca-b9ff-1036c1121a10" class="">还可以使用helm search hub命令搜索由Artifact Hub提供的来自不同仓库的大量Chart。<div class="indented"><pre id="7ae905d5-2409-4de8-a7d7-08d0f6355046" class="code"><code>	helm search hub</code></pre></div></p><p id="655e81a9-e107-4fe3-8931-0d592440db8a" class="">helm search加上查询关键字参数来过滤出需要查询的Chart。<div class="indented"><pre id="d576c9b2-939a-46d4-bc9d-7a2b7561f8a9" class="code"><code>#在已经加入本地Helm客户端的仓库中查询关键字wordpress
+helm search repo wordpress
+
+#在artifact Hub提供的来自不同仓库中查询关键字mysql
+helm search hub mysql</code></pre></div></p><p id="615cfafb-7394-4007-ba10-2787a6752fc1" class="">
+</p><p id="bba75d35-457f-4ca9-a225-04f145a146ca" class="">除了stable helm chart仓库之外，我们还能从<a href="https://artifacthub.io/">https://artifacthub.io/</a>上找到其他的chart仓库，在这里我们可以找到很多chart，下一节将举例。</p><h2 id="eed16ae5-9cf0-4c46-aaba-0313020edd94" class="">安装chart</h2><p id="e1e287d0-a1df-4d34-8565-b89b9ac1d944" class="">以官方chart仓库中的redis为例</p><p id="0114c10e-c951-427c-991a-677f6bdfab8d" class="">1. 登陆<a href="https://artifacthub.io/">https://artifacthub.io/</a>，搜索redis，选择ORG为Helm的chart</p><figure id="5c095f10-bbd1-41ab-ae0f-820b282d47b4" class="image"><a href="Helm3%2052452/Untitled%203.png"><img style="width:1920px" src="Helm3%2052452/Untitled%203.png"/></a></figure><p id="482ad738-5f75-4705-bb33-453a88ea648b" class="">
+</p><figure id="5d64db8f-f943-4e3d-a0b9-993afc8e026f" class="image"><a href="Helm3%2052452/Untitled%204.png"><img style="width:1680px" src="Helm3%2052452/Untitled%204.png"/></a></figure><p id="f61c27c5-03e5-43a9-b369-25a13ef52be8" class="">
+</p><figure id="1ef44047-a4ca-4d04-9f71-2b619135861c" class="image"><a href="Helm3%2052452/Untitled%205.png"><img style="width:1210px" src="Helm3%2052452/Untitled%205.png"/></a></figure><p id="84684871-cf76-4c5e-97b2-9a454afc0bb0" class="">2. 登陆k8s节点，按上图指示粘贴命令。</p><pre id="d1c082e7-6446-4a36-b8dc-c4e166e3a55a" class="code"><code>#添加chart仓库
+helm repo add choerodon https://openchart.choerodon.com.cn/choerodon/c7n
+
+#查看chart仓库
+helm repo ls
+NAME     	URL                                             
+choerodon	https://openchart.choerodon.com.cn/choerodon/c7n
+
+#安装chart
+helm install my-redis choerodon/redis --version 12.8.3
+
+#查看chart
+helm ls
+NAME    	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART            	APP VERSION
+testname	default  	1       	2021-06-06 10:10:21.723190398 +0800 CST	deployed	hello-world-1.0.0</code></pre><p id="997b5498-7fe7-47c9-9441-d4445aa5e29d" class="">一个chart就安装好了。</p><p id="12d83236-bdb4-48cf-81d0-b1bb05d22647" class="">
+</p><hr id="1275a3aa-b3e4-4a54-bd37-aa8f988a5ff8"/><h2 id="840e2f52-559a-459e-aec8-e5c44326c002" class="">自己制作一个chart</h2><h3 id="a3db30f6-a082-4132-8a00-d05c79bf1dd0" class="">文件目录结构介绍</h3><p id="cbb8a32e-96f5-4c75-b01b-5f1f6313e5fd" class="">chart是一个包，或者说是一个目录，在制作chart时必须按照下面的文件目录结构。</p><pre id="68b620e3-1c1e-43ed-9201-cb3d88b8325a" class="code"><code>.
+├── Chart.yaml
+├── templates
+|   ├── deployment.yaml
+|   └── service.yaml
+├── values.yaml</code></pre><p id="64be5872-6a3e-4dd2-8cfd-adb3dfc979ad" class="">一个基本的自定义chart的主要包含这三个部分：</p><ul id="ab2313e9-b461-4050-9e98-afaa6996546e" class="bulleted-list"><li style="list-style-type:disc"><code><strong>Chart.yaml</strong></code>: 定义当前<code>chart</code>的基本metadata, 比如name，tag啥的</li></ul><ul id="6320bd1b-0ec3-4962-bbd6-2a1e414ad1e8" class="bulleted-list"><li style="list-style-type:disc"><code><strong>templates</strong></code>: 这个文件夹下放当前chart需要的一些yaml资源清单，deploy/svc/ingress/serviceaccount等等<ul id="f3cb43f3-0967-4456-8b2b-d6a73e739dfa" class="bulleted-list"><li style="list-style-type:circle">资源清单支持<code>变量模版语法</code></li></ul></li></ul><ul id="3b091cf8-2ed8-481b-9d8f-01ff45c6a666" class="bulleted-list"><li style="list-style-type:disc"><code><strong>values.yaml</strong></code>: 定义变量，可被<code>template</code>下的yaml资源清单使用</li></ul><hr id="ef399cae-83f5-48f1-9c87-37275c8c59ef"/><h3 id="874f6827-92a0-4222-87d9-75728e934965" class="">示例</h3><p id="a0a8ee4e-18c0-4590-92dd-9eae0e4e3ca4" class="">第一步: 准备自定义chart相关文件</p><pre id="60ce46a2-380b-4c1e-9e59-9aea83aabcaa" class="code code-wrap"><code># 1. 新建一个文件夹demo存放chart
+mkdir demo &amp;&amp; cd demo &amp;&amp; mkdir templates
+
+# 2. 新建Chart.yaml
+cat &lt;&lt; EOF &gt; Chart.yaml
+name: hello-world
+version: 1.0.0
+EOF
+
+# 3. 新建./templates/deployment.yaml
+# 注意image部分使用了变量的模板语法，可以动态插入
+cat &lt;&lt; EOF &gt; ./templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tocgenerator-deploy
+  labels:
+    app: tocgenerator-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tocgenerator-server
+  template:
+    metadata:
+      labels:
+        app: tocgenerator-server
+    spec:
+      containers:
+        - name: tocgenerator
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+EOF
+
+# 4. 新建./templates/service.yaml
+cat &lt;&lt; EOF &gt; ./templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: tocgenerator-svc
+spec:
+  type: NodePort
+  selector:
+    app: tocgenerator-server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+    nodePort: 30075
+EOF
+
+# 5. 新建values.yaml
+cat &lt;&lt; EOF &gt; values.yaml
+image:
+  repository: lzw5399/tocgenerator
+  tag: &#x27;951&#x27;
+EOF
+</code></pre><p id="18fd4226-19f9-4ebe-87e4-5b218e4ebd70" class=""><strong>第二步: 使用上面的自定义chart</strong></p><pre id="da97ab42-68a0-4a2e-b9f1-b814eca62ff6" class="code code-wrap"><code># 将chart实例化成release
+# 格式：helm install [RELEASE-NAME] [CHART-PATH]
+helm install testname .
+
+# 查看release
+helm ls</code></pre><p id="3ae87930-66b1-4dc8-aacb-4d49c2894477" class="">
+</p><h2 id="0fbeab3a-af27-4927-82d8-2b3e442acfaf" class=""><strong>helm的基本操作补充</strong></h2><h3 id="278159ec-3dc9-4ee6-9a7f-dadadae9c19e" class="">查看release</h3><pre id="cb2b7f9d-af9a-46f5-9c76-fe8ca3d186d1" class="code code-wrap"><code># 列出已经部署的Release
+helm ls
+
+# 查询一个特定的Release的状态
+helm status &lt;RELEASE_NAME&gt;
+
+# 查看被移除了，但保留了历史记录的release
+helm ls --uninstalled</code></pre><h3 id="a83b5da0-af10-478d-88ae-7b27cba8a207" class=""><strong>安装release</strong></h3><pre id="cad8b9fa-48b6-41bd-b7df-55aa2a45c27d" class="code code-wrap"><code>Copy
+# 安装
+helm install &lt;RELEASE-NAME&gt; &lt;CHART-PATH&gt;
+
+# 命令行指定变量
+helm install --set image.tag=233 &lt;RELEASE-NAME&gt; &lt;CHART-PATH&gt;
+</code></pre><h3 id="fe22eaa0-d4bf-4603-9c4f-c27d1964ae12" class=""><strong>更新release</strong></h3><pre id="e36e1920-689f-4071-8ec5-c98d973e8ffe" class="code code-wrap"><code># 更新操作, flag是可选操作
+helm upgrade [FLAG] &lt;RELEASE&gt; &lt;CHART-PATH&gt;
+
+# 指定文件更新
+helm upgrade -f myvalues.yaml -f override.yaml &lt;RELEASE-NAME&gt; &lt;CHART-PATH&gt;
+
+# 命令行指定变量
+helm upgrade --set foo=bar --set foo=newbar redis ./redis
+</code></pre><h3 id="94a7d188-e62e-43a9-b931-afa6f591e9bb" class=""><strong>卸载release</strong></h3><pre id="9f0ae644-ca2e-466a-87ed-c8ef69d6bc35" class="code code-wrap"><code># 移除Release
+helm uninstall &lt;RELEASE_NAME&gt;
+
+# 移除Release，但保留历史记录
+# 可以通过以下查看：helm ls --uninstalled
+# 可以通过以下回滚：helm rollback &lt;RELEASE&gt; [REVISION]
+helm uninstall &lt;RELEASE_NAME&gt; --keep-history
+</code></pre><h3 id="b54a335a-c33b-43b9-a153-565f0b20e1d4" class=""><strong>回滚release</strong></h3><pre id="be48547f-c6d6-4b4a-bf3d-5b849f2c869f" class="code code-wrap"><code># 更新操作, flag是可选操作
+helm upgrade [FLAG] &lt;RELEASE&gt; &lt;CHART-PATH&gt;</code></pre><p id="3ccf6425-65a6-465f-9ac3-aa232ec5bee3" class="">
+</p><p id="2d0db558-f778-49df-8a99-7f3ae1f830f8" class="">
+</p><p id="59d4dcd7-0e04-49b6-951f-b50ccac4bb56" class="">
+</p><p id="9f717d8a-8a25-48b4-913b-350f5724401c" class="">
+</p><h2 id="48b8ef0c-3ba0-452b-8000-b6a9bcb2d4a9" class="">命令</h2><p id="51554b41-9f2c-489a-b5a9-59de1116791c" class="">
+</p><p id="fcef04bd-943e-414c-b447-e4f720e39af6" class="">
+</p><p id="7f6cce3c-38c7-4d99-8cbd-6cd2b307f221" class="">查看chart的value。</p><pre id="e6f14809-8224-49d0-b7a6-179bf5aca39a" class="code"><code># Helm 2
+$ helm inspect values prometheus-community/prometheus
+
+# Helm 3
+$ helm show values prometheus-community/prometheus</code></pre><p id="5171b64f-9ecc-415b-b583-2e21836aff39" class="">
+</p><p id="ff62da36-a023-4ad7-ab43-f047e0cfad90" class="">更新chart</p><pre id="584a61a8-4ca7-4db8-90a3-330770904c39" class="code"><code></code></pre></div></article></body></html>

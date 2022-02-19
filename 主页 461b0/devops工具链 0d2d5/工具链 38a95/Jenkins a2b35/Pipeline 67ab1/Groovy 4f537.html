@@ -1,0 +1,1061 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Groovy</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4f537915-0271-4e62-968b-94220b2d5f8d" class="page sans"><header><img class="page-cover-image" src="Groovy%204f537/images_(1).png" style="object-position:center 51.92%"/><h1 class="page-title">Groovy</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 23, 2021 7:38 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>tag</th><td></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="e62fe61a-4e79-4754-b02e-34b779476198" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#d420c4cf-2ece-4004-8074-a3054c435888">介绍</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b547e81a-e5fc-4ddb-a6ec-56fb2f76a74a">变量</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ebfbcadc-3bbf-430f-8f53-6f9c245232bb">数字</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7c0754dc-70c8-4fba-9143-99736985a443">字符串</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2133f3fa-763d-439a-9fd6-71a21b4fd27d">列表</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f71a8eba-05d3-4066-965d-ed71d89d6392">map|映射</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6e898712-5807-4194-870d-474b47b5ef4e">range|范围</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e556ac29-2587-4185-9c0f-5c3c17230945">布尔</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#0fb1ea71-46a8-4458-a709-6a5310fb1b2a">流程控制</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1bc0eaa0-dd37-46cb-b214-c86a6699093a">条件表达式</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#a437f136-0043-492e-be1a-f66f4faf49bb">if</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#77b678c1-0d78-445e-b2cb-e36dcf248205">switch</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#b6b06990-de90-4f41-9acd-9c61d6fe051e">闭包</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b18756be-f5b1-4452-9165-cffee7b577fa">Package(包)与class(类)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#e0f9accf-8a78-476f-bc2e-2e30ea614c83">正则表达式的使用</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a0621a9b-e237-4cea-a56f-3613b0a95a5a">方法|即函数</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#72d8e8dc-e0d6-4022-9a94-4f2ec7c71e87">对象</a></div></nav><h1 id="d420c4cf-2ece-4004-8074-a3054c435888" class="">介绍</h1><p id="c23b575a-c28d-4fdd-b60a-a3fe09e78c84" class="">面向对象语言</p><p id="4ced35a5-2c0e-4f1f-b16c-3108c135f101" class="">动态类型语言：不要求申明数据类型</p><h1 id="b547e81a-e5fc-4ddb-a6ec-56fb2f76a74a" class="">变量</h1><p id="f029773d-4dd7-4145-abbc-64887c906f8b" class="">第一次赋值某变量，需用<strong><code>def</code></strong> 关键字申明</p><p id="26df1ccd-364d-443b-afae-41aa3c83b9dd" class="">变量名要求：字母 数字 下划线 大小写敏感 不可用关键字</p><p id="a472bc1a-a31e-499e-bf18-24db1e4ebaf4" class=""><strong>对象引用</strong><div class="indented"><ul id="224603f0-8f73-426b-a82d-f79c7728f267" class="bulleted-list"><li style="list-style-type:disc"><strong>动态类型功能</strong><ul id="1a7684fa-2c54-40a8-915c-604acae83574" class="bulleted-list"><li style="list-style-type:circle">当定义好字面值，比如：<code>x = [1,2,3]</code>，动态类型发挥作用，将x变成列表对象</li></ul><ul id="f6a86f73-6692-4366-99a4-204a2e51d117" class="bulleted-list"><li style="list-style-type:circle">允许先后赋于不同数据类型的值</li></ul></li></ul><ul id="625605dd-e536-40d9-abdc-f70de762078a" class="bulleted-list"><li style="list-style-type:disc">变量与对象的关联关系称为引用，<strong>引用就是指向对象的内存</strong>
+age = 10	//age引用10这个对象
+number = age	//number引用10这个对象
+age= 11 //age引用新对象11，但number依然引用对象10
+number=15 //number引用了新对象15，现在没有变量引用对象10，对象10变为内存垃圾，垃圾回收器回收内存空间以重新分配给其他对象</li></ul></div></p><p id="571d3575-f365-40a8-ad25-6091e627149f" class="">单引号/单三引号/双引号/双三引号<div class="indented"><ul id="078632f0-f0a1-497c-9579-c4dc6c0fff6f" class="bulleted-list"><li style="list-style-type:disc">都是用于括住字符串, 但单引号和三单引号是字面字符串，双引号和三双引号是可解释性字符串(变量可替换)<pre id="ddcdd6f7-89d0-4136-8ca0-1d55a3849247" class="code"><code>&#x27;&#x27; 空字符串
+
+&quot;hello&quot; 
+
+&quot;hello &#x27;world&#x27;!&quot;  嵌套
+
+&quot;&quot;&quot;hello world!&quot;&quot;&quot; 
+
+&quot;&quot;&quot;  多行
+hello
+world
+!
+&quot;&quot;&quot;</code></pre></li></ul><ul id="db253d8b-1721-4a75-a9ff-31debc47b4b8" class="bulleted-list"><li style="list-style-type:disc">解释性字符串里面的变量这样写<p id="9ccf065d-3979-4331-83a5-54fe96468974" class=""><code>${变量}、${变量.方法()}、${变量[索引]}、${变量[键]}、${变量.键}</code></p><p id="b9ff8275-68d0-454d-8640-a1a45f649af3" class=""><code>${变量.[键]}</code> 如果键是字符串则<code>${变量.[&#x27;字符串&#x27;]}</code> 如果键是变量则<code>${变量.[变量]}</code></p></li></ul></div></p><ul id="16d976ed-42a6-48b7-902f-1cf3b39fe7c6" class="bulleted-list"><li style="list-style-type:disc">几个特别的赋值方法<pre id="412d4d7a-66db-4042-b788-39912fa4a8af" class="code code-wrap"><code>//一行多个赋值，如果参照python规范，那么这种是不建议的，因为相比每行赋值它并不直观
+def a=10; b=20
+
+//链式赋值
+def a=b=10
+
+//映射赋值
+def (a,b) = [10, 20]
+
+//赋NULL
+def a = null 等价 def a
+
+//判断赋值, 条件表达式为
+变量名 = 条件表达式 ? 值1 : 值2         返回0则赋值value1，否则返回value2
+例子：
+1.
+equipments = [&#x27;boots&#x27;,&#x27;swords&#x27;,&#x27;helm&#x27;,&#x27;spear&#x27;]
+enlist = equipments.contains(&#x27;boots&#x27;)?true:false
+println enlist
+
+2.
+equipments = &#x27;swords helm&#x27;
+EquipmentsOfSodiersWithBoots = equipments.contains(&#x27;boots&#x27;)?equipments.split(&#x27; &#x27;):&#x27;withoutBoots&#x27;
+println(EquipmentsOfSodiersWithBoots)
+nn
+3.
+DEPLOY = BRANCH_NAME == &quot;master&quot; || BRANCH_NAME == &quot;develop&quot; ? &quot;true&quot; : &quot;false&quot;
+
+4.
+:?称为Elvis
+def test(arg1){
+    def test_arg1 = arg1?:&#x27;defaults&#x27;
+    println(test_arg1)
+}
+
+5.
+JOB_NAME = &#x27;job1&#x27;]
+jobName = JOB_NAME.contains(&#x27;/&#x27;)?JOB_NAME.split(&#x27;/&#x27;)[-1]:JOB_NAME</code></pre></li></ul><h2 id="ebfbcadc-3bbf-430f-8f53-6f9c245232bb" class="">数字</h2><pre id="f22aca8d-4cea-4b2f-abbd-d72f8130907c" class="code code-wrap"><code>类型
+		int整数： -1 0 1
+		float浮点： -0.1 0.1
+数学运算
+		+ - * / ** %
+关系运算
+		&gt; &gt;= &lt; &lt;= 实际上,是调用方法.compareTo实现的
+		== 实际上，是调用方法.equals实现的
+		先乘除后加减,最后关系运算
+方法
+		整数：.plus()	.minus()	.multiply()	.div()	.mod()
+		浮点：.plus()	.minus()	.multiply()	.div()
+		先乘除后加减，利用括号决定顺序
+	  upto 一个闭包方法
+	    例如：1.upto(10){println it} //从1到10遍历，upto也是闭包方法
+赋值
+		先运算后赋值
+		第一次赋值用def
+自增自减
+		value++	value--		自增/减后置，先被引用，后加/减
+		++value	--value		自增/减前置，先加/减，后被引用
+		def x = 10
+		def y = x++ //x值11,y得10
+		def p = 20
+		def q = ++p //p值21,q得21,</code></pre><h2 id="7c0754dc-70c8-4fba-9143-99736985a443" class="">字符串</h2><pre id="8b9c4404-55e2-4658-9af9-9546947cf59e" class="code code-wrap"><code>索引与索引段
+		[1],[-1],[0,2]左1和左3,[0..3]左1到左4(含左4)
+groovy字符串是不可变，&#x27;hello&#x27;对象没有变化，以上过程其实是创建了新的对象
+采用unicode字符集
+		
+常用操作
+x = &#x27;&#x27; 空字符串
+.size()
+.length() 等价 .size()
+&quot;devops&quot;.contains(&quot;ops&quot;) 是否包含，返回布尔值
+&#x27;hello&#x27; * 3 //调用&#x27;hello&#x27;.multiply(&#x27;world!&#x27;)
+&quot;hello hello hello&quot;.count(&#x27;hello&#x27;)
+.stripIndent() 摘除开头缩进，记住：多行的内容也是第一行去处而非每行
+.trim()  .trim()消除尾部的空格/tab/回车, 记住：多行的内容也是第一行去处而非每行
+&#x27;/opt/maven&#x27;.split(/\//)   参数是正则，注意: 返回字符串数组，可用[]访问分割后的元素,或转成列表.tolist()
+&#x27;/opt/maven&#x27;.tokenize(/\//) 参数是正则，返回列表对象
+.startsWith() 参数是字符串，是否以参数结尾，返回布尔
+.endsWith() 参数是字符串，是否以参数结尾，返回布尔
+&quot;test&quot; + &quot;.java&quot;  合并字符串
+&quot;test.java&quot; - &quot;.java&quot; 寻找匹配子串,并删除,返回新字符串
+&quot;devops&quot;.toUpperCase() 大写
+&quot;DEVOPS&quot;.toLowerCase() 小写
+
+str.indexOf(&#x27;o&#x27;)
+str.lastIndexOf(&#x27;o&#x27;)
+str.indexOf(&#x27;o&#x27;, 5) //第二个参数是index，表示0-5，限定了范围
+str.lastIndexOf(&#x27;o&#x27;, 5)
+str.indexOf(&#x27;ov&#x27;, str.length() - 1)
+str.lastIndexOf(&#x27;ov&#x27;, str.length() - 4)
+str.lastIndexOf(&#x27;ov&#x27;, str.indexOf(&#x27;ro&#x27;))</code></pre><ul id="4a7aa89a-00a0-4b77-b6d0-2c4812d8e101" class="bulleted-list"><li style="list-style-type:disc">正则<p id="2e8df407-d80e-42ad-97c6-5148fa939050" class="">常用且易忘的正则表达式符号：<code>\b</code> <code>\w</code> <code>\W</code> <code>\d</code> <code>\D</code> <code>\s</code> <code>\S</code></p><p id="7ccc0925-b0ce-4c30-a118-91e9495feba2" class="">pattern, 即定义<strong>正则表达式</strong>的地方,如<code>/^abc$/</code> 就是pattern, 以下介绍不同场景下会用到的正则工具：</p><ul id="153bdf55-e860-4336-8dc3-c7fefeef0040" class="bulleted-list"><li style="list-style-type:circle">判断pattern完全匹配字符串<pre id="9cf35254-8074-4ace-98e7-21a4d2b7203b" class="code"><code>#&quot;只让Ned Stark一个人进来，朕要砍头狼&quot;
+Noble = &#x27;Ned Stark&#x27;
+
+allowEnter = ( Noble ==~ /Ned Stark/ )
+
+println(allowEnter)</code></pre></li></ul><ul id="fe916029-fdd1-4822-9376-38d0b34707e1" class="bulleted-list"><li style="list-style-type:circle">判断字符串中是否包含pattern匹配的子串<mark class="highlight-orange">，</mark>使用<code>==~</code> match操作符,即<strong>完全匹配</strong>, ⚠️它返回的是布尔值<pre id="467e0db3-55f8-47d3-8d15-8f63187eaafb" class="code code-wrap"><code>#&quot;让Stark家的进来，今晚灭狼&quot;
+Noble = &#x27;Ned Stark&#x27;
+
+allowEnter = (Noble =~ /^.*Stark$/)?true:false
+
+println(allowEnter)</code></pre></li></ul><ul id="0a435953-199a-49bb-8b67-55f3e3a2b844" class="bulleted-list"><li style="list-style-type:circle">对pattern匹配的子串, 进行处理. <p id="00066afc-8513-43c1-aed9-18df5a25d6ad" class="">字符串有个方法.eachMatch(), 参数是pattern, 闭包里定义如何处理匹配的子串</p><p id="32c8fa8c-2d33-4360-9db2-6171fd43a994" class=""><code>=~</code> find操作符, 即寻找匹配子串，返回对象<code>java.util.regex.Matcher</code>，方法<code>.matches() </code>查看匹配结果</p><pre id="15f5c258-2860-44e3-9d9b-83c5b9465665" class="code code-wrap"><code>//取出以s开头的单词，并放入列表中
+def twister = &#x27;she sells sea shells at the sea shore of seychelles&#x27;
+def found = []
+twister.eachMatch(/\bs\w+\b/){ match -&gt;
+    found &lt;&lt; match
+}
+//方法2
+def found = []
+(twister =~ /\bs\w+\b/).each{ match-&gt;
+    found &lt;&lt; match
+}
+
+
+//将Stark家的人从句子里提出来，放到list中
+def nobles = &#x27;Eddard Stark,Rhaegar Targaryen,Robb Stark,Sansa Stark,Daenerys Targaryen,Bran Stark&#x27;
+def list = []
+nobles.eachMatch(/\b\w+ Stark\b/){noble-&gt; list&lt;&lt; noble}
+println(list)
+//结果：[Eddard Stark, Robb Stark, Sansa Stark, Bran Stark]
+
+//方法2
+def nobles = &#x27;Eddard Stark,Rhaegar Targaryen,Robb Stark,Sansa Stark,Daenerys Targaryen,Bran Stark&#x27;
+def list = []
+( nobles =~ /\b\w+ Stark\b/).each{noble-&gt; list &lt;&lt; noble}
+println(list)
+//结果：[Eddard Stark, Robb Stark, Sansa Stark, Bran Stark]
+
+
+//将字符串空格变成/
+def path = &#x27;var lib kubelet&#x27;
+path = path.replaceAll(/^|\s+/){ space -&gt; space = &#x27;/&#x27;}
+println(path)
+//结果：/var/lib/kubelet
+</code></pre><p id="9e5cfd43-f919-4751-8aaf-675331053a45" class="">⚠️find操作符号的分组用法<div class="indented"><p id="6cf67829-7832-427e-8b80-08c8dcca5d8a" class="">如pattern用了分组<code>()</code>, 返回的列表的每个元素变成一个列表类型，<mark class="highlight-orange">0是pattern匹配到的，1之后的是分组匹配的</mark></p><pre id="18eb7fd1-13d7-4eff-aa24-144ed956f2f7" class="code code-wrap"><code>names = &#x27;word1 word2&#x27;
+list = (names =~ /\b\w+\b/)
+list.each{ println it}
+//返回：
+word1
+word2
+
+names = &#x27;word1 word2&#x27;
+list = (names =~ /\b(\w+)\b/)
+list.each{ println it}
+//返回：
+[word1, word1]  //0是pattern匹配的，1是()匹配的
+[word2, word2]
+
+duel = &#x27;Stark Family: Jon Snow, Greyjoy: Balon Greyjoy&#x27;
+list = (duel =~ /(\w+ ?\w+): (\w+ ?\w+)/)
+1.从index0开始，index0又是一个列表
+	1.\w+:\w+ 匹配到a:1, 放到0
+	2.(\w+)匹配到a, 放到1 
+	3.(\w+)匹配到b, 放到2
+2.对字符串剩下部分重复以上操作,依次类推
+//得到结果:
+[Stark Family: Jon Snow, Stark Family, Jon Snow]
+[Greyjoy: Balon Greyjoy, Greyjoy, Balon Greyjoy]
+
+</code></pre></div></p></li></ul><ul id="4d717faf-f734-4e6e-a0ee-208ea0d667f9" class="bulleted-list"><li style="list-style-type:circle">对pattern匹配到的子串进行替换<p id="f49a1710-eeef-4d17-97f4-7ee5afcc013f" class=""><code>字符串.replaceAll(pattern, 替换子串) </code>   寻找匹配子串，变成替换子串，返回修改后的字符串<div class="indented"><pre id="e1c6b694-baa4-4e29-954d-e986efca51fa" class="code code-wrap"><code>message = &#x27;she likes me&#x27;
+new_message = message.replaceAll(/me/, &#x27;John&#x27;)</code></pre></div></p></li></ul><ul id="749ebc38-9cac-4a5d-b5d6-d5b9b5786c0b" class="bulleted-list"><li style="list-style-type:circle"><code>~</code> pattern操作符, <mark class="highlight-orange">赋值一个正则表达式, 如</mark><code>def regex = ~/^\w+/</code>  ，注意波浪号与单引号间没有空格<ul id="7d348acb-592c-421c-9d9a-d50a43e2f014" class="bulleted-list"><li style="list-style-type:square"><mark class="highlight-orange">它的方法</mark><code><mark class="highlight-orange">pattern.matcher(字符串)可返回matcher对象</mark></code><mark class="highlight-orange"> 参考自Manning Groovy P84</mark></li></ul><ul id="adc90191-b5cd-4ddf-a229-8d2886acb481" class="bulleted-list"><li style="list-style-type:square">matcher对象，可被遍历，元素是被匹配的子串</li></ul></li></ul><ul id="36608895-0e6c-4e85-974d-ed3b0eedd9d4" class="bulleted-list"><li style="list-style-type:circle">分割字符串<pre id="16bd2c25-d5b8-4f38-b292-8d8766672730" class="code code-wrap"><code>def twister = &#x27;she sells sea shells  at the sea shore of seychelles&#x27;
+def words = twister.split(/ +/)
+println words
+
+def matcher = &#x27;a b c&#x27; =~ /\S/
+
+def (a,b,c) = &#x27;a b c&#x27; =~ /\S/
+
+def matcher = &#x27;a:1 b:2 c:3&#x27; =~ /(\w+):(\w+)/   结果分为了三组[a:1,a,1],[b:2,b,2],[c:3,c,3]  matcher[1][2]取2
+
+def matcher = &#x27;a:1 b:2 c:3&#x27; =~ /(\w+):(\w+)/ 
+mapping = [:]
+matcher.each { full, key, value -&gt; 
+    mapping[key] = value
+}
+println mapping</code></pre></li></ul></li></ul><h2 id="2133f3fa-763d-439a-9fd6-71a21b4fd27d" class="">列表</h2><pre id="abea4e9a-1eb8-4b59-af86-780ad4e60756" class="code code-wrap"><code>有序保存对象,对象有序占用
+整数索引
+
+使用[整数]索引操作符访问元素, 实际调用.getAt()方法
+	[0]
+	[-1]
+	[0..3] 左1到左4
+	[0..&lt;3] 左1到左3
+  list[list.size().intdiv(2)] 获取中间的那个元素
+
+使用[]索引操作符为元素赋值, 如索引已有元素则覆盖
+	num[1] = 2  当对一个不连续的下标赋值时，中间未定义下标的值是null
+	num[1] = [&#x27;abc&#x27;]
+	num[1] = [1,2]
+  
+			
++-*&lt;&lt;操作符
+	[1, 2] + [15, 16] 从后追加,返回[1,2,15,16]
+	[11,12,13,13,14] - [13,14,15]  依次删除列中所有13,14,15 返回[11,12]
+	[11,12,13,13,14] - 13 删除列中所有13 返回[11,12,14]
+	num &lt;&lt; 15 从后追加
+		
+方法
+	[1,2,3,4].contains(1) 返回true
+	[1,2,3,4].isEmpty() 返回false
+	[1,2,3,4].size() 返回4  
+	[1,2,[3,4]].flatten()  返回[1,2,3,4]
+		[1, [2, [3, 4]]].flatten()  返回[1,2,3,4]
+	[1,2,3,4].intersect([3,4,5,6]) 返回[3,4]
+	[1, 4, 3, 2].reverse() 返回[2, 3, 4, 1]	注意：按下标逆序
+	[4,3,2,1].sort() 返回[1,2,3,4] 注意：按值顺序
+	[&#x27;root&#x27;,&#x27;file&#x27;].join(&#x27;-&#x27;) 返回字符串root-file
+	
+	[1,2,3,4].max 返回最大值	
+	[1,2,3,4].min 返回最小值
+	[1,2,3,4].sum 返回总和
+	
+	直接对对象上修改的方法
+	[1,2,3,4].pop()  左侧pop，返回被pop的元素，列表变为[2, 3, 4]
+	[1,2,3,4].remove(3)  参数是index,列表变为[1,2,3],返回被删除的元素
+	[1,2,3,4].add(0, -1) 列表变为[-1, 1, 2, 3, 4]	第一参数是index
+	[1,4,2,3,4].unique() 列表变为被去重的列表，返回的也是被去重的列表
+	list[1..&lt;list.size()] 取第2到最后一个元素,&lt;表示到但不包含
+
+支持闭包的方法each/reverseEach/eachWithIndex/find/findAll/collection/every/any
+reverseEach 索引逆序,然后遍历
+例子
+	list = [1,2,3]
+	store = &#x27;&#x27;
+	list.reverseEach { item -&gt; 
+	 store += item 
+	} 
+	assert store == &#x27;321&#x27;
+	
+eachWithIndex 允许列表索引作为第二个参数传入闭包
+	list = [1,2,3]
+	store = &#x27;&#x27; 
+	list.eachWithIndex { item, index -&gt; 
+	 store += &quot;$index:$item &quot; 
+	} 
+	assert store == &#x27;0:1 1:2 2:3 &#x27;</code></pre><h2 id="f71a8eba-05d3-4066-965d-ed71d89d6392" class="">map|映射</h2><pre id="d3445af0-6b43-4665-92e2-fa24d7d10560" class="code code-wrap"><code>无序
+索引叫key，可以是任何类型
+赋值：
+  def info = [&#x27;name&#x27;: &#x27;John&#x27;]
+  info[&#x27;age&#x27;] = 35
+访问元素: info[&#x27;name&#x27;] 等同 info.name
+方法：
+	info.containsKey(&#x27;name&#x27;) 返回true
+  info.containsValue(&#x27;John&#x27;) 返回true
+	info.keySet().asList() 返回包含key的字符串数组，可转列表
+	info.values().toList() 返回包含值的列表,因.values()方法返回的对象不是列表
+	info.size() 返回长度
+
+搭配for循环:
+	每个元素{key:value}变为LinkedHashMap$Entry对象,它可用方法为: .getKey() .getValue()</code></pre><h2 id="6e898712-5807-4194-870d-474b47b5ef4e" class="">range|范围</h2><pre id="07fd9f78-617d-4df5-91a5-708c65acb7a4" class="code code-wrap"><code>def twentiethCentury = 1900..1999
+		println twentiethCentury[0]
+		println twentiethCentury[0,5]
+		println twentiethCentury.contains(2000)
+		println twentiethCentury.subList(0, 5)</code></pre><h2 id="e556ac29-2587-4185-9c0f-5c3c17230945" class="">布尔</h2><p id="7b90ecbc-aa5a-403e-9296-fb545d75c1ed" class="">显性：<code>true</code>和<code>false</code></p><p id="6b5eeef9-c7f5-40d2-8e90-40ab063c29d2" class="">隐形的：0、负数、空值</p><h1 id="0fb1ea71-46a8-4458-a709-6a5310fb1b2a" class="">流程控制</h1><h2 id="1bc0eaa0-dd37-46cb-b214-c86a6699093a" class="">条件表达式</h2><h3 id="a437f136-0043-492e-be1a-f66f4faf49bb" class="">if</h3><p id="0e3eefda-7248-49c2-9140-3d7de7fcbe80" class="">语法格式</p><pre id="0f97a998-a48c-4f1b-a3ee-1a856c916512" class="code code-wrap"><code>//条件判断
+if(name == &#x27;maxiaoyu&#x27;){    
+  println &#x27;hi,maxiaoyu&#x27;                   
+}else if(name == &#x27;zhaoxiaoyu&#x27;){ 
+  println &#x27;hi,zhaoxiaoyu&#x27;                       
+}else{
+  println &#x27;hi,nobody&#x27;
+}</code></pre><p id="9cbb0797-bf35-4903-8b10-2e9d4de53bab" class="">
+</p><h3 id="77b678c1-0d78-445e-b2cb-e36dcf248205" class="">switch</h3><p id="81666762-6f2a-4ef7-abf5-344bf9b7a745" class="">语法格式</p><pre id="6c3c80e3-8b8b-454c-91c3-23f56ef5c194" class="code"><code>switch(expression){
+    case expression#1:
+        statement
+        break
+    case expression#2:
+        statement
+        break
+    case expression#3:
+        statement
+        break
+    default expression#4:
+        statement
+        break
+}
+switch将圆括号中的表达式与case后面的表达式进行比较
+如case后面是字符串或数字，则比较方式是精确匹配
+如case后面是正则表达式，则比较方式是正则
+如case后面是list、map、range，则比较方式是成员方式</code></pre><ul id="31c38037-83f7-4e06-a96f-a8056c99381e" class="toggle"><li><details open=""><summary>使用正则的例子</summary><pre id="b709b447-1a3b-411d-a98b-8318e6f31ea6" class="code"><code>import java.util.regex.Matcher
+map2 = [1: &#x27;one&#x27;, 2: &#x27;two&#x27;, 3: &#x27;three&#x27;, 4: &#x27;four&#x27;, 5: &#x27;five&#x27;,
+        6: &#x27;six&#x27;, 7: &#x27;seven&#x27;, 8: &#x27;eight&#x27;, 9: &#x27;nine&#x27;, 10: &#x27;ten&#x27;,
+        11: &#x27;eleven&#x27;, 12: &#x27;twelve&#x27;, 0: &#x27;midnight&#x27;]
+def hour = 0
+switch(&#x27;00:12:30&#x27;){ 
+    case ~/([0-9]{2}):10:00/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        //println hour
+        hour = hour&gt;12?hour-12:hour
+        println &quot;ten past ${map2[hour]}&quot;
+        break
+
+    case ~/([0-9]{2}):1[1-4]:[012][0-9]/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        hour = hour&gt;12?hour-12:hour
+        println &quot;just after ten past ${map2[hour]}&quot;
+        break
+
+    case ~/([0-9]{2}):1[1-4]:[345][0-9]/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        hour = hour&gt;12?hour-12:hour
+        println &quot;just before quarter past ${map2[hour]}&quot;
+        break
+
+    case ~/([0-9]{2}):15:00/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        hour = hour&gt;12?hour-12:hour
+        println &quot;quarter past ${map2[hour]}&quot;
+        break
+
+    case ~/([0-9]{2}):30:00/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        hour = hour&gt;12?hour-12:hour
+        println &quot;half past ${map2[hour]}&quot;
+        break
+    
+    case ~/([0-9]{2}):45:00/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        hour = hour&gt;12?hour-12:hour
+        hour += 1
+        println &quot;quarter to ${map2[hour]}&quot;
+        break
+
+    case ~/([0-9]{2}):50:00/:
+        hour = Matcher.lastMatcher[0][1].toInteger()
+        hour = hour&gt;12?hour-12:hour
+        hour += 1
+        println &quot;ten to ${map2[hour]}&quot;
+        break
+}</code></pre></details></li></ul><ul id="c2ab1be7-21f5-4037-9946-fd5b8bd06254" class="toggle"><li><details open=""><summary>其他方式</summary><pre id="a13850f6-c4d4-45a4-a577-752199383b90" class="code"><code>case能够支持的判断
+switch (10) {
+ case 0 : assert false ; break case 后面是数字，精确比较
+ case Float : assert false ; break case后面是数字，精确比较    
+ case {it%3 == 0}: assert false ; break 
+ case 0..9 : assert false ; break 成员比较
+ case [8,9,11] : assert false ; break 成员比较
+ case ~/../ : assert true ; break 正则比较
+ default : assert false ; break
+}</code></pre></details></li></ul><p id="dd8fe3f5-0cb0-4dbc-8678-952c5925a913" class="">
+</p><h3 id="b6b06990-de90-4f41-9acd-9c61d6fe051e" class="">闭包</h3><p id="d3eebc93-fed1-41d7-ba05-13e1e6ef4f20" class="">闭包属于对象，可作为参数传入、可被return返回</p><pre id="38be5d9d-4a25-4324-9062-30444fe5060e" class="code"><code>//闭包参数的默认值
+def greeting = {message, name=&#x27;world&#x27;-&gt; println &quot;${message} ${name}&quot;}  //这里定义了“闭包变量”
+greeting.call(&#x27;hello&#x27;)  yyp
+greeting(&#x27;hello&#x27;)  //执行闭包，同上，这是一种简化写法
+
+
+//可规定闭包参数是指定的数据类型，如果不对则在执行闭包时报错
+def times = { Number x , Number y-&gt;  //要求x和y参数是Number类型
+    return x * y
+}
+println &quot;times(&#x27;hello&#x27;, 4): ${times(&#x27;hello&#x27;, 4)}&quot; //会报错，&#x27;hello&#x27;不是Number类型
+
+//注意：闭包中的return与方法中的不一样
+def isMemberB(item, list) {
+    list.each { element -&gt;
+        println element
+        if(element == item)
+            return true
+    }
+    return false
+}
+
+def numbers = [11, 12, 13, 14]
+
+println &quot;isMemberB(13, numbers): ${isMemberB(13, numbers)}&quot;
+
+
+//upto闭包方法
+upto 一个闭包方法
+  例如：1.upto(10){println it} //从1到10遍历，upto也是闭包方法</code></pre><p id="634febda-aeca-4dca-9e97-40822bfbb97b" class="">
+</p><p id="152f1106-e87b-4f78-bf61-548d41acf771" class="">
+</p><h2 id="b18756be-f5b1-4452-9165-cffee7b577fa" class="">Package(包)与class(类)</h2><p id="a8c87c49-c2ba-4628-bd8f-87ac0ccd9064" class="">参考：<a href="https://docs.groovy-lang.org/latest/html/documentation/#_package_names">https://docs.groovy-lang.org/latest/html/documentation/#_package_names</a></p><p id="e6b18984-cb99-44ce-b521-df1373f2da20" class="">一个包，与目录相似，包含很多文件，包名是类似格式：<code>org.devops</code>, 转换成目录格式：<code>org/devops</code> ，在文件系统或gitlab中按此目录格式建立包</p><p id="8f5d2994-e456-46e9-b99a-4b104c98a353" class="">包里面的文件称为类，类中首行须指定它的包名： <code>package org.devops</code> ，用来引用。</p><p id="6ff25091-3fcc-4183-954b-615c96a0fcf5" class="">
+</p><p id="869e8e73-3f6c-4430-bdd7-38affeda50e5" class="">
+</p><h2 id="e0f9accf-8a78-476f-bc2e-2e30ea614c83" class="">正则表达式的使用</h2><ul id="80d87bc7-8866-4f90-92ab-f71e2be59cde" class="bulleted-list"><li style="list-style-type:disc">创建：<code>def 对象matcher = (字符串 =~ 正则表达式)</code><ul id="b53fa942-45ba-44c7-8fba-e9775b051d72" class="bulleted-list"><li style="list-style-type:circle"><code>对象matcher</code>.find()返回布尔值</li></ul><ul id="c90a479f-beb7-4bdd-ad2c-bf7b783c0414" class="bulleted-list"><li style="list-style-type:circle"><code>对象matcher[0]</code> 返回匹配的结果</li></ul></li></ul><ul id="ff2c3751-ac1a-47ec-ab66-781c55851e7d" class="bulleted-list"><li style="list-style-type:disc">例子：<code>def matcher1 = (&#x27;groovy&#x27; = ~ &#x27;groovy&#x27;)</code><pre id="bfcded27-eaf4-4ce3-9259-fd2c0802f5e7" class="code code-wrap"><code>//例子1
+def matcher1 = (&#x27;groovy&#x27; = ~ &#x27;groovy&#x27;) #创建了一个matcher对象
+if (matcher1.find()){
+		println(matcher1[0])  //打印匹配到的结果
+}
+//例子2
+def getBranch(String branchName){
+    def matcher = (branchName =~ &quot;RELEASE-[0-9]{4}&quot;)
+    if (matcher.find()){
+        newBranchName = matcher[0]
+    }
+    else {
+        newBranchName = branchName
+    }
+    return newBranchName
+}</code></pre><p id="5123a27d-7224-4c09-9e06-8ad07c9bce68" class="">
+</p></li></ul><h2 id="a0621a9b-e237-4cea-a56f-3613b0a95a5a" class="">方法|即函数</h2><ul id="a7478e75-e134-4c34-b764-aefcde5f71d9" class="bulleted-list"><li style="list-style-type:disc"><code>def 函数名(参数) {代码块}</code></li></ul><ul id="daa434dd-c87e-4af6-a5e5-b22d4d14bd90" class="bulleted-list"><li style="list-style-type:disc">写在pipeline块的上方，不可写在pipeline块里面</li></ul><ul id="69744155-8bb8-4093-8dce-859a255236fd" class="bulleted-list"><li style="list-style-type:disc">也可写在共享库</li></ul><p id="67a6f1ef-6f15-460e-a0a3-515cfdfaa067" class="">
+</p><h2 id="72d8e8dc-e0d6-4022-9a94-4f2ec7c71e87" class="">对象</h2><ul id="e11d6d41-ab7b-4117-85e5-7535007d86da" class="bulleted-list"><li style="list-style-type:disc"><code>def 对象名 = new 类名(参数)</code></li></ul><ul id="3e7136c2-5ba5-4cda-88ac-e970f7fb1144" class="bulleted-list"><li style="list-style-type:disc">例子：<code> def DOB = new Date(1998,5,23);</code></li></ul><p id="2dbf8dfd-95b7-4cc9-9053-fd5879dec5b3" class="">
+</p></div></article></body></html>

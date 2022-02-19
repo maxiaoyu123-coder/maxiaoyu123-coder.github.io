@@ -1,0 +1,978 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>K8S证书管理</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="2670fc07-cb43-434a-8e95-2a54adc9ad92" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_great_sandy_desert_australia.jpg" style="object-position:center 70%"/><h1 class="page-title">K8S证书管理</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 20, 2021 6:04 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><figure id="ab15c3f3-1a5a-4b03-834a-6eb20962aa64"><a href="https://kubernetes.io/docs/setup/best-practices/certificates/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">PKI certificates and requirements</div><div class="bookmark-description">Kubernetes requires PKI certificates for authentication over TLS. If you install Kubernetes with kubeadm, the certificates that your cluster requires are automatically generated. You can also generate your own certificates -- for example, to keep your private keys more secure by not storing them on the API server.</div></div><div class="bookmark-href"><img src="https://kubernetes.io/images/favicon.png" class="icon bookmark-icon"/>https://kubernetes.io/docs/setup/best-practices/certificates/</div></div><img src="https://kubernetes.io/images/kubernetes-horizontal-color.png" class="bookmark-image"/></a></figure><h1 id="5c6c967c-60c8-4e58-976a-25b6a20dc788" class="">TLS证书的类型</h1><h3 id="6ab5831d-3a8a-4330-a642-6afcf992dfe8" class="">peer</h3><p id="da9c4d67-87ee-4fdf-a75d-5bfec850e5cb" class="">要求服务端和客户端在证明彼此的身份之后才能建立TLS连接。</p><p id="56c19934-90bf-4ab5-806d-171ce97f2fff" class="">etcd成员之间通信采用了peer类型的证书, 实现彼此的身份验证和通信加密.</p><h3 id="517e3df2-e297-4390-854c-558b0aa2ca3d" class="">server</h3><p id="2b37013f-1628-4e15-99fd-e36d9d264fad" class="">服务端使用server证书向客户端证明自己的身份, 并且实现服务端与客户端之间的数据的加密. 客户端为了能够验证服务端的身份, 需要本地保存一份服务端证书的颁发机构CA们的证书, 即certificate authorities list.</p><p id="b938d356-61f7-4923-be87-6394ab0470dc" class="">The server certificate should have its hostname as CN (Common Name). For example: if you want to access the server <a href="https://www.mycompany.com/">https://www.mycompany.com</a> the CN should be <a href="http://www.mycompany.com/">www.mycompany.com</a>.</p><h3 id="154cc923-4628-484b-b690-00e10918707c" class="">client</h3><p id="5ac56044-cd36-4ed5-a91b-9f162adea41f" class="">客户端使用client证书向客户端证明自己的身份, 但是不实现客户端与服务端的数据的加密.</p><p id="3cebaf43-5141-4294-bced-f2fd87286f4f" class="">
+</p><p id="f149e9ef-640a-4c73-a4e7-06b627c3a3f3" class="">
+</p><p id="3aac747e-36be-4627-9300-44522a6a56b7" class="">
+</p><p id="aa107556-2c2f-41d7-84ec-9d306a180612" class="">
+</p><p id="82818c17-3715-481c-b814-c9fe2ae92fcf" class="">
+</p><h2 id="0ee58482-3db1-436f-a102-c9696560798b" class="">Etcd CA与Kubernetes CA</h2><p id="b8cd55c1-aae9-4b16-a069-56ea99c923b5" class="">Etcd节点通信，包括服务端与客户端/服务端与服务端之间的，所用的证书由etcd专用CA颁发。而k8s apiserver与其他组件之间通信所用的证书由k8s专用CA颁发。这样作的目的是etcd服务器只允许etcd服务器和客户端的访问, 试想假如kubelet证书与etcd证书都由一个CA颁发, kubelet可向etcd证明自己身份, 而etcd也可向kubelet证明身份, 这样kubelet与etcd就能进行通信了.</p><div id="8aeb4ab9-6d75-4b74-99a3-31f2e7a3df9a" class="column-list"><div id="808d7efe-d58b-4bd8-8cc2-d2a87c7eb65e" style="width:43.75%" class="column"><figure id="91ac6403-af5b-47d9-bb7c-accd3112a47f" class="image"><a href="K8S%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%202670f/Untitled.png"><img style="width:576px" src="K8S%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%202670f/Untitled.png"/></a></figure><p id="8e7db322-e33d-4779-98ab-6c732ad7696a" class="">
+</p></div><div id="0cf0e727-7af8-4e42-a327-5a777633c23d" style="width:56.25%" class="column"><figure id="c191f29c-e64f-43b2-9079-52d8a4dbcfe7" class="image"><a href="K8S%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%202670f/Untitled%201.png"><img style="width:576px" src="K8S%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%202670f/Untitled%201.png"/></a></figure></div></div><hr id="723480f4-4481-42c9-b94d-acc24111db25"/><h1 id="1c87e9e8-4798-47f9-8512-dcfa0963c79b" class="">etcd CA</h1><p id="e56f9a88-8e68-4281-a89e-ea34b7c25226" class="">etcd CA需要颁发如下证书: </p><ul id="27dcaa9d-6eae-4cf9-a6cd-bc09c6b854ce" class="bulleted-list"><li style="list-style-type:disc">一份证书用于etcd节点间互相证明身份, 以及向客户端证明身份.. 证书类型是peer. </li></ul><ul id="78fda0c8-df62-4b73-84c1-922e65b12172" class="bulleted-list"><li style="list-style-type:disc">一份证书用于为apiserver向etcd证明身份. apiserver作为client用的证书是client类型.</li></ul><figure id="544ad5e8-ef10-4749-b61c-e1ade7af2943" class="image"><a href="K8S%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%202670f/Untitled%202.png"><img style="width:576px" src="K8S%E8%AF%81%E4%B9%A6%E7%AE%A1%E7%90%86%202670f/Untitled%202.png"/></a></figure><p id="43d160af-c86e-4a17-bde7-8ff0fc0d6021" class="">准备步骤：创建目录</p><pre id="478d3431-21f7-4d1e-b735-a291cbbb2cd8" class="code code-wrap"><code>mkdir -p /opt/etcd/{bin,cfg,logs,pki}</code></pre><p id="ba5e56e1-834c-47c7-8175-abd86b62b977" class="">
+</p><h3 id="d9aed2f3-9419-4b88-a5c0-2f9c592cead2" class="">步骤一: etcd CA证书和签发所用的配置文件</h3><p id="efc6c1d1-6898-4e25-97be-773f0e986c31" class="">etcd CA的证书有效期是10年.</p><p id="bef0b713-3b00-4bd0-8931-e37fc8c8d183" class="block-color-red_background">names字段是什么意思?</p><pre id="fa8b0f06-7996-4334-9de9-500c609ac84e" class="code"><code>cat &gt;/opt/etcd/pki/etcd-ca-csr.json &lt;&lt;EOF
+{
+    &quot;CN&quot;: &quot;Kubernetes by Parts: etcd CA&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;ca&quot;: {
+        &quot;expiry&quot;: &quot;87600h&quot;
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;etcd&quot;
+        }
+    ]
+}
+EOF
+
+cd /opt/etcd/pki/
+cfssl gencert -initca /opt/etcd/pki/etcd-ca-csr.json | cfssljson -bare etcd-ca -</code></pre><p id="d89af7e8-e49e-4e65-9c84-d30c49a7b15c" class="">etcd CA签发证书所用的配置文件. 三个profile分别用于签发server类型, client类型和peer类型的证书, 所有证书都是10年.</p><pre id="da365167-3c2d-434b-a12a-57f431a3013f" class="code"><code>cat &gt; /opt/etcd/pki/ca-config.json &lt;&lt;EOF
+{
+  &quot;signing&quot;: {
+      &quot;default&quot;: {
+          &quot;expiry&quot;: &quot;87600h&quot;
+      },
+      &quot;profiles&quot;: {
+          &quot;server&quot;: {
+              &quot;expiry&quot;: &quot;87600h&quot;,
+              &quot;usages&quot;: [
+                  &quot;signing&quot;,
+                  &quot;key encipherment&quot;,
+                  &quot;server auth&quot;
+              ]
+          },
+          &quot;client&quot;: {
+              &quot;expiry&quot;: &quot;87600h&quot;,
+              &quot;usages&quot;: [
+                  &quot;signing&quot;,
+                  &quot;key encipherment&quot;,
+                  &quot;client auth&quot;
+              ]
+          },
+          &quot;peer&quot;: {
+              &quot;expiry&quot;: &quot;87600h&quot;,
+              &quot;usages&quot;: [
+                  &quot;signing&quot;,
+                  &quot;key encipherment&quot;,
+                  &quot;server auth&quot;,
+                  &quot;client auth&quot;
+              ]
+          }
+      }
+  }
+}
+EOF
+#509证书中的信息:
+#CN: CommonName指的是CA的名称.
+#OU: OrganizationalUnit 指的是部门
+#O: Organization 指的是公司
+#L: Locality指城市
+#S: StateOrProvinceName
+#C: CountryName
+#比如CN=Sample Cert, OU=R&amp;D, O=Company Ltd., L=Dublin 4, S=Dublin, C=IE
+#client auth表示client可以用该 CA 对server提供的证书进行验证；
+#server auth表示server可以用该CA对client提供的证书进行验证</code></pre><h3 id="5faffa08-9376-47e1-8566-5df9abf68c21" class="">步骤二: 签发一份etcd的证书</h3><p id="b4334d19-7248-47d1-b6f8-e88e9fc5a17c" class="">此证书用于etcd节点间互相证明身份, 以及向客户端证明身份。<code>-profile=peer</code> 表示在作客户端或服务端时，此证书皆可用来证明自己的身份，一证两用。</p><p id="8101f138-cfd6-42c7-9156-d95662de6586" class="">为了简化部署, 所有etcd节点都用一份证书, 在hosts字段加入主机名(地址也可)即SANs. </p><p id="202beaf9-1652-4546-b405-82a171e8bd01" class="block-color-gray_background">补充知识：CN(CommonName)字段代表证书出示者的域名,早先在验证证书时验证者会核查CN与出示者的域名(比如浏览器将url中的域名与CN比较)是否精确匹配, 相当于机房出入证上你的名字, 但是CN字段里只能写一个名字, 无法写一个名字列表, 相当于出入证上只能写一个人的名字只能被一个人用, 一组人的话需每人签发一份, 不能共用. 之后为了解决这个限制, 证书中增加了一个字段, 叫SAN(Subject Alternate Name), 是个包含地址或域名的列表, 如果证书有hosts字段那么验证者忽略CN字段而只核对hosts字段中的地址(域名). 这样一组主机只签发一个共用的证书即可, 证书管理上也方便了 . 在csr文件中hosts字段就是SAN字段. </p><pre id="c811f5c1-9014-478f-b8cd-f11fb302f45c" class="code"><code>cat &lt;&lt; EOF &gt; /opt/etcd/pki/etcd-peer-server-csr.json
+{
+  &quot;CN&quot;: &quot;etcd&quot;,
+  &quot;hosts&quot;: [
+    &quot;etcd-1&quot;,
+    &quot;etcd-2&quot;,
+    &quot;etcd-3&quot;,
+    &quot;127.0.0.1&quot;
+  ],
+  &quot;key&quot;: {
+      &quot;algo&quot;: &quot;rsa&quot;,
+      &quot;size&quot;: 2048
+  },
+  &quot;names&quot;: [
+      {
+          &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+          &quot;O&quot;: &quot;Clusterise&quot;,
+          &quot;ST&quot;: &quot;etcd&quot;,
+          &quot;OU&quot;: &quot;etcd peering and server&quot;
+      }
+  ]
+}
+EOF
+
+cd /opt/etcd/pki/
+cfssl gencert -ca=/opt/etcd/pki/etcd-ca.pem -ca-key=/opt/etcd/pki/etcd-ca-key.pem -config=/opt/etcd/pki/ca-config.json -profile=peer /opt/etcd/pki/etcd-peer-server-csr.json | cfssljson -bare etcd-peer-server-csr</code></pre><p id="9f0e4d42-0065-4d46-895e-c42da92e425f" class="">etcdctl测试一下</p><pre id="dc739c2a-a601-4081-8f79-fdb412495453" class="code"><code>/opt/etcd/bin/etcdctl \
+--ca-file=/opt/etcd/pki/etcd-ca.pem \
+--cert-file=/opt/etcd/pki/etcd-peer-server-csr.pem \
+--key-file=/opt/etcd/pki/etcd-peer-server-csr-key.pem \
+--endpoints=&quot;https://etcd-1:2379&quot; \
+cluster-health</code></pre><p id="4aa034cb-7da0-4d76-b842-794a0f5d0ddb" class="">将这份证书复制到etcd-2和etcd-3.</p><pre id="c91bfd1b-3d7f-42d9-8290-5c4cde1b4540" class="code"><code>
+scp -p /opt/etcd/pki/{etcd-ca.pem,etcd-peer-server-csr.pem,etcd-peer-server-csr-key.pem} etcd-2:/opt/etcd/pki/
+scp -p /opt/etcd/pki/{etcd-ca.pem,etcd-peer-server-csr.pem,etcd-peer-server-csr-key.pem} etcd-3:/opt/etcd/pki/</code></pre><h3 id="6091c4ca-699a-44b2-a7e2-05c617b7ac2e" class="">步骤三 签发一份apiserver的证书</h3><p id="c1998482-6444-42c2-a989-8f04cdd161bf" class="">apiserver向etcd出示的证书</p><pre id="0221c188-75ea-43b0-be29-1bde943cbcab" class="code"><code>cat &lt;&lt; EOF &gt; /opt/etcd/pki/etcd-client-kubeapi-csr.json
+{
+    &quot;CN&quot;: &quot;Kubernetes by Parts: shared kube-apiservers as etcd clients&quot;,
+    &quot;hosts&quot;: [
+        &quot;kubeapi-1&quot;,
+        &quot;kubeapi-2&quot;,
+        &quot;kubeapi-3&quot;,
+        &quot;127.0.0.1&quot;
+    ],
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;etcd&quot;,
+            &quot;OU&quot;: &quot;kube-apiserver as client&quot;
+        }
+    ]
+}
+EOF
+
+cd /opt/etcd/pki/
+cfssl gencert -ca=/opt/etcd/pki/etcd-ca.pem -ca-key=/opt/etcd/pki/etcd-ca-key.pem -config=/opt/etcd/pki/ca-config.json -profile=client /opt/etcd/pki/etcd-client-kubeapi-csr.json | cfssljson -bare etcd-client-kubeapi</code></pre><ul id="f31d2202-65a1-40b0-98d3-45fa86910770" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"> <code>hosts</code> 还要包含kube-apiserver 指定的 service-cluster-ip-range 网段的第一个IP，如 10.254.0.1. 为什么？</li></ul><p id="0605620e-0a4f-4bbc-ac0e-d3a2cd62f09e" class="">
+</p><hr id="d04d0793-5605-47ef-ad44-d09d14d716d1"/><h1 id="9eacdcd9-ba6f-4daa-ad11-9764805948a5" class="">Apiserver CA</h1><h2 id="d8885b78-7f9a-4638-9451-45c1962d0bfb" class="">签发apiserver CA证书</h2><pre id="e8681cba-81a2-43cf-9f06-f7f3d46e8b64" class="code"><code>cat &lt;&lt; EOF &gt; /opt/kubernetes/pki/kubeapi-ca-csr.json
+{
+    &quot;CN&quot;: &quot;Kubernetes by Parts: kube-apiserver CA&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;ca&quot;: {
+        &quot;expiry&quot;: &quot;8760h&quot;
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;kube-apiserver&quot;
+        }
+    ]
+}
+EOF
+
+cd /opt/kubernetes/pki/ &amp;&amp; \
+cfssl gencert -initca /opt/kubernetes/pki/kubeapi-ca-csr.json | cfssljson -bare kubeapi-ca -</code></pre><h2 id="eef7e3db-6d94-4aa0-a7d1-b7a9c86412e2" class="">创建apiserver CA签发的配置文件</h2><pre id="b0b13a2a-687e-412e-a3e3-61d771ee7fde" class="code"><code>cat &gt; /opt/kubernetes/pki/ca-config.json &lt;&lt;EOF
+{
+  &quot;signing&quot;: {
+      &quot;default&quot;: {
+          &quot;expiry&quot;: &quot;87600h&quot;
+      },
+      &quot;profiles&quot;: {
+          &quot;server&quot;: {
+              &quot;expiry&quot;: &quot;87600h&quot;,
+              &quot;usages&quot;: [
+                  &quot;signing&quot;,
+                  &quot;key encipherment&quot;,
+                  &quot;server auth&quot;
+              ]
+          },
+          &quot;client&quot;: {
+              &quot;expiry&quot;: &quot;87600h&quot;,
+              &quot;usages&quot;: [
+                  &quot;signing&quot;,
+                  &quot;key encipherment&quot;,
+                  &quot;client auth&quot;
+              ]
+          },
+          &quot;peer&quot;: {
+              &quot;expiry&quot;: &quot;87600h&quot;,
+              &quot;usages&quot;: [
+                  &quot;signing&quot;,
+                  &quot;key encipherment&quot;,
+                  &quot;server auth&quot;,
+                  &quot;client auth&quot;
+              ]
+          }
+      }
+  }
+}
+EOF</code></pre><h2 id="607c924c-af67-4ef1-8eb0-a2799987fc75" class="">签发apiserver的证书</h2><pre id="af862685-dd87-43ed-8139-7c557be315c5" class="code"><code>cat &lt;&lt; EOF &gt; /opt/kubernetes/pki/kubeapi-server-csr.json
+{
+    &quot;CN&quot;: &quot;Kubernetes by Parts: shared kube-apiserver TLS server&quot;,
+    &quot;hosts&quot;: [
+        &quot;192.168.31.63&quot;,
+        &quot;192.168.31.64&quot;,
+        &quot;192.168.31.65&quot;,
+        &quot;kubeapi-1&quot;,
+        &quot;kubeapi-2&quot;,
+        &quot;kubeapi-3&quot;,
+        &quot;192.168.31.60&quot;,
+        &quot;10.0.0.1&quot;,   #这个地址是kubernetes svc地址, weave需要与它进行交互, 还不知原委.
+        &quot;kubernetes&quot;,
+        &quot;kubernetes.default&quot;,
+        &quot;kubernetes.default.svc&quot;,
+        &quot;kubernetes.default.svc.cluster&quot;,
+        &quot;kubernetes.default.svc.cluster.local&quot;
+    ],
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;kube-apiserver&quot;,
+            &quot;OU&quot;: &quot;TLS server&quot;
+        }
+    ]
+}
+EOF
+
+cd /opt/kubernetes/pki/
+cfssl gencert -ca=/opt/kubernetes/pki/kubeapi-ca.pem -ca-key=/opt/kubernetes/pki/kubeapi-ca-key.pem -config=/opt/kubernetes/pki/ca-config.json -profile=server /opt/kubernetes/pki/kubeapi-server-csr.json | cfssljson -bare kubeapi-server</code></pre><ul id="8f031c50-ad28-43e9-bcaa-e57ddd6032fe" class="bulleted-list"><li style="list-style-type:disc">为什么hosts中还要包含<code>kubernetes</code>之类的主机名。</li></ul><p id="b99dc69f-2dc6-4dfc-8227-f0b763791702" class="">
+</p><hr id="9edaee57-f226-4069-9abd-5fc1393eb92e"/><h2 id="042fbe18-ca21-46eb-ac36-f6894f1d3b71" class="">签发controller-manager的证书</h2><p id="cdafeca1-0950-4e1a-b5bd-33b36649f390" class="">用于访问apiserver时提供客户端证书.</p><p id="eae19a02-cc52-43e2-945a-a6a47f0c1ee9" class="">controller-mgr以system:kube-controller-manager用户(写在CN),以system:kube-controller-manager用户组(写在OU), 访问apiserver. 换而言之, apiserver根据客户端证书中的CN和OU两个字段获知客户端的用户以及所属用户组, 依此判断客户端拥有何种权限.</p><pre id="4c7f250d-2bf7-40b0-bba5-63124990f019" class="code code-wrap"><code>cat &lt;&lt; EOF &gt; /opt/kubernetes/pki/kube-apiserver-client-kcm-csr.json
+{
+    &quot;CN&quot;: &quot;system:kube-controller-manager&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;kube-apiserver&quot;,
+            &quot;OU&quot;: &quot;kube-controller-manager&quot;
+        }
+    ]
+}
+EOF
+
+cfssl gencert -ca=kubeapi-ca.pem -ca-key=kubeapi-ca-key.pem -config=ca-config.json -profile=client /opt/kubernetes/pki/kube-apiserver-client-kcm-csr.json | cfssljson -bare kube-apiserver-client-kcm</code></pre><p id="12b299a1-24f1-4b15-afdf-482a807be8c8" class="">
+</p><hr id="77dda31f-a52e-461f-bf8f-b626269f787a"/><h2 id="e5bcac57-008c-40cc-a345-7bf165c96ef0" class="">签发scheduler的证书</h2><p id="a9ed08d9-de7d-4eb4-8c60-50bdf92b9af4" class="">在访问apiserver时出示的客户端证书. controller-manager的证书中CN字段system:kube-scheduler是告诉apiserver它是以kube-scheduler用户访问的.</p><pre id="f7f70c85-ec04-481f-bc22-099e61267817" class="code code-wrap"><code>cat &lt;&lt; EOF &gt; /opt/kubernetes/pki/kube-apiserver-client-scheduler-csr.json
+{
+    &quot;CN&quot;: &quot;system:kube-scheduler&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;kube-apiserver&quot;,
+            &quot;OU&quot;: &quot;kube-scheduler&quot;
+        }
+    ]
+}
+EOF
+
+cd /opt/kubernetes/pki/ &amp;&amp; \
+cfssl gencert -ca=/opt/kubernetes/pki/kubeapi-ca.pem -ca-key=/opt/kubernetes/pki/kubeapi-ca-key.pem -config=/opt/kubernetes/pki/ca-config.json -profile=client /opt/kubernetes/pki/kube-apiserver-client-scheduler-csr.json | cfssljson -bare kube-apiserver-client-scheduler</code></pre><p id="98c7162a-a8d7-494a-aa2f-3b5611066192" class="">
+</p><hr id="ae3ec74b-3eb2-47bb-a5e1-e1ebff7bd1b0"/><h2 id="eabae5e4-e274-4365-8bd8-9b75dd3d8c19" class="">签发kube-proxy证书</h2><p id="a861e6c7-9ad9-4462-93cd-966ab6a65f93" class="">kube-proxy访问apiserver时向其出示，验明自己的身份。</p><pre id="451e6f40-2d57-427f-9a3b-e8aa04f92d60" class="code code-wrap"><code>cat &lt;&lt; EOF &gt; /opt/kubernetes/pki/kube-apiserver-client-kubeproxy-csr.json
+{
+  &quot;CN&quot;: &quot;system:kube-proxy&quot;,
+  &quot;key&quot;: {
+    &quot;algo&quot;: &quot;rsa&quot;,
+    &quot;size&quot;: 2048
+  },
+  &quot;names&quot;: [
+    {
+      &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+      &quot;O&quot;: &quot;Clusterise&quot;,
+      &quot;ST&quot;: &quot;kube-proxy&quot;,
+      &quot;OU&quot;: &quot;kube-proxy&quot;
+    }
+  ]
+}
+EOF
+
+cd /opt/kubernetes/pki/ &amp;&amp; \
+cfssl gencert -ca=/opt/kubernetes/pki/kubeapi-ca.pem -ca-key=/opt/kubernetes/pki/kubeapi-ca-key.pem -config=/opt/kubernetes/pki/ca-config.json -profile=client /opt/kubernetes/pki/kube-apiserver-client-kubeproxy-csr.json | cfssljson -bare kube-apiserver-client-kubeproxy</code></pre><ul id="dd45421b-c7e6-4f7a-864a-e282ea966437" class="bulleted-list"><li style="list-style-type:disc">CN 指定该证书的 User 为 <code>system:kube-proxy</code>；</li></ul><ul id="11277376-806c-43aa-b6ce-55e8a04c7a76" class="bulleted-list"><li style="list-style-type:disc"><code>kube-apiserver</code> 预定义的 RoleBinding <code>system:node-proxier</code> 将User <code>system:kube-proxy</code> 与 Role <code>system:node-proxier</code> 绑定，该 Role 授予了调用 <code>kube-apiserver</code> Proxy 相关 API 的权限；</li></ul><p id="f7b29564-f75c-4d10-b2cc-d9abb40e8453" class="">
+</p><hr id="5dd89b2e-70c1-45ae-823c-02ff7ab633b4"/><h2 id="2064c6fd-1c2d-4840-8442-e70a11f86f5f" class="">签发admin证书</h2><p id="1e542c62-a86e-4ffd-939d-ae4e694d7ec4" class="block-color-red_background">kubelet 访问 kube-apiserver 时 ，使用该证书通过认证，并因为<code>&quot;O&quot;: &quot;system:masters&quot;</code>获得<code>system:masters</code>权限，拥有访问所有 API 的权限。</p><pre id="befb4805-59e1-4536-bdf3-5ce708130302" class="code code-wrap"><code>cat &lt;&lt; EOF &gt; /opt/kubernetes/pki/kube-apiserver-client-admin-csr.json
+{
+    &quot;CN&quot;: &quot;kubernetes-admin&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;system:masters&quot;,
+            &quot;ST&quot;: &quot;kube-apiserver&quot;,
+            &quot;OU&quot;: &quot;admin&quot;
+        }
+    ]
+}
+EOF
+
+cd /opt/kubernetes/pki &amp;&amp; \
+cfssl gencert -ca=/opt/kubernetes/pki/kubeapi-ca.pem -ca-key=/opt/kubernetes/pki/kubeapi-ca-key.pem -config=/opt/kubernetes/pki/ca-config.json -profile=client /opt/kubernetes/pki/kube-apiserver-client-admin-csr.json | cfssljson -bare kube-apiserver-client-admin
+
+===============================================
+{
+    &quot;CN&quot;: &quot;Kubernetes by Parts: admin user&quot;,
+    &quot;key&quot;: {
+        &quot;algo&quot;: &quot;rsa&quot;,
+        &quot;size&quot;: 2048
+    },
+    &quot;names&quot;: [
+        {
+            &quot;L&quot;: &quot;Kubernetes by Parts&quot;,
+            &quot;O&quot;: &quot;Clusterise&quot;,
+            &quot;ST&quot;: &quot;kube-apiserver&quot;,
+            &quot;OU&quot;: &quot;admin&quot;
+        },
+        {
+            &quot;O&quot;: &quot;system:masters&quot;
+        }
+    ]
+}
+==================================================</code></pre><ul id="f897678a-09fa-4db9-8fba-ba952910a273" class="block-color-red_background bulleted-list"><li style="list-style-type:disc">两个O，表示可以覆盖么？</li></ul><ul id="97f182b3-fb5c-472e-be32-bea6f433b402" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>system:masters</code>是角色么？</li></ul></div></article></body></html>

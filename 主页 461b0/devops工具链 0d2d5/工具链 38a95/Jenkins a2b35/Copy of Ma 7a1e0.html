@@ -1,0 +1,705 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Copy of Maven</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="7a1e0768-ec43-4474-82fa-83df45385922" class="page sans"><header><h1 class="page-title">Copy of Maven</h1></header><div class="page-body"><div id="0df60ba1-c8fc-4497-a143-9811fd43b61d" class="column-list"><div id="517a4931-75bf-4b4a-9622-c23dac41d13b" style="width:18.75%" class="column"><h1 id="04400152-c581-4582-85da-0436b2043ef7" class="block-color-red_background">重点回顾</h1><p id="af85de28-2f48-4713-8853-8069761d1c9c" class="">Maven是什么?</p><p id="567c05db-94c2-4404-8b8f-145c25645bc5" class="">Maven仓库是什么?</p><p id="da91d553-288f-4223-997a-91549294902d" class="">Maven有集中仓库</p></div><div id="018f83d9-c630-4a7c-8846-8b62a8daddbf" style="width:81.25%" class="column"><h1 id="421c09c9-ee87-49e2-ac0b-132f539989a7" class="block-color-blue_background">笔记</h1><nav id="ac8589ba-3ba1-4f99-8003-410076524ba4" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#04400152-c581-4582-85da-0436b2043ef7">重点回顾</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#421c09c9-ee87-49e2-ac0b-132f539989a7">笔记</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#2666a2d3-77c8-4d39-8ca9-7248d4c6e7eb">概念与知识点收纳</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bb078f98-e1fd-4944-960e-f169b516d056">pom文件</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0fb90eab-d4fe-4f5b-99b6-db0da44f93a3">GAV坐标</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3efa713e-7b22-429c-bff5-f4977f24881e">仓库</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#8bfc49e9-798e-4cda-8be4-e997f623c8b8">本地仓库</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#92f8ba11-e3dc-42b9-ace4-802da1bd0e14">中央仓库</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#161df1de-dd46-42f1-972a-39c9975ebdd1">私服</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#d1129145-1eda-4f28-afe5-d72187f4fbb5">Maven 依赖搜索顺序</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#739df848-1c64-4251-927d-7d8c98084a89">Maven阿里云镜像仓库</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5cf1d8d4-1cad-4704-ab85-5b12b9722506">问题</a></div></nav><p id="823a1c5e-bae6-478a-9899-b0913b27c137" class="">
+</p><h2 id="2666a2d3-77c8-4d39-8ca9-7248d4c6e7eb" class="">概念与知识点收纳</h2><ul id="d9ece1b1-0a92-4c5a-a83c-0c7ea483cd23" class="bulleted-list"><li style="list-style-type:disc">构建：编译→单元测试→生成文档→打包→部署</li></ul><ul id="539ed2cd-a2b0-4f49-8635-8740053d3a0c" class="bulleted-list"><li style="list-style-type:disc">构建生命周期模型中各阶段（清理，编译，测试，打包，发布）由各个maven插件负责处理</li></ul><ul id="1d01aeb5-0896-4250-9caa-220cc030e430" class="bulleted-list"><li style="list-style-type:disc">依赖管理工具-<ul id="7cbdf11a-5f12-49b5-9afa-5ee8c8879d93" class="bulleted-list"><li style="list-style-type:circle">java应用通常借用第三方类库，以依赖关系引入到项目，maven用GAV左边管理依赖</li></ul><ul id="9141aa8f-a602-4a82-9f19-9c7d96b3f8f4" class="bulleted-list"><li style="list-style-type:circle">maven中央仓库</li></ul></li></ul><ul id="01628fe9-4d2f-42d6-9bea-a17455bd2589" class="bulleted-list"><li style="list-style-type:disc">在Maven出现前的构建管理工具：Ant</li></ul><ul id="7b72b84f-8699-49f9-bccc-f2c673b40e87" class="bulleted-list"><li style="list-style-type:disc">环境变量$M2_HOME指向安装目录</li></ul><ul id="ceabdc45-75af-4fb2-9778-241d4afad0d6" class="bulleted-list"><li style="list-style-type:disc">~/.m2/repository是本地仓库,下载的组件保存在这里；</li></ul><ul id="4ea57299-7733-48df-9bf4-d66ddb2971f9" class="bulleted-list"><li style="list-style-type:disc">不要直接改${MAVEN_HOME}/config/settings.xml, 手动保存在~/.m2/下是最佳实例（~/.m2目录手动创建）</li></ul><ul id="097b788a-f2f8-4934-8202-555215302310" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">生存周期</mark><ul id="b9e13719-0359-4e15-b736-86c2d268066d" class="bulleted-list"><li style="list-style-type:circle">编译阶段的插件：maven-compiler-plugin</li></ul><ul id="41f96d6f-77e4-4518-837d-985a3b6e9e7d" class="bulleted-list"><li style="list-style-type:circle">检查阶段的插件：maven-surefire-plugin</li></ul></li></ul><ul id="f8c22122-61ac-445e-b83e-71380f76e786" class="bulleted-list"><li style="list-style-type:disc">代码覆盖率<ul id="a7205d01-756d-47aa-a5b0-a90075139902" class="bulleted-list"><li style="list-style-type:circle">参考：<a href="http://www.51testing.com/html/12/n-3726212.html">http://www.51testing.com/html/12/n-3726212.html</a> ，  <a href="https://www.cnblogs.com/fnlingnzb-learner/p/10637802.html">https://www.cnblogs.com/fnlingnzb-learner/p/10637802.html</a></li></ul><ul id="961c1716-16b7-4681-ad7f-fc3bbc487b22" class="bulleted-list"><li style="list-style-type:circle"><em>覆盖测试是衡量测试质量的一个重要指标。在对一个软件产品进行了单元测试、组装测试、集成测试以及接受测试等繁多的测试之后，我们能不能就此对软件的质量产生一定的信心呢？这就需要我们对测试的质量进行考察。如果测试仅覆盖了代码的一小部分，那么不管我们写了多少测试用例，我们也不能相信软件质量是有保证的。相反，如果测试覆盖到了软件的绝大部分代码，我们就能对软件的质量有一个合理的信心。</em></li></ul><ul id="3fe92385-65e2-4dfd-90e4-4f0075a0a01a" class="bulleted-list"><li style="list-style-type:circle">JaCoCo是一个开源的覆盖率工具，可嵌入Maven中，很多第三方的工具提供了对JaCoCo的集成，如sonar、Jenkins等</li></ul></li></ul><ul id="8afd3f77-f720-4b5a-80a9-f0b9e247a1f7" class="bulleted-list"><li style="list-style-type:disc">测试<ul id="3e0c186e-611f-49b5-98f5-326d376c08f7" class="bulleted-list"><li style="list-style-type:circle">Junit是单元测试框架，maven在test阶段使用maven-surefire-plugin插件，它自动对测试源码路径(src/test/java)下的符合命名模式的测试类进行执行：任何子目录以Test开头或结尾的Java类：**/Test*.java或**/*Test.java，任何子目录以TestCase开头或结尾的测试类**/*TestCase.java</li></ul><ul id="791b95f6-88aa-4fb9-8a77-346ce27d0934" class="bulleted-list"><li style="list-style-type:circle">跳过测试，<ul id="8e4161e3-945f-464d-9b2e-d6151980808f" class="bulleted-list"><li style="list-style-type:square">mvn选项：-DskipTests, 或在POM中指定<figure id="fb5dd6d2-2c10-43a6-b868-d4f3405090f9" class="image"><a href="../Maven%208b2b0/Untitled.png"><img style="width:528px" src="../Maven%208b2b0/Untitled.png"/></a></figure></li></ul><ul id="be834a3a-39ba-4bcc-a6db-266330ecc6cb" class="bulleted-list"><li style="list-style-type:square">-Dmaven.test.skip=true</li></ul></li></ul></li></ul><h2 id="bb078f98-e1fd-4944-960e-f169b516d056" class="">pom文件</h2><p id="ba7e9506-dadb-4d13-9302-7637f652b4f9" class="">maven的核心就是pom.xml，使用maven是为了帮助项目管理包依赖。如要引入一个jar包(组件)，要在pom文件中加上&lt;dependency&gt;&lt;/dependency&gt;，dependency中指明了组件GAV坐标，便可在仓库中找到组件。</p><h2 id="0fb90eab-d4fe-4f5b-99b6-db0da44f93a3" class="">GAV坐标</h2><ul id="8566892d-4abb-4112-ac94-78798723fc8c" class="bulleted-list"><li style="list-style-type:disc">开发者往往会引用第三方组件(避免造轮子)，在Maven出现之前他们花费很多时间去各大网站下载合适的jar包</li></ul><ul id="e4b1d29e-14bf-47e0-9bcc-c55420f877c1" class="bulleted-list"><li style="list-style-type:disc">Maven规定所有组件以坐标标识自己，如此，Maven根据坐标在仓库可寻到组件</li></ul><ul id="721b7fdc-58ce-499e-8397-d441f5756aac" class="bulleted-list"><li style="list-style-type:disc">坐标元素：groupId,artifactId,version,packaging,classifier<ul id="252d57f4-ff93-400a-a521-35b17cbe109a" class="bulleted-list"><li style="list-style-type:circle">groupId 定义一个实际项目. <code>org.sonatype.nexus </code> 其中org.sonatype是sonatype建立的非盈利组织，<code>nexus</code> 是一个Nexus实际项目</li></ul><ul id="aad54533-8465-463f-985e-4f011c41773c" class="bulleted-list"><li style="list-style-type:circle">artifactId 定义一个实际项目中的一个Maven项目(模块或叫组件), 实际项目-模块名, 比如nexus-indexer</li></ul><ul id="330fca9d-ffe0-46e2-9dc1-124e8747dc2e" class="bulleted-list"><li style="list-style-type:circle">version 定义Maven项目当前版本</li></ul><ul id="bada3b8e-de9b-4b8f-9cd5-631af86a88e3" class="bulleted-list"><li style="list-style-type:circle">packaging 定义了Maven项目的打包方式，有jar和war，默认是jar</li></ul><ul id="17162366-5c96-4707-9063-a7e902c42cc1" class="bulleted-list"><li style="list-style-type:circle">组件文件名与坐标相对应：gartifactId-version.packaging</li></ul></li></ul><ul id="902e1cf7-069b-4f96-8c27-532df1a7a3e7" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Maven根据坐标在仓库可搜寻组件：</mark></li></ul><h2 id="3efa713e-7b22-429c-bff5-f4977f24881e" class="">仓库</h2><p id="c20ce36d-1b8f-4ebd-9f85-16bc304b9e68" class="">Maven仓库是项目中依赖的第三方库,在 Maven 中任何一个依赖、插件或者项目构建的输出都可以称之为组件。仓库负责管理组件以及组件的资产（POM，SHA等）</p><p id="0acd7715-3791-491b-bc03-3a917ed41fb9" class="">Maven仓库的三种类型:</p><ul id="389c9718-59d2-4738-aace-80857a70fb4f" class="bulleted-list"><li style="list-style-type:disc">本地仓库</li></ul><ul id="66f10b2a-9d01-461e-b35e-4c00893e1f99" class="bulleted-list"><li style="list-style-type:disc">中央仓库</li></ul><ul id="04a853ef-bee0-41f5-b4fc-76ec98da7025" class="bulleted-list"><li style="list-style-type:disc">远程仓库</li></ul><figure id="ef639e67-3d6b-4ffd-b310-d56590ffd580" class="image"><a href="../Maven%208b2b0/Untitled%202.png"><img style="width:635px" src="../Maven%208b2b0/Untitled%202.png"/></a></figure><hr id="3aa748eb-6892-4b1e-90eb-b4975eea6220"/><h3 id="8bfc49e9-798e-4cda-8be4-e997f623c8b8" class="">本地仓库</h3><ul id="98670111-5414-46f7-988f-32291ece0038" class="bulleted-list"><li style="list-style-type:disc">在第一次执行maven后才被创建.</li></ul><ul id="3b05eefc-4b0b-4cae-ad44-b08773dad12b" class="bulleted-list"><li style="list-style-type:disc">从远程仓库(如中央仓库)下载的组件，会保存到本地仓库</li></ul><ul id="e98a6310-4847-48ca-a17b-e69d7a7c27d7" class="bulleted-list"><li style="list-style-type:disc">在编译时,基于坐标使用本地仓库中的依赖组件</li></ul><ul id="d4505fb0-e4a4-4276-ad5d-1ae5ce36ef7b" class="bulleted-list"><li style="list-style-type:disc">默认在~/.m2/repository目录</li></ul><ul id="c616f886-6f80-4bf1-bdde-e60068f02ec1" class="bulleted-list"><li style="list-style-type:disc">可以在conf/settings.xml改变本地仓库路径<ul id="d905d70b-c607-42db-9cd2-693879cd0fac" class="bulleted-list"><li style="list-style-type:circle">建议将${MAVEN_HOME}/conf/settings.xml移动到~/.m2/下,不要直接该全局目录下的</li></ul></li></ul><pre id="346bbb91-a4ec-4fc7-afb5-33bb3612eb7b" class="code code-wrap"><code>&lt;settings xmlns=&quot;http://maven.apache.org/SETTINGS/1.0.0&quot;
+   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+   xsi:schemaLocation=&quot;http://maven.apache.org/SETTINGS/1.0.0 
+   http://maven.apache.org/xsd/settings-1.0.0.xsd&quot;&gt;
+      &lt;localRepository&gt;C:/MyLocalRepository&lt;/localRepository&gt;
+&lt;/settings&gt;</code></pre><hr id="9bb81a16-bdb1-45ee-aed3-a5af4d7cef1b"/><h3 id="92f8ba11-e3dc-42b9-ace4-802da1bd0e14" class="">中央仓库</h3><ul id="ad9e105a-7c3e-4268-98ab-f87d04480d4e" class="bulleted-list"><li style="list-style-type:disc">由Maven社区提供的仓库,包含了绝大多数的开源组件。</li></ul><p id="cd12b973-2a46-41e3-b19a-47c3b8de5cb7" class="">中央仓库概念:</p><ul id="2f0307d4-4f02-4c4a-8cdf-e9f87641eb6c" class="bulleted-list"><li style="list-style-type:disc">这个仓库由Maven社区管理</li></ul><ul id="c1361d32-fd6a-4485-963d-cf30f4e510b5" class="bulleted-list"><li style="list-style-type:disc">如没有指定其他仓库，默认从中央仓库下载</li></ul><p id="3b578ddc-95b2-4f48-9259-ab6f2afed2d6" class="">maven社区URL: <a href="http://search.maven.org/#browse">http://search.maven.org/#browse</a>. 使用这个仓库,开发人员可以搜索所有可以获取的代码库.</p><hr id="3321280e-adcb-4ef2-bd6f-24c081792b59"/><h3 id="161df1de-dd46-42f1-972a-39c9975ebdd1" class="">私服</h3><figure id="31793639-b946-4e0e-92f2-40167cdb208c" class="image"><a href="../Maven%208b2b0/Untitled%201.png"><img style="width:336px" src="../Maven%208b2b0/Untitled%201.png"/></a></figure><ul id="4cbbc0a3-46ec-412f-b2fb-dfc8ad96ee61" class="bulleted-list"><li style="list-style-type:disc">局域网内的仓库</li></ul><ul id="43b2b0b2-ea2e-4b9e-a2e9-0aaf22c685e8" class="bulleted-list"><li style="list-style-type:disc">maven先向私服请求，如没有再从远程仓库(比如中央仓库)下载，缓存在私服上为下次请求提供服务</li></ul><ul id="f5ae9f6e-cb95-4f01-adf2-6b552d053338" class="bulleted-list"><li style="list-style-type:disc">私服的好处<ul id="a827ae8a-3e73-481f-bca1-aae07a2d385e" class="bulleted-list"><li style="list-style-type:circle">节省外网带宽</li></ul><ul id="3995a061-a45a-40be-93fd-9bd6a1feff70" class="bulleted-list"><li style="list-style-type:circle">加速maven构建，将内部的私有构建(版权原因)放到私服，构建的速度得到提高</li></ul><ul id="2317b5f5-a598-4f52-a424-f3cab914605b" class="bulleted-list"><li style="list-style-type:circle">部署第三方构建</li></ul><ul id="61400a58-9eb6-4700-85cf-4bd4e3de4b11" class="bulleted-list"><li style="list-style-type:circle">提高稳定(因为内网)，增强控制(权限管理，release和snapshot区分)</li></ul></li></ul><ul id="172a636e-a930-4318-983c-f691539bd1f5" class="bulleted-list"><li style="list-style-type:disc">Maven从远程仓库中 下载该pom.xml中声明的所依赖的文件.<pre id="20b2b694-1dae-4c21-b67c-19f7144a21e2" class="code code-wrap"><code>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+   xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+   xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0
+   http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+   &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+   &lt;groupId&gt;com.companyname.projectgroup&lt;/groupId&gt;
+   &lt;artifactId&gt;project&lt;/artifactId&gt;
+   &lt;version&gt;1.0&lt;/version&gt;
+   &lt;dependencies&gt;
+      &lt;dependency&gt;
+         &lt;groupId&gt;com.companyname.common-lib&lt;/groupId&gt;
+         &lt;artifactId&gt;common-lib&lt;/artifactId&gt;
+         &lt;version&gt;1.0.0&lt;/version&gt;
+      &lt;/dependency&gt;
+   &lt;dependencies&gt;
+   &lt;repositories&gt;
+      &lt;repository&gt;
+         &lt;id&gt;companyname.lib1&lt;/id&gt;
+         &lt;url&gt;http://download.companyname.org/maven2/lib1&lt;/url&gt;
+      &lt;/repository&gt;
+      &lt;repository&gt;
+         &lt;id&gt;companyname.lib2&lt;/id&gt;
+         &lt;url&gt;http://download.companyname.org/maven2/lib2&lt;/url&gt;
+      &lt;/repository&gt;
+   &lt;/repositories&gt;
+&lt;/project&gt;</code></pre></li></ul><hr id="0ea541d8-7e3c-442d-a9ef-1066e639074b"/><h3 id="d1129145-1eda-4f28-afe5-d72187f4fbb5" class="">Maven 依赖搜索顺序</h3><p id="76c41729-d966-4c60-af55-9adc31ce79fc" class="">当我们执行 Maven 构建命令时，Maven 开始按照以下顺序查找依赖的库：</p><ol type="1" id="6b5edb87-363f-4dc7-9aa4-a3801c55348d" class="numbered-list" start="1"><li>本地仓库</li></ol><ol type="1" id="6c0f7f07-16f7-4c95-aa17-2d39bc88f5cc" class="numbered-list" start="2"><li>中央仓库，如果找到了则下载至客户端以备将来。</li></ol><ol type="1" id="5d452c57-d62d-4aca-a9f7-2a3e90812deb" class="numbered-list" start="3"><li>如除中央仓库以外的远程仓库没有被设置，Maven 将简单的停滞处理并抛出错误（无法找到依赖的文件）。</li></ol><hr id="20a78099-4514-40bb-916c-b081f1d3365f"/><h3 id="739df848-1c64-4251-927d-7d8c98084a89" class="">Maven阿里云镜像仓库</h3><p id="7edd89f7-7e70-4e3f-9b4d-994a277c4431" class="">中央仓库在国外，使用很慢，可以更换为阿里云镜像仓库.</p><p id="f9febeb7-4e2a-4f6e-9611-dcefed605001" class="">修改根目录下的conf/setting.xml文件,在mirror节点上,添加如下：</p><pre id="20d39dd3-afde-4af1-8fa0-45ec883e799d" class="code code-wrap"><code>mkdir ~/.m2/ &amp;&amp; cp /opt/apache-maven-3.8.1/conf/settings.xml ~/.m2/
+vim ~/.m2/settings.xml
+&lt;mirrors&gt;
+    &lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;/id&gt;
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;        
+    &lt;/mirror&gt;
+&lt;/mirrors&gt;</code></pre><h2 id="5cf1d8d4-1cad-4704-ab85-5b12b9722506" class="">问题</h2><ol type="1" id="803729b4-8a92-4644-b015-10881809b41d" class="numbered-list" start="1"><li>Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.1:compile (default-compile) on project my-app: Compilation failure: Compilation failure:<p id="64a0ea1e-70cc-46da-b39f-03ebce9ca6a2" class="">在POM文件的plugins标签下添加这些内容</p><pre id="1a3b9e48-5531-4cb8-8df8-030289144137" class="code code-wrap"><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.6.1&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;source&gt;1.6&lt;/source&gt;
+        &lt;target&gt;1.6&lt;/target&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;</code></pre></li></ol><ol type="1" id="475762fb-9167-428e-8041-dd6f90705be2" class="numbered-list" start="2"><li></li></ol></div></div></div></article></body></html>

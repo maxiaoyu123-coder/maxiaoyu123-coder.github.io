@@ -1,0 +1,947 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>FluentD</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ddcac10f-eaa3-4077-aec5-ee42d8c6972c" class="page sans"><header><h1 class="page-title">FluentD</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@July 17, 2021 12:04 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="115ec2ff-7a68-4f38-9573-f1df20cd78ba" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2b580129-03bf-4e77-b2c4-8dc70f01b135">介绍</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#03231b4e-2a96-4333-8c11-b9b724c45029"><strong>What is Fluentd</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d687db0d-aa47-4fbb-913a-22aa138f81e1">如何工作</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#43d61305-d40c-4874-abd3-9fb5102f1acf">安装</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#b73f8266-413a-498a-b076-95cf91a4e8db">概念</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#a69a4e8c-ce36-4698-8d64-a1e6ef286bbc">input插件与source块</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#99e96153-2c5b-41fc-8f98-22e3e32afeb3">filter指令块</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#08f8e5d3-68ec-4a4a-8219-0a6ebc910a21">match指令块 </a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#189439ec-9415-4b03-9873-a795144e8712">定义<code>@include</code>：读取子配置文件</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#795b76b0-111e-4386-89d9-7bbfd7aa16b6">案例</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#bc85d8ca-d4e3-4e46-b063-9049bbfc5a6a">采集Docker容器日志</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#beb22907-4cf9-4143-85a4-11301d564f9f">方法1</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#9ad9599e-381e-4b38-b5aa-66854316aa6f">方法2</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3def0032-084d-4111-8ade-0deba09eb873">收集K8S Pod日志</a></div></nav><p id="2d9d4624-ed31-4a38-9c8c-de907b0ad169" class=""><div class="indented"><p id="4bfa2d49-9896-4cff-9d52-e601c8303836" class="">
+</p></div></p><h1 id="2b580129-03bf-4e77-b2c4-8dc70f01b135" class="">介绍</h1><h2 id="03231b4e-2a96-4333-8c11-b9b724c45029" class=""><strong>What is Fluentd</strong></h2><p id="8b505493-3bb7-4042-abe8-5e5c7a12a15d" class="">开源的数据采集器, 利用插件将采集到的日志分发到数据库，which allows you to unify your data collection and consumption. Fluentd was conceived by <a href="http://github.com/frsyuki">Sadayuki “Sada” Furuhashi</a> in 2011. Sada is a co-founder of <a href="https://www.treasuredata.com/opensource/">Treasure Data, Inc.</a>, the primary sponsor of the Fluentd and the source of stable Fluentd releases.</p><h2 id="d687db0d-aa47-4fbb-913a-22aa138f81e1" class="">如何工作</h2><p id="bd88d403-61f7-417e-90fe-ee434a0e9577" class="">FluentD DaemonSet实现从容器化应用中采集日志，<mark class="highlight-orange">借助“fluent-plugin-kubernetes_metadata_filter插件”可向日志中增加K8S元数据信息</mark>，<mark class="highlight-orange">如此可识别出日志源并进行过滤</mark>。</p><h1 id="43d61305-d40c-4874-abd3-9fb5102f1acf" class="block-color-orange">安装</h1><p id="f620c418-5231-41a0-bb71-51ff90780500" class="">Fluentd 是由Ruby和C编写的，需要ruby进行，td-agent 是fluentd 的易安装版本，不用考虑太多的依赖关系。</p><h1 id="b73f8266-413a-498a-b076-95cf91a4e8db" class="">概念</h1><p id="db0e7960-279e-4faf-abeb-3256c97a548e" class="">插件<div class="indented"><p id="71df9fd6-03e5-443a-b230-ed4bca33effd" class="">input插件 使用source块，定义从哪里获取日志和对日志如何处理</p><p id="0f574c25-4777-47c0-b5af-ab691d2a0888" class="">output插件 使用match块，对日志作继续处理，比如将日志导入本地系统的文件，或转发到远端系统比如es/kafka/其他数据库</p></div></p><h2 id="a69a4e8c-ce36-4698-8d64-a1e6ef286bbc" class="">input插件与source块</h2><p id="bc3059b8-d391-42d8-8738-b392084493e4" class="">fluentD使用输入插件来定义日志源，有：<code>tail</code>，<code>http</code>，<code>forward</code>, <code>elasticsearch</code>，<code>kubernetes_meta</code>。</p><ul id="9af2d3db-5b54-4bad-99fb-1182d32de979" class="toggle"><li><details open=""><summary>tail</summary><p id="6b5f71c6-7bf4-4157-b296-ffb77d718c7e" class="">tail输入插件: 提取日志文件</p><ul id="e8c2918f-d3a0-41bb-95f3-7559510ab1b6" class="bulleted-list"><li style="list-style-type:disc">是最常用的一种<strong>输入插件(input plugin)</strong>. <ul id="0e3fad73-a05a-4d19-8033-380c0edbd05a" class="bulleted-list"><li style="list-style-type:circle">类似<code>tail -f</code>默认从日志文件首行开始，依次向下读取，或者从&#x27;pos_file&#x27;所保存的位置开始读，或者使用<code>read_from_head true</code>来指定一个位置；当文件切割时，FluentD会从开始位置继续读取。</li></ul></li></ul><p id="35f44a97-2719-464c-93fc-3c66b67963f9" class="">示例1  从指定文件提取日志，关联标签</p><pre id="878b734a-a276-45e8-bf1b-7a92c25aad5f" class="code"><code>&lt;source&gt;
+	time_key time
+  time_format %Y-%m-%dT%H:%M:%S
+  @type tail
+	format json
+  read_from_head true
+  tag file-myapp.log
+  path /fluentd/log/files/example-log.log
+  pos_file /tmp/example-log.log.pos
+&lt;/source&gt;</code></pre><p id="de368558-c98f-4377-905a-ab358375828d" class=""><code>time_format</code> processes value according to the specified format.</p><p id="2a11ae9d-df7a-4deb-bad4-78da5211c77e" class=""><code>time_key</code> (string) (optional): Specify time field for event time. If the event doesn&#x27;t have this field, current time is used.</p><p id="78b41292-e016-421f-a9b0-466f965dd9a9" class=""><code>@type tail</code> 指定tail<strong>输入插件</strong></p><p id="dbc5ab6e-bfe6-46b9-868a-11fa4b25897b" class=""><code>format</code> 指定要读取的日志是什么格式</p><p id="4d6a7613-c90d-46ea-b9c1-b9dce18fc01a" class=""><code>read_from_head</code> 从文件的首行开始读取日志，然后依次向下。</p><p id="e9501223-3ae2-4c48-a2d8-a8d01a30bca1" class=""><code>path</code> 指定日志文件所在路径。</p><p id="82f43b33-c7fe-4b71-b66d-1c530986ffee" class=""><code>pos_file</code> 纪录最近依次读取的位置，防止fluentD服务重启。</p><p id="664f0007-a682-414a-ac78-813dd9f3fad9" class="">示例2  从/var/lib/docker收集容器的日志</p><pre id="2be83522-35a4-4e23-a051-2d9dd20734c4" class="code"><code>&lt;source&gt;
+  @type tail
+  format json
+  read_from_head true
+  tag docker.log
+  path /fluentd/log/containers/*/*-json.log
+  pos_file /tmp/container-logs.pos
+&lt;/source&gt;</code></pre></details></li></ul><ul id="4c1ccee5-ac9b-4896-a28c-5da2c010dea0" class="toggle"><li><details open=""><summary>http</summary><p id="cb11c737-c2db-40ec-8f37-ae32d0becfbd" class="">这种输入插件用于接收以http报文方式发来的日志消息. </p><ul id="990d5598-8de3-4787-af53-57fb0b8e09ab" class="bulleted-list"><li style="list-style-type:disc">比如发送方使用<code>curl -X POST -d &#x27;json={&quot;foo&quot;:&quot;bar&quot;}&#x27; http://fluentd:9880/http-myapp.log</code> 向fluentd发送Json格式的日志信息。</li></ul><pre id="b7ba7dd1-aec7-4b41-85e7-7c24138605de" class="code"><code>#发送方向fluentD发送日志消息，URI /http-myapp.log起到tag的作用。
+curl -X POST -d &#x27;json={&quot;foo&quot;:&quot;bar&quot;}&#x27; http://fluentd:9880/http-myapp.log
+
+#FluentD使用http输入插件监听日志消息
+&lt;source&gt;
+  @type http
+  port 9880
+  bind 0.0.0.0
+  body_size_limit 32m
+  keepalive_timeout 10s
+&lt;/source&gt;
+
+#通过http-*.log匹配http-myapp.log标签，然后输出到/output/http.log文件。
+&lt;match http-*.log&gt;
+  @type file
+  path /output/http.log
+&lt;/match&gt;</code></pre><p id="a7246a92-78f1-46b6-91a7-56f7abd5e302" class=""><code>@type http</code> </p><p id="0157b04a-8f34-4a52-ac68-8a9c69f02c2a" class=""><code>port</code>和<code>bind</code> 指定fluentD所监听的地址和端口。</p><p id="d8fcc8f0-5ca4-4537-81e5-0ee7c92569b0" class=""><code>body_size_limit http</code> 消息体大小的限制。</p><p id="da75aa33-6bdf-4607-93b4-6cdab173280c" class=""><code>keepalive_timeout</code> 保持一个长连接，减少频繁创建连接。</p></details></li></ul><h2 id="99e96153-2c5b-41fc-8f98-22e3e32afeb3" class="">filter指令块</h2><p id="638c0230-83af-4cd0-b1f2-23637f833e08" class="">对input插件接收到的日志内容进行修改</p><pre id="f631959a-7ef4-4f79-b9a5-717b20390c91" class="code"><code>&lt;filter http-*.log&gt;               #http-*.log用于匹配tag
+  @type record_transformer        #使用record_transformer插件
+  &lt;record&gt;                             
+    host_param &quot;#{Socket.gethostname}&quot;    #在发送给match之前，向日志插入#{Socket.gethostname}变量
+  &lt;/record&gt;
+&lt;/filter&gt;</code></pre><h2 id="08f8e5d3-68ec-4a4a-8219-0a6ebc910a21" class="">match指令块 </h2><p id="39f05ecd-4752-4c5d-8f47-ba634e75c5c9" class="">将日志数据发送出去</p><pre id="9f2bf797-33cf-4d08-86cc-622ca620499d" class="code code-wrap"><code>&lt;source&gt;
+  tag &quot;containers.log&quot;
+  (省略)
+&lt;/source&gt;
+
+&lt;match containers.log&gt; #匹配tag为containers.log的日志内容
+  (输出插件:处理并发送到其他系统)
+&lt;/match&gt;</code></pre><p id="98565dd7-ade3-432c-b6e3-2c5b6440e45c" class="">match匹配指定tag的日志内容，经过处理后发送到其他系统，故插件也叫output plugin。主要的输出插件：</p><ul id="127b21ad-eee6-45cd-a4d2-c8ddfdb1a7ec" class="toggle"><li><details open=""><summary>elasticsearch输出插件</summary><ul id="39a82de9-ba37-4922-89bd-b06683e928dc" class="bulleted-list"><li style="list-style-type:disc"><code>host</code> elasticsearch的主机地址</li></ul><ul id="71531132-5060-482c-8f1c-9f16d1de1c86" class="bulleted-list"><li style="list-style-type:disc"><code>port</code> 端口号</li></ul><ul id="e33f4a9d-e935-43ea-ab48-d64a9fb39d4f" class="bulleted-list"><li style="list-style-type:disc"><code>logstash_format </code> If true, Fluentd uses the conventional index name format logstash-%Y.%m.%d (default: false). This option supersedes the index_name option.</li></ul><ul id="1ce5b1a6-96af-4f04-892a-1701cafa5c85" class="bulleted-list"><li style="list-style-type:disc"><code>logstash_prefix  </code> 定义索引的前缀名称</li></ul><ul id="16c35490-d20e-4a3a-8a35-b365995cc909" class="bulleted-list"><li style="list-style-type:disc"><code>logstash_dateformat</code> 定义索引名中时间部分的格式</li></ul><p id="0457c666-654d-4913-b444-945d4a9a5e2e" class="">示例1： 采集docker容器的日志文件，docker logging-driver采用json（默认），输出到elasticsearch中。</p><pre id="d23a889d-5ba8-4d44-bfa7-30ff7cf7c041" class="code"><code>#从docker采集日志
+&lt;source&gt;
+  @type tail
+  format json
+  read_from_head true
+  tag docker.log
+  path /fluentd/log/containers/*/*-json.log
+  pos_file /tmp/container-logs.pos
+&lt;/source&gt;
+
+#输出到ES
+&lt;match containers.log&gt;
+  @type elasticsearch
+  host &quot;127.0.0.1&quot;
+  port &quot;9200&quot;
+  logstash_format &quot;true&quot;
+  logstash_prefix &quot;logstash&quot;
+  logstash_dateformat &quot;%Y.%m.%d&quot;
+  flush_interval 5s
+&lt;/match&gt;</code></pre><p id="d4bcc478-165e-4fbf-807e-a3f66a0cb379" class="">
+</p></details></li></ul><ul id="05280493-4c4b-4b8e-a683-3ad3c406c471" class="toggle"><li><details open=""><summary>输出到文件</summary><p id="93fcf7e3-afe8-4e96-bfb1-1ab73f37f319" class="">示例：使用<code>http-*.log</code>匹配event，output插件是<code>elasticsearch</code>，发送到主机<code>elasticsearch</code>，端口<code>9200</code>，索引名<code>fluent-file</code>,type是<code>fluentd</code>。</p><pre id="fc095d23-40c7-442e-a27b-cc9b0ba47b3e" class="code code-wrap"><code>#从docker采集日志
+&lt;source&gt;
+  @type tail
+  format json
+  read_from_head true
+  tag docker.log
+  path /fluentd/log/containers/*/*-json.log
+  pos_file /tmp/container-logs.pos
+&lt;/source&gt;
+
+#输出到文件
+&lt;match docker.log&gt;
+  @type file
+  path /output/http.log
+&lt;/match&gt;</code></pre><ul id="4e1a7de4-4a9b-421c-ac78-8850b0099207" class="bulleted-list"><li style="list-style-type:disc"><code>path</code> 指定输出到哪个文件。</li></ul></details></li></ul><h2 id="189439ec-9415-4b03-9873-a795144e8712" class="">定义<code>@include</code>：读取子配置文件</h2><p id="2afc7f90-f4c3-436f-8cab-c30fb18bbbfe" class="">在fluentD的主配置文件fluentd.conf中使用include指令来引用子配置文件，使配置易读。</p><pre id="1874ad4e-fba7-4767-849b-5018bf7937a8" class="code"><code>################################################################
+# This source reads tail of a file
+@include file-fluent.conf
+
+################################################################
+
+# This source gets incoming logs over HTTP
+@include http-fluent.conf
+
+################################################################
+# This source gets all logs from local docker host
+@include containers-fluent.conf
+
+################################################################
+# Send all logs to elastic search
+@include elastic-fluent.conf</code></pre><h1 id="795b76b0-111e-4386-89d9-7bbfd7aa16b6" class="">案例</h1><h2 id="bc85d8ca-d4e3-4e46-b063-9049bbfc5a6a" class="">采集Docker容器日志</h2><h3 id="beb22907-4cf9-4143-85a4-11301d564f9f" class="">方法1</h3><p id="94361477-83ef-49bb-a0b7-1004399db089" class="">采集docker容器的日志文件，docker logging-driver采用json（默认），输出到elasticsearch中。</p><pre id="7fad932b-40dc-4277-af07-a55f3ab0f9a7" class="code"><code>#从docker采集日志
+&lt;source&gt;
+  @type tail
+  format json
+  read_from_head true
+  tag docker.log
+  path /fluentd/log/containers/*/*-json.log
+  pos_file /tmp/container-logs.pos
+&lt;/source&gt;
+
+#输出到ES
+&lt;match containers.log&gt;
+  @type elasticsearch
+  host &quot;127.0.0.1&quot;
+  port &quot;9200&quot;
+  logstash_format &quot;true&quot;
+  logstash_prefix &quot;logstash&quot;
+  logstash_dateformat &quot;%Y.%m.%d&quot;
+  flush_interval 5s
+&lt;/match&gt;</code></pre><h3 id="9ad9599e-381e-4b38-b5aa-66854316aa6f" class="">方法2</h3><p id="bbe0dc8b-d502-40f4-93ad-315ef06f3c27" class="">docker发送容器日志到fluentd，输出到elasticsearch中</p><p id="7b294fca-079b-4ba9-b155-2e3c4abe4b82" class=""><a href="https://docs.docker.com/config/containers/logging/fluentd/">https://docs.docker.com/config/containers/logging/fluentd/</a></p><ul id="d94ec2d0-e996-4f56-90de-d05537082273" class="bulleted-list"><li style="list-style-type:disc">配置docker容器的logging-driver为fluentd，采用fluentd时，默认发送日志到本地TCP 24224 fluentd服务<ul id="08d826cc-2c6a-49da-b192-eda24672e734" class="bulleted-list"><li style="list-style-type:circle">在daemon.conf中指定默认<mark class="highlight-red">log-driver为fluentd</mark><pre id="a1885467-75c7-4a25-b6e8-6bcfd1858c2a" class="code code-wrap"><code>{
+   &quot;log-driver&quot;: &quot;fluentd&quot;,
+   &quot;log-opts&quot;: {
+     &quot;fluentd-address&quot;: &quot;192.168.2.4:24224&quot;    #主机名和端口号
+   }
+ }</code></pre></li></ul><ul id="348295a1-ecdc-4887-bf08-f8ff51b6fca0" class="bulleted-list"><li style="list-style-type:circle">在创建容器命令中指定<pre id="7325eb94-8730-45a9-9319-784dcc353c4b" class="code code-wrap"><code>docker run --log-driver=fluentd --log-opt fluentd-address=192.168.2.4:24224 ubuntu
+</code></pre></li></ul></li></ul><ul id="2dcae041-b120-4475-bdd5-6d2a64dddd19" class="bulleted-list"><li style="list-style-type:disc">fluent配置<pre id="3bffc171-32b6-41f3-a129-c934d32aa94a" class="code code-wrap"><code>#监听24224端口
+&lt;source&gt;
+  type forward
+  port 24224
+  bind 0.0.0.0
+&lt;/source&gt;
+
+#向elasticsearch转发
+&lt;match *&gt;
+  @type elasticsearch
+  host &quot;127.0.0.1&quot;
+  port &quot;9200&quot;
+  logstash_format &quot;true&quot;
+  logstash_prefix &quot;logstash&quot;  #索引的前缀名称
+  logstash_dateformat &quot;%Y.%m.%d&quot;
+  flush_interval 5s
+&lt;/match&gt;</code></pre></li></ul><ul id="f8512545-3f2a-4cdc-b11c-cc60a78a60d6" class="bulleted-list"><li style="list-style-type:disc">验证<p id="d6d7cd75-3911-499c-a1f5-6d97d1420435" class="">确认索引已经生成</p><pre id="65922311-9e68-451d-bcc5-afe57f682059" class="code code-wrap"><code>curl 127.0.0.1:9200/_cat/indices</code></pre></li></ul><p id="640b164c-4856-4ada-8bfa-eb2329fab386" class="">
+</p><h2 id="3def0032-084d-4111-8ade-0deba09eb873" class="">收集K8S Pod日志</h2><ol type="1" id="09a2a2c0-cb82-463b-bdea-665e103f4776" class="numbered-list" start="1"><li>在K8S中安装fluentD，主要参考FluentD官方git，提供专门用于支持K8S的镜像和K8S资源清单<p id="633bdbf6-0cda-479a-8f4f-52c62a7cf000" class="">镜像制作的素材来自此连接：<a href="https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/v1.11/debian-elasticsearch7">https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/v1.11/debian-elasticsearch7</a><div class="indented"><p id="546a632c-0dcb-4631-93fd-ca972a430359" class="">fluentD V1.11版本，放入了需要的插件；我已经将打包好的镜像放到dockerhub上了：<code>docker pull maxiaoyula/fluentd:v1.11-k8s</code></p></div></p><ul id="914d7904-253b-4fc9-adf5-d8028598f697" class="toggle"><li><details open=""><summary>fluentd-rbac.yaml</summary><p id="a5b3606d-7f38-46ab-98f7-c0f6cf942696" class="">参考来自：<a href="https://github.com/fluent/fluentd-kubernetes-daemonset">https://github.com/fluent/fluentd-kubernetes-daemonset</a></p><p id="7b2d8897-ff8f-4416-9dc9-2b9c40534c2e" class="">应该是filter插件需要访问K8S API</p><pre id="8dddb1d5-bf2a-4e63-a4a2-cd99421bfbdc" class="code code-wrap"><code>apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: fluentd
+  namespace: fluentd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: fluentd
+  namespace: fluentd
+rules:
+- apiGroups:
+  - &quot;&quot;
+  resources:
+  - pods
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: fluentd
+roleRef:
+  kind: ClusterRole
+  name: fluentd
+  apiGroup: rbac.authorization.k8s.io
+subjects:
+- kind: ServiceAccount
+  name: fluentd
+  namespace: fluentd</code></pre></details></li></ul><ul id="1cb263b9-af76-441d-b663-e1adc45fc371" class="toggle"><li><details open=""><summary>fluentd-configmap.yaml</summary><p id="373f4388-cb23-47a1-9d02-dfed3797d755" class="">在官方基础上作了精简，使用于kubeadm场景，所有POD包括K8S组件都能采集到日志<div class="indented"><p id="07403d83-4dda-4476-9bcf-7b0b8c1e6ed3" class="">对于二进制安装的K8S，参考更完整的：<a href="https://github.com/fluent/fluentd-kubernetes-daemonset/blob/master/docker-image/v1.11/debian-elasticsearch7/conf/kubernetes.conf">https://github.com/fluent/fluentd-kubernetes-daemonset/blob/master/docker-image/v1.11/debian-elasticsearch7/conf/kubernetes.conf</a></p></div></p><pre id="3110ee7c-6d32-4b5e-a016-28093e227736" class="code code-wrap"><code>#@include file-fluent.conf
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluentd-config
+  namespace: fluentd
+data:
+  fluent.conf: |-
+    &lt;filter kubernetes.**&gt;
+      @type kubernetes_metadata
+      @id filter_kube_metadata
+      kubernetes_url &quot;#{ENV[&#x27;FLUENT_FILTER_KUBERNETES_URL&#x27;] || &#x27;https://&#x27; + ENV.fetch(&#x27;KUBERNETES_SERVICE_HOST&#x27;) + &#x27;:&#x27; + ENV.fetch(&#x27;KUBERNETES_SERVICE_PORT&#x27;) + &#x27;/api&#x27;}&quot;
+      verify_ssl &quot;#{ENV[&#x27;KUBERNETES_VERIFY_SSL&#x27;] || true}&quot;
+      ca_file &quot;#{ENV[&#x27;KUBERNETES_CA_FILE&#x27;]}&quot;
+      skip_labels &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_LABELS&#x27;] || &#x27;false&#x27;}&quot;
+      skip_container_metadata &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_CONTAINER_METADATA&#x27;] || &#x27;false&#x27;}&quot;
+      skip_master_url &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_MASTER_URL&#x27;] || &#x27;false&#x27;}&quot;
+      skip_namespace_metadata &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_NAMESPACE_METADATA&#x27;] || &#x27;false&#x27;}&quot;
+    &lt;/filter&gt;
+    &lt;source&gt;
+      @type tail
+      read_from_head true
+      tag kubernetes.*
+      path /var/log/containers/*.log
+      pos_file /var/log/fluentd-containers.log.pos
+      exclude_path [&quot;/var/log/containers/fluent*&quot;]
+      &lt;parse&gt;
+        @type kubernetes
+        @type &quot;#{ENV[&#x27;FLUENT_CONTAINER_TAIL_PARSER_TYPE&#x27;] || &#x27;json&#x27;}&quot;
+        time_format %Y-%m-%dT%H:%M:%S.%NZ
+      &lt;/parse&gt;
+    &lt;/source&gt;
+    &lt;filter kubernetes.**&gt;
+      @type kubernetes_metadata
+      @id filter_kube_metadata
+      kubernetes_url &quot;#{ENV[&#x27;FLUENT_FILTER_KUBERNETES_URL&#x27;] || &#x27;https://&#x27; + ENV.fetch(&#x27;KUBERNETES_SERVICE_HOST&#x27;) + &#x27;:&#x27; + ENV.fetch(&#x27;KUBERNETES_SERVICE_PORT&#x27;) + &#x27;/api&#x27;}&quot;
+      verify_ssl &quot;#{ENV[&#x27;KUBERNETES_VERIFY_SSL&#x27;] || true}&quot;
+      ca_file &quot;#{ENV[&#x27;KUBERNETES_CA_FILE&#x27;]}&quot;
+      skip_labels &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_LABELS&#x27;] || &#x27;false&#x27;}&quot;
+      skip_container_metadata &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_CONTAINER_METADATA&#x27;] || &#x27;false&#x27;}&quot;
+      skip_master_url &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_MASTER_URL&#x27;] || &#x27;false&#x27;}&quot;
+      skip_namespace_metadata &quot;#{ENV[&#x27;FLUENT_KUBERNETES_METADATA_SKIP_NAMESPACE_METADATA&#x27;] || &#x27;false&#x27;}&quot;
+    &lt;/filter&gt;
+    &lt;match **&gt;
+      @type elasticsearch
+      host &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_HOST&#x27;] || &#x27;elasticsearch.elastic-kibana&#x27;}&quot; #FLUENT_ELASTICSEARCH_HOST变量在DaemonSet清单中设置
+      port &quot;#{ENV[&#x27;FLUENT_ELASTICSEARCH_PORT&#x27;] || &#x27;9200&#x27;}&quot; #FLUENT_ELASTICSEARCH_HOST变量在DaemonSet清单中设置或不设，默认即9200
+      logstash_prefix logstash
+      logstash_dateformat %Y.%m.%d
+      logstash_format true
+      index_name logstash
+      include_timestamp false
+      index_name fluentd-k8s
+      type_name fluentd
+    &lt;/match&gt;</code></pre></details></li></ul><ul id="24463917-a84a-4805-b015-3554677aba3a" class="toggle"><li><details open=""><summary>daemonset</summary><p id="04104d9e-08d3-47b8-afbe-5363d86988a9" class="">参考来自：<a href="https://github.com/fluent/fluentd-kubernetes-daemonset">https://github.com/fluent/fluentd-kubernetes-daemonset</a></p><pre id="404ec684-ff22-4371-9a81-db43dab61983" class="code code-wrap"><code>apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fluentd
+  namespace: fluentd
+  labels:
+    k8s-app: fluentd-logging
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      k8s-app: fluentd-logging
+      version: v1
+  template:
+    metadata:
+      labels:
+        k8s-app: fluentd-logging
+        version: v1
+    spec:
+      serviceAccount: fluentd
+      serviceAccountName: fluentd
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        effect: NoSchedule
+      containers:
+      - name: fluentd
+        imagePullPolicy: &quot;IfNotPresent&quot;
+        image: fluentd-demo:latest
+        env:
+          - name:  FLUENT_ELASTICSEARCH_HOST
+            value: &quot;192.168.31.201&quot;
+          - name:  FLUENT_ELASTICSEARCH_PORT
+            value: &quot;9200&quot;
+        resources:
+          limits:
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - name: fluentd-config
+          mountPath: /fluentd/etc
+        - name: varlog
+          mountPath: /var/log
+        - name: varlibdockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: fluentd-config
+        configMap:
+          name: fluentd-config
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: varlibdockercontainers
+        hostPath:
+          path: /var/lib/docker/containers</code></pre></details></li></ul><p id="d388c12f-fa7b-4f4d-812f-f140a37e6144" class="">
+</p><p id="75d9f4a2-9b63-431d-bfe2-540ef9262ae2" class="">DaemonSet环境变量</p></li></ol><p id="ddef0cd9-cf41-4e3d-a792-c9f663fc802b" class="">可以在DaemonSet环境变量中定义配置选项，它们将覆盖定义在configMap中的配置选项。</p><p id="23451a82-ae8d-4bc2-9981-4057fc90aa8a" class="">比如对接ES，主机/端口/SSL配置是定义在DaemonSet环境变量中。</p><figure id="53ed61a3-903f-48e0-93cd-43236b03428c" class="image"><a href="FluentD%20ddcac/Untitled.png"><img style="width:576px" src="FluentD%20ddcac/Untitled.png"/></a></figure><p id="cfecbfdb-56b6-4e2a-a811-a6373ab4a6ed" class="">
+</p><p id="cf8dbcf3-41df-4332-8649-b90e864b9b7e" class="">
+</p><p id="ec7b24c3-b387-4496-a802-5d5cfbf5949f" class="">
+</p><p id="fd72ff73-e4dc-4b0f-a177-f62ce2442726" class="">
+</p><p id="2b421e47-6cc5-45b8-bb5e-49bae1660d25" class="">
+</p><p id="68dd3baa-5503-4432-ac76-fff820020df8" class="">
+</p><p id="993c12b1-6cbb-4439-9fcc-860af301763f" class="">
+</p><p id="6988d5af-396c-4ca4-b7cd-61a46a0c1f16" class="">
+</p></div></article></body></html>

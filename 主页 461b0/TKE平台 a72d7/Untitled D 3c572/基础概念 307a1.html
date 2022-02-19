@@ -1,0 +1,700 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>基础概念</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="307a1883-9f00-49b3-bc56-940af2a2d9b4" class="page sans"><header><h1 class="page-title">基础概念</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@May 26, 2021 11:41 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><p id="1960bbcf-4666-4559-92ff-0ce488c25de2" class="">
+</p><h1 id="aebfbff7-9ce6-458c-b0c3-bb33fa75f2f0" class="">项目管理</h1><div id="464db824-8977-4f4b-b035-63b07d4e3e11" class="column-list"><div id="dfb8984d-5b1b-480e-82e8-b6dabc99675b" style="width:50%" class="column"><figure id="174fae89-0809-485f-8c02-4e30cca63456" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled.png"><img style="width:1243px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled.png"/></a></figure></div><div id="f265b185-b30d-4119-9022-bb3428690850" style="width:50%" class="column"><figure id="661fafe9-ae32-4daa-bfbe-a6267008ac1d" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%201.png"><img style="width:1385px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%201.png"/></a></figure></div></div><p id="90b0510c-ec31-430a-a59f-ec2c6b50faf4" class="">
+</p><p id="325cb366-8dbe-4e50-99e6-d39d55bf2630" class="">
+</p><div id="66fb9def-0cdc-4204-ae0f-fdecd2eed788" class="column-list"><div id="2b69aace-cc8e-44f2-b870-9d9e87068b97" style="width:50%" class="column"><figure id="d67b561a-7be4-4dd0-b6aa-b26c1e0507bb" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%202.png"><img style="width:1054px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%202.png"/></a></figure></div><div id="92d3056f-0c3e-498a-bd09-88f1fb33885b" style="width:50%" class="column"><figure id="68ad0170-7206-42c6-b392-a913cc984e4c" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%203.png"><img style="width:964px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%203.png"/></a></figure></div></div><figure id="1c093c77-3d7f-40a2-bb47-78a9b3485761" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%204.png"><img style="width:965px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%204.png"/></a></figure><p id="d96fa65e-7555-4283-bc10-8b0dc455c114" class="">
+</p><p id="f72d28f7-d582-40b4-ad6b-e844bec3cab5" class="">
+</p><h1 id="d87b9ad3-13af-4a5b-9b9f-290f17a8a9a9" class="">应用部署</h1><h2 id="1b2a3d57-03e5-4158-a283-46744c5d5160" class="">自定义应用部署</h2><h3 id="75b0c605-ac31-4739-8703-25d952c5097a" class="">新建应用</h3><figure id="33fedd52-515e-4b7a-9725-21b00d8f97fb" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%205.png"><img style="width:1398px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%205.png"/></a></figure><p id="1ff7b7f7-ce03-46ed-bc64-f1c5deaab624" class="">
+</p><h3 id="2f09740c-c4ef-48a5-8c2e-d6a80cc8f31c" class="">资源限额</h3><p id="c3e4041b-3bef-4caf-b0f9-92179e6521f9" class="">()</p><p id="d37da2a2-9dcb-4596-a791-a8772b474a47" class="">
+</p><p id="89272c86-3d76-4e77-b84e-d46f0a5cec69" class="">
+</p><h3 id="fc92251f-6f83-4d4b-9ade-a514c0fb5419" class="">健康检查</h3><p id="99f6e7e5-7592-454f-a91f-f9d4cd69ddd5" class="">()</p><p id="cc640872-a34c-44ab-9f61-9f28edc19bd5" class="">
+</p><h3 id="0b6a84a7-2dde-47ff-a978-349f62affd38" class="">内部路由</h3><p id="c40007f0-4ea9-45e5-972f-442f6f567af4" class="">等同于K8S的Service。启用外网访问等同于启用nodePort功能，即在节点上映射一个随机端口。</p><figure id="0fb461e9-14bd-4a1d-abc9-c4d0f9c20614" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%206.png"><img style="width:1057px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%206.png"/></a></figure><p id="b98e0baf-59f8-408f-b43b-228228b69167" class="">
+</p><h3 id="0cf94989-0be1-4045-95d9-fbb9af7649d8" class="">检查状态</h3><figure id="427eb113-704b-4909-8ec2-d5d2197bb742" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%207.png"><img style="width:918px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%207.png"/></a></figure><figure id="70f47f4c-4707-44ba-b237-fa446a294265" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%208.png"><img style="width:528px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%208.png"/></a></figure><p id="80fd98cf-e01d-4908-a794-eda485d774e9" class="">                                                                                                                                     </p><p id="fcd77abf-8290-4812-865b-74108912a9fd" class="">
+</p><h1 id="59aac63d-35b9-4459-abe7-72c8927a68a4" class="">网络</h1><h2 id="f43446ee-ef5f-4317-8972-8489042e34b0" class="">内部路由</h2><p id="f6df661c-bb2d-49f7-9e49-97001642ce36" class="">查看目前存在的内部路由，内部路由等同于K8S的Service。</p><h2 id="56994b82-8e86-43e6-990b-289b183c7cbd" class="">负载均衡器</h2><p id="c696dc82-1f1e-4902-bb77-6c8d4af3b86c" class="">可支持4层和7层的转发，相比内部路由，负载均衡器的性能更好, 所以尽量使用负载均衡器暴露应用。</p><figure id="62949856-5768-453b-8436-3524695e65e6" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%209.png"><img style="width:816px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%209.png"/></a></figure><figure id="c41d3b39-60d2-4154-b5b9-0cc76e30c45b" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2010.png"><img style="width:768px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2010.png"/></a></figure><p id="91532dae-6cce-4d82-a3aa-0219e6fa3f38" class="">
+</p><h3 id="1f504551-8ea3-411e-b31c-a9f1b13b8ecc" class="">资源分配方式为实例的负载均衡器</h3><figure id="c48ae6b7-bf28-44d2-b609-5eb4de4db318" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2011.png"><img style="width:667px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2011.png"/></a></figure><figure id="3aa14bbb-e240-4063-9462-b822a9707477" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2012.png"><img style="width:1682px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2012.png"/></a></figure><figure id="edc9d375-0f25-48cb-85f5-93071ea19dd7" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2013.png"><img style="width:1586px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2013.png"/></a></figure><p id="3f56362f-2ebe-44d4-a805-6fa1ce36488c" class="">
+</p><figure id="a780212c-c04d-4207-a63b-700c51f03dac" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2014.png"><img style="width:1178px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2014.png"/></a></figure><p id="efa4a0c7-fd73-4c64-a4c8-4d42e28c6560" class="">这样应用就被暴露在工作节点10.200.40.94的10001端口上，接下来从外网就可以用浏览器访问<code>http://10.200.40.94:10001</code>了。 </p><p id="9d8926e6-6e23-407e-a670-80f37eee72e2" class="">至此，资源分配方式为实例的负载均衡器就配置好了。</p><p id="2d47e3ad-ef64-40f2-9186-c6e24d4c519f" class="">
+</p><h3 id="e7a40e3f-e0e4-4290-9e79-25e1de616678" class="">资源分配方式为端口的负载均衡器</h3><figure id="e591de67-ccec-4732-abd5-ff9bca53b8d8" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2015.png"><img style="width:663px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2015.png"/></a></figure><figure id="7879d8f1-5dc8-47ff-9198-a206b7f983d6" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2016.png"><img style="width:1056px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2016.png"/></a></figure><p id="6bdcc47c-12e1-4afd-ac0f-b5fb43cbf949" class="">
+</p><figure id="81b44895-856e-4058-a1d6-cf8ead35e8fb" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2017.png"><img style="width:666px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2017.png"/></a></figure><figure id="5817bd13-7f8b-414f-8a33-bc77d037e44a" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2018.png"><img style="width:1658px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2018.png"/></a></figure><p id="db54e76b-5385-46a8-9b8c-1f7aa3cd87cc" class="">
+</p><figure id="197c4f58-aa3b-40c9-8f99-2064f5fd24a6" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2019.png"><img style="width:1383px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2019.png"/></a></figure><p id="1267942b-65bf-400f-848d-e0032ce86cd1" class="">
+</p><figure id="1ead435a-2ae6-46dd-927d-c0c6a260606f" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2020.png"><img style="width:1344px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2020.png"/></a></figure><p id="d203561f-9508-4a96-848f-e4009cec5be0" class="">
+</p><figure id="fd08d0e1-6443-4278-ac88-4de43fa0c04b" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2021.png"><img style="width:1369px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2021.png"/></a></figure><p id="e546c1b8-6265-458a-870a-4bc20a84f756" class="">浏览器访问<code>http://100.200.40.94:10001</code> 即访问到应用，至此资源分配方式为端口的负载均衡器就配置好了。</p><p id="a1ebd70c-293f-4473-a9d6-1ed816beebc8" class="">
+</p><h3 id="2f48aa3b-87f3-4c26-b5ee-0286f083bd66" class="">7层负载均衡器</h3><p id="2ccef1e7-8c02-4463-acc0-389faab7d037" class="">（20210524_220002 02:31）</p><p id="ec831499-4ed7-4e3f-b20e-74f141bff9f8" class="">
+</p><h2 id="96fb5929-f7ad-4f7c-aaee-f9036b04c133" class="">自定义应用的拓扑</h2><figure id="70350540-62df-41f5-aad2-496d0ea6f445" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2022.png"><img style="width:1644px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2022.png"/></a></figure><p id="9d08ea09-864c-4037-a010-18eda49d8eea" class="">
+</p><h1 id="c75253c2-ff6a-4cca-b84c-42df45a64e52" class="">平台管理者模式</h1><p id="4d7c6c46-b86c-4608-b42d-8c763f1cda1b" class="">项目管理者和开发者都无权使用该模式，只有平台管理者可以。</p><h2 id="51bfa8b7-5343-4aef-9ba4-bf7f25703841" class="">网络</h2><h3 id="eaa3ab9c-c7ac-42c8-807a-2ddf4a13c80b" class="">域名</h3><p id="5707cf9d-986f-4729-8dad-dbf5bb909fe3" class="">（20210524_220002 02:58）</p><p id="98157b0a-4f34-4c6f-8f6f-3fbfd2160a05" class="">用于域名的集中管理，全域名和泛域名。</p><h3 id="bee2d1f0-e5a6-4f0a-b23c-511bc230ed67" class="">证书</h3><p id="3a50cee6-ada3-4746-adf8-864a6c63941a" class="">（）</p><h3 id="c8339825-b069-4306-a0f7-8f12ac9464dc" class="">集群网络策略</h3><p id="0ad68267-1cb5-4838-ae90-8f5fff5afaef" class="">（）</p><h3 id="829b51ba-c440-4193-b91a-4c23e7e9af33" class="">负载均衡器</h3><p id="a01b6c11-c1d8-40fb-88c5-5c12532f597f" class="">kubeOVN和Calico是支持子网的概念，kubeOVN一个命名空间是一个子网。可实现不同项目/命名空间使用单独的网段。</p><p id="3c78c086-f302-41a3-9c10-fcca1d61fa7d" class="">（20210524_220002 03:03）</p><p id="8c1840cf-8c26-44b0-84c9-3cb217a143f3" class="">
+</p><h2 id="82241caa-6156-4d8e-b210-50cf51745b30" class="">存储</h2><h3 id="248ba163-fdb9-4ced-81cd-de19ebd9654b" class="">持久卷</h3><p id="f4fd4c1f-3452-40e4-a1a7-43885283fe8d" class=""><strong>创建NFS的PV和PVC</strong></p><pre id="9642faa9-de39-4409-bd39-bad620604b8f" class="code"><code>#本示例选择了K8S集群内的一个节点作为NFS服务器。
+yum install -y nfs-utils
+mkdir /cpaas/data/nfs
+cat &lt;&lt;EOF &gt;/etc/exports
+/cpaas/data/nfs	10.200.40.0/24(rw,sync,no_root_squash)
+EOF
+systemctl enable --now nfs-server
+showmount -e
+mkdir /root/volume
+cat &lt;&lt;EOF &gt;&gt;/etc/fstab
+10.200.40.94:/cpaas/data/nfs /root/volume nfs default 0 0
+EOF
+mount -a</code></pre><p id="3011d448-ad41-4bd6-b1be-cc6c63644b6e" class="">
+</p><figure id="7629987a-87e5-4a67-b089-f3ce0a3fe98a" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2023.png"><img style="width:1661px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2023.png"/></a></figure><p id="9c8dfade-0153-4a09-aacb-03f5bdb20e49" class="">
+</p><figure id="ca7db8b3-26ac-42f8-9c84-927e59085d35" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2024.png"><img style="width:1545px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2024.png"/></a></figure><figure id="35224de9-7ebd-456b-8574-128981b8feb8" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2025.png"><img style="width:1671px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2025.png"/></a></figure><p id="49c95b68-e3b7-42ea-88af-e7af84aefd92" class="">
+</p><figure id="b9c03f79-6fba-4be6-b1a9-c5b2f74afcd2" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2026.png"><img style="width:1152px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2026.png"/></a></figure><p id="d8a6d2bd-cc67-4fdc-9036-92a23df3b9d8" class="">
+</p><h3 id="965b74dd-927f-431e-8742-81cc802f2362" class="">存储类</h3><h3 id="acd70475-d858-42cc-b0f9-bee58807207c" class="">内置存储</h3><p id="2c28d14d-9190-45b9-8014-13d7e2cb2f89" class="">
+</p><h2 id="3769927b-aed5-4b87-affd-e18b1afb01b5" class="">模板仓库</h2><p id="0ea51a18-fa3a-468c-942d-5ccde0e49139" class="">
+</p><h2 id="091a0241-6265-45e9-b506-a22e5c4257fb" class="">安全</h2><h3 id="689c614a-e150-479c-9f1e-7924e6769d2c" class="">容器组安全策略</h3><h3 id="f306d02a-e246-4994-931a-4cbcefa11e4d" class="">节点隔离策略</h3><p id="f454bb47-3381-47dd-9ba7-8dd82953c363" class="">
+</p><p id="bf6dc173-d131-4676-96f7-d6972053861f" class="">可以阻止某个项目的应用调度到指定节点上。</p><figure id="23c281f8-751c-4b72-95c7-9904841250cf" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2027.png"><img style="width:498px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2027.png"/></a></figure><p id="519e16fe-a672-4946-b1a8-8a9c22322a82" class="">可以实现某个项目独占指定的节点，而其他项目应用则调度不到这些节点上。</p><figure id="9eeae10f-c703-46c6-a949-7c075b88f0f6" class="image"><a href="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2028.png"><img style="width:419px" src="%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5%20307a1/Untitled%2028.png"/></a></figure><p id="6956c3da-de93-471b-ba3e-4e8762d23ff2" class="">
+</p><h2 id="69c3197e-c271-4835-9a75-2e230cc87587" class="">Operator</h2><p id="834183e8-29e5-4d90-bd4d-50a58120cfb6" class="">操作器中心</p><p id="cfdde712-1e2d-4ea6-9e3e-6036deeb2b76" class="">已部署操作器 </p><p id="b276c819-6c91-47f6-9fe3-a480721f224e" class="">
+</p></div></article></body></html>

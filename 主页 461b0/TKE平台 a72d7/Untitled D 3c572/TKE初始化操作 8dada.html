@@ -1,0 +1,789 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>TKE初始化操作</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="8dada97e-b837-43d9-b165-ce1cae0a80ad" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/met_henri_tl_1892.jpg" style="object-position:center 70%"/><h1 class="page-title">TKE初始化操作</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@June 5, 2021 7:19 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h2 id="0eb7aa09-8e40-4888-bf94-b952b50486ea" class="">集群初始化</h2><p id="57a3514d-9e2e-4d89-b48b-0ef0733c17ab" class="">主机名和主机解析</p><pre id="dcbc153b-c2d8-4146-8de1-a1ec72d194e7" class="code"><code>10.200.40.91：hostnamectl set-hostname master1
+10.200.40.94：hostnamectl set-hostname worker1
+10.200.40.81：hostnamectl set-hostname lb
+10.200.40.86：hostnamectl set-hostname slave1
+10.200.40.82：hostnamectl set-hostname global1
+10.200.40.83:	hostnamectl set-hostname global2
+10.200.40.85:	hostnamectl set-hostname global3
+
+cat &lt;&lt;EOF &gt;&gt;/etc/hosts
+10.200.40.91 master1
+10.200.40.94 worker1
+10.200.40.81 lb
+10.200.40.86 slave1
+10.200.40.82 global1
+10.200.40.83 global2
+10.200.40.85 global3
+EOF</code></pre><p id="daff27c8-1705-49d2-90cf-5cbefe07517a" class="">硬件需求</p><pre id="8d254d11-14d7-4475-ad2d-a77da39edc2c" class="code"><code>#检查CPU数量8核,检查内存大于16G#检查内核,centos7需大于3.10.0-1062
+echo -e &quot;CPU内核总数为:\t $(egrep &#x27;processor&#x27; /proc/cpuinfo | wc -l)&quot;
+echo -e &quot;内存总数为:\t $(free -mk | awk &#x27;/^Mem/{print $2}&#x27;)&quot;
+echo -e &quot;内核版本为:\t $(uname -r)&quot;</code></pre><pre id="ac5c38c2-4699-4014-afed-3877b130635b" class="code"><code>#划分磁盘，格式化
+pvcreate /dev/sdb
+vgcreate vg1 /dev/sdb
+lvcreate -L 100G vg1 -n cpass
+lvcreate -L 49.9G vg1 -n docker
+
+mkfs.xfs /dev/mapper/vg1-cpass &amp;&amp; mkfs.xfs /dev/mapper/vg1-docker
+mkdir /var/lib/docker &amp;&amp; mkdir /cpaas
+
+echo &#x27;/dev/mapper/vg1-cpass  /cpaas  xfs  defaults  0 0&#x27; &gt;&gt;/etc/fstab
+echo &#x27;/dev/mapper/vg1-docker  /var/lib/docker  xfs  defaults  0 0&#x27; &gt;&gt;/etc/fstab
+
+mount -a</code></pre><p id="500ca094-962b-4251-9d4e-9893c805fff4" class="">
+</p><p id="36362e11-536b-4488-929f-2b0a49642ff0" class="">
+</p><p id="5f8e9d0f-11cf-4950-b7d0-4559b972bdd1" class="">软件需求</p><pre id="2e41432a-a39b-4736-b00f-2adbd0c68354" class="code"><code>#解决 kmem&amp;&amp;关闭大页，找到GRUB_CMDLINE_LINUX= ，然后在 crashkernel=auto后面添加cgroup.memory=nokmem transparent_hugepage=never。
+sed -ri &#x27;/^GRUB_CMDLINE_LINUX=/s#(crashkernel=auto)#\1 cgroup.memory=nokmem transparent_hugepage=never#&#x27; /etc/default/grub
+egrep &#x27;crashkernel=auto cgroup.memory=nokmem transparent_hugepage=never &#x27; /etc/default/grub &amp;&amp; echo &quot;OK&quot;
+
+#关闭swap
+swapoff -a
+sed -i -r &#x27;/swap/s/^/#/&#x27; /etc/fstab
+(( $(free -m | awk &#x27;/^Swap/{print $2}&#x27;) == 0 )) &amp;&amp; echo &quot;OK&quot;
+
+#关闭防火墙
+systemctl disable --now firewalld
+systemctl is-enabled firewalld &amp;&gt;/dev/null || echo &#x27;OK&#x27;
+#关闭selinux
+sed -ri &#x27;s#^SELINUX=enforcing#SELINUX=disabled#&#x27; /etc/selinux/config
+setenforce 0 &amp;&amp; egrep &#x27;^SELINUX&#x27; /etc/selinux/config &amp;&gt;/dev/null &amp;&amp; echo &#x27;OK&#x27;
+#时间同步
+yum install -y chrony
+systemctl enable --now chronyd
+sed -i -e &#x27;/^server/s/^/#/&#x27; -e &#x27;1a server ntp.aliyun.com iburst&#x27; /etc/chrony.conf
+systemctl restart chronyd &amp;&amp; echo &#x27;OK&#x27;
+#设置时区
+timedatectl set-timezone Asia/Shanghai 
+
+#修改内核参数,vm.max_map_count是 es 运行的服务器的要求,net.ipv4.ip_forward是 Kubernetes 要求,关闭 file cache  https://cloud.tencent.com/developer/article/1637682
+echo &#x27;vm.max_map_count=262144&#x27; &gt;&gt; /etc/sysctl.conf
+echo &#x27;net.ipv4.ip_forward = 1&#x27; &gt;&gt; /etc/sysctl.conf
+echo &#x27;vm.drop_caches=3&#x27; &gt;&gt; /etc/sysctl.conf
+sysctl -p &amp;&amp; echo &#x27;内核修改完成&#x27;
+
+#某些情况下，pod内的进程重启，会在pod内创建core文件，大量占用磁盘空间，最终 pod 挂掉，甚至拖累宿主机,-c是指内核文件。
+ulimit -c 0 &amp;&amp; echo &#x27;ulimit -S -c 0&#x27; &gt;&gt;/etc/profile &amp;&amp; echo &quot;已修改ulimit&quot;
+
+#添加内核模块
+modprobe iptable_nat &amp;&amp; echo iptable_nat &gt;&gt; /etc/modules-load.d/cpaas.conf &amp;&amp; lsmod | grep &#x27;^iptable_nat&#x27;
+
+#安装依赖的程序
+yum install -y jq sshpass socat bind-utils net-tools ntpdate</code></pre><pre id="e91c2ae6-186e-4058-9a02-f087f807a3e9" class="code"><code>
+rm -rf /etc/yum.repos.d/*.repo
+curl -L http://mirrors.aliyun.com/repo/Centos-7.repo -o /etc/yum.repos.d/Centos-7.repo
+curl -L http://mirrors.aliyun.com/repo/epel-7.repo -o /etc/yum.repos.d/epel-7.repo
+yum makecache</code></pre><p id="57b70af4-6df4-4631-a0dd-7b3379200463" class="">
+</p><p id="2b006dea-d0c5-4294-b804-279d8dfc2fc2" class="">
+</p><p id="33be53fd-0251-4cfe-9c85-86e39f77da95" class="">
+</p><h2 id="ed2e38f3-1f58-4313-9aeb-679db1ba4c84" class="">部署灵雀云</h2><p id="1532f47f-1bee-4731-8970-fb015bdd9245" class="">验包，将installer和install.sig文件上传至global1上。</p><pre id="44916737-b27b-4aa9-8f81-9c2e6fbbd472" class="code"><code>yum install -y gnupg
+	#导入公钥
+curl https://www.alauda.cn/download/verify-key.pub | gpg --import
+#验包，这个过程时间较长。
+time gpg --verify installer-v3.4.0.tar.sig installer-v3.4.0.tar</code></pre><p id="b1c4fcad-cf09-42be-ab93-677c9ea5e1d2" class="">
+</p><p id="5520f8a0-5f2c-4262-a550-b1ec9e2e41f4" class="">解压后运行脚本</p><pre id="a5bcd813-be9b-4400-8f8c-a0331080390f" class="code"><code>[root@global1 installer]# bash setup.sh 
+Step.1 prefight
+root: yes
+available disk space(/var/lib):  49 GiB
+selinux is disabled
+Step.2 ensure docker is ok
+command docker not find
+install docker [doing]
+docker/docker-init
+docker/runc
+docker/docker
+docker/docker-proxy
+docker/containerd
+docker/ctr
+docker/dockerd
+docker/containerd-shim
+‘res/docker.service’ -&gt; ‘/etc/systemd/system/docker.service’
+‘/cpaas/data/daemon.json’ -&gt; ‘/etc/docker/daemon.json’
+Created symlink from /etc/systemd/system/multi-user.target.wants/docker.service to /etc/systemd/system/docker.service.
+install docker [ok]
+Step.3 load images [doing]
+cb381a32b229: Loading layer [==================================================&gt;]   5.88MB/5.88MB
+b8f1fcb98fc1: Loading layer [==================================================&gt;]   20.1MB/20.1MB
+3baf98c2bff4: Loading layer [==================================================&gt;]  4.608kB/4.608kB
+a7d5464a3170: Loading layer [==================================================&gt;]   5.12kB/5.12kB
+582277836beb: Loading layer [==================================================&gt;]  2.048kB/2.048kB
+8c6982ab3a3b: Loading layer [==================================================&gt;]  2.048kB/2.048kB
+Loaded image: ait/registry:v2.7.1-alauda.4
+Step.3 load images [ok]
+Step.4 install registry [doing]
+d068b4fa60c82cc59f89397c8719bbe6877dded624991bcd1d583882c4a66ede
+Setp.4 install registry [ok]
+Step.5 start cpaas-installer [doing]
+WARNING: Published ports are discarded when using host network mode
+bd3c672e6f4b61031c2abf81257ce135d27f19131fc99740d87f789bdc635f44
+Step.5 start cpaas-installer [ok]
+Step.6 check cpaas-installer status [doing]
+Step.6 check cpaas-installer status [ok]
+Please use your browser which can connect this machine to open http://127.0.0.1:8080 for install TKE!
+
+#脚本运行时会检查/var/lib空余空间是否不足50G，若不足则报错，可以修改setup.sh，位于check_disk &#x27;/var/lib&#x27;这里，小于实际大小则可绕过问题。</code></pre><p id="cec70c69-07d5-4669-ad63-60ff7b0003b1" class="">
+</p><p id="065aa39b-0e6c-4892-acbe-3a599a219dd3" class="">脚本正常运行后，即可用浏览器访问<code>global1服务器地址:8080</code>, 选择&quot;高可用部署&quot;。</p><figure id="8cc77e75-4f75-4f9e-a752-612515ae7535" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled.png"><img style="width:1432px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled.png"/></a></figure><p id="b0c7381f-70f1-4657-8d99-6e59addc3799" class="">
+</p><figure id="23687bf0-d075-45f1-96aa-e3b1eb3844bd" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%201.png"><img style="width:955px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%201.png"/></a></figure><p id="a56df360-35bb-47e3-a03e-090031c274d1" class="">在“控制台设置”这里设置平台的访问地址，也就是平台UI界面的地址，因为是在HAProxy上暴露的80，所以这里填写HAProxy的地址，如果需要将HAProxy暴露到互联网使平台能够被外网访问，那么还要填写外网地址。</p><figure id="a2a58c07-c2d7-4d51-8600-6460f83208d4" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%202.png"><img style="width:965px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%202.png"/></a></figure><p id="5d243fb9-aa41-44b7-8381-a8bbda49bf16" class="">
+</p><p id="81ba20a5-5319-4e2b-bb80-a8132676e127" class="">部署业务集群</p><figure id="6e0bba06-29da-4c29-ac17-ee3fe0e39545" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%203.png"><img style="width:967px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%203.png"/></a></figure><p id="d0439717-8f38-4ac0-884c-76773ec4f922" class="">
+</p><figure id="08596367-3c3c-45e3-abe6-e48aa5c03979" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%204.png"><img style="width:973px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%204.png"/></a></figure><p id="d325f6fe-23c3-43e7-85c2-a1dfe1f64f9b" class="">
+</p><p id="4d9675d7-a2a3-4117-8ec9-4e64d304c470" class="">
+</p><figure id="8209a1c6-f583-4fa1-96f4-d94c7d2ec410" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%205.png"><img style="width:1654px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%205.png"/></a></figure><p id="8fda0648-7f99-43c3-8b44-6983c399850b" class="">
+</p><figure id="9b689946-f9e9-4ab6-9247-6ab80eb9c95f" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%206.png"><img style="width:1676px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%206.png"/></a></figure><p id="26f0375c-811c-4a69-a649-1f9d21f47026" class="">
+</p><ul id="f350a9e1-fc30-4d72-8b8a-626021bc633e" class="toggle"><li><details open=""><summary>配置业务集群基本功能组件 日志 监控 负载均衡</summary><figure id="1b9019e9-fde6-46cf-9c5c-ea9f5f7a199a" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%207.png"><img style="width:952px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%207.png"/></a></figure><figure id="65057c5f-aeb8-4906-8c19-5eeadea4860b" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%208.png"><img style="width:722px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%208.png"/></a></figure><figure id="2817e546-380c-4353-9325-c4dd72ce0dac" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%209.png"><img style="width:1406px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%209.png"/></a></figure><figure id="27db3c7a-c53b-4f68-9bb7-260e9a3bd2cf" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2010.png"><img style="width:662px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2010.png"/></a></figure><p id="00f763c1-e04c-4906-86d0-1d918b223748" class="">
+</p><p id="bacc753b-b193-490b-85ac-d7877c60fea6" class="">部署之后, 与监控相关的Pod会被创建起来.</p><figure id="4a7a60b1-36a1-4cff-8b91-d53124e22ab0" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2011.png"><img style="width:822px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2011.png"/></a></figure></details></li></ul><figure id="6c3d3dbd-5a9b-46e5-bb53-b78b647f76e5" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2012.png"><img style="width:553px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2012.png"/></a></figure><figure id="8f4b3e83-d2b9-4622-8471-53cb1ecf0ccc" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2013.png"><img style="width:553px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2013.png"/></a></figure><figure id="bd55fe51-119f-479d-841b-e1c3fdb9aa83" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2014.png"><img style="width:553px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2014.png"/></a></figure><ul id="9c151261-275c-4029-bf46-fba2631411ba" class="toggle"><li><details open=""><summary>项目管理</summary><figure id="c73b1f2b-f6c9-4b9c-b23b-e87454a8a6ec" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2015.png"><img style="width:1091px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2015.png"/></a></figure><figure id="0516be0a-98f2-46f2-b2db-74cc2852dff2" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2016.png"><img style="width:938px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2016.png"/></a></figure><p id="08473b20-8b1c-4d3f-915a-cb6c5f67b453" class=""><div class="indented"><p id="1be0eb13-61eb-414a-a37b-d9d428b5d70e" class="">
+</p></div></p><figure id="226b59d2-2b6e-4a84-8171-0b461232ea53" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2017.png"><img style="width:1265px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2017.png"/></a></figure><p id="505bd6ed-c3df-4c9e-8a42-fb8e034cc338" class="">在项目中创建命名空间</p><figure id="e207b902-c3e4-46c7-b100-a98d2bde48c2" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2018.png"><img style="width:1100px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2018.png"/></a></figure><figure id="ff642c54-da08-4842-9138-8b1685148b8b" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2019.png"><img style="width:1644px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2019.png"/></a></figure><figure id="52763ef2-0429-493d-9e7d-cbe9b8fff424" class="image"><a href="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2020.png"><img style="width:1647px" src="TKE%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%208dada/Untitled%2020.png"/></a></figure></details></li></ul><p id="dbe0929f-8ea7-4618-bfc3-1271ace4d161" class="">
+</p></div></article></body></html>

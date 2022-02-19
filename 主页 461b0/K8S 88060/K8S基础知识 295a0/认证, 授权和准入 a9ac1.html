@@ -1,0 +1,705 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>认证, 授权和准入</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="a9ac1408-a46e-447e-9977-d28de3ebff11" class="page sans"><header><h1 class="page-title">认证, 授权和准入</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 23, 2021 8:39 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h1 id="2c256cd7-6a8b-4d6d-bb00-49481ad299db" class="">认证</h1><p id="5abebeb2-3902-4705-8462-2da4b0679bbd" class="">K8S有两种方式实现认证: 证书和ServiceMap</p><h2 id="21c77198-f8f8-4e49-9edb-a4462f70333a" class="">证书认证</h2><p id="00a9a8a1-9c64-487b-ae1b-caf4ddd089e1" class="">证书是什么?  可以看作下面这张驾照, 它包含了持有者的信息： </p><ul id="6cb2e2f2-deb1-40b6-8893-b0bcced9bd88" class="bulleted-list"><li style="list-style-type:disc">所有者信息</li></ul><ul id="f4977090-bcc7-47ce-8a92-9998c03e9b90" class="bulleted-list"><li style="list-style-type:disc">签发日期, 过期日期</li></ul><ul id="b08769f5-460d-4978-a2e8-7ddfc3700f58" class="bulleted-list"><li style="list-style-type:disc">签发单位：最重要的，因为它是加拿大BC州签发的, 所以是合法的，如果是通辽汗国的钢印你还敢用么？</li></ul><figure id="6f8140ae-dad7-43da-ac3c-baf54489d178" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled.png"><img style="width:336px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled.png"/></a></figure><p id="b79aa6e8-a985-4524-887c-587fcc3a05b7" class="">采用电子证书的前提是大家遵守同一种证书格式的标准, 现在电子证书普遍遵照X509证书标准, 罗列这些信息：<div class="indented"><figure id="1d2db2a1-7660-40fa-ba58-a9eb3d600d3a" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%201.png"><img style="width:576px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%201.png"/></a><figcaption>X509标准的证书</figcaption></figure><p id="a7b1fa59-757e-46a5-9c29-ac2598a90669" class="">Subject 持有者信息, 除了CN之外, 其他都是描述性信息不影响认证, 在签发时这部分信息也可以忽略, 只要保留CN即可,<div class="indented"><ul id="2e4a729e-f61b-4619-b177-f18065da668f" class="bulleted-list"><li style="list-style-type:disc">C 国家</li></ul><ul id="092dedde-1427-4caf-b1a1-bcbd75dfc0e4" class="bulleted-list"><li style="list-style-type:disc">ST 省份/州</li></ul><ul id="3ea46455-e80c-48aa-ae1d-fec51ab7d9e6" class="bulleted-list"><li style="list-style-type:disc">L 城市</li></ul><ul id="d8cb10ca-ba9e-4707-a826-f0a428dac455" class="bulleted-list"><li style="list-style-type:disc">O 持有者(企业或组织名称)</li></ul><ul id="454428b9-e7d1-4896-878f-276ea64d6a7b" class="bulleted-list"><li style="list-style-type:disc">OU(部门)</li></ul><ul id="81ffc3e5-5017-441e-a57b-86f0c10c7008" class="bulleted-list"><li style="list-style-type:disc">CN(CommonName非常重要)</li></ul><p id="28201de9-c8da-414b-90bb-dde973e495b4" class="">X509v3 Subject Alternative Name，SAN也很重要</p><p id="1ba1f39a-a4b5-41e2-b3df-15f18fb9d313" class="">保存了证书持有者的公钥</p><p id="02dedf04-223c-4ffe-81c8-6c7369e3d29f" class="">保存了CA的签名(用CA证书中的公钥即可验明持有者证书的真伪)<div class="indented"><figure id="7ba475fe-bbf3-4298-9f03-fd5e32611410" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%202.png"><img style="width:576px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%202.png"/></a></figure></div></p></div></p></div></p><p id="741b6778-c81d-49aa-87e5-9775276851f1" class="">通过X509证书体系实现K8S认证<div class="indented"><p id="5a2912db-a916-4d31-9dc4-5848d9e04870" class="">所有组件都会在通信前先相互验证,防止未经认证接入API Server<div class="indented"><figure id="62184abc-7118-49ea-a223-ef6d4f952446" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%203.png"><img style="width:432px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%203.png"/></a></figure><figure id="c2f3f986-d890-40b8-abf4-b69e79aa373b" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%204.png"><img style="width:672px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%204.png"/></a><figcaption>在K8S作为服务端的, 有两个: API-Server和Kubelet, 后者也暴露API接口</figcaption></figure><p id="8ead4601-0879-4f15-8894-d99eaf0b64f5" class="">查看证书中的详细内容</p><pre id="5d4a0bad-7902-4d35-9917-78e1ce2a64e7" class="code code-wrap"><code>openssl x509 -in /etc/kubernetes/pki/apiserver.crt -text -noout
+#需要关注的信息
+Subject: CN=kube-apiserver  #如果这是客户端证书，CommonName对应K8S用户名称
+X509v3 Subject Alternative Name:#也叫SAN，如果这是服务端证书，访问的域名或地址匹配能匹配其中一个，否则验证失败（大哥，你和身份证照片不一样啊）
+  DNS:kubernetes, DNS:kubernetes.default, DNS:kubernetes.default.svc, DNS:kubernetes.default.svc.cluster.local, DNS:master01, IP Address:10.96.0.1, IP Address:192.168.31.101
+
+</code></pre></div></p><p id="905f538f-1f49-443d-b369-dc15e23ff0df" class="">X.509 Client Certificate Authentication Strategy<div class="indented"><p id="0bad29c5-c124-41eb-82a5-dee4c59b255a" class="">所有的证书都由CA签发,所有组件都信任CA</p><p id="dd3cfda3-5194-4549-ae18-4f745ac22b38" class="">kubectl之类的客户端和所有控制组件都采用证书认证, 请求者提供客户端证书, 服务者提供服务端证书, 彼此进行身份验证</p><p id="c1399257-d96a-4f53-bd1c-6c1868416f39" class="">只要证书是由CA签发的,那么就通过验证</p><p id="fd39012f-9662-43b7-be14-2fa5f5ce434c" class="">请求者通过CommonName字段获取User;请求者通过Organization字段获取组Group</p><figure id="dd51253c-dedf-4874-927a-8a84e12160f6" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%205.png"><img style="width:480px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%205.png"/></a></figure><figure id="29f41fa8-d7c9-40e2-bbab-f0d9060ba244" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%206.png"><img style="width:576px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%206.png"/></a></figure></div></p></div></p><p id="c66169b3-e6b5-4f69-83a0-7af63f6156b1" class="">API Server HTTPS 和 HA高可用<div class="indented"><p id="7c22954d-88a6-4162-a297-c553ebefee98" class="">当使用HA时<div class="indented"><p id="8496ba3e-b917-4be1-ad8f-8fc0680e714e" class="">负载均衡的地址与域名应该写在证书的SAN字段中，否则客户端访问时报错</p><p id="2b19fd1b-c292-478c-9684-807b47cb1ab2" class="">每个Master都要有自己的证书</p></div></p></div></p><p id="9e24ebf4-e1b2-478f-9699-86c820b9f3d7" class="">Kubelet HTTPS<div class="indented"><p id="cd9b8354-3510-491d-8c52-78170899a047" class="">kubelet也会暴露API接口, 因为API Server会来拿log/指标以及exec<div class="indented"><figure id="9de88939-3374-45df-b203-e6790e1a8a09" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%207.png"><img style="width:288px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%207.png"/></a></figure><figure id="4212f4d6-ffb5-42fc-8883-eeeb34272990" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%208.png"><img style="width:480px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%208.png"/></a><figcaption>也可以配置kubelet关闭认证,但是不安全</figcaption></figure></div></p></div></p><p id="b05da4cf-fbd9-493f-a759-ba0e69c73d57" class="">
+</p><h2 id="b1c37fde-3eb7-4a24-8ce7-0f5abd7d5250" class="">ServiceAccount认证</h2><p id="7ba0d2a1-c68d-48d4-8930-902cf4d2cd43" class="">除了X509证书体系外，还可以用ServiceAccount实现用户认证</p><p id="e0533fab-dbf9-478e-bc79-382683b48c3e" class="">serviceAccount是由K8S创建的凭证; 而X509证书是由CA颁发的<div class="indented"><p id="fc7385b6-23d0-4f6d-80fb-676727e33bb6" class="">SA对象最重要的是CA证书(验明服务端证书真伪)和JWT(Json Web Token由API-Server签名的)，它包含一个secret对象，用于存放这两个东西.</p></div></p><p id="562ac980-be6f-4631-b66d-c51b331fbb34" class="">SA让Pod拥有一个凭证, 用于与API-Server通信</p><p id="444e8bca-b716-4b06-a045-dd5f1eb7a21b" class="">每一个命名空间都有一个default serviceAccount，并自动挂载到每个Pod上</p><p id="3d54f899-45e2-482e-87c8-448544e9f986" class="">集群外的服务可以通过serviceAccount的CA和Bearer Token，访问到API-Server，当然我们还需要为它作RBAC授权，这样使用者才能具有期望的权限。</p><p id="09dfbfcc-ba53-4178-a491-3ec4d84af076" class="">SA的用户名格式： <code>system:serviceaccount:&lt;命名空间&gt;:&lt;SA名字&gt;</code></p><p id="a10d0f97-69c1-43ee-8832-2e0b098bca4e" class="">尝试使用一个SA，访问API-Server</p><pre id="7cca50ba-6b5b-4b16-ad7d-74f8dd2f5fd8" class="code code-wrap"><code>NS=&quot;prometheus&quot;  #NameSpace名字
+SA=&quot;prometheus&quot;  #serviceAccount名字
+TOKEN=$(kubectl get -n ${NS} secrets -o jsonpath=&quot;{.items[?(@.metadata.annotations[&#x27;kubernetes\.io/service-account\.name&#x27;]==\&quot;${SA}\&quot;)].data.token}&quot;|base64 --decode)
+curl -k -H &quot;Authorization:Bearer ${TOKEN}&quot; https://192.168.31.101:6443/metrics  #-k不验证服务端证书
+curl --cacert /etc/kubernetes/pki/ca.crt -H &quot;Authorization:Bearer ${TOEKN}&quot; https://192.168.31.101:6443/metrics #也可以--cacert来指定CA证书以验证服务端证书</code></pre><p id="b8233999-a917-4aaf-8e3e-cee9bde496f8" class="">
+</p><p id="0eda9428-506a-4b22-9269-47af0f3abb93" class="">授权与RBAC<div class="indented"><p id="bee4a900-7ed7-41d8-a0b4-9f29771631f1" class="">客户端请求使用Bearer Token或者客户端证书，在通过认证后，接下来检查权限</p><figure id="1343cffd-816b-4105-832c-450a7feb0503" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%209.png"><img style="width:768px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%209.png"/></a><figcaption>当API-Server收到请求时，它是这样解析这个请求的</figcaption></figure><p id="55818297-2dca-41fc-8355-824c0a02d4e5" class="">RBAC是一个插件，Kubernetes本身是没有用户这个概念的<div class="indented"><p id="a58180e2-4320-40c7-ac8e-d0c09bf6e440" class="">默认拒绝所有</p><p id="34e52bdd-de53-407c-9e6a-07424f208386" class="">包含：subject, Verb, Resource, NameSpace</p><p id="d510c511-ef73-42af-bbb3-367222c25450" class="">Role和RoleBind对象<div class="indented"><p id="fbfdf786-95d3-42dd-aa55-66f7250ca945" class="">Role代表一组权限，Role限于指定的命名空间中；ClusterRole也是代表一组权限，在绑定时可以是集群级别的或指定于某个命名空间</p><p id="c5e38d8e-77f0-4ea2-bc26-46a5686bb239" class="">Role中定义权限，权限定义：resouces，resources所在的ApiGroup，以及resources对应的操作权限 </p><p id="0927d9d2-eaa6-436d-806e-015c115a1160" class="">RoleBiding允许指定命名空间的用户或组(subject)拥有这样的一组权限(role)，限于指定的命名空间中；ClusterRoleBinding指定集群级别的用户或组拥有一组权限</p><p id="92676173-96f4-4428-b7ba-c40ed7f3b9ad" class="">在本地(NS)定义的, 只能本地授权; 全局(Cluster)定义的, 可以全局授权或者本地授权</p><figure id="e187867e-7334-40c6-878a-f71ba65e3cb9" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2010.png"><img style="width:432px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2010.png"/></a></figure><figure id="0a287d99-d41c-4e46-ad27-c34a2ba98ed7" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2011.png"><img style="width:432px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2011.png"/></a></figure></div></p><p id="61cb4a9e-7a12-4766-b8cd-43f519d88bf4" class="">在api-server启动时会开启RBAC特性，会创建默认的role和role-binding，以及与这些role绑定的subjects(以<code>system:</code>开头的)</p></div></p><p id="dbf6cc24-0889-40b2-9647-3163c283d853" class="">
+</p><p id="7d185dd2-54ae-4a85-ac1e-28d486b3b396" class="">
+</p><p id="d47e5d0f-313b-44f7-a32a-423073a836d8" class="">
+</p></div></p><p id="4b982780-3bc0-4f44-8783-82b97dea73ac" class="">
+</p><p id="d208a0a4-5dbe-41c9-9677-81ecdc2c6fd0" class="">Certificate Generation API,Kubelet Cert Bootstrapping and Cert Rotation</p><figure id="0a6d328c-0e05-45ee-b811-fcd48c6a156e" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2012.png"><img style="width:1406px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2012.png"/></a></figure><p id="7f88e8f2-af09-494e-893d-252d7293fc1e" class="">
+</p><p id="7b967bcd-72eb-49b8-828d-5ed06f39bdfb" class="">
+</p><p id="c36b0337-66d8-41a7-8f8d-74b74364a4bc" class="">如何定义一个RBAC？ <a href="https://trstringer.com/Kubernetes-API-groups-resources-verbs/">https://trstringer.com/Kubernetes-API-groups-resources-verbs/</a></p><p id="55ad2094-ef76-45dd-bc05-e8028dab7aff" class="">
+</p><h1 id="66b5c48e-9398-4693-9712-d160901968fb" class="">参考</h1><p id="335181eb-b5e7-4fbc-8e13-83cd4d518d4a" class=""><a href="https://kubernetes.io/docs/setup/best-practices/certificates/">https://kubernetes.io/docs/setup/best-practices/certificates/</a></p><p id="cf48de30-d6da-4c24-85eb-913754a58bf3" class=""><a href="https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/">https://kubernetes.io/docs/tasks/administer-cluster/kubeadm/kubeadm-certs/</a> 用kubeadm管理证书</p><p id="b5f8fd1b-5292-44fc-9ebe-d6b74fc7e2f9" class=""><a href="https://v1-20.docs.kubernetes.io/docs/reference/access-authn-authz/rbac/">https://v1-20.docs.kubernetes.io/docs/reference/access-authn-authz/rbac/</a> RBAC授权详细教程</p><p id="b08a812b-2f08-4fb6-aa5c-8ff0de4710aa" class=""><a href="https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/#kubelet-%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81">https://kubernetes.io/zh/docs/reference/command-line-tools-reference/kubelet-authentication-authorization/#kubelet-身份认证</a>  kubelet的鉴权</p><p id="52ec0b61-35ac-481c-a1ce-7a1240be3221" class="">
+</p><p id="ef5a43b5-b932-4511-8d77-1c04fe0a8b1b" class="">
+</p><p id="5d35fe23-7c1b-47a6-898f-bddb30d7a712" class="">
+</p><p id="0c1f66ed-c161-4334-a24d-a25c4d87cc43" class="">
+</p><p id="f325a8f7-8e3a-4e4c-a7ec-d2ee333c35b2" class="">
+</p><p id="27347164-36f0-4dd8-ba4c-05d5d90cca3f" class="">
+</p><p id="ab88e752-1859-4651-94c0-4f8f77ed808c" class="">
+</p><p id="9277b459-c0bd-4838-a539-07781211d7f5" class="">
+</p><p id="2ff51f87-ab17-4431-8e6c-20bc0aad594e" class="">
+</p><p id="5e74d1b5-1f36-462b-b682-9e2fa7283189" class="">
+</p><p id="dabe18c0-e1ec-47cd-9cd3-2dab3d286870" class="">
+</p><p id="166572a6-3f0c-4b04-8731-f75530b1ce69" class="">
+</p><p id="db785089-3160-4a6e-8c2b-d62b8df41caa" class="">
+</p><p id="55ae287a-d441-41a3-94d9-f03c314891ef" class="">
+</p><p id="d7720c64-7cc4-43fd-bbae-68d053711454" class="">
+</p><p id="d0f39490-1ca5-4778-87bb-872458e21d3d" class="">
+</p><p id="f968f2bc-1e2f-42a6-95fe-a525b921ddf2" class="">
+</p><p id="7b0eaea1-8719-463e-8e14-eb4507330bb1" class="">
+</p><p id="8cc1edf4-5578-4561-bc0f-f174e3f920ec" class="">
+</p><p id="1302bd94-2228-4844-8103-b195ae95ed1e" class="">
+</p><p id="2189fbb2-06a6-48a3-8225-e3e54698a2d5" class="">
+</p><p id="577c45e6-d5ba-45e0-abfe-6ddd24d2f5ad" class="">
+</p><p id="79a03726-45c8-456f-8871-c1e3febbb1c1" class="">
+</p><p id="4f2bd67d-04b2-4141-81b9-f9cbba6ef59e" class="">RBAC是一种授权方法即根据用户所属的角色来规范他们对资源的使用. 你要先定义角色, 规定角色对资源有哪些权限, 比如guest角色对资源的权限很低, 只能读, 而adim角色对所有的资源都有最高权限, 然后将不同的用户赋予不同的角色, 比如系统组都是admin, 而开发组都是guest.很多软件都有属于自己的RBAC的实现, 比如在Jenkins, zabbix的用户管理上都能看到RBAC的影子. </p><p id="59510148-565b-4ba5-8fde-b7ed8aee37d5" class="">
+</p><p id="d113522d-c585-45d9-b40f-2938a6d9c316" class="">K8S可以采用RBAC来实现授权, 要掌握K8S的RBAC需要理解这些:</p><ul id="88f081fe-4c1c-4bf7-900a-77167ce6893f" class="bulleted-list"><li style="list-style-type:disc">ubjects: The set of users and processes that want to access the Kubernetes API. 需要访问K8S API的用户或者程序, 这里的程序有Prometheus需要调用K8S API创建statefulsets, 有Weave和NGINX-CONTROLLER需要调用K8S API创建daemonsets.</li></ul><ul id="54c552cf-1176-48f9-902a-3f83b6b11e6b" class="bulleted-list"><li style="list-style-type:disc">Resources: The set of Kubernetes API Objects available in the cluster. Examples include Pods, Deployments, Services, Nodes, and PersistentVolumes, among others.</li></ul><ul id="46677b89-127d-4e03-97a8-537fdad0c7a2" class="bulleted-list"><li style="list-style-type:disc">Verbs: The set of operations that can be executed to the resources above. Different verbs are available (examples: get, watch, create, delete, etc.), but ultimately all of them are Create, Read, Update or Delete (CRUD) operations.</li></ul><figure id="185f02ab-d755-4b8a-82b3-d7afb8fe684a" class="image"><a href="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2013.png"><img style="width:624px" src="%E8%AE%A4%E8%AF%81,%20%E6%8E%88%E6%9D%83%E5%92%8C%E5%87%86%E5%85%A5%20a9ac1/Untitled%2013.png"/></a></figure><p id="c9dc5d3b-bdf4-462f-ba4e-346a25c2c4f1" class="">参考:</p><figure id="74a12e8f-d897-415b-840c-b82135560186"><a href="https://dzone.com/articles/using-rbac-with-service-accounts-in-kubernetes" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Using RBAC with Service Accounts in Kubernetes - DZone Cloud</div><div class="bookmark-description">This article will help you to manage granular level access on resources in your Kubernetes cluster with service accounts.</div></div><div class="bookmark-href"><img src="https://dz2cdn2.dzone.com/themes/dz20/images/favicon.png" class="icon bookmark-icon"/>https://dzone.com/articles/using-rbac-with-service-accounts-in-kubernetes</div></div><img src="https://dz2cdn4.dzone.com/storage/article-thumb/13910963-thumb.jpg" class="bookmark-image"/></a></figure><p id="327f97b1-38df-4a4c-878b-dbf2d7eea6d6" class="">
+</p><figure id="405e4b10-2be6-4404-834f-8373dfdfb286"><a href="https://www.cncf.io/blog/2018/08/01/demystifying-rbac-in-kubernetes/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Demystifying RBAC in Kubernetes | Cloud Native Computing Foundation</div><div class="bookmark-description">Many experienced Kubernetes users may remember the Kubernetes 1.6 release, where the Role-Based Access Control (RBAC) authorizer was promoted to beta. This provided an alternative authentication mechanism to the already existing, but difficult to manage and understand, Attribute-Based Access Control (ABAC) authorizer. While everyone welcomed this feature with excitement, it also created innumerable frustrated users.</div></div><div class="bookmark-href"><img src="https://www.cncf.io/wp-content/themes/lf-theme/images/favicon.ico" class="icon bookmark-icon"/>https://www.cncf.io/blog/2018/08/01/demystifying-rbac-in-kubernetes/</div></div><img src="https://www.cncf.io/wp-content/uploads/2020/08/Screenshot-2018-08-02-09.35.47-1.png" class="bookmark-image"/></a></figure><p id="50177023-a763-47a7-9193-107061c3c31c" class="">
+</p><figure id="52e5ba93-31ec-4196-a163-242b03e8eadc"><a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Kubernetes API Reference Docs</div><div class="bookmark-description">Welcome to the Kubernetes API. You can use the Kubernetes API to read and write Kubernetes resource objects via a Kubernetes API endpoint. This is a high-level overview of the basic types of resources provide by the Kubernetes API and their primary functions. Workloads are objects you use to manage and run your containers on the cluster.</div></div><div class="bookmark-href">https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.20/</div></div></a><figcaption>关于verb的解释</figcaption></figure><p id="9c9f9fb4-56e6-4a47-8a0b-c2e19e3e0366" class="">
+</p><p id="bf546904-8547-460b-9dcd-08851bc622c0" class="">
+</p><hr id="f037ca1d-db84-4f38-8983-e883449156ad"/><h2 id="d6b8660e-6f77-4f19-b455-ca06d4f83e07" class="">ServiceAccount</h2><p id="86f105a3-4d95-4964-accc-2f7438c1cef9" class="">ServiceAccount是为了方便Pod中的进程调用K8S API或其他外部服务而设计的. </p><p id="cd5800ab-3735-43f5-85be-33af4e0b3bab" class="">它与UserAccount不同.<div class="indented"><ul id="83ceeed2-9da6-4b00-be1b-78c00f52bbc0" class="bulleted-list"><li style="list-style-type:disc">User Account是为人设计的, ServiceAccount则是为Pod中进程调用K8S API而设计的.</li></ul><ul id="a51c2674-e8a1-4fb8-b60a-c53e089156d8" class="bulleted-list"><li style="list-style-type:disc">User Account是跨namespace的, 而ServiceAccount局限于某个命名空间.</li></ul></div></p><p id="f4108de3-e934-4c10-a93b-a94b3b869c62" class="">每个namespace都会自动创建一个SA, Token Controller检测SA的创建并为他们创建secret.</p><p id="c3aaed79-2bb6-4328-a075-14796fd42efc" class="">开启ServiceAccount Admission Controller之后:</p><ol type="1" id="f9664d4d-503c-40c7-9386-776dd5061cea" class="numbered-list" start="1"><li>每个Pod在创建后都会设置spec.serviceAccount为default</li></ol><ol type="1" id="544e51c3-d9ac-449d-989b-0307a3814893" class="numbered-list" start="2"><li>验证Pod引用的service account已经存在, 否则拒绝创建</li></ol><ol type="1" id="c3b60856-8f8e-46eb-aec5-6a64a7d20afc" class="numbered-list" start="3"><li>如果Pod没有指定ImagePullSecrets, 则把ServiceAccount的imagePullSecrets加到Pod中</li></ol><ol type="1" id="5dc66dfd-ebbb-4f60-a087-fbf747e07fae" class="numbered-list" start="4"><li>每个container启动后会挂载service account的token和ca.crt到/var/run</li></ol><p id="90758ef7-5e6a-481d-91d8-8375a32e640b" class="">
+</p></div></article></body></html>

@@ -1,0 +1,785 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Gitlab触发流水线</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dc76a9be-87c4-4051-a6af-7f7eb091bf61" class="page sans"><header><h1 class="page-title">Gitlab触发流水线</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@May 3, 2021 8:21 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>tag</th><td><span class="selected-value select-value-color-blue">generic webhook trigger</span><span class="selected-value select-value-color-green">提交触发流水线</span><span class="selected-value select-value-color-default">根据webhook字段忽略触发</span></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><h1 id="788cb71f-0cb4-4169-9914-01c0b99d1547" class="">Generic Webhook Trigger</h1><ul id="cf7e559d-8f8f-4fcf-9cec-c240b88fe9ce" class="bulleted-list"><li style="list-style-type:disc">介绍<p id="22ce1b2a-685b-4cc2-8820-91d363dfa5ba" class="">一种构建触发器，Git代码提交后自动触发Jenkins进行构建，需要下载插件<code>Generic Webhook Trigger</code>。</p><p id="537c4b42-d90a-44f9-8cc7-42090967eb72" class="">正则表达式参考：<a href="https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html">https://docs.oracle.com/javase/8/docs/api/java/util/regex/Pattern.html</a></p></li></ul><ul id="bf1971d8-4d2b-4759-a2e1-b3e8e9b09d81" class="bulleted-list"><li style="list-style-type:disc">原理<ul id="3d0952a3-99a7-4126-a121-c68360ac29de" class="bulleted-list"><li style="list-style-type:circle">当git用户提交时，这个项目webhook向Jenkins发送一个http请求，Jenkins根据URL中的<strong><code>token</code></strong><strong>，触发</strong>对应job的自动构建。<ul id="dfb25317-7c63-433f-a5f2-c56130ee72f9" class="bulleted-list"><li style="list-style-type:square">如<code>http://jenkins地址:端口/generic-webhook-trigger/invoke?token=Maven-Test</code> 对应触发token为<code>Maven-Test</code>的Job</li></ul></li></ul><ul id="f356a65c-1614-480d-892f-2da669371792" class="bulleted-list"><li style="list-style-type:circle">Request parameters：Jenkins用此截取webhook发送的URL中的参数并赋值给一个变量（此变量在Jenkinsfile中被引用）</li></ul><ul id="4da08ebd-8943-40d9-939e-0c59c9a6ea13" class="bulleted-list"><li style="list-style-type:circle">Post content parameters：Jenkins用此截取webhook发来json数据并赋值给一个变量（此变量在Jenkinsfile中被引用）<ul id="e00ac15d-54c3-4483-87ea-7ac6abdb79f8" class="toggle"><li><details open=""><summary>Json数据例子</summary><pre id="e46c6ae8-b0d9-43f9-a4ad-c5d1cb3288ee" class="code code-wrap"><code>{
+	&quot;object_kind&quot;: &quot;push&quot;,
+	&quot;event_name&quot;: &quot;push&quot;,
+	&quot;before&quot;: &quot;d90ceb305353d460af4eed76826755906a09d781&quot;,
+	&quot;after&quot;: &quot;d90ceb305353d460af4eed76826755906a09d781&quot;,
+	&quot;ref&quot;: &quot;refs/heads/master&quot;,
+	&quot;checkout_sha&quot;: &quot;d90ceb305353d460af4eed76826755906a09d781&quot;,
+	&quot;message&quot;: null,
+	&quot;user_id&quot;: 1,
+	&quot;user_name&quot;: &quot;Administrator&quot;,
+	&quot;user_username&quot;: &quot;root&quot;,
+	&quot;user_email&quot;: &quot;admin@example.com&quot;,
+	&quot;user_avatar&quot;: &quot;http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80\u0026d=identicon&quot;,
+	&quot;project_id&quot;: 2,
+	&quot;project&quot;: {
+		&quot;name&quot;: &quot;demo-maven-service&quot;,
+		&quot;description&quot;: &quot;&quot;,
+		&quot;web_url&quot;: &quot;http://10.19.34.20/root/demo-maven-service&quot;,
+		&quot;avatar_url&quot;: null,
+		&quot;git_ssh_url&quot;: &quot;git@10.19.34.20:root/demo-maven-service.git&quot;,
+		&quot;git_http_url&quot;: &quot;http://10.19.34.20/root/demo-maven-service.git&quot;,
+		&quot;namespace&quot;: &quot;root&quot;,
+		&quot;visibility_level&quot;: 0,
+		&quot;path_with_namespace&quot;: &quot;root/demo-maven-service&quot;,
+		&quot;default_branch&quot;: &quot;master&quot;,
+		&quot;ci_config_path&quot;: null,
+		&quot;homepage&quot;: &quot;http://10.19.34.20/root/demo-maven-service&quot;,
+		&quot;url&quot;: &quot;git@10.19.34.20:root/demo-maven-service.git&quot;,
+		&quot;ssh_url&quot;: &quot;git@10.19.34.20:root/demo-maven-service.git&quot;,
+		&quot;http_url&quot;: &quot;http://10.19.34.20/root/demo-maven-service.git&quot;
+	},
+	&quot;commits&quot;: [{
+		&quot;id&quot;: &quot;d90ceb305353d460af4eed76826755906a09d781&quot;,
+		&quot;message&quot;: &quot;Initial commit\n&quot;,
+		&quot;timestamp&quot;: &quot;2021-08-25T19:27:06+08:00&quot;,
+		&quot;url&quot;: &quot;http://10.19.34.20/root/demo-maven-service/commit/d90ceb305353d460af4eed76826755906a09d781&quot;,
+		&quot;author&quot;: {
+			&quot;name&quot;: &quot;Your Name&quot;,
+			&quot;email&quot;: &quot;you@example.com&quot;
+		},
+		&quot;added&quot;: [&quot;.gitattributes&quot;, &quot;.gitignore&quot;, &quot;Dockerfile&quot;, &quot;Jenkinsfile&quot;, &quot;README.md&quot;, &quot;jenkins/Jenkinsfile&quot;, &quot;jenkins/scripts/deliver.sh&quot;, &quot;pom.xml&quot;, &quot;src/main/java/com/mycompany/app/App.java&quot;, &quot;src/test/java/com/mycompany/app/AppTest.java&quot;],
+		&quot;modified&quot;: [],
+		&quot;removed&quot;: []
+	}],
+	&quot;total_commits_count&quot;: 1,
+	&quot;repository&quot;: {
+		&quot;name&quot;: &quot;demo-maven-service&quot;,
+		&quot;url&quot;: &quot;git@10.19.34.20:root/demo-maven-service.git&quot;,
+		&quot;description&quot;: &quot;&quot;,
+		&quot;homepage&quot;: &quot;http://10.19.34.20/root/demo-maven-service&quot;,
+		&quot;git_http_url&quot;: &quot;http://10.19.34.20/root/demo-maven-service.git&quot;,
+		&quot;git_ssh_url&quot;: &quot;git@10.19.34.20:root/demo-maven-service.git&quot;,
+		&quot;visibility_level&quot;: 0
+	}
+}</code></pre></details></li></ul></li></ul><ul id="0b71eb15-7859-40f8-9737-d7df36e722fa" class="bulleted-list"><li style="list-style-type:circle">可以只配置<code>token</code>，或只配置<code>Request paramete</code>，或<code>Token+Request paramete</code>，总之包含相同参数的http请求可对应触发具有相同参数的job。</li></ul><figure id="9c86a116-e2c6-4dcb-98b8-8a69d9496e61"><a href="https://plugins.jenkins.io/generic-webhook-trigger/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Generic Webhook Trigger</div><div class="bookmark-description">This is a Jenkins plugin that can: Receive any HTTP request, JENKINS_URL/generic-webhook-trigger/invoke Extract values Trigger a build with those values contribute as variables There is an optional feature to trigger jobs only if a supplied regular expression matches the extracted variables.</div></div><div class="bookmark-href"><img src="https://www.jenkins.io/favicon.ico" class="icon bookmark-icon"/>https://plugins.jenkins.io/generic-webhook-trigger/</div></div><img src="https://jenkins.io/images/logo-title-opengraph.png" class="bookmark-image"/></a></figure></li></ul><p id="4306a7e7-7341-4b83-bcbf-3ba8817a6518" class="">
+</p><ul id="4fba076a-4e24-46fe-957a-f77bb83c2d72" class="toggle"><li><details open=""><summary>gitlab webhook字段参考</summary><pre id="c4a7b80d-b034-44fe-ae9f-374b0777ac90" class="code code-wrap"><code>{
+    &quot;object_kind&quot;: &quot;push&quot;, 
+    &quot;event_name&quot;: &quot;push&quot;, 
+    &quot;before&quot;: &quot;5a00ea415cf3747e347e5b0c42e285d8109475ac&quot;, 
+    &quot;after&quot;: &quot;0819f4b2bcf97b511757ba4e8605d4b1b1c51d00&quot;, 
+    &quot;ref&quot;: &quot;refs/heads/feature5&quot;, 
+    &quot;checkout_sha&quot;: &quot;0819f4b2bcf97b511757ba4e8605d4b1b1c51d00&quot;, 
+    &quot;message&quot;: null, 
+    &quot;user_id&quot;: 1, 
+    &quot;user_name&quot;: &quot;Administrator&quot;, 
+    &quot;user_username&quot;: &quot;root&quot;, 
+    &quot;user_email&quot;: &quot;admin@example.com&quot;, 
+    &quot;user_avatar&quot;: &quot;http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=80&amp;d=identicon&quot;, 
+    &quot;project_id&quot;: 4, 
+    &quot;project&quot;: {
+        &quot;name&quot;: &quot;simple-java-maven-app-master&quot;, 
+        &quot;description&quot;: &quot;&quot;, 
+        &quot;web_url&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master&quot;, 
+        &quot;avatar_url&quot;: null, 
+        &quot;git_ssh_url&quot;: &quot;git@192.168.31.102:root/simple-java-maven-app-master.git&quot;, 
+        &quot;git_http_url&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master.git&quot;, 
+        &quot;namespace&quot;: &quot;root&quot;, 
+        &quot;visibility_level&quot;: 0, 
+        &quot;path_with_namespace&quot;: &quot;root/simple-java-maven-app-master&quot;, 
+        &quot;default_branch&quot;: &quot;master&quot;, 
+        &quot;ci_config_path&quot;: null, 
+        &quot;homepage&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master&quot;, 
+        &quot;url&quot;: &quot;git@192.168.31.102:root/simple-java-maven-app-master.git&quot;, 
+        &quot;ssh_url&quot;: &quot;git@192.168.31.102:root/simple-java-maven-app-master.git&quot;, 
+        &quot;http_url&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master.git&quot;
+    }, 
+    &quot;commits&quot;: [
+        {
+            &quot;id&quot;: &quot;0819f4b2bcf97b511757ba4e8605d4b1b1c51d00&quot;, 
+            &quot;message&quot;: &quot;Update test.md&quot;, 
+            &quot;timestamp&quot;: &quot;2021-09-24T01:26:31-04:00&quot;, 
+            &quot;url&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master/commit/0819f4b2bcf97b511757ba4e8605d4b1b1c51d00&quot;, 
+            &quot;author&quot;: {
+                &quot;name&quot;: &quot;Administrator&quot;, 
+                &quot;email&quot;: &quot;admin@example.com&quot;
+            }, 
+            &quot;added&quot;: [ ], 
+            &quot;modified&quot;: [
+                &quot;test.md&quot;
+            ], 
+            &quot;removed&quot;: [ ]
+        }
+    ], 
+    &quot;total_commits_count&quot;: 1, 
+    &quot;repository&quot;: {
+        &quot;name&quot;: &quot;simple-java-maven-app-master&quot;, 
+        &quot;url&quot;: &quot;git@192.168.31.102:root/simple-java-maven-app-master.git&quot;, 
+        &quot;description&quot;: &quot;&quot;, 
+        &quot;homepage&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master&quot;, 
+        &quot;git_http_url&quot;: &quot;http://192.168.31.102/root/simple-java-maven-app-master.git&quot;, 
+        &quot;git_ssh_url&quot;: &quot;git@192.168.31.102:root/simple-java-maven-app-master.git&quot;, 
+        &quot;visibility_level&quot;: 0
+    }
+}</code></pre></details></li></ul><p id="729d0178-ae99-4ceb-a560-c8a838b52afb" class="">
+</p><h1 id="dbebaf55-a5d0-4919-8b58-1d8967dfccd5" class="">一个简单用例</h1><ol type="1" id="2be7dd85-5ff8-4922-a690-b966a4b15574" class="numbered-list" start="1"><li>安装插件Generic Webhook Trigger</li></ol><ol type="1" id="e9de0d5a-748c-4033-94e1-9a60de4cf92f" class="numbered-list" start="2"><li>某job的设置&gt;构建触发器&gt;勾选Generic Webhook Trigger<ol type="a" id="931da9ca-ce79-467d-961d-5fb7d83adef0" class="numbered-list" start="1"><li>Request parameters&gt;新增&gt;Request parameter&gt;比如 Request parameter是<code>runOps</code> ，Value filter是<code>gitPush</code><ul id="eaa96e03-0eaa-486f-937d-48e0a55cd9f5" class="bulleted-list"><li style="list-style-type:disc"><em>利用Request parameter截取gitlabURL中的参数并将其赋值到一个同名变量，依靠此变量判断构建由git提交触发</em></li></ul><ul id="586a2998-ef08-47c8-81e3-ac46eebcc23c" class="bulleted-list"><li style="list-style-type:disc"><em>比如，gitUrl为</em><em><code>http://jenkins地址:端口/generic-webhook-trigger/invoke?token=Maven-Test&amp;&amp;runOps=true</code></em><em> ，则生成变量runOps，值为true。</em></li></ul></li></ol><ol type="a" id="0916d633-4281-454a-8342-800bce68ec40" class="numbered-list" start="2"><li>token，可填入”git项目名_PUSH“<p id="af0ed012-1157-4bbf-87be-e208bd5bb66e" class="">(url参数，任意字符串，url请求中的<code>token=Maven-Test</code>将触发job<code>Maven-Test</code>的构建。<em>还可以设置</em><em><code>Request parameter</code></em><em>（自定义一个字符串），但目前不清楚具体如何使用，故本例不涉及)</em></p></li></ol><ol type="a" id="06143900-3022-4eaf-86c0-de814e240e4f" class="numbered-list" start="3"><li>勾选 Silent response和Print post content和Print contributed variables<ul id="ceae9fd7-33e9-4f51-a5e0-0bd6aafc96b2" class="bulleted-list"><li style="list-style-type:disc">Print post content 显示来自git的http body中的json，可以截取里面的信息</li></ul><ul id="67ea49e7-e016-4bbc-ab0b-ef59ba2a834d" class="bulleted-list"><li style="list-style-type:disc">Print contributed variables 显示来自git的url中的Request parameter，<mark class="highlight-red">暂时不知道用途</mark></li></ul></li></ol></li></ol><ol type="1" id="24a52c89-c736-4304-8b6f-79aa6bdb2f66" class="numbered-list" start="2"><li>对Gitlab的项目进行设置<ol type="a" id="66e6fbc7-3a13-4292-aa3b-94f96fa12ba9" class="numbered-list" start="1"><li>登陆Gitlab，设置某项目，比如<code>simple-java-maven-app-master</code>。</li></ol><ol type="a" id="f2361483-80e3-4e7a-a347-d72e7ec2803b" class="numbered-list" start="2"><li>settings&gt;integrations，在URL填入以下内容<code>http://jenkins地址:端口/generic-webhook-trigger/invoke?token=Maven-Test&amp;&amp;runOps</code>。<em>(当该项目有代码提交时gitlab向jenkins发送该http请求）</em></li></ol><ol type="a" id="1dc0b55a-b914-4926-9974-dcde46006dda" class="numbered-list" start="3"><li>Push events是默认勾选的<em>（点击测试Push events。gitlab向jenkins发送http请求，触发</em><em><code>Maven-Test</code></em><em>这个job构建）</em></li></ol><ol type="a" id="f84a6045-1b88-4887-a5b1-18f45ebb2573" class="numbered-list" start="4"><li>点击add webhook</li></ol><ol type="a" id="2664fec2-d811-4c8a-a2e8-ea8a03da9def" class="numbered-list" start="5"><li>点击test&gt;push，确认可以触发Jenkins的指定job的构建</li></ol></li></ol><p id="174a4b65-0ae0-406f-a145-7f5b26b47b0c" class="">配置完毕</p><h2 id="b4f763bf-8627-425c-85b6-918a217cc893" class="">进阶</h2><p id="d80d5be6-bd9b-481c-bec0-d8a3ebabb509" class="">复杂的Jenkins流水线包含一些参数（如构建前手动传入git项目地址、分支名等参数），但在自动触发时<strong>git webhook会发送这些信息</strong>，Jenkins可截取出作为参数，实现如：</p><ul id="38261f70-189d-4f53-99fc-a5ceff9b18d9" class="bulleted-list"><li style="list-style-type:disc">自动实现分支的匹配。git webhook提供分支名,Jenkins拉取对应分支代码</li></ul><ul id="14dfdd80-ab0c-44fe-8855-16f8b859b4f1" class="bulleted-list"><li style="list-style-type:disc">自动匹配git项目。 git webhook提供了gitUrl,Jenkins拉取对应的项目</li></ul><p id="bb3c6b1a-1c8e-4965-9587-9a7d34de16c9" class="">利用<strong>Post content parameters</strong>实现:</p><ol type="1" id="ccd159f8-9cf4-41ac-9ba7-d294bcb4b0f5" class="numbered-list" start="1"><li>位于job配置&gt;构建触发器&gt;Generic Webhook Trigger</li></ol><ol type="1" id="a69be5a6-af2a-48a4-8a0e-0c46a4082c7b" class="numbered-list" start="2"><li>截取分支名<ul id="bccd8d3d-7c3e-4755-b2ca-6a9363b3a869" class="bulleted-list"><li style="list-style-type:disc">Variable，填变量名，如<code>branch</code></li></ul><ul id="d22ca464-aa5e-49ea-a050-fbeb910eb6f2" class="bulleted-list"><li style="list-style-type:disc">Expression，填入用于截取的表达式<code>$.ref</code>，勾选JSONPATH<ul id="a1c271a9-a6bd-4bab-a9bb-4695d4d14ef5" class="bulleted-list"><li style="list-style-type:circle"><code>$</code>表示整个JSON数据</li></ul></li></ul></li></ol><ol type="1" id="8ff9fc95-17b1-4172-85a4-984a3595ddcc" class="numbered-list" start="3"><li>截取gitUrl<ul id="5efb683b-da8c-4d55-ab68-7744969c982b" class="bulleted-list"><li style="list-style-type:disc">Variable，如<code>gitUrl</code></li></ul><ul id="b88a9a7d-a3bd-4d9e-a966-485eb89b865c" class="bulleted-list"><li style="list-style-type:disc">Expression, 如<code>$.project.web_url</code></li></ul></li></ol><ol type="1" id="21ca4b02-13da-4a85-82fd-bf7ce7b2be96" class="numbered-list" start="4"><li>Jeninsfile添加git checkout配置<pre id="ea7130ef-c346-4b58-a15e-b22147133de0" class="code code-wrap"><code>script{
+    if(runOps == &quot;GitlabPush&quot;){
+        branch = branch - &quot;refs/heads/&quot;  //$.ref截取的是refs/heads/master，这里处理一下
+    }
+//两个变量代入
+	checkout([$class: &#x27;GitSCM&#x27;, branches: [[name: branch]], extensions: [], 
+	userRemoteConfigs: [[credentialsId: &#x27;c02c5130-0a09-409e-b494-0badcadfced4&#x27;, 
+	url: gitUrl]]])
+		
+}</code></pre></li></ol><ol type="1" id="161bf669-e7cc-4a20-876b-9827c0962d58" class="numbered-list" start="5"><li>gitlab上触发一下</li></ol><h2 id="9d1f67f2-733f-4785-b144-8b36311b8741" class="">进阶2</h2><p id="484cfbec-524e-4816-b2e7-2a6cc2b5cccc" class="">让构建显示git提交者及其他相关的信息，如下效果：</p><figure id="706ffb65-e791-4ef2-8186-8232fc6ab966" class="image"><a href="Gitlab%E8%A7%A6%E5%8F%91%E6%B5%81%E6%B0%B4%20dc76a/Untitled.png"><img style="width:336px" src="Gitlab%E8%A7%A6%E5%8F%91%E6%B5%81%E6%B0%B4%20dc76a/Untitled.png"/></a></figure><ul id="56c02519-73d4-4f49-9b6c-181a21ee07bc" class="bulleted-list"><li style="list-style-type:disc">仍然利用<strong>Post content parameters</strong>截取git提交者（分支名截取在上节有）<ul id="735e54b6-b957-48a0-a715-57217e61a9e0" class="bulleted-list"><li style="list-style-type:circle">新增一个变量，自定义变量名，比如git_username</li></ul><ul id="86876444-1198-4f24-b21b-f5cb83281b68" class="bulleted-list"><li style="list-style-type:circle">表达式为<code>$.user_username</code> ，截取了提交者的git用户名</li></ul></li></ul><ul id="09b8f50f-24cc-4ca0-ba12-5963b69a88a6" class="bulleted-list"><li style="list-style-type:disc">在pipeline中，将git提交者和分支名赋值给<code>currentBuild.description</code> <pre id="4957c3b9-e242-4c0b-8751-6160944fd937" class="code code-wrap"><code>//Jenkinsfile的开头位置，或写在pipeline块的script块中
+currentBuild.description = &quot;triggered by ${git_username}, branch ${branch}&quot;</code></pre></li></ul><ul id="0e0f7809-15bc-4a38-81e0-2e75abecd5bc" class="bulleted-list"><li style="list-style-type:disc">在gitlab上触发一下</li></ul><p id="d5cdaeb5-9d70-4c4f-8aa8-1b420fd2ddc3" class="">
+</p><p id="feec734b-0803-41af-8b88-5d828510cdec" class="">
+</p><h3 id="805a9fd1-8176-41ba-97cf-5e2c2606fd20" class=""></h3><p id="45b9014c-28df-4460-ab7a-7577c91dfafc" class="">在新版本gitlab（不知道哪个版本），在添加webhooker时中可能会报错，需要这样设置。</p><figure id="a5c0ca3f-3c23-452c-954b-2d06af1080a5" class="image"><a href="Gitlab%E8%A7%A6%E5%8F%91%E6%B5%81%E6%B0%B4%20dc76a/Untitled%201.png"><img style="width:624px" src="Gitlab%E8%A7%A6%E5%8F%91%E6%B5%81%E6%B0%B4%20dc76a/Untitled%201.png"/></a></figure><p id="06e4fae1-0672-4a91-8429-3495e4a69b72" class="">
+</p><p id="9826d344-7919-4d95-bcfd-c26db1694712" class="">
+</p></div></article></body></html>

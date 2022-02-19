@@ -1,0 +1,894 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>AWS</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="4615575e-dcfd-406a-a072-bd70992562ce" class="page sans"><header><h1 class="page-title">AWS</h1></header><div class="page-body"><nav id="0b667c5f-6d2f-4807-8b9f-3259ce991c3e" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#737124b4-92dc-46df-b139-29f45319422d">AWS fundamentals</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#4f167393-7cab-465f-b531-8b9f80ee77fc">Region &amp; Available Zone</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#b4f468f8-8203-432b-8934-2aa3bdacbac0">products</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#75134b56-96ed-4515-9c7d-fa578ad54da1">IAM(Identity Access Management)</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#89469dd4-d1be-4484-8a0d-2cad68e9b9e0">Fundamentals</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#4deb6f86-d16e-4b0c-a915-9ba9dd04c253">Identity</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#5a404fa9-a981-4bae-8ac3-95359a7e580b">Principal</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#32d12d03-792d-4a01-8869-8b883274c38a"><strong>Identity-based policies和resource based policies</strong></a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ec929096-28ff-4f0f-87b0-6e04a97351be">Roles</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#3f5fb02d-fea1-4275-bdde-a06f06f438fe">IAM Identifier</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#90e40cdc-933f-417f-8f07-dca773fe78a4"><em>Amazon Resource Name (ARN)</em> format</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#f1d2181c-131d-431d-8693-4253450cd878">Global Variables</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#20d15791-e486-4b1b-ac3c-3fb11d5f0feb">VPC</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#1e877bac-0080-4cad-aba6-c1f2dbb07ae9">Security Groups</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9da0d354-0988-4ff9-9f61-61f2adde6939">NACL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dbee6261-1d8f-44e8-8bc7-56f18c8bc661">VPC Endpoint</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#7a5a5aeb-939f-4359-8634-1abc8a9f3ccd">Flow logs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#20b60d78-4e05-4fde-8063-7fd03dabcd5a">EC2</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#23678c8f-6030-4f19-a6f8-cdad3f98ee0b">Storage Services</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#05628f86-eb04-4d61-a114-39aacfb3f9bf">EBS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#72c70526-fb33-493c-9e2b-7b59ed0a275f">EFS | Elastic File System</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#83c49bb0-2012-4c5d-8483-dd2638003f03">EKS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#be1e539f-1692-4b18-bce8-f4d38026444f">Create an EKS Cluster</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#79965d79-13c8-4367-8d9c-8c814e8a1440">aws-cli创建</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#f52c444e-6fba-4c94-9895-6eaf8b95403a">eksctl创建</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6da810d6-c0f0-4f82-980c-b70a5f0400d3">RBAC in EKS</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#71647686-29ad-4cf3-b1d9-24c568d51763">HPA and AutoScaling</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#7840291a-5867-4463-9a22-f4b1253c8df5">创建metrics-server</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#665cfeaa-7553-40cb-8587-971e6c467f36">相关命令总汇</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#2e950e99-e189-446f-8c74-85a57fdef8c1">CloudFormation</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d2cecf9f-99cf-4ac9-a774-6642d87c0b5e">Concept</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#162704aa-a17d-4880-8b78-d3307a38a988">Cloud9</a></div></nav><p id="16a863e8-085a-4fc8-8404-93f59455b3cf" class="">账号：<code>wesley_li0@yeah.net/320@520yangrl520</code></p><h1 id="737124b4-92dc-46df-b139-29f45319422d" class="">AWS fundamentals</h1><h2 id="4f167393-7cab-465f-b531-8b9f80ee77fc" class="">Region &amp; Available Zone</h2><p id="1e4d3d8a-e88c-44c9-88bd-125bca780bcd" class="">Region，代表一个地区, 比如悉尼、新加坡，这个地区有几个Available Zone组成</p><p id="f38c3977-b950-41ed-a5b4-4ae066b4ba25" class="">
+</p><p id="143a92db-25c7-4f87-9a2f-08f0fce67b51" class="">Available Zone<div class="indented"><p id="38f7b54a-d120-4d99-8104-ff92a61f1d3e" class="">一个地区由几个物理上彼此隔离的AZ组成，彼此相距100km，之间互联是冗余的高带宽和低延迟的，一旦有灾害发生可保证高可用</p><p id="40333ffa-9b1c-40fc-aac4-404067ac862d" class="">一个AZ由多个数据中心组成，AZ 联想一下：移动公司的机房园区，它由多个数据中心大楼组成</p></div></p><p id="8100f024-60d9-4595-8a94-7ec1853383b5" class="">Global Infrastructure </p><figure id="e7d9bcc2-fa03-4a03-a9be-53ff3c6b842c" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2020.png"><img style="width:768px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2020.png"/></a></figure><h2 id="b4f468f8-8203-432b-8934-2aa3bdacbac0" class="">products</h2><figure id="87fade5b-a607-4f35-ac0e-ee1a1ab4251f" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2019.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2019.png"/></a></figure><h1 id="75134b56-96ed-4515-9c7d-fa578ad54da1" class="">IAM(Identity Access Management)</h1><h2 id="89469dd4-d1be-4484-8a0d-2cad68e9b9e0" class="">Fundamentals</h2><p id="60a4693f-d8f8-4ab2-8399-d8db2b49c542" class="">对IAM的概念作了总结：<a href="https://docs.aws.amazon.com/eks/latest/userguide/security-iam.html">https://docs.aws.amazon.com/eks/latest/userguide/security-iam.html</a></p><p id="64a66a37-790b-41d3-9801-a09f19fbc3ac" class="">IAM，一组信息，它规定了某个用户对指定的AWS资源拥有什么样的权限</p><figure id="0589c605-f5da-4a2f-b38e-c7117737326d" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2021.png"><img style="width:1859px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2021.png"/></a></figure><figure id="c957b476-5482-4579-8fe0-5a4603d4dd07" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2022.png"><img style="width:1100px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2022.png"/></a></figure><p id="acbba72f-24a5-41c3-9eeb-6d441febae58" class="">Two Authentication Methods to access AWS  resources<div class="indented"><figure id="7aa94447-eb67-4547-a3a9-449b11037585" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2023.png"><img style="width:1152px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2023.png"/></a></figure></div></p><h3 id="4deb6f86-d16e-4b0c-a915-9ba9dd04c253" class="">Identity</h3><p id="8c798a05-b3f1-4e7d-bbe0-e0d21fe986e8" class="">Identity-Based Policies中的概念，Identity涵盖IAM用户, IAM组和Role，attach到Identity的Policies称为&quot;基于身份的策略&quot;</p><h3 id="5a404fa9-a981-4bae-8ac3-95359a7e580b" class="">Principal</h3><p id="1786a87f-fbf5-40d6-aace-d02edfe8683f" class="">Resource-Based Policies中的概念，Principal涵盖IAM User, Account(主账户), Role, Federate User，Principal可对Resource施加Action，基于资源的Policies需要指定Principal，表示谁可以对此资源施加何种动作</p><p id="11b06ab3-6ab0-4526-9415-d07247e89600" class="">因为IAM Group不可施加Action，故不属于Principal</p><figure id="ba0f700a-13a1-4528-af24-9b8b466e9466" class="image"><a href="AWS%2046155/Untitled.png"><img style="width:576px" src="AWS%2046155/Untitled.png"/></a></figure><h3 id="32d12d03-792d-4a01-8869-8b883274c38a" class=""><strong>Identity-based policies和resource based policies</strong></h3><ul id="c2cda525-e7b2-42a9-b46a-d43bfd34edcf" class="bulleted-list"><li style="list-style-type:disc"><strong>Perspective:</strong> An identity based policy answers the question “<em>Which API calls can this identity perform on which resources?</em>” whereas a resource based policy answers the question: “<em>Which identities can perform which actions on me?</em>”.</li></ul><ul id="6aeb72ac-7dd2-4bf1-b30e-1c8cdbc1093e" class="bulleted-list"><li style="list-style-type:disc"><strong>Syntax:</strong> The resource-based policies have an additional mandatory parameter, which is called <code>Principal</code> that is used to - you guessed it - define which principal(s) this statement refers to.</li></ul><ul id="f6dd093d-e7cf-41e7-b542-eb8d08378472" class="bulleted-list"><li style="list-style-type:disc"><strong>Identity-based policies can be attached to all identities and Resource-based policies only belong to resources(Resources有自己对应的Resource-Based policies)</strong></li></ul><p id="506df2b1-1e72-4f7c-9b14-cabe7d08e59c" class="">
+</p><h2 id="ec929096-28ff-4f0f-87b0-6e04a97351be" class="">Roles</h2><p id="077a7047-beca-454e-8b7a-a97b4faab5e7" class="">Role<div class="indented"><p id="447c5ccc-4b5d-4cf0-9b97-3926ec27e9e7" class="">Reference<div class="indented"><p id="02998853-c678-43a7-b981-6f22c39be352" class=""><a href="https://aws-blog.de/2021/08/iam-what-happens-when-you-assume-a-role.html">https://aws-blog.de/2021/08/iam-what-happens-when-you-assume-a-role.html</a></p><p id="5ae6e0d6-7bb8-4c86-b261-19f2c583ed1a" class=""><a href="https://www.hava.io/blog/what-is-aws-security-token-service-sts">https://www.hava.io/blog/what-is-aws-security-token-service-sts</a></p></div></p><ul id="dd4e963d-003d-4e36-aa52-daa80313e688" class="bulleted-list"><li style="list-style-type:disc">与IAM User一样，也属于AWS Identity，可以向其赋予权限</li></ul><ul id="dd637c76-f6b2-42d4-b773-06502e73d753" class="bulleted-list"><li style="list-style-type:disc">IAM User对应现实世界的一个人，而Role却可以被多个IAM User使用，使用时使用者会拥有其所具有的权限</li></ul><ul id="dace6bc9-62da-400f-9b6f-62426436405a" class="bulleted-list"><li style="list-style-type:disc">IAM User的Credential是持久的，而Role的凭证是临时的，过期后须再从STS获取<figure id="790c0f05-56e8-4da2-a37d-680a3d9f5f10" class="image"><a href="AWS%2046155/Untitled%201.png"><img style="width:528px" src="AWS%2046155/Untitled%201.png"/></a></figure></li></ul><ul id="b8e16c41-5ed5-4121-b59c-c87be4027da4" class="bulleted-list"><li style="list-style-type:disc">it has<mark class="highlight-teal"> the primary purpose of granting </mark><mark class="highlight-orange"><strong>temporary permissions</strong></mark><mark class="highlight-teal"> to perform API-calls in an account. </mark></li></ul><ul id="96adf85e-9198-4ac0-9086-c7b89abb853c" class="bulleted-list"><li style="list-style-type:disc">In order to use a role, it has to be assumed.<ul id="e4be896a-fcd0-4257-9911-f1ca53be6835" class="bulleted-list"><li style="list-style-type:circle">Assume a Role<ul id="76a550ac-5a78-490a-bb7e-421294af83f4" class="bulleted-list"><li style="list-style-type:square">assume a role 就是从STS(Security Token Service)拿到Role的凭证(Temporary Credential)，发送请求时带上此凭证, 即可以此Role对应的权限来访问AWS资源了</li></ul><ul id="71c3ed56-dcf6-4588-b63b-16bd0f1831fb" class="bulleted-list"><li style="list-style-type:square">比如一个使用者以长期凭证登陆，此时他是以IAM User或Account身份登陆的； 同时他又可以有多个临时凭证, 以不同的Role来作不同的API调用</li></ul><ul id="21cd43ba-b372-4a65-a408-c68d5d24ac3b" class="bulleted-list"><li style="list-style-type:square">Assume a Role的流程:<ol type="1" id="69570f0a-ef6d-4e08-974e-75cafce2675c" class="numbered-list" start="1"><li>A User has a set of credentials attached that allows them to call <code>sts:AssumeRole</code>. They make the API call to STS and sign the request with their long-term security credentials.</li></ol><ol type="1" id="362f3623-3a6b-49aa-982b-f8fa3049ab4d" class="numbered-list" start="2"><li>STS gets the API call and before it does, IAM checks if the user has permissions to make this API call in its identity-based permissions (2a). Then STS checks if the trust relationship of the role also allows the principal to assume it (2b).</li></ol><ol type="1" id="ea4c84a0-3d55-4a22-b616-c73139d140bd" class="numbered-list" start="3"><li>Only if both of those checks succeed, temporary security credentials are returned to the client.</li></ol><ol type="1" id="e6f4d5a2-177b-4ae0-b667-eb42af87280d" class="numbered-list" start="4"><li>The user can then use the temporary security credentials to make an API call (e.g. to S3) and will have the permissions that are assigned to the role.</li></ol><figure id="ba04a642-9ed3-4db8-be88-de4d766b8bf8" class="image"><a href="AWS%2046155/Untitled%202.png"><img style="width:1001px" src="AWS%2046155/Untitled%202.png"/></a></figure><figure id="626af4ab-dbfe-430c-9435-91b7c2cca55a" class="image"><a href="AWS%2046155/Untitled%203.png"><img style="width:432px" src="AWS%2046155/Untitled%203.png"/></a></figure></li></ul></li></ul></li></ul><ul id="2a7c5094-0684-47cf-a655-178b536ee6ee" class="bulleted-list"><li style="list-style-type:disc">Each role has a trust relationship which determines the entities that can assume the role.</li></ul><ul id="7be69bbf-8f23-4b31-973c-f9b3ced13e46" class="bulleted-list"><li style="list-style-type:disc">It also has a set of permissions that define which privileges entities get after they assume the role.</li></ul></div></p><p id="66561b94-f4ab-45cd-9788-5f80e38c6e9e" class="">Service Role</p><ul id="561239f5-394d-4b3c-8146-cabc39d7dae4" class="bulleted-list"><li style="list-style-type:disc">与Role的不同：<ul id="5446682b-743f-4105-b95a-70eb25969fec" class="bulleted-list"><li style="list-style-type:circle">AWS User Assume的是Role，AWS Service Assume的是Service Role</li></ul><ul id="08e67f9e-8011-459b-9114-230c218ad2d0" class="bulleted-list"><li style="list-style-type:circle">不同的Service，彼此间可Assume的Service Role是不一样的；而Role不存在这样的限制</li></ul></li></ul><ul id="e68562f3-7418-4c97-911b-ccbeaf5abdaf" class="bulleted-list"><li style="list-style-type:disc">一个Service去Assume一个Service Role，以此Service Role对应的权限，向AWS资源，施加actions</li></ul><p id="a5332814-b1c8-4f16-82c1-cde782b757a4" class="">Service Role for EC2 instance</p><ul id="2b047614-4c37-4592-9b40-a67f5a1948ab" class="bulleted-list"><li style="list-style-type:disc">运行在EC2实例上的应用可Assume的，以此Role所具有的权限，来施加Action</li></ul><ul id="1c63c9d3-a046-4cd3-99fe-c8756582b360" class="bulleted-list"><li style="list-style-type:disc">当实例启动后，此Role被分配给此实例</li></ul><ul id="33e22788-2a3a-4fcb-9b28-18ba77f86d20" class="bulleted-list"><li style="list-style-type:disc">与其他Role一样，应用所提取的凭证，也是临时的</li></ul><ul id="2678a385-9d19-4e10-be98-1fdcf6bf0dfb" class="bulleted-list"><li style="list-style-type:disc">参考：<a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html">https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_use_switch-role-ec2.html</a></li></ul><p id="b0e8b917-d5c8-425b-8787-d296e23a2b8a" class="">
+</p><h2 id="3f5fb02d-fea1-4275-bdde-a06f06f438fe" class="">IAM Identifier</h2><p id="853daea6-0d6a-4b16-a244-7043bd9a5db6" class="">details: <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html">https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_identifiers.html</a></p><h3 id="90e40cdc-933f-417f-8f07-dca773fe78a4" class=""><em>Amazon Resource Name (ARN)</em> format</h3><p id="18392456-ccf8-4237-ad99-2557a9b8c21f" class="">The permission policy language requires you to specify the resource or resources using following Amazon Resource Name(ARN) format</p><pre id="9ed190f0-11f4-4f78-8dcd-49dcafb151e7" class="code"><code>Format:
+arn:partition:service:region:account:resource
+#partition identifies the partition for the resource . For standard AWS Regions, the partition is aws. If you have resources in other partitions, the partition is aws-partitionname. For example, the partition for resources in the China (Beijing) Region is aws-cn. You cannot delegate access between accounts in different partitions.
+#service identifies the AWS product. IAM resources always uses iam.
+#region identifies the Region of the resource. For IAM resources, this is always kept blank.
+#account specifies the AWS account ID with no hyphens.
+#resource identifies the specific resource by name.
+#You can specify IAM and AWS STS ARNs using the following syntax. The Region portion of the ARN is blank because IAM resources are global.
+
+Syntax:
+arn:aws:iam::account:root
+arn:aws:iam::account:user/user-name-with-path
+arn:aws:iam::account:group/group-name-with-path
+arn:aws:iam::account:role/role-name-with-path
+arn:aws:iam::account:policy/policy-name-with-path
+arn:aws:iam::account:instance-profile/instance-profile-name-with-path
+arn:aws:sts::account:federated-user/user-name
+arn:aws:sts::account:assumed-role/role-name/role-session-name
+arn:aws:iam::account:mfa/virtual-device-name-with-path
+arn:aws:iam::account:u2f/u2f-token-id
+arn:aws:iam::account:server-certificate/certificate-name-with-path
+arn:aws:iam::account:saml-provider/provider-name
+arn:aws:iam::account:oidc-provider/provider-name</code></pre><p id="700e91c5-ea3b-41bb-8979-d119d6b2a4f0" class="">How<div class="indented"><p id="4f97ee04-d417-4cc1-b8d7-88602cc61ff4" class="">Create IAM Users and Groups<div class="indented"><ol type="1" id="47c02fc8-95b9-439a-b8db-e178a0532a03" class="numbered-list" start="1"><li>define an IAM policy</li></ol><ol type="1" id="44887f2e-c9b5-4133-8df3-b1d252b2715b" class="numbered-list" start="2"><li>Create a group and attach the IAM policy to the group</li></ol><ol type="1" id="1de6e3b2-8e65-49f9-b185-226e411d5232" class="numbered-list" start="3"><li>Create a user and put the user into the group</li></ol></div></p></div></p><h1 id="f1d2181c-131d-431d-8693-4253450cd878" class="">Global Variables</h1><pre id="9dfcf274-3475-4402-811d-7233f824d502" class="code"><code>${AWS_REGION}
+${AZS[@]}
+${MASTER_ARN}  #
+</code></pre><h1 id="20d15791-e486-4b1b-ac3c-3fb11d5f0feb" class="">VPC</h1><p id="bd7bf05e-93bf-423c-b111-3a311f8b2803" class="">What &amp; Why<div class="indented"><p id="38147fe5-4b8e-46a0-ab53-03cec499f269" class="">VPC 帮助租户完全地控制自己的虚拟网络, 包括资源放置、连接性和安全性<div class="indented"><ul id="a4bb481f-8597-4ab7-961e-0ab5300c49f9" class="bulleted-list"><li style="list-style-type:disc">一个VPC存在于某个Region中</li></ul><ul id="7cc1a0df-41e3-4a76-93a6-b3e098299e8c" class="bulleted-list"><li style="list-style-type:disc">一个VPC，默认为每个AZ，创建一个Subnet，比如悉尼有3个AZ故有3个subnetes</li></ul><figure id="8255697d-1057-450e-9bcd-3153dcf6d683" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2024.png"><img style="width:1351px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2024.png"/></a></figure><figure id="0d920a1d-3e2a-4528-887f-8edbaaceb9ab" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2025.png"><img style="width:1382px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2025.png"/></a></figure></div></p></div></p><p id="dcd7c124-63ba-47d5-af1d-cd24c55a279e" class="">How</p><h2 id="1e877bac-0080-4cad-aba6-c1f2dbb07ae9" class="">Security Groups</h2><p id="2f9dcc68-61d5-4bc2-950f-b627ae60b9e2" class="">What<div class="indented"><ol type="1" id="4e751c7b-f456-47f2-809a-7daf5ad18fce" class="numbered-list" start="1"><li>是有<mark class="highlight-red">状态的instance-level的</mark>firewall</li></ol><ol type="1" id="be5f1f01-b3bb-4f3b-8510-4fdc9531f831" class="numbered-list" start="2"><li>分为inbound和outbound，在各自中定义allow规则，只可allow因为默认deny所有，规则基于协议与端口</li></ol><ol type="1" id="105a117b-778b-4b45-b5cb-c20acdc5c84c" class="numbered-list" start="3"><li>VPC自动带有一个Security Group default，不可删除，inbound允许来自本Security Group的instance的访问，outbound allow所有<figure id="b336e6ff-d169-4857-98bf-97d739461de7" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2026.png"><img style="width:480px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2026.png"/></a></figure></li></ol><ol type="1" id="2f121df4-48fd-473f-9333-33d7d05e5559" class="numbered-list" start="4"><li>新建的Security Group，inbound没有规则即拒绝所有入方向流量(即时在同一个Security Group的instance之间也无法通信，除非配置规则，例外：Security Group default)；outbound是放开所有<p id="177a731f-af8d-4515-935b-2513a274d41a" class="">outbound默认开放所有（若空则也deny all），</p></li></ol><ol type="1" id="43d83322-59a0-43d7-a457-3593390c42d6" class="numbered-list" start="5"><li>quotas不懂，参考<a href="https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html">https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html</a></li></ol><ol type="1" id="e2157aaf-37d5-4938-970c-32280980f41c" class="numbered-list" start="6"><li>Security Group关联instance的network interface. 新建instance的primary network interface与Security Group关联. 如Security Group关联了network interface则无法被删除.</li></ol><ol type="1" id="864ae6ca-32ee-487f-a55b-a1f734d1d10d" class="numbered-list" start="7"><li>可将instance关联到新的Security Group，一个instance至少要有一个Security Group，最多可关联5个Security Group，</li></ol><ol type="1" id="617ea09a-5dc9-4335-83db-0f202b69d7d9" class="numbered-list" start="8"><li>可用命令行添加Security Group</li></ol><p id="e6ecd490-72ad-4acb-a15f-5eb3e32d98f0" class="">补充：<div class="indented"><p id="74a9d682-26db-4194-9183-d285581246aa" class="">VPC自动带有一个默认Security Group<div class="indented"><ul id="be2cb44b-e99e-49a8-8b52-6d04b2826de4" class="bulleted-list"><li style="list-style-type:disc">如使用自动脚本创建instance，若不显示指定Security Group则指定为默认的Security Group</li></ul><ul id="f1d586d6-40b9-4383-af41-bd3ea427edf0" class="bulleted-list"><li style="list-style-type:disc">若通过console创建instance，则新建并指定为<code>launch-wizard-</code><code><em>xx</em></code>Security Group</li></ul></div></p><p id="eb7fd827-fb4f-4ac6-b61f-45fc6afa2662" class="">Centrally manage VPC security groups using AWS Firewall Manager （未研究）参考<a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#changing-instance-security-groups">https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html#changing-instance-security-groups</a></p></div></p></div></p><p id="fde5a93c-70dd-473d-b1d8-95a9e0559536" class="">Operation<div class="indented"><p id="595ad155-7827-4184-911b-22fc0b63d5b1" class=""><mark class="highlight-teal">Modify the default security group
+Create a security group
+View your security groups
+Tag your security groups
+Add rules to a security group
+Update security group rules
+Tag security group rules
+Delete security group rules
+Change the security groups for an instance
+Delete a security group</mark></p></div></p><h2 id="9da0d354-0988-4ff9-9f61-61f2adde6939" class="">NACL</h2><p id="81fbdbcb-c94a-4d67-b2f6-6469c434da1e" class="">What<div class="indented"><ol type="1" id="24b66fdb-7b07-40f4-8342-4377097e07af" class="numbered-list" start="1"><li>作为一种补充，控制子网进出流量的stateless防火墙，基于子网</li></ol><ol type="1" id="08b48333-db68-4b11-a7b5-7c90d79e850c" class="numbered-list" start="2"><li>VPC自动带有一个NACL default，它默认允许进出traffic；而自定义的NACL默认deny进出流量</li></ol><ol type="1" id="cc2b8bfa-3476-43a6-a5e1-931310fad1fe" class="numbered-list" start="3"><li>每个subnet必须关联一个NACL，若不指定则关联NACL default</li></ol><ol type="1" id="64c3c7e5-2751-4499-a8a7-e6b628fd94e1" class="numbered-list" start="4"><li>一个NACL可关联多个subnet，而subnet只可关联一个NACL</li></ol><ol type="1" id="0ab2b102-c507-4a1f-a2af-a2e3ccdb4491" class="numbered-list" start="5"><li>一个NACL分inbound和outbound，各自可包含一组rules，rule可为allow或deny，从最低号开始匹配，定义号码时建议步进为100</li></ol><ol type="1" id="cd85f68c-06bd-49cd-9e61-c027d765fce5" class="numbered-list" start="6"><li>stateless，即inbound流量是否allowed，由inbound规则决定，必须注意！！与stateful完全不一样</li></ol><ol type="1" id="42b86ab7-eca2-4528-9765-4cd9cc6416f2" class="numbered-list" start="7"><li>配置rules后，即时生效</li></ol></div></p><p id="9638e4e3-5400-401d-a543-953d02e030bc" class="">Operation：<div class="indented"><p id="4318eae6-b0ae-46f2-88a1-9156cb605d54" class="">inbound/outbound add rules &amp; delete rules</p><p id="2e61a3b7-502a-4063-a919-f69c4ec3000b" class="">create &amp; delete NACL </p></div></p><p id="fa5a3202-b88d-43a9-b73c-75a6821cb911" class="">补充：<div class="indented"><ul id="0da8aacd-d8a1-46f0-b780-aed182f50206" class="bulleted-list"><li style="list-style-type:disc">用API或命令行工具，则只能删创，不可修改；用console可增删改</li></ul></div></p><ul id="475e3645-e4c8-42e7-9aaf-fdf6118daa96" class="bulleted-list"><li style="list-style-type:disc">区别<figure id="5032cb5e-011b-4b19-b150-70c49d6b7235" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2027.png"><img style="width:971px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2027.png"/></a></figure></li></ul><ul id="f2f8e2aa-a312-4c5a-9225-4f8014636d33" class="bulleted-list"><li style="list-style-type:disc">subnet-level firewall</li></ul><ul id="fcde56d7-aadb-4efd-b371-41c7421bedf7" class="bulleted-list"><li style="list-style-type:disc">default allow all traffic</li></ul><ul id="cce7acc6-4fa9-4772-b3ec-8131cdd6e037" class="bulleted-list"><li style="list-style-type:disc">inbound + outbound + subnet association </li></ul><p id="72860c53-bca8-4514-b2be-9cdb5c294b22" class="">
+</p><h2 id="dbee6261-1d8f-44e8-8bc7-56f18c8bc661" class="">VPC Endpoint</h2><ul id="1ba3621d-919b-4c32-96b2-ba70277cf6dc" class="bulleted-list"><li style="list-style-type:disc">What and Why<ul id="f64d815f-7f9c-4e36-aa7d-9284c9d668e5" class="bulleted-list"><li style="list-style-type:circle">highly available, highly redundant and scalable devices </li></ul><ul id="f042681c-385e-49fc-a6fc-5c3fb341d0fd" class="bulleted-list"><li style="list-style-type:circle">如果没有Endpoint，VPC内的资源比如Instances访问AWS Services（比如S3）时要经过Internet，利用Endpoint，可实现内网通信</li></ul></li></ul><figure id="4dafec81-8860-454c-9980-a715702c7666" class="image"><a href="AWS%2046155/Untitled%204.png"><img style="width:720px" src="AWS%2046155/Untitled%204.png"/></a></figure><figure id="fa2e614d-aae4-470f-b82f-383c0456a76a" class="image"><a href="AWS%2046155/Untitled%205.png"><img style="width:768px" src="AWS%2046155/Untitled%205.png"/></a></figure><ul id="817459ea-bf53-46f7-b1c1-f0cf654b3cfe" class="bulleted-list"><li style="list-style-type:disc">有两种<ul id="b094a27f-d2cc-4d98-a765-e8205da0046d" class="bulleted-list"><li style="list-style-type:circle">Gateway Endpoints(仅支持S3和)<ul id="594bfedd-4486-468c-b98d-a31fac09a470" class="bulleted-list"><li style="list-style-type:square">利用路由实现对S3 Service的访问</li></ul><ul id="3266b79a-4458-49ef-9c38-a1f35e7d21df" class="bulleted-list"><li style="list-style-type:square">The route to the VPC endpoint will be in the route table在路由表中添加Prefix List和</li></ul></li></ul><ul id="b15f98d6-56db-4042-90e7-bc2c652c57ef" class="bulleted-list"><li style="list-style-type:circle">Interface Endpoints</li></ul></li></ul><p id="4e970e9b-daa7-4ba0-9d5e-006a731eb3ca" class="">
+</p><p id="cd0ba453-edce-4a95-9b7b-b200db102268" class="">Operation<div class="indented"><figure id="ea1962bc-4b83-4999-8673-9fb7d99ac0a8" class="image"><a href="AWS%2046155/Untitled%206.png"><img style="width:720px" src="AWS%2046155/Untitled%206.png"/></a></figure></div></p><p id="6a469dea-de1a-4485-a7ac-dfcf0530f860" class="">
+</p><p id="1649755a-92a3-4ca5-bd2c-2b19a77f9b96" class="">
+</p><p id="c16523d5-f3ae-445b-ba83-2a20bfdd31e8" class="">
+</p><p id="e7be9a70-ab18-46d6-b69a-69a4fa1f9b50" class="">
+</p><p id="319ca6c5-3f26-4132-9b2b-8c6a5b841fd9" class="">
+</p><h2 id="7a5a5aeb-939f-4359-8634-1abc8a9f3ccd" class="">Flow logs</h2><figure id="96cfd352-2da0-41d5-beef-97f875ca9f9e"><div class="source"><a href="https://www.notion.soundefined"></a></div></figure><figure id="ae6002c7-1cfe-472b-9088-c12047d1588a" class="image"><a href="AWS%2046155/Untitled%207.png"><img style="width:849px" src="AWS%2046155/Untitled%207.png"/></a></figure><p id="ef4c61d9-5e44-494c-a442-cb03de54ad61" class="">
+</p><p id="d87b2f6c-b12d-44ef-aa59-950b1027b2d8" class="">
+</p><p id="e24184d8-e67a-4a80-8e12-d967a20256cc" class="">
+</p><h1 id="20b60d78-4e05-4fde-8063-7fd03dabcd5a" class="">EC2</h1><ul id="3ba4bb1e-1c3e-4aff-ac7b-4e2ba7efe94a" class="bulleted-list"><li style="list-style-type:disc">Public subnets中的instance有private和public IP; Private subnets中的instance只有private IP</li></ul><ul id="05270c59-1d75-45bb-93fb-eac91ceb8a47" class="bulleted-list"><li style="list-style-type:disc">An EC2 instance is a virtual machine, assigned with CPU&amp;Mem&amp;NetworkCard&amp;Storage&amp;OperatorSystem&amp;APP<figure id="a94721bc-72a3-41c4-9968-2e7c75d4286c" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2028.png"><img style="width:1335px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2028.png"/></a></figure></li></ul><ul id="60bd5691-a1f1-4408-b699-399879726312" class="bulleted-list"><li style="list-style-type:disc">EC2 instances can have three kind of IP: Public/Private/Elastic IP<figure id="649bf3cf-bf82-4684-90b8-9452ee513405" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2029.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2029.png"/></a></figure></li></ul><ul id="9b77b374-3bf0-419c-9842-c3ad81c784e5" class="bulleted-list"><li style="list-style-type:disc">NAT<figure id="5be8751f-e365-4281-bce5-99cc9a4d740f" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2030.png"><img style="width:624px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2030.png"/></a></figure></li></ul><ul id="455251a9-4da1-41a9-8191-e688caaaad05" class="bulleted-list"><li style="list-style-type:disc">Launch an EC2 instance<ul id="006f3ee1-3aa0-47d3-9328-5e897ec34fba" class="bulleted-list"><li style="list-style-type:circle">AMI可理解为一个干净的操作系统的快照<figure id="7fc6d272-7f2b-4ba2-8e97-fd1de94e51c1" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2031.png"><img style="width:903px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2031.png"/></a></figure></li></ul></li></ul><ul id="15b9fee3-2243-4f94-8e12-cd6e505c2749" class="bulleted-list"><li style="list-style-type:disc">Connecting to EC2<p id="2b3809c8-dd49-4656-bac6-c35f890e3a91" class="">(待补充)</p></li></ul><ul id="dc472bbf-d153-4e85-b3f4-b29e5a052550" class="bulleted-list"><li style="list-style-type:disc">使用User data可实现自动配置，比如可自动配置一个Web应用, 箭头处你可粘贴Shell语句, 将自动运行脚本<figure id="975169d1-9393-46a6-92d7-a8b6ec6ac124" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2032.png"><img style="width:716px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2032.png"/></a></figure></li></ul><ul id="cbb6434a-c082-4bad-b9a0-4ea87e983f97" class="bulleted-list"><li style="list-style-type:disc">Using Key Pairs with Amazon EC2(未弄清除)<figure id="889ca982-2757-4a4a-8ae4-76ca33efdeb2" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2033.png"><img style="width:1187px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2033.png"/></a></figure></li></ul><ul id="1935984d-e42b-43c9-8878-a3bbe4e87682" class="bulleted-list"><li style="list-style-type:disc">Using IAM Roles with AWS EC2<p id="747790d3-d2f7-4240-b6a4-43a2b25c724e" class="">Roles is assumed by EC2 instances.</p><figure id="cd23fa76-5820-48a5-bbc1-a0acd3120895" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2034.png"><img style="width:1243px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2034.png"/></a></figure></li></ul><ul id="d6765c3e-1409-499c-824f-f7fd2537e750" class="bulleted-list"><li style="list-style-type:disc">EC2 Auto Scaling<p id="70fb11f6-3d83-48db-a539-e22e74631dc8" class="">automatically launch and terminate EC2 instances<div class="indented"><ul id="8f09e5ee-e0a9-4f12-b3ba-21093b1d48a3" class="bulleted-list"><li style="list-style-type:disc">terminate the instance that failure and replace that with a new EC2<figure id="43eafc16-f9d7-4840-878c-23b91ca901fa" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2035.png"><img style="width:1150px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2035.png"/></a></figure></li></ul><ul id="e40b0119-9aba-401e-abc7-9c40b7568e71" class="bulleted-list"><li style="list-style-type:disc">CloudWatch 采集指标，当Auto Scaling group中instances的某个全局资源指标(比如CPU)达到阈值，则CloudWatch通知Auto Scaling group, Auto Scaling group launch新的EC2; 当指标降到阈值以下，则CloudWatch通知Auto Scaling group,Auto Scaling group terminate EC2<figure id="39c850ba-c9d6-44fa-ac4e-d80790f71982" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2036.png"><img style="width:1110px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2036.png"/></a></figure></li></ul><p id="a1b6cc98-4edc-492c-87bd-400a94d2249d" class="">QA:<div class="indented"><p id="7b346c42-9822-45cb-9c29-f45cc7100220" class="">EC2 health check是啥？</p></div></p><p id="938d8417-b978-4211-b84c-c2d43da90b4f" class="">操作流程：<div class="indented"><ol type="1" id="cff8ac4b-77cf-4696-bf9e-f926f0bf7915" class="numbered-list" start="1"><li>Define Launch Template</li></ol><ol type="1" id="aeb8467b-024b-4680-bcca-834f35fa52fd" class="numbered-list" start="2"><li>Define Auto Scaling Group and attach LT to it</li></ol><ol type="1" id="f92b0a82-f9f9-4e18-9a95-a04aa5a46418" class="numbered-list" start="3"><li>Define dynamically scale policy</li></ol></div></p></div></p></li></ul><ul id="72c5f80f-0563-4210-9bed-8075e2a22ebc" class="bulleted-list"><li style="list-style-type:disc">Add Load Balancing with Amazon ELB<p id="bac4a340-3739-4ae4-b969-1851e988e1a9" class="">Introduction<div class="indented"><ul id="bf373935-3751-4e5c-b40b-e91d41eeb5fa" class="bulleted-list"><li style="list-style-type:disc">Elastic LB指引流量到EC2，EC2位于不同AZ即可以位于不同subnets</li></ul><ul id="1fa3fcb0-96a3-4efa-b214-7fbb50e9a6f6" class="bulleted-list"><li style="list-style-type:disc">ELB 对EC2 instances作health check，如某个failed则将其从service移出并通知Auto Scaling, Auto Scaling terminate the failed instance，并launch new instance， ELB将new instance放入service.<ul id="88a9bfbd-301e-4723-9dbb-d3c31c351310" class="bulleted-list"><li style="list-style-type:circle">protocol + port </li></ul><ul id="f59e92d7-f668-4d3c-9b1b-7240b4db8eaa" class="bulleted-list"><li style="list-style-type:circle">url path</li></ul><figure id="153f4769-3e53-47d5-a1f1-342e0a2337cc" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2037.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2037.png"/></a></figure><figure id="1fafe7b8-46c1-43b4-b953-3bd35ae9ef5a" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2038.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2038.png"/></a></figure></li></ul><ul id="336248c6-011f-4b54-a074-7c9a960a9dd1" class="bulleted-list"><li style="list-style-type:disc">three kinds of ELB: http&amp;https / tcp&amp;udp&amp;tls /(略)</li></ul></div></p></li></ul><p id="e3b9acf0-81b2-4a3e-b490-ec6e8889a962" class="">操作顺序：<div class="indented"><ol type="1" id="09639fd8-108c-4991-adc1-7ad81b433245" class="numbered-list" start="1"><li>TG</li></ol><ol type="1" id="86aa0d24-7deb-45c3-824a-77fdb50670f7" class="numbered-list" start="2"><li>Launch Template → Auto Scaling Group</li></ol><ol type="1" id="41094a31-97ca-4620-960a-ae9ca86e4b9a" class="numbered-list" start="3"><li>LB</li></ol></div></p><p id="cf4a7e27-f647-48eb-af22-6eef5789f460" class="">
+</p><h1 id="23678c8f-6030-4f19-a6f8-cdad3f98ee0b" class="">Storage Services</h1><p id="10d3b491-936a-49fd-96cd-fc69a187cdf3" class="">AWS Storage Overview<div class="indented"><figure id="d69bf561-d679-465b-ba0d-fad9ca33b0d8" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2039.png"><img style="width:1440px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2039.png"/></a></figure></div></p><h2 id="05628f86-eb04-4d61-a114-39aacfb3f9bf" class="">EBS</h2><figure id="cc0d1a67-fb4e-4feb-8326-038fbba2a82c" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2040.png"><img style="width:1190px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2040.png"/></a></figure><p id="6575263f-9ce5-474d-9c61-c7f3758543a4" class="">What: <div class="indented"><p id="265a01fe-7508-48b1-bfb7-837e8a837734" class="">The mainly four categories<div class="indented"><p id="ab05d7a5-14d1-4747-af30-84b0e2a4e61e" class="">关于IOPS和Throughput的详情需参考：<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-optimized.html</a></p><figure id="6107f343-4f5b-48d2-a343-27eb36a0fb05" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2041.png"><img style="width:1307px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2041.png"/></a></figure><figure id="e6bc9f4e-7dda-42c7-b122-9f778003d155" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2042.png"><img style="width:1287px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2042.png"/></a></figure><p id="e4f7dc94-f6dc-4224-bd45-566e0c6d0aec" class="">EBS是persistent storage; Instance Stores是non-persistent storage.</p><p id="bb27c396-4bc1-4bbb-b737-94c1a43b1bea" class="">EBS是基于网络的块存储; Instance Storage是物理服务器上的物理存储，提供了高性能</p><figure id="c238ec5e-7ed6-48c2-bc4e-8d540c15a357" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2043.png"><img style="width:939px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2043.png"/></a></figure></div></p><p id="f83560ae-6502-410f-b3b6-db94c48b78f2" class=""><div class="indented"><figure id="15191554-1c15-44b9-8a4d-ff20415ee872" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2044.png"><img style="width:1412px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2044.png"/></a></figure></div></p><p id="a61d591c-542d-4c1f-99b2-9d111fc452e3" class=""><div class="indented"><figure id="1a0acfd5-f46a-41c6-9c68-c0db303ac700" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2045.png"><img style="width:1321px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2045.png"/></a></figure></div></p><p id="b4499cad-aa7e-4818-94c0-304e9f02b6b3" class="">How：EC2 → Volumes</p><p id="d23c3a63-a0fa-48b8-81f3-d33a77f46512" class="">QA：<div class="indented"><ul id="cb6c0710-733a-4356-a98d-d3ff53615113" class="bulleted-list"><li style="list-style-type:disc">Diff between IOPS and Throughput ❓<p id="862a3eda-a81e-4df1-bd53-b0717a9b29fb" class="">IO operations per second (IOPS) is a measure of how many IO requests can be completed by the storage device in a second. </p><p id="7d430fbd-401f-4157-9d22-45b2545f7686" class="">Throughput is the measure of the amount of data transferred from/to a storage device in a second.</p></li></ul></div></p><p id="5786da8c-b427-42f3-af17-a573454062c6" class="">EBS Snapshot<div class="indented"><p id="ff994022-0471-4017-8cfe-d967e517d9e4" class="">What&amp;Why<div class="indented"><ul id="07570c49-41a0-4b55-887a-e201867a6be1" class="bulleted-list"><li style="list-style-type:disc">For baseline or backup</li></ul><ul id="226d2fca-8653-424f-b864-7e3ed48b834a" class="bulleted-list"><li style="list-style-type:disc">the built-in way <mark class="highlight-red">taking backup of an EBS volume </mark>that backed up to a snapshot sit on a Amazon S3</li></ul><ul id="0c4cfc6a-42a0-4922-91a7-b4d8c3d5ee9f" class="bulleted-list"><li style="list-style-type:disc">A snapshot is in a region not in an availability zone</li></ul><ul id="99d7264a-f75e-4133-9183-15b1286ad935" class="bulleted-list"><li style="list-style-type:disc">可用snapshot做出一个EBS volume</li></ul><figure id="248cb154-9d71-482e-b3a4-8dd24ce90bcc" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2046.png"><img style="width:528px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2046.png"/></a></figure></div></p><p id="2e31e219-910a-46c4-a8c0-dabad86c9629" class="">How to work<div class="indented"><ol type="1" id="cfde475e-a0b7-48e3-bca7-695a6447ee32" class="numbered-list" start="1"><li><strong>Relations among multiple snapshots of the same volume</strong><figure id="31994b87-2365-4ebc-a2a0-ebacfb92be9e" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2047.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2047.png"/></a></figure></li></ol><ol type="1" id="23864515-b71c-4d8a-aa87-f6d35faeca1e" class="numbered-list" start="2"><li><strong>Relations among incremental snapshots of different volumes</strong><figure id="a1336232-ba6c-48ec-bb9a-9e728ac05974" class="image"><a href="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2048.png"><img style="width:432px" src="%E5%AD%A6%E4%B9%A0%E6%B5%81%E6%B0%B4%20262c3/Untitled%2048.png"/></a></figure></li></ol><ul id="80670845-3525-4fb5-88e2-e0e75aac9070" class="bulleted-list"><li style="list-style-type:disc">第一个快照(initial snapshots)是全备，后续快照(subsequent snapshots)是增量</li></ul><ul id="c8c5b310-a1b8-4142-9305-3951d5ec47cc" class="bulleted-list"><li style="list-style-type:disc">可以对attached volume作snapshot，但是因APP可能缓存故存在保存不完整的问题，所以建议: 先umount volume再作snapshot，在snapshot为pending状态时再mount即可.</li></ul><ul id="ed6a417c-f2c4-4980-9ba5-6b78cb3bda1f" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">tag snapshot方便管理</mark></li></ul><ul id="4638b4a3-ecdb-422d-81d3-a4787774ddb5" class="bulleted-list"><li style="list-style-type:disc">快照加密，original volume → encrypted snapshot → encrypted volume</li></ul><ul id="2b8afba5-cb56-42d9-8ebc-df3b5db325f0" class="bulleted-list"><li style="list-style-type:disc">Multi-volume snapshots<ul id="19243d34-1d14-4181-b0ff-c96b680c70d2" class="bulleted-list"><li style="list-style-type:circle">对一个实例上所有attached volumes作一个快照动作，这些快照作为一个整体进行恢复，其中任一快照failed，其他快照也显示错误</li></ul><ul id="7ba7e599-d284-4b6d-9c36-947472a8ff13" class="bulleted-list"><li style="list-style-type:circle">快照动作有CloudWatch event<code>createSnapshots</code></li></ul><ul id="484c41b9-111a-41b8-9ab2-4378d442d3df" class="bulleted-list"><li style="list-style-type:circle">可手动或自动执行快照，可搭配定时任务(参考<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/snapshot-lifecycle.html</a>)</li></ul><ul id="80ad66c6-5f6d-4ddb-8ec8-a77ad00b2e27" class="bulleted-list"><li style="list-style-type:circle">生成结果是每个attached volumes都有单独的snapshot</li></ul><ul id="079c69f7-50c5-4ece-a7b9-5238cc74d855" class="bulleted-list"><li style="list-style-type:circle">Share an EBS snapshots<p id="0c55abed-5a16-474c-92f6-520d8e57eca1" class="">You can share a snapshot across AWS accounts by modifying its access permissions. You can make copies of your own snapshots as well as snapshots that have been shared with you.</p><p id="a0e11009-0c49-4041-bcd2-265453e19fa8" class="">参考：<a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html">https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-modifying-snapshot-permissions.html</a></p></li></ul><ul id="635fe471-c2eb-4a9d-85be-11c4cda9f06e" class="bulleted-list"><li style="list-style-type:circle">Copy an EBS snapshots(一个AWS账户中)<p id="b15817eb-5dcd-4c60-b2b0-fb3e9385fb3c" class="">snapshot位于Region中，可拷贝到其他的Region中，用于geographical expansion, data center migration, and disaster recovery</p></li></ul></li></ul><ul id="10d29731-8cbb-4c5b-a66c-d378b819b79b" class="bulleted-list"><li style="list-style-type:disc">将RootVolume作成snapshot，再将snapshot作成AMI，可以利用AMI制作处自己的操作系统baseline<figure id="75c09a11-53af-4447-ba45-9acd0327aaee" class="image"><a href="AWS%2046155/Untitled%208.png"><img style="width:672px" src="AWS%2046155/Untitled%208.png"/></a></figure></li></ul></div></p><p id="625a241f-25c5-47ad-a8eb-d382acd687ed" class="">Operations<div class="indented"><ul id="de8002e0-a481-4386-9efe-2a91fd14422e" class="bulleted-list"><li style="list-style-type:disc">Create and delete a snapshot</li></ul><ul id="63e0a0d2-bd8c-44bf-8274-d7e684e784ba" class="bulleted-list"><li style="list-style-type:disc">Create a EBS Vol from a snapshot and Attach&amp;Mount the Vol </li></ul><ul id="36bdb1c7-d528-4f4b-8859-c6031af22049" class="bulleted-list"><li style="list-style-type:disc">Create multi-Vol snapshots</li></ul><ul id="b584dda0-ce8e-4304-92f8-49f0c3438203" class="bulleted-list"><li style="list-style-type:disc">Create AMI from a snapshot</li></ul><ul id="fbdcc583-8f0e-489f-9e12-2194e6a82da9" class="bulleted-list"><li style="list-style-type:disc"><mark class="highlight-orange">Copy Snapshot</mark></li></ul></div></p><p id="2b0fba0d-2b68-4da7-b3b3-0295de90e025" class="">Best Practices<div class="indented"><ul id="bb2f6d98-2664-44fb-9b5f-584056e3889e" class="bulleted-list"><li style="list-style-type:disc">若EBS是boot，则snapshot前应关闭系统</li></ul><ul id="ce68964a-3bb4-4de4-8f78-275d4c33de49" class="bulleted-list"><li style="list-style-type:disc">一个Vol，同时存在多个处于pending的snapshot，会影响该volume的performance</li></ul><ul id="1cbdb92e-71ae-4767-b0de-e046b2e10e2e" class="bulleted-list"><li style="list-style-type:disc">st1和sc1仅能有一个处于pending的snapshot，而其他可以同时有5个</li></ul><ul id="1e73b1f2-0d9f-454d-9ab8-a1e2116d5a91" class="block-color-orange bulleted-list"><li style="list-style-type:disc">When you create a snapshot for an EBS volume that serves as a root device, you should stop the instance before taking the snapshot.</li></ul><ul id="25273968-8c42-428b-acea-44f851318584" class="block-color-orange bulleted-list"><li style="list-style-type:disc">You cannot create snapshots from instances for which hibernation is enabled.</li></ul><ul id="ee795326-7640-441b-b02d-48d6fb60c46d" class="block-color-orange bulleted-list"><li style="list-style-type:disc">You cannot create snapshots from hibernated instances.</li></ul></div></p></div></p></div></p><p id="21372501-5ad7-439e-bab9-09ddff0bcfeb" class="">
+</p><p id="6fa1961d-4453-48fe-9aa9-523086ba51af" class="">
+</p><h2 id="72c70526-fb33-493c-9e2b-7b59ed0a275f" class="">EFS | Elastic File System</h2><p id="7d85cbe0-a585-4fe1-8a74-805cdedb313e" class="">
+</p><h1 id="83c49bb0-2012-4c5d-8483-dd2638003f03" class="">EKS</h1><h2 id="be1e539f-1692-4b18-bce8-f4d38026444f" class="">Create an EKS Cluster</h2><h3 id="79965d79-13c8-4367-8d9c-8c814e8a1440" class="">aws-cli创建</h3><ol type="1" id="4cadfac8-8d31-4634-8243-3298e85daf90" class="numbered-list" start="1"><li>创建EKS<ol type="a" id="94d41aff-2763-4231-a2c6-cde3fb529857" class="numbered-list" start="1"><li>使用<code>aws</code>CLI命令访问AWS<p id="176c89d9-e059-4aec-8c40-5a0b33ddd29d" class="">获取access key-id和secret access key: <a href="https://console.aws.amazon.com/iam/home#security_credential">Security credentials</a> → <strong>Create access key,下载CSV文件其中包含</strong></p><figure id="adf066c9-506d-4f35-b388-7ef066c5e123" class="image"><a href="AWS%2046155/Untitled%209.png"><img style="width:719px" src="AWS%2046155/Untitled%209.png"/></a></figure></li></ol><ol type="a" id="f20aa170-1e48-4803-805a-5b72d566ff6d" class="numbered-list" start="2"><li>Create EKS<pre id="b7a359b3-c74c-4212-9336-b9a2d4d121c8" class="code"><code>#create the role for EKS cluster
+role_arn=$(aws iam create-role --role-name getting-started-eks-role --assume-role-policy-document file://assume-policy.json | jq .Role.Arn | sed s/\&quot;//g)
+aws iam attach-role-policy --role-name getting-started-eks-role --policy-arn  arn:aws:iam::aws:policy/AmazonEKSClusterPolicy
+
+#create the cluster VPC
+curl https://amazon-eks.s3.us-west-2.amazonaws.com/cloudformation/2020-05-08/amazon-eks-vpc-sample.yaml -o vpc.yaml
+aws cloudformation deploy --template-file vpc.yaml --stack-name getting-started-eks
+
+
+#查看VPC信息，其中的subnets和security，在创建EKS时需使用
+aws cloudformation list-stack-resources --stack-name getting-started-eks &gt; stack.json
+
+#创建EKS
+aws eks create-cluster \
+--name getting-started-eks \
+--role-arn $role_arn \
+--resources-vpc-config subnetIds=subnet-09bf0cce6946dbccd,subnet-0ce5187ce204c2ee0,subnet-04956daec53b08ed3,securityGroupIds=sg-020aed8eec48e35b5,endpointPublicAccess=true,endpointPrivateAccess=false
+#输出以下结果：
+{
+    &quot;cluster&quot;: {
+        &quot;name&quot;: &quot;getting-started-eks&quot;,
+        &quot;arn&quot;: &quot;arn:aws:eks:ap-southeast-2:168888479120:cluster/getting-started-eks&quot;,
+        &quot;createdAt&quot;: &quot;2021-11-30T10:30:13.078000+08:00&quot;,
+        &quot;version&quot;: &quot;1.21&quot;,
+        &quot;roleArn&quot;: &quot;arn:aws:iam::168888479120:role/getting-started-eks-role&quot;,
+        &quot;resourcesVpcConfig&quot;: {
+            &quot;subnetIds&quot;: [
+                &quot;subnet-09bf0cce6946dbccd&quot;,
+                &quot;subnet-0ce5187ce204c2ee0&quot;,
+                &quot;subnet-04956daec53b08ed3&quot;
+            ],
+            &quot;securityGroupIds&quot;: [
+                &quot;sg-020aed8eec48e35b5&quot;
+            ],
+            &quot;vpcId&quot;: &quot;vpc-04edea8461e66d924&quot;,
+            &quot;endpointPublicAccess&quot;: true,
+            &quot;endpointPrivateAccess&quot;: false,
+            &quot;publicAccessCidrs&quot;: [
+                &quot;0.0.0.0/0&quot;
+            ]
+        },
+        &quot;kubernetesNetworkConfig&quot;: {
+            &quot;serviceIpv4Cidr&quot;: &quot;10.100.0.0/16&quot;
+        },
+        &quot;logging&quot;: {
+            &quot;clusterLogging&quot;: [
+                {
+                    &quot;types&quot;: [
+                        &quot;api&quot;,
+                        &quot;audit&quot;,
+                        &quot;authenticator&quot;,
+                        &quot;controllerManager&quot;,
+                        &quot;scheduler&quot;
+                    ],
+                    &quot;enabled&quot;: false
+                }
+            ]
+        },
+        &quot;status&quot;: &quot;CREATING&quot;,
+        &quot;certificateAuthority&quot;: {},
+        &quot;platformVersion&quot;: &quot;eks.3&quot;,
+        &quot;tags&quot;: {}
+    }
+}
+#查看Cluster
+aws eks describe-cluster --name getting-started-eks</code></pre></li></ol><ol type="a" id="6c01990c-2e94-4473-b25d-9246d19eecca" class="numbered-list" start="3"><li>Configure EKS<pre id="f9d1f3e0-c374-42f3-8636-4a11be862062" class="code"><code>#Get kubeconfig file
+aws eks update-kubeconfig --name getting-started-eks --region ap-southeast-2
+
+	#install kubectl if needed
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+chmod +x ./kubectl &amp;&amp; mv ./kubectl /usr/local/bin/kubectl
+</code></pre></li></ol><ol type="a" id="bb024032-8217-4472-96a5-d8cf32d4a510" class="numbered-list" start="4"><li>Add instances<pre id="9e10275a-9c42-4775-b5e7-e6cf2de2cd8c" class="code"><code>
+#Create policy file
+cat &lt;&lt;EOF &gt;assume-node-policy.json
+{
+    &quot;Version&quot;: &quot;2012-10-17&quot;,
+    &quot;Statement&quot;: [
+      {
+        &quot;Effect&quot;: &quot;Allow&quot;,
+        &quot;Principal&quot;: {
+          &quot;Service&quot;: &quot;ec2.amazonaws.com&quot;
+        },
+        &quot;Action&quot;: &quot;sts:AssumeRole&quot;
+      }
+    ]
+}
+EOF
+
+#创建role
+role_arn=$(aws iam create-role --role-name getting-started-eks-role-nodes --assume-role-policy-document file://assume-node-policy.json | jq .Role.Arn | sed s/\&quot;//g)
+
+
+aws iam attach-role-policy --role-name getting-started-eks-role-nodes --policy-arn  arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy
+aws iam attach-role-policy --role-name getting-started-eks-role-nodes --policy-arn  arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy
+aws iam attach-role-policy --role-name getting-started-eks-role-nodes --policy-arn  arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly
+
+aws eks create-nodegroup \
+--cluster-name getting-started-eks \
+--nodegroup-name test \
+--node-role $role_arn \
+--subnets subnet-0ec47e6ae964a233f \
+--disk-size 200 \
+--scaling-config minSize=1,maxSize=2,desiredSize=1 \
+--instance-types t2.small
+
+#查看nodeGroup
+aws eks describe-nodegroup --cluster-name getting-started-eks01 --nodegroup-name test</code></pre></li></ol></li></ol><p id="8b772de7-3327-465e-9837-6c9f4c06c7a1" class="">
+</p><h3 id="f52c444e-6fba-4c94-9895-6eaf8b95403a" class="">eksctl创建</h3><p id="59aba6a7-d41b-460a-aa91-18f6e7325141" class="">
+</p><h2 id="6da810d6-c0f0-4f82-980c-b70a5f0400d3" class="">RBAC in EKS</h2><p id="dd5b99ad-9d6d-4946-9360-9b437fb0766d" class="">如果你刚接手一个EKS集群，你所用的账户不是该集群创建时所用的账户，你现在需要访问API-Server来管理，在<code>aws eks update-kubeconfig --name 集群名</code> 下载kubeconfig后，使用kubectl命令却发现返回<code>error: You must be logged in to the server (Unauthorized)</code>.  要弄明白，需要先搞清楚EKS的访问控制是如何实现的。</p><p id="e2025d5a-44c6-40a6-b154-faeb0de3c84b" class="">很简单：EKS使用IAM来提供认证，而授权则仍然由自身的RBAC来提供.</p><figure id="44e7cbff-bd3d-4d97-9f26-c1a8a0bf181f" class="image"><a href="AWS%2046155/Untitled%2010.png"><img style="width:384px" src="AWS%2046155/Untitled%2010.png"/></a></figure><p id="cc3b6cb2-e6a8-45b9-8e9d-58f27bc1adde" class="">为AWS用户，在EKS集群中，创建一个系统管理员权限的集群用户，比如用户名是k8admin</p><ol type="1" id="18ed18f3-5c8a-463d-a317-15ecec6a38b4" class="numbered-list" start="1"><li>获得AWS用户的ARN号码<pre id="47018503-132e-4997-afe6-bf017436e66d" class="code"><code>#如aws用户未创建则先创建，创建时会返回ARN号码
+aws ami create-user --user-name k8sadmin
+#如已有则查看
+aws ami get-user --user-name k8sadmin</code></pre></li></ol><ol type="1" id="d0959855-2603-4e5f-85f6-baf7ad93ff10" class="numbered-list" start="2"><li>以Kubernetes管理员身份或足够权限的身份，编辑configmap<code>aws-auth</code> ，在mapUsers配置文件中添加Kubernetes用户与AWS用户的对应关系.<pre id="2cb2025c-c23e-43a5-b167-84232b287296" class="code"><code>#输出configmap aws-auth
+kubectl get cm -n kube-system aws-auth -o yaml &gt; aws-auth.yaml
+
+#编辑
+vim aws-auth.yaml
+mapUsers: | #在mapUsers下面添加，因为是AWS用户与K8S用户间的映射
+- userarn: arn:aws:iam::168888479120:user/k8sadmin#此处是aws用户的ARN
+  username: k8sadmin #此处是k8s的用户名，直接写，不用单独创建
+  groups:
+  - system:masters #此处是k8s预定义的组名，与其关联的用户将具有管理员权限
+
+#保存后，应用，此时该用户的认证与授权完成
+kubectl apply -f aws-auth.yaml</code></pre></li></ol><ol type="1" id="ec1d800a-3d36-4c57-a54b-e7255cf499f6" class="numbered-list" start="3"><li>此时aws-cli，以k8sadmin用户登陆，下载kube-config文件，即可以k8sadmin管理EKS集群, 具体操作参考下面，然后测试一下<pre id="6c8334f9-6957-47d1-9efa-052f7d57e8f7" class="code"><code>kubectl get nodes #因为是管理员权限，所以可以看到所有节点</code></pre></li></ol><p id="387813e1-3eac-478f-97c3-3651eb6d9420" class="">
+</p><p id="c03a3404-962f-4e30-91fa-5ed9d3c04a3d" class="">如为某用户设计更详细的权限，则需要单独创建Role和Rolebinding，比如创建一个developer用户，他只可访问pod</p><ol type="1" id="6cca35e3-96c1-42ea-b9ab-b6389007ad1f" class="numbered-list" start="1"><li>获得AWS用户的ARN号码<pre id="c0fdf995-6b6c-49b9-aaad-ec9df3a65770" class="code"><code>#如aws用户未创建则先创建，创建时会返回ARN号码
+aws ami create-user --user-name developer
+#如已有则查看
+aws ami get-user --user-name developer</code></pre></li></ol><ol type="1" id="1c4ecacc-0440-435c-bc70-fc590c7555d7" class="numbered-list" start="2"><li>在kubernetes集群中，为developer用户，创建role和rolebinding<pre id="7cee067d-c7da-4b7b-a6e6-035ae085f602" class="code"><code>cat &lt;&lt;-EOF &gt;role-deployment-manager.yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: development
+  name: development-manager
+rules:
+- apiGroups: [&quot;&quot;, &quot;extensions&quot;, &quot;apps&quot;]
+  resources: [&quot;deployments&quot;, &quot;replicasets&quot;, &quot;pods&quot;]
+  verbs: [&quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;create&quot;, &quot;update&quot;, &quot;patch&quot;, &quot;delete&quot;]
+EOF
+
+cat &lt;&lt;-EOF &gt;rolebinding-deployment-manager.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: development-manager-binding
+  namespace: development
+subjects:
+- kind: User
+  name: developer
+  apiGroup: &quot;&quot;
+roleRef:
+  kind: Role
+  name: development-manager
+  apiGroup: &quot;&quot;
+EOF
+
+kubectl apply -f role-deployment-manager.yaml; kubectl apply -f rolebinding-deployment-manager.yaml</code></pre></li></ol><ol type="1" id="8e44d29d-c86c-43a4-9e18-fc56a5a13997" class="numbered-list" start="3"><li>以Kubernetes管理员身份或足够权限的身份编辑configmap<code>aws-auth</code> ，在mapUsers配置文件中添加Kubernetes用户与AWS用户的对应关系.<pre id="77f94147-fc43-421d-8581-948147873606" class="code"><code>
+
+#输出configmap aws-auth
+kubectl get cm -n kube-system aws-auth -o yaml &gt; aws-auth.yaml
+
+#编辑
+vim aws-auth.yaml
+mapUsers: | #在mapUsers下面添加，因为是AWS用户与K8S用户间的映射
+- userarn: arn:aws:iam::168888479120:user/developer #此处是aws用户developer的ARN
+      username: developer #此处是在rolebinding中定义的subject名字
+      groups:
+      - development-manager #此处是role development-manager
+
+#保存后，应用，此时该用户的认证与授权完成
+kubectl apply -f aws-auth.yaml</code></pre></li></ol><ol type="1" id="a0fc0ca2-11d5-44ea-9b5f-5563b5656d9e" class="numbered-list" start="4"><li>查看</li></ol><p id="d8af18b1-7e45-4722-b4f0-9165899e361a" class="">
+</p><p id="65710aa5-de16-4e4c-b438-37e8ccad3017" class="">用户须有权限<code>eks:DescribeCluster</code>，才可从aws esk下载kubeconfig文件, 上面k8sadmin或developer添加完成后，还需执行下面步骤:</p><ol type="1" id="268e292e-d68b-4e0a-a1f3-a4f2c46340ba" class="numbered-list" start="1"><li>定义Policy，因没有预定义Policy，故手动添加一个Policy，其中定义两个因素即可：<ul id="44e3eff5-c8ca-4e97-a156-7045f14594d4" class="bulleted-list"><li style="list-style-type:disc">action是<code>eks:DescribeCluster</code></li></ul><ul id="79db8f2a-a24e-4bda-8f63-20a9c5a8cd89" class="bulleted-list"><li style="list-style-type:disc">resource要详细到EKS的名字</li></ul></li></ol><ol type="1" id="98cf8973-76b0-470f-856a-edbe89e38dc8" class="numbered-list" start="2"><li>将Policy关联AWS用户k8sadmin或developer</li></ol><ol type="1" id="f5350a77-00de-4d2b-98e5-996dbe8b0bb1" class="numbered-list" start="3"><li>找到用户的access-key，使用aws-cli命令登陆<pre id="0dff7ee0-566e-4c4c-842b-e125ccb36273" class="code"><code>#创建账户profile
+aws configure --profile 名字比如k8sadmin或developer，输入用户的access-key-id和secret-access-key
+
+#切换到账户
+export AWS_DEFAULT_PROFILE=k8sadmin或者developer</code></pre></li></ol><ol type="1" id="b117e525-678d-42fe-949a-6d5620992c98" class="numbered-list" start="4"><li>下载该集群的kubeconfig文件<pre id="85d03446-1ded-41a1-80d3-8d16095156ba" class="code"><code>aws eks update-kubeconfig --name 集群名字</code></pre></li></ol><ol type="1" id="47aecbc1-06a4-4f9c-b1ae-9389562a6f19" class="numbered-list" start="5"><li>尝试访问<pre id="9771c3d6-dba2-4502-a986-c4a2b3b5dbca" class="code"><code></code></pre></li></ol><p id="e31dd954-f587-4ea3-8eea-89328dfc56e1" class="">Authentication is provided by IAM, Authorization is provided by Kubernetes RBAC</p><pre id="46e4df74-8d29-4a55-8b18-af5e1909909c" class="code"><code></code></pre><h2 id="71647686-29ad-4cf3-b1d9-24c568d51763" class="">HPA and AutoScaling</h2><h3 id="7840291a-5867-4463-9a22-f4b1253c8df5" class="">创建metrics-server</h3><pre id="03f905b7-f944-4c77-8998-3e9fdcde1e89" class="code"><code>kubectl create namespace metrics</code></pre><p id="17df87be-632d-45b9-9196-cc7ef153049b" class="">
+</p><h2 id="665cfeaa-7553-40cb-8587-971e6c467f36" class="">相关命令总汇</h2><pre id="fab1c6d0-3e54-4856-8146-8ba66d3fdd3f" class="code"><code>$ aws eks list-clusters
+{
+    &quot;clusters&quot;: [
+        &quot;eksworkshop-eksctl&quot;
+    ]
+}</code></pre><h1 id="2e950e99-e189-446f-8c74-85a57fdef8c1" class="">CloudFormation</h1><p id="fb829df8-e6a0-4c4d-a1b4-68108cd24dc1" class="">AWS CloudFormation 允许您通过将基础设施视为代码来建模、预置和管理 AWS 和第三方资源。</p><figure id="036cf019-2a8b-4aa0-b5ae-778db7a17dc0" class="image"><a href="AWS%2046155/Untitled%2011.png"><img style="width:1229px" src="AWS%2046155/Untitled%2011.png"/></a></figure><h2 id="d2cecf9f-99cf-4ac9-a774-6642d87c0b5e" class="">Concept</h2><ul id="44d4e81c-1589-4ecc-8b52-f7fcf05dc673" class="bulleted-list"><li style="list-style-type:disc">A <em><strong>stack</strong></em> is a collection of AWS resources that you can manage as a single unit.<pre id="6d73c477-38d2-49aa-a500-bc27c4118309" class="code"><code>#查看一个stack
+aws cloudformation list-stack-resources --stack-name getting-started-eks</code></pre></li></ul><p id="9eb99ae4-6915-43e9-9fa6-61c1214b84b5" class="">
+</p><p id="a26619ca-13f2-4ac3-8100-cbf40efaca47" class="">使用CloudFormation创建VPC, 应用一个文件(一个模板描述了一个VPC)</p><figure id="0cb26ff7-a77f-40a7-ae56-cc0290583392" class="image"><a href="AWS%2046155/Untitled%2012.png"><img style="width:1481px" src="AWS%2046155/Untitled%2012.png"/></a><figcaption>stack-name 是VPC的name</figcaption></figure><figure id="dc199562-6b6e-47ee-a749-d1eb63f37a6d" class="image"><a href="AWS%2046155/Untitled%2013.png"><img style="width:1104px" src="AWS%2046155/Untitled%2013.png"/></a><figcaption>应用之后, 在这里可以看到情况</figcaption></figure><p id="a6fb1f83-ac9c-4505-9260-781cf10ac208" class="">
+</p><p id="d8905087-7ea7-4a90-9d6a-9d30f4b25e08" class="">
+</p><p id="d296325f-bf2b-4ea6-b43c-1e34adbbaf0f" class="">
+</p><h1 id="162704aa-a17d-4880-8b78-d3307a38a988" class="">Cloud9</h1><figure id="c789c7bf-b1a1-4fca-a94c-77ff3a7e788b" class="image"><a href="AWS%2046155/Untitled%2014.png"><img style="width:810px" src="AWS%2046155/Untitled%2014.png"/></a></figure><p id="8c072410-261b-4d7d-a71e-c82e63de473f" class="">
+</p></div></article></body></html>

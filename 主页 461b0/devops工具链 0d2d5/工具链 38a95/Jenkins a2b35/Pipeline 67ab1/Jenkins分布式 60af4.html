@@ -1,0 +1,705 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Jenkins分布式</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="60af4c9d-b020-4a9e-8564-5afd16342340" class="page sans"><header><h1 class="page-title">Jenkins分布式</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 4, 2021 10:39 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>tag</th><td></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesText"><path d="M7,4.56818 C7,4.29204 6.77614,4.06818 6.5,4.06818 L0.5,4.06818 C0.223858,4.06818 0,4.29204 0,4.56818 L0,5.61364 C0,5.88978 0.223858,6.11364 0.5,6.11364 L6.5,6.11364 C6.77614,6.11364 7,5.88978 7,5.61364 L7,4.56818 Z M0.5,1 C0.223858,1 0,1.223858 0,1.5 L0,2.54545 C0,2.8216 0.223858,3.04545 0.5,3.04545 L12.5,3.04545 C12.7761,3.04545 13,2.8216 13,2.54545 L13,1.5 C13,1.223858 12.7761,1 12.5,1 L0.5,1 Z M0,8.68182 C0,8.95796 0.223858,9.18182 0.5,9.18182 L11.5,9.18182 C11.7761,9.18182 12,8.95796 12,8.68182 L12,7.63636 C12,7.36022 11.7761,7.13636 11.5,7.13636 L0.5,7.13636 C0.223858,7.13636 0,7.36022 0,7.63636 L0,8.68182 Z M0,11.75 C0,12.0261 0.223858,12.25 0.5,12.25 L9.5,12.25 C9.77614,12.25 10,12.0261 10,11.75 L10,10.70455 C10,10.4284 9.77614,10.20455 9.5,10.20455 L0.5,10.20455 C0.223858,10.20455 0,10.4284 0,10.70455 L0,11.75 Z"></path></svg></span>Property</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="496a3061-3a54-436a-95c4-0b2c3da9d431" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#3a23a6ea-4b01-4739-a067-4b6be5e90f52">介绍</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5a32d36c-d59f-4f49-8c98-523f63edbca7">为什么需要Jenkins分布式构建</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#74cc5870-1eb0-4fba-8b5c-fca16d03bd87">Jenkins Master Node主要负责调度</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#8f1e84c1-6044-4e4d-af08-2ab21af77ba4">Jenkins Slave Node 主要负责执行任务</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#19d5e105-fd39-4215-ad63-3b669f7188ac">Master和Slave之间交互的方式:</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#ff2d7cd7-a304-44b1-b597-8a8590f1f350">Jenkins分布式构建的工作流程</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#f589b46e-9704-44b7-874d-23cec00c912d">安装容器化Jenkins</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#9ed8d3d1-67f2-45f9-ba76-7d44978bec45">部署静态slave节点（不常用）</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#5be564da-ab29-46a1-a54b-3805e3057e18">部署动态Slave节点</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0e1207be-b662-4821-a149-f598d2999a36">制作agent容器镜像</a></div></nav><h1 id="3a23a6ea-4b01-4739-a067-4b6be5e90f52" class="">介绍</h1><figure id="7fcb19eb-a664-4a89-a57c-ad18a2a793e4" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled.png"><img style="width:720px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled.png"/></a></figure><h3 id="5a32d36c-d59f-4f49-8c98-523f63edbca7" class="">为什么需要Jenkins分布式构建</h3><p id="04456b5c-5877-45e3-9311-95ba67f06489" class="">因为单一节点不足以满足:</p><ol type="1" id="7f292f77-f915-43f8-8384-0d5b051318a9" class="numbered-list" start="1"><li>Sometimes you might need several different environments to test your builds. This cannot be done by a single Jenkins server. When we build the Jenkins job, Workload of the single node Jenkins will take the master’s resource and wait for the queued process to finish. This is time-consuming and sometimes, bigger build task may break the Jenkins server.</li></ol><ol type="1" id="5d94683a-2dfc-453a-8e21-1c97c8f45a26" class="numbered-list" start="2"><li>If larger and heavier projects get built on a regular basis then a single Jenkins server cannot simply handle the entire load.</li></ol><hr id="a14ce2b1-1b62-4eff-8af6-443b835384d9"/><h3 id="74cc5870-1eb0-4fba-8b5c-fca16d03bd87" class="">Jenkins Master Node主要负责调度</h3><ul id="80ef6c30-7a4c-4e58-a773-a508491fbdb7" class="bulleted-list"><li style="list-style-type:disc">Scheduling build jobs.</li></ul><ul id="9e5f072c-c7bc-44df-ab39-1ddad95da8c6" class="bulleted-list"><li style="list-style-type:disc">Dispatching builds to the slaves for the actual execution.</li></ul><ul id="2242627e-2e1a-429a-b2f6-8d128ea71b87" class="bulleted-list"><li style="list-style-type:disc">Monitor the slaves (possibly taking them online and offline as required).</li></ul><ul id="53e58825-2272-447e-9638-01b76d8d222e" class="bulleted-list"><li style="list-style-type:disc">Recording and presenting the build results.</li></ul><ul id="5d09f165-1c71-4569-ab25-f48af61c3b04" class="bulleted-list"><li style="list-style-type:disc">A Master instance of Jenkins can also execute build jobs directly.</li></ul><hr id="ad92435a-4573-40f5-ab19-ea5162855275"/><h3 id="8f1e84c1-6044-4e4d-af08-2ab21af77ba4" class="">Jenkins Slave Node 主要负责执行任务</h3><p id="01941781-8090-43ab-8689-44bfca30a32b" class="">是运行在远端机器上的Java程序, 在一个结构里可以有很多个Agent,</p><ul id="758fddd5-7b44-43ff-ba04-c7892fe9629c" class="bulleted-list"><li style="list-style-type:disc">It hears requests from the Jenkins Master instance.</li></ul><ul id="0cdcb269-18a4-4e30-9f63-6162ad033dd3" class="bulleted-list"><li style="list-style-type:disc">Slaves can run on a variety of operating systems.</li></ul><ul id="cede324e-2838-4d3f-92c6-a9df123645f4" class="bulleted-list"><li style="list-style-type:disc">The job of a Slave is to do as they are told to, which involves executing build jobs dispatched by the Master.</li></ul><ul id="b56e1920-7287-49e4-94f2-e94eb393538a" class="bulleted-list"><li style="list-style-type:disc">You can configure a project to always run on a particular Slave machine or a particular type of Slave machine, or simply let Jenkins pick the next available Slave.</li></ul><hr id="d79541e0-6b0c-4d9a-bc25-b50a703e511b"/><h2 id="19d5e105-fd39-4215-ad63-3b669f7188ac" class="">Master和Slave之间交互的方式:</h2><ul id="7eb6e660-edfc-4161-81a9-139ceab4292c" class="bulleted-list"><li style="list-style-type:disc">SSH</li></ul><ul id="6cef190f-7e52-4433-9503-19d9762bb89b" class="bulleted-list"><li style="list-style-type:disc">JNLP（主要用）</li></ul><hr id="0f3ba18a-dd6b-47b2-8b47-fb0343e79f02"/><h2 id="ff2d7cd7-a304-44b1-b597-8a8590f1f350" class="">Jenkins分布式构建的工作流程</h2><p id="c34c6669-e783-4c9f-bad4-40e1ac0e2792" class="">下图演示了Jenkins系统, 由一个Master和三个Slave组成.</p><figure id="d2cb185e-ffee-4487-b6c7-c046a1c614f8" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%201.png"><img style="width:815px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%201.png"/></a></figure><p id="0f53d177-0621-49da-88ad-f91f5ee59a97" class="">Jenkins Master和Slave架构是如何工作的?</p><p id="521d3930-2af0-40a3-a20f-3fc2847d68cd" class="">下图演示了利用Jenkins Master和Slave架构实现不同环境的测试(Linux/Wins/Mac等). 下图</p><ul id="2c8b3990-160c-4fa0-b8ca-b8bc8d03db3b" class="bulleted-list"><li style="list-style-type:disc">Jenkins checks the Git repository at periodic intervals for any changes made in the source code.</li></ul><ul id="ace9f745-37f6-48ad-8b99-37a6db6a0c44" class="bulleted-list"><li style="list-style-type:disc">Each builds requires a different testing environment which is not possible for a single Jenkins server. In order to perform testing in different environments, Jenkins uses various Slaves as shown in the diagram.</li></ul><ul id="35f2f8e0-7b2f-4a7c-8827-b47f6c7ccfff" class="bulleted-list"><li style="list-style-type:disc">Jenkins Master requests these Slaves to perform testing and to generate test reports.</li></ul><hr id="6624967b-36bf-4da8-9895-a01738261b94"/><p id="e323300b-4b27-4730-929a-0851f88f8a89" class="">在Jenkins分布式结构中, 可以通过静态地或者动态地增加Jenkins Slave以实现扩容, 下面列出这<mark class="highlight-red">两种示例</mark>（容器化或独立部署Jenkins都可以，下面用的是容器化）</p><ul id="ba59c622-2162-4fe6-a948-75cbdb8419dc" class="bulleted-list"><li style="list-style-type:disc">部署静态Slave节点</li></ul><ul id="b197b002-a421-460c-9814-06a84ae0bb81" class="bulleted-list"><li style="list-style-type:disc">部署动态Slave节点</li></ul><p id="5d3f2265-b42c-4f41-b9ea-9b24b84fae13" class="">
+</p><figure id="43c5d490-7fa0-4103-8f9d-cb3a8bb80c7f" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%202.png"><img style="width:624px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%202.png"/></a><figcaption>Create dynamically Scalable Jenkins slaves with Docker and Kubernetes</figcaption></figure><h2 id="f589b46e-9704-44b7-874d-23cec00c912d" class="">安装容器化Jenkins</h2><ul id="c1975662-8cbf-45c3-b63a-905dd8be7d1e" class="toggle"><li><details open=""><summary>安装步骤</summary><ol type="1" id="fdb7249c-5a3c-4fb0-bbe0-2559db7f0527" class="numbered-list" start="1"><li>拉取并运行镜像<p id="bb8aeb14-150e-4558-a742-cae114174fcd" class="">Docker网站上Jenkins LTS 官方镜像: <a href="https://hub.docker.com/r/jenkins/jenkins">https://hub.docker.com/r/jenkins/jenkins</a></p><pre id="5ba004f8-a7aa-4bff-af4b-b4f23fc2d213" class="code code-wrap"><code>
+docker pull jenkins/jenkins:lts
+useradd -u 1000 -M jenkins
+mkdir /tmp/jenkins &amp;&amp; chown jenkins:jenkins /tmp/jenkins/
+docker run --name jenkins \
+                  -itd \
+                  -p 8080:8080 \
+                  -p 50000:50000 \
+                  -v /tmp/jenkins:/var/jenkins_home jenkins/jenkins:lts
+#50000端口是节点访问jenkins master的端口</code></pre></li></ol><ol type="1" id="0879c2ec-3578-43eb-bdcd-0cf57a35bfc2" class="numbered-list" start="2"><li>容器化Jenkins安装完毕, 可以通过日志查看启动情况. <code>docker logs -f jenkins</code></li></ol><ol type="1" id="d8a7caf1-b1cc-4ee2-852b-c17c9443ea89" class="numbered-list" start="3"><li>浏览器登陆，从日志中寻找口令</li></ol><ol type="1" id="f2dbc885-3c36-4ba2-9235-6e7ca5b09502" class="numbered-list" start="4"><li>更新插件更新源参考：<a href="%E5%AE%89%E8%A3%85Jenkins%E5%92%8C%20962b0.html">https://www.notion.so/Jenkins-962b052473a447c98d7081816fdfcad0#d80d51f123b043adb0cc7861b8d4f752</a></li></ol></details></li></ul><p id="23548010-86ef-496f-912f-cf17cf6cb030" class="">
+</p><p id="df8877e4-1a15-4f2a-8ad5-d640450d423d" class="">
+</p><p id="eb096fe2-12d2-475e-b59a-5555c4031a57" class="">
+</p><figure id="761ad304-39b8-4a2f-9408-5c334e357d55" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%203.png"><img style="width:582px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%203.png"/></a></figure><p id="b0098dba-48e9-4d94-aa92-5546f4ccac83" class="">
+</p><figure id="2156ceb6-f3b3-493b-bfae-77b043b7ead4" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%204.png"><img style="width:1473px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%204.png"/></a></figure><p id="a8631b39-68a5-4630-b4bc-6274275b8e68" class="">
+</p><p id="cf082766-81e6-45f5-be17-2b04f378fb12" class="">
+</p><p id="4e4c9272-bf1b-459d-94b6-043d536d855e" class="">
+</p><h2 id="9ed8d3d1-67f2-45f9-ba76-7d44978bec45" class="">部署静态slave节点（不常用）</h2><figure id="89eea7c3-c076-4be9-b870-945822982284" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%205.png"><img style="width:912px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%205.png"/></a></figure><p id="82282b1c-d97c-444e-bc9d-928a599e7f6b" class=""><strong>拉取镜像</strong></p><p id="302b9f19-edcc-424f-a8e0-dfe129d49ac1" class="">docker网站上jnlp-slave镜像: <a href="https://hub.docker.com/r/jenkins/jnlp-slave">https://hub.docker.com/r/jenkins/jnlp-slave</a></p><pre id="bed14a1e-7c43-4a8a-a6d6-02ba9d3fcc5f" class="code code-wrap"><code>docker pull jenkins/jnlp-slave:alpine</code></pre><p id="4ff23f59-3968-4062-9891-026e1e30341b" class=""><strong>运行容器</strong></p><pre id="24034d7c-2d2e-458e-8c76-42670c0949a9" class="code code-wrap"><code>#容器启动命令解释
+docker run -itd jenkins/jnlp-slave:alpine -url jenkins的url 密钥 节点名称
+
+#运行容器
+docker run --name build01 \
+					 -itd jenkins/jnlp-slave:alpine \
+           -url http://10.19.34.121:8081 \
+           99c7f5f0d78a6142e855b3ee89e0e649929bcfe10f40dd838e8df297c6b16051 build01
+
+#看到INFO: Connected表示成功.
+docker logs -f build01</code></pre><p id="f918dfd9-5b14-479e-972c-2b118a069115" class=""><strong>刷新网页,节点状态显示正常</strong></p><figure id="84e21712-9c1c-4cbc-8508-1028b1578005" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%206.png"><img style="width:1920px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%206.png"/></a></figure><p id="580aa8b1-3886-4db1-bc22-9140d6d2fdcc" class="">
+</p><hr id="26c11480-ebd7-44e0-a530-2548c8fbefdc"/><h2 id="5be564da-ab29-46a1-a54b-3805e3057e18" class="">部署动态Slave节点</h2><ol type="1" id="ef03a436-337f-4f51-afa4-4961a78d782a" class="numbered-list" start="1"><li>在Jenkins上安装插件docker（它插件网页是 <a href="https://plugins.jenkins.io/docker-plugin/">https://plugins.jenkins.io/docker-plugin/</a>）</li></ol><ol type="1" id="0d9709eb-379f-49fb-bd35-4a1df49a6a67" class="numbered-list" start="2"><li>Slave节点上开启docker远程访问<p id="ee592ba6-0fcd-49d0-a724-ee94d2a9ee73" class="">Jenkins的动态slave配置, 其实就是jenkins通过调用docker接口, 创建. 我们需要开启docker远程访问.</p><p id="7b14299b-719b-4efa-a394-fb86bf67dfcd" class="">如果是centos系统, 按下面方式:</p><pre id="b4317e97-4a5f-45e5-83f6-71d7f1b2544d" class="code code-wrap"><code>vim /usr/lib/systemd/system/docker.service
+#在ExecStart下加上选项&#x27;-H tcp://0.0.0.0:2375&#x27;和&#x27;-H unix://var/run/docker.sock&#x27;,保存退出
+ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:4243 -H unix:///var/run/docker.sock
+systemctl daemon-reload
+systemctl restart docker
+
+#测试
+#netstat -tunlp | grep docker #检查是否有2375端口
+netstat -tunlp | grep docker #检查是否有4243端口
+#curl -XGET http://127.0.0.1:2375/version
+curl -XGET http://127.0.0.1:4243/version</code></pre></li></ol><ol type="1" id="e096c3dc-f851-40d1-b9ce-c0323129d6d1" class="numbered-list" start="3"><li>Jenkins节点配置<p id="649970cb-f85c-481c-962c-2a47f4c4dc85" class="">系统管理&gt;Manage Node and Clouds&gt;Configure Clouds&gt;add a new cloud
+<strong>点击&quot;Docker Cloud detail&quot;, 开始配置Cloud</strong></p><figure id="588a32a3-c60e-495e-a83a-aa43b99d17d1" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%207.png"><img style="width:1583px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%207.png"/></a></figure><ol type="1" id="7cc92f1c-bf6e-4ed5-a322-ac9f773a695d" class="numbered-list" start="1"><li>Docker Host URI,就是运行容器的Docker节点, 把Docker API填在这里, 然后点击&quot;Test connection&quot;</li></ol><ol type="1" id="4db31c29-732a-41b3-9194-515d1c50d395" class="numbered-list" start="2"><li>勾选&quot;Enabled&quot;, 状态设enabled.</li></ol><ol type="1" id="29582f54-b83a-40c1-812d-7bb9d6e20055" class="numbered-list" start="3"><li>Container Cap 改成 10, 云的容器最大数量,</li></ol><p id="7c7b6932-dc70-43c4-a999-1f16bec1425e" class=""><strong>点击&quot;Docker Agent templates&quot;, 配置agent容器</strong></p><ol type="1" id="d795f23c-a79a-4c19-8da0-0de64fa444b3" class="numbered-list" start="1"><li>labels  节点标签，jenkinfile的node块引用，比如<code>java-maven-docker</code></li></ol><ol type="1" id="d4e82293-ddd9-4e6f-a19b-71bffa319a25" class="numbered-list" start="2"><li>Enabled 勾选</li></ol><ol type="1" id="54ce682d-0eaa-4e45-af60-6f299215b235" class="numbered-list" start="3"><li>Name 节点名称，与labels同样即可</li></ol><ol type="1" id="e180b315-05e8-4698-a030-129fcdcbf4ce" class="numbered-list" start="4"><li>Docker image <code>jenkins/jnlp-slave:alpine</code></li></ol><ol type="1" id="ebfea044-46ff-4761-a2b2-19a5fb12b162" class="numbered-list" start="5"><li>Instance Capacity <code>10</code>, 每个docker主机上最大容器数量</li></ol><ol type="1" id="696fe962-097d-4159-ad55-dc7f2dabc6f7" class="numbered-list" start="6"><li>Remote File System Root 改为 <code>/home/jenkins</code>, Jenkins agent容器的根目录.</li></ol><ol type="1" id="47b58833-8b77-4d2d-be16-bcb4b1522060" class="numbered-list" start="7"><li>Usage: 根据情况选择<ol type="a" id="bac07942-2146-4b0f-9d4e-a96d84e1e7b2" class="numbered-list" start="1"><li>Use this node as much as possible，jenkins自由使用这个节点</li></ol><ol type="a" id="28982597-0d29-42d0-b4b8-15545af20c44" class="numbered-list" start="2"><li>Only build jobs with label expressions matching this node，仅在label匹配时该节点才被使用</li></ol></li></ol><ol type="1" id="422bc346-886e-4c93-84bc-5ec173a1bdf1" class="numbered-list" start="8"><li>Idle timeout 10分钟, Jenkins agent容器空闲10分钟后销毁. 单位是分钟. </li></ol><ol type="1" id="51ceda80-d826-4cf2-82e0-48d2fbd2fcab" class="numbered-list" start="9"><li>Connect method: Connect with JNLP，对容器镜像有要求<ul id="dae9c1f8-bb4a-40ea-b619-bcef3d182460" class="bulleted-list"><li style="list-style-type:disc">容器能访问master的5000端口</li></ul><ul id="9a70e750-b8c8-4f29-aee7-946ec93da7e6" class="bulleted-list"><li style="list-style-type:disc">安装java</li></ul><ul id="84b4ad29-4980-440b-b0d0-a236b95d6e3c" class="bulleted-list"><li style="list-style-type:disc">运行agent.jar</li></ul></li></ol><ol type="1" id="e279d798-8429-4bf3-8317-a72edd8c5d33" class="numbered-list" start="10"><li>User: jenkins  容器中的Jenkins agent进程属主是jenkins.</li></ol><ol type="1" id="17d6a048-f69a-451b-9a07-18583aef978c" class="numbered-list" start="11"><li>Jenkins URL: <a href="http://10.19.34.121:8080"><code>http://10.19.34.11:8080</code></a> 根据情况填写</li></ol><ol type="1" id="2085f4e7-2949-4970-8b37-cbe1a66d639a" class="numbered-list" start="12"><li>Pull strategy: Pull once and update latest</li></ol><p id="b3ee49a2-350f-4e93-a864-a3c0e5ae87b8" class="">保存</p></li></ol><p id="d1025037-5836-4a31-bd1e-5736c772a4ad" class="">
+</p><p id="f84b0840-d5c3-4230-b630-093720009ad6" class=""><div class="indented"><h3 id="b391ec89-86e7-4c0a-a011-4307881635ac" class="">测试</h3><p id="981c1119-b2fa-4fac-9a93-b4eb3d48af8b" class="">创建一个流水线, pipeline如下, 创建好后点击立即构建</p><pre id="fef467cb-169d-4a6d-8b7a-752ca08b9ee9" class="code code-wrap"><code>node(&quot;jenkins-agent&quot;){
+    echo &quot;Hello world&quot;
+    sh &quot;sleep 20&quot;
+}</code></pre><p id="28ff7c5e-9ae5-4b73-a6e3-30d485bcdd2f" class="">然后在节点上, 用docker ps命令可以看到增加了一个Jenkins agent容器.</p><figure id="949a4484-be3c-4c5a-91f8-c0246bff059d" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%208.png"><img style="width:1665px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%208.png"/></a></figure></div></p><p id="8fffcb1f-0075-4550-b111-e7f3082b3228" class="">
+</p><h2 id="0e1207be-b662-4821-a149-f598d2999a36" class="">制作agent容器镜像</h2><p id="f6247db9-c6db-4673-a4e7-5a8802cd3e87" class="">镜像包含指定版本的Maven和Java</p><figure id="62721a69-beed-4f86-b5ea-6d5e6ff21a4a" class="image"><a href="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%209.png"><img style="width:528px" src="Jenkins%E5%88%86%E5%B8%83%E5%BC%8F%2060af4/Untitled%209.png"/></a></figure><p id="1504ffe5-ae77-41b6-934e-6b8b5fde45cc" class="">
+</p><p id="f19ded6c-f23c-443b-b365-c2b76c40fb98" class="">
+</p><p id="4a81cc0f-b62b-4f21-9467-be65cd60c1e7" class="">
+</p><p id="d5addd85-4ba3-4804-aded-11353c601853" class="">
+</p></div></article></body></html>

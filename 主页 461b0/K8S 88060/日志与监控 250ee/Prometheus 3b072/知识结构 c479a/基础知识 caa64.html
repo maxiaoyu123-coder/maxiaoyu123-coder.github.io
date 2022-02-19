@@ -1,0 +1,796 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>基础知识</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="caa64edb-6137-4a22-a433-e29edbd84fb5" class="page sans"><header><h1 class="page-title">基础知识</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 29, 2021 10:24 AM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><nav id="23bd3c46-1d70-4664-8ddd-077538449abf" class="block-color-blue table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#9a8404c6-a51a-4712-bbb4-d68529968001">Prometheus 监控系统结构</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#bd1c5c3f-aa00-4883-aa8b-4a0e813ced1b">核心组件</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#da3f0f25-1f16-4e63-97f2-ac3dec602609">Prometheus服务器</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#dff1f9d8-f79b-402d-8d25-c59349377907">Exporter</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#483a4881-9090-429c-be3c-b4407b3daf1e">Pushgateway</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d49f545-a5fe-47a1-b23b-38e40e16e9a4">Alertmanager</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#5ff5e6f0-b9f6-4531-a414-2e14e258b747">instance和jobs</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#0cc07b49-e868-4285-91de-7b3d045dd7e4">instance</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#44422f6c-54b7-4c3e-acbf-94b2c5ff6100">jobs</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#007b2792-6040-4604-96f0-472cec36bfe5">3. 服务发现</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#84695a39-2f2f-43a6-a939-b94a76838949">3.1. 基于文件的服务发现</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#40a1b202-246d-487c-a274-d60d6e950b94">3.2. 基于Consul</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#47737d3c-326f-41ac-a433-e3a5a90ac757"><strong>部署</strong></a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#c34a45ad-532d-4f38-ac9b-158786b47f9e">数据模型</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#e8ef1fd3-4f23-4c7b-8a6b-c9d6771e85bb">PromQL</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#6d6add83-6a5e-4b1e-8a22-7ceea7f01b4c">数据模型</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#d0f321e5-a342-44f6-8e67-9a7dac8e99f8">时间序列选择器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#904056eb-e322-4ff0-8f63-0707e114c80d">即时向量选择器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#ebf0e7ae-95a9-404a-95a0-b17a49d44da1">区间向量选择器</a></div><div class="table_of_contents-item table_of_contents-indent-2"><a class="table_of_contents-link" href="#adcdd606-1522-4cd6-871b-21a9e5096ff7">Offset modifier</a></div></nav><p id="764240ba-79a9-46d1-a37c-48a759d72f9a" class="">
+</p><h1 id="9a8404c6-a51a-4712-bbb4-d68529968001" class="">Prometheus 监控系统结构</h1><p id="4510b688-8f90-41ba-ae47-4645a2957fe1" class="">整体由三大部分组成：</p><ul id="c0c1dfd6-106c-4678-9d11-e32db2f374fe" class="bulleted-list"><li style="list-style-type:disc"><strong>Metric</strong> 指标，可以先简单理解为监控的数据。巧妇难为无米之炊，metric 是Prometheus监控的核心。</li></ul><ul id="8871a9f4-c9a1-457c-bc27-b3b5b41440c7" class="bulleted-list"><li style="list-style-type:disc"><strong>Prometheus Server</strong> 即服务端，负责拉取或接收 metric.</li></ul><ul id="6e04b7b8-73d4-4db8-96ff-48ada77c178c" class="bulleted-list"><li style="list-style-type:disc"><strong>Prometheus Client</strong> 即客户端，负责暴露metric给 server 或者主动推送 metric 给server</li></ul><div id="ce613cde-aaae-456f-9227-63a050a00b1e" class="column-list"><div id="4517a764-5230-48a2-b1f2-ab7221e271ee" style="width:50%" class="column"><figure id="8725fb3e-7995-40ec-8995-58498fed8201" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled.png"><img style="width:576px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled.png"/></a><figcaption><strong>Metric,Prometheus Server,Prometheus Client</strong></figcaption></figure></div><div id="8ab07eed-718b-44ac-ad81-a9cae8db07e4" style="width:50%" class="column"><figure id="03de0bb0-87de-41fd-8b64-e9a2dbf47594" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%201.png"><img style="width:528px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%201.png"/></a><figcaption>Prometheus架构与生态</figcaption></figure><p id="eed4f377-e4a1-4368-ab47-3b8b7e0cfaf9" class="">
+</p></div></div><h1 id="bd1c5c3f-aa00-4883-aa8b-4a0e813ced1b" class="">核心组件</h1><h3 id="da3f0f25-1f16-4e63-97f2-ac3dec602609" class="">Prometheus服务器</h3><p id="7d5d266a-984d-4b06-b54c-5f6077bd7233" class="">主要用于收集每个目标数据，并存储为时间序列数据，对外可提供数据查询支持和告警规则配置管理.</p><p id="dedf73e0-2e9c-494c-ad7c-0ef7a2f63fdf" class="">Prometheus服务器可以对监控目标进行静态配置管理或动态配置管理，它将监控采集到的数据按照时间序列存储在本地磁盘的时序数据库 中（当然也支持远程存储），自身对外提供了自定义的PromQL语言， 可以对数据进行查询和分析</p><h3 id="dff1f9d8-f79b-402d-8d25-c59349377907" class="">Exporter</h3><p id="93637ec5-5bd4-4b00-af51-e9dbdc7e691f" class="">用于输出被监控组件信息的HTTP接口统称为Exporter（导出器）。 目前互联网公司常用的组件大部分都有Exporter供直接使用. 在实际中收集监控 样本数据都是由Exporter完成的. Prometheus server只需要 定时通过这些Exporter提供的HTTP服务获取监控数据即可。可以类似理 解为我们传统意义上的被监控目标的agent，只是区别在于Exporter不会 主动推送监控数据到Prometheus server。</p><p id="a68d93a7-35cf-47ff-aa35-3f69ba7184a1" class="">官方的Exporter列表中包含了常见的绝大多数系统监控指标，比如 用于机器性能监控的node_exporter，MySQL数据库监控的 mysqld_exporter，以及网络设备监控的snmp_exporter等。这些已有的 Exporter对于监控来说，只需进行很少的配置，就能提供完善的数据指 标采集工作。</p><h3 id="483a4881-9090-429c-be3c-b4407b3daf1e" class="">Pushgateway</h3><p id="059167cb-3792-4cca-91ba-e907caf2a841" class="">Pushgateway是指用于支持短期临时或批量计划任务工作的数据汇 聚节点。主要用于短期的Job，此类Job存在的时间较短，可能在 Prometheus来pull之前就自行消失了。所以针对这类Job，设计成可以直 接向Pushgateway推送metric，这样Prometheus服务器端便可以定时去 Pushgateway拉取metric。 另外当某应用系统的网络环境中，Prometheus server和Exporter不能 进行直接互通，我们可以使用Pushgateway来进行中转。</p><h3 id="6d49f545-a5fe-47a1-b23b-38e40e16e9a4" class="">Alertmanager</h3><p id="417ac445-b400-4ed7-b9ed-bb377161309e" class="">Alertmanager主要用于处理Prometheus服务器端发送的alerts信息， 对其去除重数据、分组并路由到正确的接收方式，发出告警。它支持的 告警通知方式非常丰富，常见的通知方式有电子邮件、pagerduty、 OpsGenie，webhook等，还可以控制告警的静音和抑制。</p><hr id="9b18eb7e-f68d-4aca-88cd-de974c9e8920"/><h1 id="5ff5e6f0-b9f6-4531-a414-2e14e258b747" class="">instance和jobs</h1><h3 id="0cc07b49-e868-4285-91de-7b3d045dd7e4" class="">instance</h3><p id="910525c5-7969-4096-b0ea-3ef931a5a7ab" class=""> 任何被采集的目标，即每一个暴露监控样本数据的HTTP服务都称为一个实例（Instance）</p><h3 id="44422f6c-54b7-4c3e-acbf-94b2c5ff6100" class="">jobs</h3><p id="7fbf492c-69cd-4104-a7b4-958f182f9afa" class="">一组具有相同目的的实例可以被组织在一个job下进行管理. 如在prometheus.yml配置文件中定义一个job，这两个实例都是服务器。</p><pre id="abe0a576-c1e0-4593-b50a-4b61c956e408" class="code code-wrap"><code>- job_name: node
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+        - &quot;192.168.31.101:9100&quot;
+        - &quot;192.168.31.251:9100&quot;</code></pre><hr id="9d9d27f8-21bb-48e8-8c6b-05712c8a3e66"/><h1 id="007b2792-6040-4604-96f0-472cec36bfe5" class="">3. 服务发现</h1><p id="04bdbee9-854a-4f91-9ac6-9ea2fc045942" class="">当仅仅对一组由少数服务器或虚拟机组成的测试环境进行监控系统部署时，这种手工添加信息的操作是最简便的, 也就是使用Prometheus的配置文件prometheus.yml中的静态 配置功能static_configs来手工添加主机IP地址和端口，然后与Prometheus 进行关联集成。</p><p id="443922f5-e087-46ba-beaa-739c14667482" class="">但是对于由成百上千物理服务器组成的庞大主机集群, 容器平台或基于云平台实例的动态集群中，会根据线上各个产品系统总体运行的负载状态，人工手动修改配置文件后重启Prometheus服务或动态热加载使之生效，简直是一件不可想象的工作。</p><h2 id="84695a39-2f2f-43a6-a939-b94a76838949" class="">3.1. 基于文件的服务发现</h2><p id="5e4941a0-9bc2-428e-960c-895d074c652b" class="">这种方式依然需要我们手工添加主机IP地址和端口, 只不过是动态生效.</p><pre id="92bb92c3-d0ca-46f6-a876-a58026e42840" class="code code-wrap"><code>#在主配置的[static_configs]下添加一个job.
+- job_name: &#x27;node_service_discovery&#x27;
+    file_sd_configs:  #指定Prometheus基于文件的服务发现配置使用的 选项 
+      - files:   
+        - targets/*.json #自定义的和Prometheus程序同级目录的targets目录，要被自动加载的所有.json格式的文件。
+        refresh_interval: 1m
+
+systemctl restart prometheus #在主配置文件中作了修改, 重启生效, 在targets目录下的子配置文件所作任何修改都不需要重启服务.
+
+#如果我要集成一个export, 在target目录下创建子配置文件json格式, 名称自定义.
+mkdir targets  #按照主配置文件中targets/*.json描述的路径创建targets目录.
+cat targets/dev_node.json
+[
+  {
+    &quot;targets&quot;: [ &quot;192.168.31.64&quot; ],
+    &quot;labels&quot;: {
+      &quot;env&quot;: &quot;dev_webgame&quot;
+    }
+  }
+]
+</code></pre><p id="0415b3a2-032d-446e-bc44-216fa2129cfe" class="">
+</p><h2 id="40a1b202-246d-487c-a274-d60d6e950b94" class="">3.2. 基于Consul</h2><p id="3d2552e7-a5ad-450d-bdb2-12ddea581a72" class="">基于Consul的服务发现是一种使用网络的服务发现机制和配置工 具，是使用Go语言开发的，部署安装较为简单，具有分布式、高可用 性和极高的可扩展性。</p><p id="0ac09794-e8e4-48c6-9683-4e68bc3835bc" class="">Client（即客户）端模式是 无状态的，它负责将所有RPC[1]转发到Server（即服务器）的代理。 Client执行的唯一后台活动是加入到LAN Gossip池。也就是说所有注册 到当前节点的服务会被转发到Server中，而自身是不持久化这些信息。</p><p id="a535bef6-b1f4-4ca5-8848-c0f03382baaa" class="">Server（即服务器）端模式是具有一组扩展功能的代理，包括参与 Raft[2]选举、集群状态维护和响应RPC查询。</p><h3 id="47737d3c-326f-41ac-a433-e3a5a90ac757" class=""><strong>部署</strong></h3><ul id="7f6a968b-75a4-4bf7-ba1d-7d6d83007487" class="toggle"><li><details open=""><summary>部署过程</summary></details></li></ul><p id="945029ce-af0f-4989-8129-f9b3119fc418" class="">步骤一: 下载</p><pre id="ee97517a-e0c3-41ee-b9e0-c17f63cb6e3c" class="code code-wrap"><code>curl -L https://releases.hashicorp.com/consul/1.9.5/consul_1.9.5_linux_amd64.zip -o /tmp/consul_1.9.5_linux_amd64.zip
+mkdir /opt/consul_1.9.5 &amp;&amp; unzip /tmp/consul_1.9.5_linux_amd64.zip -d /opt/consul_1.9.5</code></pre><p id="b6d61a2f-f6f7-415e-b576-950c9331995a" class="">
+</p><figure id="382020d8-d652-405b-8821-fedfa8e21249" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%202.png"><img style="width:672px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%202.png"/></a><figcaption>consul 端口列表</figcaption></figure><p id="77edb695-7408-4db8-8cc1-5c3fdbe2ef5b" class="">步骤二: 启动服务</p><p id="26bd6b2a-64e2-4ccb-8ef6-522e60ec13d3" class="">执行consul程序后, 一个称为agent的守护进程就运行起来了, 它是运行在Consul集群中每个成员上的守护进程， 该进程负责维护集群中成员信息、注册服务、查询响应、运行检查等功 能。agent指令是Consul的核心，可以运行为Server或Client模式.</p><pre id="649fb587-586e-4fa9-b707-3852d24954a9" class="code code-wrap"><code>./consul agent -dev</code></pre><p id="84a94a51-b728-4acf-964a-126c5e472265" class="">
+</p><p id="b9e37b21-e5b2-40cd-9f7c-4480f164b0bd" class=""><strong>基于文件的注册方式</strong></p><p id="98c81594-59e8-414a-9a03-c857d83b4229" class="">步骤一: 服务注册</p><p id="b071eac7-1223-4d17-9f40-bdcd241c3fe5" class="">以192.168.31.63服务器上的node_export服务注册为例</p><pre id="bc880212-7ee0-41bc-885c-e18349937a84" class="code code-wrap"><code>mkdir -p /opt/consul/consul.d
+vi /opt/consul/consul.d/node_exporter.json
+{ &quot;service&quot;: {
+    &quot;id&quot;: &quot;node_exporter&quot;,
+    &quot;name&quot;: &quot;node_exporter&quot;,
+    &quot;tags&quot;: [ &quot;dev_games&quot; ],
+    &quot;address&quot;: &quot;192.168.31.63&quot;,
+    &quot;port&quot;: 9100
+  }
+}
+# 然后记得重启consul</code></pre><ul id="eb86c7aa-d620-47f9-afdc-8c58b25389a0" class="toggle"><li><details open=""><summary>一个node_export服务就注册好了, 通过http API和DNS就可以查到这个服务了, 试一下:</summary><pre id="23356d1b-1c31-4291-aa7e-35a731cf87e9" class="code code-wrap"><code>curl http:// localhost:8500/v1/catalog/service/node_exporter
+[
+    {
+        &quot;ID&quot;: &quot;f83033d9-08c1-02ec-a6c4-b50ce64c3917&quot;,
+        &quot;Node&quot;: &quot;localhost.localdomain&quot;,
+        &quot;Address&quot;: &quot;127.0.0.1&quot;,
+        &quot;Datacenter&quot;: &quot;dc1&quot;,
+        &quot;TaggedAddresses&quot;: {
+            &quot;lan&quot;: &quot;127.0.0.1&quot;,
+            &quot;lan_ipv4&quot;: &quot;127.0.0.1&quot;,
+            &quot;wan&quot;: &quot;127.0.0.1&quot;,
+            &quot;wan_ipv4&quot;: &quot;127.0.0.1&quot;
+        },
+        &quot;NodeMeta&quot;: {
+            &quot;consul-network-segment&quot;: &quot;&quot;
+        },
+        &quot;ServiceKind&quot;: &quot;&quot;,
+        &quot;ServiceID&quot;: &quot;node_exporter&quot;,
+        &quot;ServiceName&quot;: &quot;node_exporter&quot;,
+        &quot;ServiceTags&quot;: [
+            &quot;dev_games&quot;
+        ],
+        &quot;ServiceAddress&quot;: &quot;192.168.31.63&quot;,
+        &quot;ServiceTaggedAddresses&quot;: {
+            &quot;lan_ipv4&quot;: {
+                &quot;Address&quot;: &quot;192.168.31.63&quot;,
+                &quot;Port&quot;: 9100
+            },
+            &quot;wan_ipv4&quot;: {
+                &quot;Address&quot;: &quot;192.168.31.63&quot;,
+                &quot;Port&quot;: 9100
+            }
+        },
+        &quot;ServiceWeights&quot;: {
+            &quot;Passing&quot;: 1,
+            &quot;Warning&quot;: 1
+        },
+        &quot;ServiceMeta&quot;: {},
+        &quot;ServicePort&quot;: 9100,
+        &quot;ServiceEnableTagOverride&quot;: false,
+        &quot;ServiceProxy&quot;: {
+            &quot;MeshGateway&quot;: {},
+            &quot;Expose&quot;: {}
+        },
+        &quot;ServiceConnect&quot;: {},
+        &quot;CreateIndex&quot;: 14,
+        &quot;ModifyIndex&quot;: 14
+    }
+]
+或者
+dig @127.0.0.1 -p 8600 node_exporter.service.consul
+; &lt;&lt;&gt;&gt; DiG 9.11.4-P2-RedHat-9.11.4-26.P2.el7_9.4 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8600 node_exporter.service.consul
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 31809
+;; flags: qr aa rd; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;node_exporter.service.consul.	IN	A
+
+;; ANSWER SECTION:
+node_exporter.service.consul. 0	IN	A	192.168.31.63
+
+;; Query time: 1 msec
+;; SERVER: 127.0.0.1#8600(127.0.0.1)
+;; WHEN: Fri Apr 23 03:51:35 EDT 2021
+;; MSG SIZE  rcvd: 73</code></pre></details></li></ul><p id="5fa7de94-16f5-4ba3-bd56-08441d906857" class="">步骤二: 与Prometheus集成</p><p id="5ba02998-abc3-43f8-8a82-b041a9cb832e" class="">通过Prometheus与Consul的交互便可取得已经注册的node_exporter的信息, 在prometheus.yml上创建一个新的job, 然后重启服务.</p><pre id="b8b343e2-c35c-4185-8b63-ebc101055355" class="code code-wrap"><code>scrape_configs:
+- job_name: &#x27;consul_sd_node_exporter&#x27;
+    scheme: http
+    consul_sd_configs:   #consul_sd_configs：指定Prometheus是基于Consul的自动服务发现 所使用的选项.
+    - server: 127.0.0.1:8500   #server：指定Consul服务地址，由于Consul和Prometheus安装在同 一主机上，这里使用了127.0.0.1地址。
+      services: [&#x27;node_exporter&#x27;] #services：服务名称列表数组，指定当前需要发现哪种服务的信 息。可以指定多服务名称，例如services: [&#x27;node_exporter&#x27;,&#x27;mysqld_exporter&#x27;]，如果不填写，默认获取Consul上注册 的所有服务。</code></pre><p id="b1fc9533-c214-45b7-9b00-f1a66f198803" class="">重新启动Prometheus服务进行配置加载生 效。此时使用浏览器访问示例页面地 址http://192.168.24.17:9090/targets，可以看到最新targets列表中已经存在 基于Consul发现的主机信息</p><p id="c6c1a2e7-5546-446a-8381-f1bd7bdaa80a" class="">服务的注销</p><p id="e2592d3f-745f-4ae5-9f48-107991e8f522" class="">当被监控服务节点故障失效或回收下线，需要删除被发现的服务， 否则Prometheus的targets列表中仍然会显示该服务。下面我们对以上发 现的node_exporter服务进行删除操作：</p><pre id="2c1579bb-6a0f-47a1-99fe-a17c288f54c3" class="code code-wrap"><code>curl --request PUT http:// 127.0.0.1:8500/v1/agent/service/deregister/node_exporter</code></pre><p id="bc1d32c4-1088-47f7-885b-4146f09a9f1b" class="">被监控服务节点故障恢复后，可以使用命令：#./consul reload重新 加载生效。当然，若想彻底关闭这个job，仍然需要编辑prometheus.yml 文件，删除或注释掉原来添加的如下内容，并重新启动Prometheus服 务.</p><hr id="48a811d3-0f5e-4bc8-9ca3-bd996567ad28"/><h1 id="c34a45ad-532d-4f38-ac9b-158786b47f9e" class="">数据模型</h1><p id="33148658-22ad-4012-8928-024846235b50" class="">Prometheus先将采集到的数据转成<strong>时间序列（time series）</strong>, 然后再保存. 时间序列（time series）就是一个带时间戳的数据流。<strong>采样（Sample）</strong>就是一个time series中一个数据，比如<code>(t0, v0)</code>是一个Sample，它由一个值和一个毫秒级的时间戳组成，下图中的一个小圆圈就是一个sample。</p><p id="7d423883-44ff-4ced-a4c9-fb74234e195d" class="">
+</p><div id="996fa769-c181-4c57-be32-c45d910f02e4" class="column-list"><div id="893da07a-016c-4936-82ed-321194ab79d2" style="width:50%" class="column"><figure id="7888d991-53c2-466a-b6c0-5507a1c86b0e" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%203.png"><img style="width:480px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%203.png"/></a></figure></div><div id="e3f4f778-1820-49f3-82fe-8bf221491dba" style="width:50%" class="column"><figure id="4865957f-0436-46a0-a819-8b89c4aa1c01" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%204.png"><img style="width:480px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%204.png"/></a></figure></div></div><div id="d8e7532c-cc3f-4b83-93af-038c7ce10c1e" class="column-list"><div id="b0fc5f54-3be2-4aea-ac61-5b89ec8d3f83" style="width:50%" class="column"><figure id="9b09ef5f-98ea-401c-9d1c-b4db14e9c3d2" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%205.png"><img style="width:432px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%205.png"/></a></figure><figure id="9492731f-bf11-4602-8fd0-8616dfa81f44" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%206.png"><img style="width:528px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%206.png"/></a></figure></div><div id="3a390e0c-a33d-4017-baf4-24098fb75a87" style="width:50%" class="column"><figure id="878911b9-516f-46a0-a2f6-049d909d7795" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%207.png"><img style="width:576px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%207.png"/></a><figcaption>标签名和标签<strong>唯一地</strong>标识出一个serie</figcaption></figure></div></div><figure id="2052894a-5f49-4b00-a501-5f36c89fc8ef"><a href="https://prometheus.io/docs/concepts/data_model/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Data model | Prometheus</div><div class="bookmark-description">Prometheus fundamentally stores all data as time series : streams of timestamped values belonging to the same metric and the same set of labeled dimensions. Besides stored time series, Prometheus may generate temporary derived time series as the result of queries. Every time series is uniquely identified by its metric name and optional key-value pairs called labels.</div></div><div class="bookmark-href"><img src="https://prometheus.io/assets/favicons/favicon.ico" class="icon bookmark-icon"/>https://prometheus.io/docs/concepts/data_model/</div></div><img src="https://prometheus.io/assets/favicons/android-chrome-192x192.png" class="bookmark-image"/></a><figcaption>数据模型官方解释</figcaption></figure><pre id="9e81b4cb-aa43-489e-86d0-7ed9117dc1b2" class="code code-wrap"><code>1. prometheus_http_requests_total{code=&quot;200&quot;,handler=&quot;/api/v1/query_range&quot;} 376
+2. prometheus_http_requests_total{code=&quot;200&quot;,handler=&quot;/graph&quot;} 2
+3. prometheus_http_requests_total{code=&quot;200&quot;,handler=&quot;/metrics&quot;} 666
+4. prometheus_http_response_size_bytes_sum{handler=&quot;/api/v1/label/:name/values&quot;} 9033
+5. prometheus_http_requests_total{code=&quot;200&quot;,handler=&quot;/metrics&quot;} 668
+
+#1，2，3，4都是不同的metrics
+#因为4的名字明显不同于前三个，而1，2，3的 label 值不同
+#3 和 5 是同一个metric, 只是在不同时间有不同的值 —— 注意：在相同时间不可能有相同的metric却有不同的值</code></pre><p id="9b1e5eb8-93b2-4275-a528-9175e488d5cc" class="">
+</p><hr id="37bb79a7-2704-4cbb-88d1-8dc7a94847d9"/><h1 id="e8ef1fd3-4f23-4c7b-8a6b-c9d6771e85bb" class="">PromQL</h1><h2 id="6d6add83-6a5e-4b1e-8a22-7ceea7f01b4c" class="">数据模型</h2><p id="4c0ca578-9782-4107-bf22-0769669b57a8" class="">Prometheus与其他主流时序数据库一样, 在数据模型的核心定义上, 一条Prometheus数据会包含一个指标名称(metric name)和一个或多个标签(label)以及metric value. metric name加一组label作为唯 一标识来定义time series, 也就是时间线. 在查询时, 支持根据labels条件查找time series，支持简单的条件也支持复杂的条件。</p><div id="78e8edc9-a054-4807-99e5-3799dd22ddcc" class="column-list"><div id="87e9ce1e-a382-405b-9b62-fe7dde36a90d" style="width:50%" class="column"><figure id="0b0e0705-1ac2-4387-b8da-c837b046fa35" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%208.png"><img style="width:1758px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%208.png"/></a></figure><p id="d1a7a205-423c-4873-adb7-9091ef0d2e76" class="">
+</p></div><div id="f29c4389-c520-4f66-bd34-ad3472548f7b" style="width:50%" class="column"><figure id="fbe6677c-526d-47a4-968d-daade7800ade" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%209.png"><img style="width:638px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%209.png"/></a></figure></div></div><p id="60ebadfb-8d60-44df-b794-15434b7969c0" class="">
+</p><p id="bbe8c793-f774-42ed-a5f3-28ab02dc067b" class="">通过在花括号（{}）中添加一组匹配的标签， 便可以进一步过滤这些时间序列。</p><figure id="69919e22-c0fd-40b2-97f4-9ef448e8ef51" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2010.png"><img style="width:624px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2010.png"/></a></figure><figure id="20e1603e-5098-40ac-9aa9-d6ef4e4412f9" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2011.png"><img style="width:448px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2011.png"/></a></figure><h2 id="d0f321e5-a342-44f6-8e67-9a7dac8e99f8" class="">时间序列选择器</h2><h3 id="904056eb-e322-4ff0-8f63-0707e114c80d" class="">即时向量选择器</h3><p id="c075ae54-0988-4aa0-9d45-adf8a8a11191" class="">“Instant vector selectors”即时向量选择器. 它返回最新样本的即时向量，即一个包含零个或多个时间序列的列表。这些时间序列中的每一个都有一个样本，样本包含值和时 间戳。</p><p id="889efa64-8f1d-491b-b5d6-dbbd6b414d48" class="">在最简单的形式中，只指定一个指标名称，这将生成一个包含所 有时间序列元素的即时向量，这些元素都具有这个指标名称。</p><figure id="cc38d4f1-0f06-4cfd-8a24-5c15ba422611" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2012.png"><img style="width:624px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2012.png"/></a><figcaption>返回的一个即时向量—一个包含零个或多个时间序列的列表</figcaption></figure><h3 id="ebf0e7ae-95a9-404a-95a0-b17a49d44da1" class="">区间向量选择器</h3><p id="272ddebe-708e-47ba-aa74-a2298ab01f63" class="">与每个时间序列返回一个样本的即时向量选择器不同，区间向量选 择器可以为每个时间序列返回许多样本。从语法上看，范围持续时间被 添加到向量选择器末尾的方括号[]中，用来指定我们想获取的过去一段 时间范围内的样本数据。</p><figure id="485a79c9-167d-48fa-9e76-85db75b7046d" class="image"><a href="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2013.png"><img style="width:480px" src="%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20caa64/Untitled%2013.png"/></a></figure><p id="a57954e9-acc9-44ea-8608-07d8523dac29" class="">
+</p><p id="f3f15e5b-d69a-4edd-a7bb-7b7978b40db7" class="">
+</p><p id="9ea92ec0-afbf-4ec6-b081-70871c19ed7a" class="">其实在日常操作中，只有在调试期间需要查看原始样本时才直接查 看范围向量，而实际操作上基本都是使用带有rate或avg_over_time之类 的函数的范围向量，将范围向量作为参数。当然，除了刚才使用m表示分钟以外，PromQL的时间范围选择器 支持其他时间单位，如s（秒）、h（小时）、d（天）、w（周）、 y（年）。</p><p id="6a622733-1d38-4470-ab7e-1b5cee130431" class="">
+</p><h3 id="adcdd606-1522-4cd6-871b-21a9e5096ff7" class="">Offset modifier</h3><p id="450f43cb-adcc-4d0f-9bcd-8e2b8d0a6d3d" class="">在即时向量表达式或区间向量表达式中，都以当前时间作为基准，如果想查询15分钟前的即时样本数据，或昨天一天内的样本数据 时，就需要使用时间偏移操作了，此操作使用的关键字为 offset，可以分别做如下操作：</p><pre id="ccf4f2e2-9ecc-42ab-ae9c-6a536c8e0ba7" class="code code-wrap"><code>process_resident_memory_bytes{ job=&quot;prometheus&quot;} offset 15m 
+process_resident_memory_bytes{ job=&quot;prometheus&quot;} [1d]offset 1d</code></pre><p id="da4153e7-5486-4eda-bb7e-bf7aaceaccb4" class="">因为，例如在Prometheus Web UI上通过更改时间查询范围就能容 易实现。而实际使用时间偏移操作更多的是如下操作：</p><pre id="f31a0436-2a8d-40d6-9ada-f1919ae5b290" class="code code-wrap"><code># 给出prometheus在过去一小时内内存使用量的变化 
+process_resident_memory_bytes{ job=&quot;prometheus&quot;} -process_resident_memory_bytes{ job=&quot;prometheus&quot;}offset 1h 
+
+# 同样的操作方法也适用于区间向量
+rate(process_resident_memory_bytes{ job=&quot;prometheus&quot;} [15m]) -rate(process_resident_memory_bytes{ job=&quot;prometheus&quot;} [15m]offset 1h)</code></pre><p id="754a1ea2-214b-46da-ad1f-5b0990f33369" class="">
+</p><p id="a78972f9-5b41-44e6-a7a0-ba03f4d7aec6" class="">
+</p><p id="29363605-d34a-41cf-b4e9-9801e8710d14" class="">
+</p></div></article></body></html>

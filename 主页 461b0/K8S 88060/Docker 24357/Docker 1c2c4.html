@@ -1,0 +1,807 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Docker</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1c2c4fc4-2bc1-42bc-9fd8-283c04d58a6f" class="page sans"><header><img class="page-cover-image" src="Docker%201c2c4/v2-a3d705489bb43aaa25270a00122f6969_r.png" style="object-position:center 50%"/><div class="page-header-icon page-header-icon-with-cover"><span class="icon">🐳</span></div><h1 class="page-title">Docker</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@March 21, 2021 8:32 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h3 id="2dfd113c-6ba1-4c42-965d-1c74c0fd3ef9" class="">安装Docker</h3><ul id="941f78ce-fbc9-4587-be9b-dcf14b4839ba" class="toggle"><li><details open=""><summary>步骤</summary><pre id="2cbfb3b9-b6d7-45de-a96d-09a622ac64de" class="code code-wrap"><code>#安装docker
+yum install -y yum-utils
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum remove -y docker docker-common docker-selinux docker-engine
+yum list docker-ce --showduplicates 
+yum install -y docker-ce-18.09.9
+mkdir /etc/docker
+cat&gt;/etc/docker/daemon.json&lt;&lt;EOF
+{
+        &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;],
+        &quot;exec-opts&quot;:[&quot;native.cgroupdriver=systemd&quot;]
+}
+EOF
+systemctl daemon-reload
+systemctl start docker &amp;&amp; systemctl enable docker &amp;&amp; systemctl status docker
+
+
+注意：
+1.Linux8无法直接安装containerd.io
+3.启动docker后报错：Your kernel does not support cgroup blkio weight_device
+原因是kernel版本过高，建议使用长期维护的4.4版本内核</code></pre></details></li></ul><p id="19c8989b-0081-460a-a62e-8fc84804bf16" class="">
+</p><h3 id="c90bfeb0-5c7f-4e61-a473-8ad664c86152" class="">容器代理设置</h3><p id="fd9290eb-591a-4153-a529-0f69078d0475" class="">目的是让docker容器可以使用HTTP/HTTPS/FTP代理服务器, 17.0.7及以上版本的docker可按下面方法实现代理的自动配置. ⚠️采用VPN代理后, 记得从文件/etc/docker/daemon.json中将中国镜像源注释掉.</p><ul id="54f04a41-b93a-4371-8677-939ed464c361" class="toggle"><li><details open=""><summary>步骤</summary><pre id="618d1229-8cc5-4a02-aa13-46d82ab37f11" class="code code-wrap"><code>#此例中,我的VPN代理位于宿主机, 地址是10.19.34.1, 端口是10809.
+#在启动容器的用户的家目录中创建.
+mkdir /root/.docker/
+cat &gt;/root/.docker/config.json &lt;&lt;EOF
+{
+ &quot;proxies&quot;:
+ {
+   &quot;default&quot;:
+   {
+     &quot;httpProxy&quot;: &quot;http://10.19.34.1:10809&quot;,
+     &quot;httpsProxy&quot;: &quot;http://10.19.34.1:10809&quot;,
+     &quot;noProxy&quot;: &quot;*.test.example.com,.example2.com,127.0.0.0/8&quot;   #不经过代理的主机,可使用通配*和CIDR
+   }
+ }
+}
+
+#当这个用户启动容器时, 上面的三个变量将自动被传递到容器.
+docker run --name test -d reg.zh.com/springboot/stock:v1
+docker exec -it test /bin/sh
+/ # env
+HTTPS_PROXY=http://10.19.34.1:10809
+no_proxy=*.test.example.com,.example2.com,127.0.0.0/8
+NO_PROXY=*.test.example.com,.example2.com,127.0.0.0/8
+https_proxy=http://10.19.34.1:10809
+http_proxy=http://10.19.34.1:10809
+HTTP_PROXY=http://10.19.34.1:10809</code></pre></details></li></ul><p id="e4803ee5-9ffd-40e2-a061-e2178c9f7d58" class="">
+</p><h3 id="a3040b2b-d5c5-4344-b2a6-02e22e001314" class="">docker服务代理设置</h3><p id="aca252e1-27dc-4c58-8c9f-2888d46da168" class="">让docker服务通过代理访问国外镜像仓库. ⚠️我的VPN代理服务运行在宿主机, 地址<code>10.19.34.1:10809</code>. 采用VPN代理后, 记得从文件/etc/docker/daemon.json中将中国镜像源注释掉.</p><pre id="b637a26d-9405-4a93-9f78-d913e0946686" class="code"><code>vim /usr/lib/systemd/system/docker.service
+#在[Service]下面添加代理配置。
+Environment=&quot;HTTP_PROXY=http://10.19.34.1:10809&quot;
+Environment=&quot;HTTPS_PROXY=http://10.19.34.1:10809&quot;
+Environment=&quot;NO_PROXY=127.0.0.1,localhost
+
+systemctl daemon-reload
+systemctl restart docker
+docker info #可以看到Http Proxy和Https Proxy</code></pre><h3 id="8b140ff1-5d17-449f-b178-81e388153790" class="">Linux Control Group</h3><ul id="a0b3cc70-1cbe-42cc-95cd-9bf96404cec1" class="bulleted-list"><li style="list-style-type:disc">为什么<p id="01dcd415-7f2b-48ec-a62e-f11d96c08f3b" class="">只有运行环境隔离还不够，因为这些进程还是可以不受限制地使用系统资源，比如网络、磁盘、CPU以及内存 等。因此为了让容器中的进程更加可控，Docker 使用 Linux cgroups 来限制容器中的进程对系统资源的使用。</p></li></ul><ul id="073c786d-c10f-489a-8fc1-e21e8d8de58b" class="bulleted-list"><li style="list-style-type:disc">是什么<p id="c7fec572-dac6-493d-8713-e30da4550f81" class="">能够为一组进程（进程组）分配系统资源如CPU/内存/存储IO/网络IO等。</p><ul id="f0832876-80be-4205-906c-fad7fab61b67" class="bulleted-list"><li style="list-style-type:circle">单位是进程组</li></ul><ul id="b94277c9-ad54-4031-8e6c-fd908dd14815" class="bulleted-list"><li style="list-style-type:circle">管理员可更具体地控制系统资源的分配、优先顺序、拒绝、管理和监控。</li></ul><ul id="6ca1f402-0257-4676-91c9-ebd5cc336fd3" class="bulleted-list"><li style="list-style-type:circle">可更好地根据任务和用户分配硬件资源，提高总体效率。</li></ul></li></ul><ul id="e66aa82d-a3d8-4744-8a12-40bd3ad0a299" class="bulleted-list"><li style="list-style-type:disc">具体功能：<ul id="2307f6f1-e18e-4b8f-8d75-0138c845ce54" class="bulleted-list"><li style="list-style-type:circle"><strong>Resource limitation</strong>: 限制资源使用，比如内存使用上限以及文件系统的缓存限制。</li></ul><ul id="80d477b7-5050-4e27-895b-297f0e5bce1b" class="bulleted-list"><li style="list-style-type:circle"><strong>Prioritization</strong>: 优先级控制，比如：CPU利用和磁盘IO吞吐。（先忽略）</li></ul><ul id="7d177b89-7ed6-4f96-9d74-c7290848e585" class="bulleted-list"><li style="list-style-type:circle"><strong>Accounting</strong>: 一些审计或一些统计，主要目的是为了计费。（先忽略）</li></ul><ul id="9e955cd3-c68e-4bbf-84a4-bfbe5c71be72" class="bulleted-list"><li style="list-style-type:circle"><strong>Control</strong>: 挂起进程，恢复执行进程。（先忽略）</li></ul></li></ul><p id="f0a96f50-52bd-4f41-a380-0d60c1dcd7f3" class="">
+</p><p id="4a1812a6-ec33-40fa-9afe-fc6cd18ef255" class="">在实践中，系统管理员一般会利用CGroup做下面这些事（有点像为某个虚拟机分配资源似的）：</p><ul id="1a866b16-ec41-4125-b7ef-75dc3f3396d2" class="bulleted-list"><li style="list-style-type:disc">隔离一个进程集合（比如：nginx的所有进程），并限制他们所消费的资源，比如绑定CPU的核。</li></ul><ul id="9b7132f6-85fb-4639-a05e-3b0d0147d6da" class="bulleted-list"><li style="list-style-type:disc">为这组进程分配其足够使用的内存</li></ul><ul id="18a71c1d-31f7-4eaa-be23-9b52b7bffdcd" class="bulleted-list"><li style="list-style-type:disc">为这组进程分配相应的网络带宽和磁盘存储限制</li></ul><ul id="3216324b-e405-4670-88a7-6e61c3d24077" class="bulleted-list"><li style="list-style-type:disc">限制访问某些设备（通过设置设备的白名单）</li></ul><p id="0fa88c9f-3d4c-4e7d-a6e5-4f1c330e86b4" class="">
+</p><p id="b6902e36-0de1-4350-81d9-5fa6cc94c62b" class="">内核是否启用了cgroup功能，对应的 cgroup 的配置值如果是 &#x27;y&#x27;，则表示已经被启用了。</p><pre id="db849fde-0f74-4628-a852-5963091137d7" class="code code-wrap"><code>[root@k8s-node01 ~]# cat /boot/config-5.4.113-1.el7.elrepo.x86_64 | grep CGROUP
+CONFIG_CGROUPS=y
+CONFIG_BLK_CGROUP=y
+CONFIG_CGROUP_WRITEBACK=y
+CONFIG_CGROUP_SCHED=y
+CONFIG_CGROUP_PIDS=y
+CONFIG_CGROUP_RDMA=y
+CONFIG_CGROUP_FREEZER=y
+CONFIG_CGROUP_HUGETLB=y
+CONFIG_CGROUP_DEVICE=y
+CONFIG_CGROUP_CPUACCT=y
+CONFIG_CGROUP_PERF=y
+CONFIG_CGROUP_BPF=y
+# CONFIG_CGROUP_DEBUG is not set
+CONFIG_SOCK_CGROUP_DATA=y
+# CONFIG_BLK_CGROUP_IOLATENCY is not set
+# CONFIG_BLK_CGROUP_IOCOST is not set
+# CONFIG_BFQ_CGROUP_DEBUG is not set
+CONFIG_NETFILTER_XT_MATCH_CGROUP=m
+CONFIG_NET_CLS_CGROUP=y
+CONFIG_CGROUP_NET_PRIO=y
+CONFIG_CGROUP_NET_CLASSID=y</code></pre><p id="8e1a2913-139d-4b56-b1eb-ac1459d4a023" class="">
+</p><p id="bfe8e1f4-1ce7-473b-ba86-9e15fd40b91f" class="">cgroup是以文件的形式提供给我们使用的，也就是说，在/sys/fs/cgroup目录下我们通过创建目录和文件来配置cgroup的功能。</p><pre id="e3fc4b72-5da9-438a-aad8-68d608c44c38" class="code code-wrap"><code>[root@k8s-node01 ~]# lssubsys 
+cpuset
+cpu,cpuacct
+blkio
+memory
+devices
+freezer
+net_cls,net_prio
+perf_event
+hugetlb
+pids
+rdma
+
+[root@k8s-node01 ~]# ll  /sys/fs/cgroup 
+total 0
+dr-xr-xr-x 5 root root  0 May 18 17:51 blkio
+lrwxrwxrwx 1 root root 11 May 18 17:51 cpu -&gt; cpu,cpuacct
+lrwxrwxrwx 1 root root 11 May 18 17:51 cpuacct -&gt; cpu,cpuacct
+dr-xr-xr-x 5 root root  0 May 18 17:51 cpu,cpuacct
+dr-xr-xr-x 4 root root  0 May 18 17:51 cpuset
+dr-xr-xr-x 5 root root  0 May 18 17:51 devices
+dr-xr-xr-x 4 root root  0 May 18 17:51 freezer
+dr-xr-xr-x 4 root root  0 May 18 17:51 hugetlb
+dr-xr-xr-x 5 root root  0 May 18 17:51 memory
+lrwxrwxrwx 1 root root 16 May 18 17:51 net_cls -&gt; net_cls,net_prio
+dr-xr-xr-x 4 root root  0 May 18 17:51 net_cls,net_prio
+lrwxrwxrwx 1 root root 16 May 18 17:51 net_prio -&gt; net_cls,net_prio
+dr-xr-xr-x 4 root root  0 May 18 17:51 perf_event
+dr-xr-xr-x 5 root root  0 May 18 17:51 pids
+dr-xr-xr-x 2 root root  0 May 18 17:51 rdma
+dr-xr-xr-x 5 root root  0 May 18 17:51 systemd
+</code></pre><p id="4c090dcc-7dd8-477e-90cc-e0acb0f0220c" class="">我们看到 /sys/fs/cgroup 目录中有若干个子目录，我们可以认为这些都是受 cgroups 控制的资源以及这些资源的信息。</p><ul id="175cdb29-8e51-4a11-962a-75755730f79d" class="bulleted-list"><li style="list-style-type:disc">blkio — 这个子系统为块设备设定输入/输出限制，比如物理设备（磁盘，固态硬盘，USB 等等）。</li></ul><ul id="a54caea3-dd24-4f72-a4f4-8111433d663f" class="bulleted-list"><li style="list-style-type:disc">cpu — 这个子系统使用调度程序提供对 CPU 的 cgroup 任务访问。</li></ul><ul id="794dddd6-e9bb-402b-a0ae-dbe91138fe80" class="bulleted-list"><li style="list-style-type:disc">cpuacct — 这个子系统自动生成 cgroup 中任务所使用的 CPU 报告。</li></ul><ul id="69fbafbf-fc9e-4c6c-8bb9-afb2f87d46c9" class="bulleted-list"><li style="list-style-type:disc">cpuset — 这个子系统为 cgroup 中的任务分配独立 CPU（在多核系统）和内存节点。</li></ul><ul id="f588e7a2-6125-4038-b70f-d35609e5a436" class="bulleted-list"><li style="list-style-type:disc">devices — 这个子系统可允许或者拒绝 cgroup 中的任务访问设备。</li></ul><ul id="548499ea-f27e-43e5-b11d-da8cb371923d" class="bulleted-list"><li style="list-style-type:disc">freezer — 这个子系统挂起或者恢复 cgroup 中的任务。</li></ul><ul id="3e2b9a4b-3b37-450e-a8d9-0972b2b33b73" class="bulleted-list"><li style="list-style-type:disc">memory — 这个子系统设定 cgroup 中任务使用的内存限制，并自动生成内存资源使用报告。</li></ul><ul id="55e07740-e0be-47a1-b74b-0caa32cee479" class="bulleted-list"><li style="list-style-type:disc">net_cls — 这个子系统使用等级识别符（classid）标记网络数据包，可允许 Linux 流量控制程序（tc）识别从具体 cgroup 中生成的数据包。</li></ul><ul id="7c18c96e-9b38-46e5-8521-358c85a59945" class="bulleted-list"><li style="list-style-type:disc">net_prio — 这个子系统用来设计网络流量的优先级</li></ul><ul id="c00c76f1-a849-4926-9682-76d2b1f48488" class="bulleted-list"><li style="list-style-type:disc">hugetlb — 这个子系统主要针对于HugeTLB系统进行限制，这是一个大页文件系统。</li></ul><hr id="97257786-2eee-42e1-a340-96ac33fd022b"/><h2 id="9b775f26-1903-47ab-b75e-64ec4cf60c6d" class="">演示</h2><p id="db12d0f3-f239-43db-9103-e8a41e4d5bdf" class="">以下演示通过cgroup限制一个进程对CPU、内存、网络IO资源的利用，其他功能暂不涉及。</p><h3 id="10960577-f4ed-4466-b166-84409110a554" class="">CPU限制</h3><p id="477eeeeb-a8d6-469a-aaf3-f7a313ede16c" class="">写一个简单的C程序，它可占用CPU到100%，启动后查一下进程的ID。</p><pre id="b402b889-f6e7-494e-8e7f-cefd407b1148" class="code code-wrap"><code>cat &lt;EOF &gt;hello.c
+int main(void)
+{
+    int i = 0;
+    for(;;) i++;
+    return 0;
+}
+EOF
+
+gcc -o hello hello.c
+chmod +x hello.c
+./hello.c
+
+[root@k8s-node01 ~]# ps -ef | grep hello
+root       615  1674 93 22:04 pts/4    00:00:11 ./hello</code></pre><p id="2002be71-1991-477d-93a9-20db163375ee" class="">在cgroup目录下创建hello目录，然后cgroup会自动在该目录中创建各cgroup子系统对应的目录。</p><pre id="3ba80866-3b28-42a3-814e-0a2f15a6c5b0" class="code code-wrap"><code>mkdir /sys/fs/cgroup/cpu/hello
+
+[root@k8s-node01 ~]# ll /sys/fs/cgroup/cpu/hello
+total 0
+-rw-r--r-- 1 root root 0 May 18 22:05 cgroup.clone_children
+-rw-r--r-- 1 root root 0 May 18 22:05 cgroup.procs
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.stat
+-rw-r--r-- 1 root root 0 May 18 22:05 cpuacct.usage
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.usage_all
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.usage_percpu
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.usage_percpu_sys
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.usage_percpu_user
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.usage_sys
+-r--r--r-- 1 root root 0 May 18 22:05 cpuacct.usage_user
+-rw-r--r-- 1 root root 0 May 18 22:05 cpu.cfs_period_us
+-rw-r--r-- 1 root root 0 May 18 22:05 cpu.cfs_quota_us
+-rw-r--r-- 1 root root 0 May 18 22:05 cpu.rt_period_us
+-rw-r--r-- 1 root root 0 May 18 22:05 cpu.rt_runtime_us
+-rw-r--r-- 1 root root 0 May 18 22:05 cpu.shares
+-r--r--r-- 1 root root 0 May 18 22:05 cpu.stat
+-rw-r--r-- 1 root root 0 May 18 22:05 notify_on_release
+-rw-r--r-- 1 root root 0 May 18 22:05 tasks</code></pre><p id="f688ba40-55cc-4922-8aaa-f76e6425f90c" class="">编辑cpu.cfs_quota_us，20000表示进程的CPU quota是20000us，默认CPU周期是100000us，也就是说进程只能使用20%的CPU带宽。</p><pre id="76f6bddd-1c51-4199-b1ed-7e32243690ae" class="code code-wrap"><code>
+[root@k8s-node01 hello]# echo &#x27;615&#x27; &gt; tasks
+[root@k8s-node01 hello]# echo 20000 &gt; cpu.cfs_quota_us</code></pre><p id="774e79d4-5bb9-4bc0-8143-f29472097c30" class="">编辑tasks，写入进程ID，这样上面的设置就对这个进程生效了。</p><pre id="da0a451a-acfe-4ab5-bb34-d6ad0a8822e9" class="code code-wrap"><code>[root@k8s-node01 hello]# echo &#x27;615&#x27; &gt; tasks</code></pre><p id="5f99ff5d-3ddf-4f8c-9f8e-ccba0ee058c9" class="">
+</p><p id="b2fea45f-352c-4ad3-adb8-361ee6e92704" class="">
+</p><p id="016b999b-8924-4718-b434-591244e7527f" class="">
+</p></div></article></body></html>

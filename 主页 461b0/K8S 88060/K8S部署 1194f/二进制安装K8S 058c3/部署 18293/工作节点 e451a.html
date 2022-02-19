@@ -1,0 +1,822 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>工作节点</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+}
+
+.simple-table-header {
+	background: rgb(247, 246, 243);
+	color: black;
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="e451af6d-57b3-4dea-8e2c-6a109fed17d6" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_3.png" style="object-position:center 60%"/><h1 class="page-title">工作节点</h1><table class="properties"><tbody><tr class="property-row property-row-created_time"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedAt"><path d="M6.98643729,14.0000972 C5.19579566,14.0000972 3.40419152,13.3106896 2.04245843,11.9323606 C-0.681017475,9.21200555 -0.680780251,4.76029539 2.04293482,2.04012507 C4.76664406,-0.68004331 9.22427509,-0.68004331 11.9480135,2.04013479 C13.272481,3.36277455 14,5.1330091 14,6.99552762 C14,8.87640182 13.2721894,10.6285043 11.9480135,11.9509302 C10.5679344,13.3105924 8.77756503,14.0000972 6.98643729,14.0000972 Z M10.2705296,7.00913883 L10.2705296,8.46099754 L10.2705296,8.65543362 L10.076181,8.65543362 L8.6543739,8.65543362 L5.72059514,8.65543362 L5.52619796,8.65543362 L5.52619796,8.46099754 L5.52619796,5.52541044 L5.52619796,3.37946773 L5.52619796,3.18502193 L5.72059514,3.18502193 L7.17253164,3.18502193 L7.36692883,3.18502193 L7.36692883,3.37946773 L7.36692883,6.81467358 L10.076181,6.81467358 L10.2705296,6.81467358 L10.2705296,7.00913883 Z M12.1601539,6.99552762 C12.1601539,5.61697497 11.6190112,4.32597154 10.6393933,3.34769528 C8.63253764,1.34336744 5.35197452,1.34061603 3.34153136,3.33944106 C3.33868273,3.34219247 3.33607716,3.34494388 3.33322852,3.34769528 C1.32397148,5.35459953 1.32372842,8.63641682 3.33322852,10.6433794 C5.34295224,12.6504489 8.62968901,12.6504489 10.6393933,10.6433794 C11.6190112,9.66506426 12.1601539,8.37408027 12.1601539,6.99552762 Z"></path></svg></span>Created</th><td><time>@April 20, 2021 6:19 PM</time></td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesMultipleSelect"><path d="M4,3 C4,2.447715 4.447715,2 5,2 L12,2 C12.5523,2 13,2.447716 13,3 C13,3.55228 12.5523,4 12,4 L5,4 C4.447715,4 4,3.55228 4,3 Z M4,7 C4,6.447715 4.447715,6 5,6 L12,6 C12.5523,6 13,6.447716 13,7 C13,7.55228 12.5523,8 12,8 L5,8 C4.447715,8 4,7.55228 4,7 Z M4,11 C4,10.447715 4.447715,10 5,10 L12,10 C12.5523,10 13,10.447716 13,11 C13,11.55228 12.5523,12 12,12 L5,12 C4.447715,12 4,11.55228 4,11 Z M2,4 C1.44771525,4 1,3.55228475 1,3 C1,2.44771525 1.44771525,2 2,2 C2.55228475,2 3,2.44771525 3,3 C3,3.55228475 2.55228475,4 2,4 Z M2,8 C1.44771525,8 1,7.55228475 1,7 C1,6.44771525 1.44771525,6 2,6 C2.55228475,6 3,6.44771525 3,7 C3,7.55228475 2.55228475,8 2,8 Z M2,12 C1.44771525,12 1,11.5522847 1,11 C1,10.4477153 1.44771525,10 2,10 C2.55228475,10 3,10.4477153 3,11 C3,11.5522847 2.55228475,12 2,12 Z"></path></svg></span>Tags</th><td></td></tr></tbody></table></header><div class="page-body"><h1 id="da5ce268-4103-4c42-90ae-adbab59e023e" class="">环境要求</h1><h3 id="5bf4498e-fc78-4fba-b382-45e19c0bc787" class="">centos7，内核升级到了5.4</h3><pre id="61d609f3-1f2f-47b4-b1b0-51eb0dbeb76e" class="code code-wrap"><code>rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
+yum install -y --enablerepo=elrepo-kernel kernel-lt
+awk -F\&#x27; &#x27;$1==&quot;menuentry &quot; {print i++ &quot; : &quot; $2}&#x27; /etc/grub2.cfg
+grub2-set-default 0
+grub2-mkconfig -o /boot/grub2/grub.cfg
+reboot
+rpm -qa|grep kernel
+package-cleanup --oldkernels</code></pre><p id="59e70600-0fb9-4657-847f-a7e5252f0d8e" class="block-color-red_background">package-cleanup --oldkernels的作用是什么?</p><p id="5cd623ea-64b9-4108-81d6-18fcbe5138c6" class="">升级到4.4内核没有成功，因为elrepo库中只有5.4内核。</p><h3 id="cb40b610-56c8-4fb8-8ec7-525ec0bab806" class="">禁用防火墙</h3><pre id="f313858d-2817-4c92-8ba9-364520f02833" class="code code-wrap"><code>systemctl disable --now firewalld</code></pre><h3 id="423318d6-6cb6-49f6-8673-baddafe2d57b" class="">禁用Selinux</h3><pre id="f5a76d8b-dd7c-4090-9dd8-abe7060a1c02" class="code code-wrap"><code>setenforce 0 &amp;&amp; sed -i &#x27;/^SELINUX/cSELINUX=disabled&#x27; /etc/selinux/config &amp;&amp; getenforce</code></pre><h3 id="ff25320f-5bb1-43e6-b7e1-8b66f151c58d" class="">关闭swap交换分区</h3><pre id="381e8ce1-2916-4cd4-8ab8-84acf7bd3041" class="code code-wrap"><code>swapoff -a &amp;&amp;  sed -i &#x27;/ swap / s/^/#/&#x27; /etc/fstab</code></pre><h3 id="6fa2ce13-0db5-44a5-8570-27928eef1445" class="">加载CRI所需的两个内核模块</h3><p id="93c8ff67-8e78-4212-a4f0-97bc227cd0ca" class="block-color-red_background">The bridge netfilter kernel module is required for Kubernetes iptables-based proxy to work correctly. 如果我采用IPVS作代理, 还需要br_netfilter模块么?</p><p id="b683d05e-1f8f-4fd9-8f5e-6067665b2515" class="">overlay模块，因为容器需要使用overlayFS作为存储驱动，不清楚可以参考<a href="https://wiki.archlinux.org/index.php/Overlay_filesystem">https://wiki.archlinux.org/index.php/Overlay_filesystem</a> 和<a href="https://docs.docker.com/storage/storagedriver/overlayfs-driver/">https://docs.docker.com/storage/storagedriver/overlayfs-driver/</a></p><p id="34db41c5-5d27-4de1-bae0-7355691fb8e3" class="">
+</p><pre id="e1cfd3df-d3c8-4c2a-abf9-4ac14d0caed7" class="code code-wrap"><code>modprobe overlay
+lsmod|egrep &#x27;overlay&#x27;
+cat&gt;/etc/modules-load.d/overlay.conf&lt;&lt;EOF	
+overlay
+EOF</code></pre><p id="d16bcde7-cb04-4f91-813a-909e6f3b8abc" class="block-color-red_background">问题: 5.4内核中br_netfilter模块找不到</p><pre id="4b3976df-0897-409d-870b-25b8e9def8fe" class="code code-wrap"><code>[root@k8s-node02 ~]# modprobe br_netfilter
+modprobe: ERROR: could not insert &#x27;br_netfilter&#x27;: Unknown symbol in module, or unknown parameter (see dmesg)</code></pre><h3 id="5c77ff9b-e510-43ac-959f-fe35e0a5a600" class="">开启三个内核参数</h3><pre id="83d39b41-2708-45d1-b022-2b3e9aedbede" class="code code-wrap"><code>cat &lt;&lt;EOF | tee /etc/sysctl.d/99-kubernetes-cri.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.ipv4.ip_forward                 = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+EOF
+sysctl --system 2&amp;&gt;/dev/null
+sysctl -p /etc/sysctl.d/99-kubernetes-cri.conf</code></pre><ul id="b9f4709d-39c4-4d20-b937-4bd1d59ecf38" class="bulleted-list"><li style="list-style-type:disc">将<code>net.bridge.bridge-nf-call-iptables设为1</code>，将经过虚拟网桥IPv4流量传递到iptables chains上，这样CNI插件才能正常工作，参考<a href="https://kubernetes.io/docs/concepts/extend-kubernetes/compute-storage-net/network-plugins/#network-plugin-requirements">官网指南</a>。</li></ul><h3 id="d0b6016a-d670-4d82-bb0c-66baa37d455c" class="">时区与时间同步</h3><pre id="1cbb11e2-c716-40ea-8f94-d6dd23ab25d2" class="code code-wrap"><code>cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+yum install ntpdate
+crontab -e
+0 * * * * ntpdate time1.aliyun.com</code></pre><h3 id="ffd94963-95c1-4576-9b0d-98dc6e1de656" class="">使用journal记录日志</h3><pre id="6e5b3332-23fd-4f97-af5f-8b2ebbde7d54" class="code code-wrap"><code>#日志使用journal
+mkdir /var/log/journal
+mkdir /etc/systemd/journald.conf.d
+cat&gt;/etc/systemd/journald.conf.d/99-prophet.conf&lt;&lt;EOF
+[Journal]
+Storage=persistent				#保存到磁盘
+Compress=yes							#压缩历史日志
+SyncIntervalSec=5m
+RateLimitInterval=30s
+RateLimitBurst=1000				
+SystemMaxUse=10G					#最大占用10G空间
+SystemMaxFileSize=200M		#单个日志200M
+MaxRetentionSec=2week			#日志保存2周
+ForwadToSyslog=no					#日志不转发到syslog
+EOF
+systemctl restart systemd-journald</code></pre><h3 id="af54d718-88b7-4cdf-b8ac-6f6572444f00" class="">安装docker-ce</h3><p id="53af8ac5-3a4b-4a96-962e-4b4b1b23a339" class="">安装配置containerd</p><pre id="b1f253ee-64b3-41d7-a6b4-a1c0755cf7a5" class="code code-wrap"><code>yum localinstall https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.2-3.el7.x86_64.rpm
+containerd config default &gt; /etc/containerd/config.toml
+sed -i &#x27;/systemd_cgroup/s#false#true#g&#x27; /etc/containerd/config.toml
+systemctl enable --now containerd</code></pre><p id="4d9cd151-15c7-4878-aae1-b09b5e0d3686" class="">安装docker</p><pre id="e62654d4-4aaf-4adb-b6b5-8dfd8b05ff3d" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;/etc/yum.repos.d/docker-ce.repo 
+[docker-ce-stable]
+name=Docker CE Stable - $basearch
+baseurl=https://mirrors.aliyun.com/docker-ce/linux/centos/$releasever/$basearch/stable
+enabled=1
+gpgcheck=1
+gpgkey=https://mirrors.aliyun.com/docker-ce/linux/centos/gpg
+EOF
+yum makecache
+yum install docker-ce-18.09.9
+mkdir /etc/docker
+cat&gt;/etc/docker/daemon.json&lt;&lt;EOF
+{
+        &quot;registry-mirrors&quot;: [&quot;https://registry.docker-cn.com&quot;],
+        &quot;exec-opts&quot;:[&quot;native.cgroupdriver=systemd&quot;]
+}
+EOF
+systemctl enable --now docker</code></pre><hr id="fa9cc2bb-4ae5-4d23-a6f2-d3c0f4a35167"/><h1 id="0e6d8732-4486-4e9c-913b-e8e2e3a4d80b" class="">部署kubelet</h1><h3 id="9b128516-9b1d-466c-8445-3d718e63ef63" class="">安装</h3><pre id="1880d59d-30af-4452-9dc3-eeaea2f0c12a" class="code code-wrap"><code>mkdir -p /opt/kubernetes/{bin,cfg,logs,pki}
+
+#把kubelet,kube-proxy放到/opt/kubernetes/bin/</code></pre><h3 id="35202203-b0f0-43be-b59b-6887efe493bc" class="">CA证书</h3><p id="7d422573-925b-4a7d-a40f-e60c6f9f6d23" class="">将apiserver CA证书拷贝到node01上, kubelet访问api-server时需要使用这份CA证书验证apiserver的证书.</p><p id="65beafd3-ce5b-44ad-9834-734caab24eb4" class="">本例, 证书保存在master01(192.168.31.63).</p><pre id="d3394558-a20c-411b-a3d1-9eac6249eb71" class="code code-wrap"><code>scp 192.168.31.63:/opt/kubernetes/pki/kubeapi-ca.pem /opt/kubernetes/pki/</code></pre><h3 id="e12fef9a-6a52-4ecc-9db4-9c67e36aaaf6" class="">kubeconfig文件</h3><p id="492eb9cd-842c-4d63-b05f-5330b1b087f2" class=""><strong>创建bootstrap-kubeconfig文件</strong></p><pre id="3b69ab06-3d17-4180-9290-7c8a76245a53" class="code code-wrap"><code>kubectl config set-cluster default-cluster --server=https://192.168.31.60:6443 --certificate-authority /opt/kubernetes/pki/kubeapi-ca.pem --embed-certs --kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig
+kubectl config set-credentials kubelet-bootstrap --token=bc47661b5bad82e72f0cd646be261d5d --kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig
+kubectl config set-context default-system --cluster default-cluster --user kubelet-bootstrap --kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig
+kubectl config use-context default-system --kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig</code></pre><p id="bd6776ae-bcc6-41d0-a1c6-7fbb8b671ae4" class="">kubelet需要两个kubeconfig文件: </p><ul id="e9d108b6-e291-4e6c-8136-987ac567dad3" class="bulleted-list"><li style="list-style-type:disc">一个是在向apiserver申请证书时向apiserver出示的身份证明, 这个kubeconfig中保存了token, token对应了一个用户, 我们提前已经创建了这个用户, 这个用户专门用于为kubelet申请证书.</li></ul><ul id="895f275e-a00b-4fb9-adee-d69a890c3a1a" class="bulleted-list"><li style="list-style-type:disc">另一个与apiserver进行日常交互时向apiserver出示的身份证明. 第二个是自动生成的.</li></ul><h3 id="e6e2781f-d588-4451-a3ac-110342f72afa" class="">service文件</h3><pre id="ff9be99c-50e1-4caf-84e9-01f12d22c1ce" class="code code-wrap"><code>
+cat &lt;&lt;&#x27;EOF&#x27; &gt;/usr/lib/systemd/system/kubelet.service
+[Unit]
+Description=Kubernetes Kubelet Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=docker.service
+Requires=docker.service
+
+[Service]
+EnvironmentFile=/opt/kubernetes/cfg/kubelet.conf
+ExecStart=/opt/kubernetes/bin/kubelet $KUBELET_OPTS
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+cat &lt;&lt;&#x27;EOF&#x27; &gt;/opt/kubernetes/cfg/kubelet.conf
+KUBELET_OPTS=&quot;\
+--logtostderr=true \
+--v=2 \
+--log-dir=/opt/kubernetes/logs \
+--hostname-override=k8s-node1 \    #此处进行调整
+--network-plugin=cni \
+--cni-conf-dir=/etc/cni/net.d \
+--cni-bin-dir=/opt/cni/bin \
+--kubeconfig=/opt/kubernetes/cfg/kubelet.kubeconfig \
+--bootstrap-kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig \
+--cert-dir=/opt/kubernetes/pki \
+--cgroup-driver=systemd \
+--cluster-dns=10.0.0.2 \         
+--cluster-domain=cluster.local \
+--pod-infra-container-image=gcr.io/google_containers/pause-amd64:3.0&quot;
+EOF</code></pre><ul id="acd3c465-2f32-49e3-86f5-e9a8dfc3a69c" class="bulleted-list"><li style="list-style-type:disc"><code>--cert-dir</code> 管理员通过了 CSR 请求后，kubelet 自动在 --cert-dir 目录创建证书和私钥文件(kubelet-client.crt 和 kubelet-client.key)，然后写入 --kubeconfig 文件；</li></ul><ul id="d3c6ee73-76b4-479f-a148-c7c6b676ca1c" class="bulleted-list"><li style="list-style-type:disc"><code>--pod-infra-container-image</code> 这里指定pause容器的镜像, pause容器用于实现Pod中主容器的网络与文件的共享. 我让docker穿墙, 然后pull下来了一个专用pause镜像.<p id="9c239e31-87b5-427b-befc-5dac257041b1" class="">Specified image will not be pruned by the image garbage collector. When container-runtime is set to <code>docker</code>, all containers in each pod will use the network/ipc namespaces from this image. Other CRI implementations have their own configuration to set this image.</p></li></ul><ul id="1964c6f6-494d-41b0-a373-decfa5edeeb2" class="bulleted-list"><li style="list-style-type:disc"><code>--cgroup-driver</code> systemd或者cgroupfs, 必须与要与docker的cgroup-driver 一致, 否则kubelet服务起不来.</li></ul><ul id="c9969eaf-86d6-4820-90ef-282cb98f78c3" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>--cluster-dns</code> 指定 kubedns 的 Service IP(可以先分配，后续创建 kubedns 服务时指定该 IP)，--cluster-domain 指定域名后缀，这两个参数同时指定后才会生效；</li></ul><ul id="b95b117a-b411-43fe-8831-8d741f6e68c6" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>--allow-privileged=true</code></li></ul><ul id="9b9a7931-e2c1-46bf-90c2-9f3295faddbe" class="block-color-red_background bulleted-list"><li style="list-style-type:disc"><code>--cluster-domain</code> 指定集群的根域, 约定俗成的根域是cluster.local.  加了该选项, pod 启动时, <code>/etc/resolve.conf</code> 文件中的就有 <code>search domain</code> 配置. 为什么需要这个选项呢? 因为有些Pod会访问K8S API, 这些域名请求没有包含根域, 比如这样的http请求https://kubernetes.default.svc/api/v1/nodes/k8s-node1/proxy/metrics/cadvisor就没有包含, 所以需要配置search domain, 否则解析失败.
+<em>关于search domain的解释: 
+The file resolv.conf typically contains search directives that specify the default search domains used for completing a given query name to a fully qualified domain name when no domain suffix is supplied. For instance, search </em><em><a href="http://example.com/">example.com</a></em><em> local.test configures the resolver to try additionally </em><em><a href="http://somehost.example.com/">somehost.example.com</a></em><em> and somehost.local.test.</em></li></ul><ul id="16e7ad3a-a4ae-4190-9d48-2f3c6e188b83" class="bulleted-list"><li style="list-style-type:disc">--hostname-override 为kubelet所在节点定义一个名称, 如不指定则默认取自主机名. 节点的标签<code>kubernetes.io/hostname</code>的值便是取自这里.</li></ul><p id="216e6552-984d-4259-9426-c1c4bd3c0fff" class="">
+</p><h3 id="9df974f0-59a2-45af-b780-18d6560e203b" class="">启动</h3><pre id="cdd68226-b3d9-481a-ad26-a396d7a09155" class="code code-wrap"><code>systemctl enable --now kubelet</code></pre><p id="2bb1df13-85ee-4a37-84e9-305049c4034c" class="">
+</p><h3 id="6be49545-8f76-4366-9176-d45e940f4e48" class="">apiserver签发证书</h3><p id="329aca55-79f8-47ca-b82b-5c5a83a9d631" class="">启动后, node-1 kubelet生成一份csr文件, 以token(来自bootstrap-kubeconfig)认证方式请求apiserver签发证书. 如下所示, 可以看到apiserver收到了csr.</p><pre id="1eec9776-7858-4288-924c-7c23eca21b9f" class="code code-wrap"><code>[root@etcd-1 cfg]# kubectl get csr
+NAME                                                   AGE   SIGNERNAME                                    REQUESTOR           CONDITION
+node-csr-KMym3kTBONRt_OFadx7iF8RjNEdlUQyZAyRMoPl0mZU   10h   kubernetes.io/kube-apiserver-client-kubelet   kubelet-bootstrap   Pending</code></pre><p id="d27daaac-609a-4d38-86b2-2f5c70c7f901" class="">apiserver签发</p><pre id="77a38099-8570-4f9f-bb86-13efb2a78899" class="code code-wrap"><code>[root@etcd-1 cfg]# kubectl certificate approve node-csr-KMym3kTBONRt_OFadx7iF8RjNEdlUQyZAyRMoPl0mZU</code></pre><p id="3e9be801-506d-48d0-98fc-b34e29b546a4" class="">签发后, 在节点的对应目录中就有了kubelet私钥和证书以及kubelet-kubeconfig文件.</p><pre id="01ae1c5d-e4b6-413d-9988-29da2199d2fd" class="code code-wrap"><code>[root@k8s-node02 ~]# ll /opt/kubernetes/pki/
+-rw------- 1 root root 1252 Apr 28 14:27 kubelet-client-2021-04-28-14-27-22.pem
+lrwxrwxrwx 1 root root   58 Apr 28 14:27 kubelet-client-current.pem -&gt; /opt/kubernetes/pki/kubelet-client-2021-04-28-14-27-22.pem</code></pre><p id="56ec27da-631f-4911-87df-b3dc176359db" class="">等kubelet处理一段时间后在apiserver上查看节点信息, 就能看到node-1了, 此时它还是NotReady状态, 因为CNI插件还没有安装.</p><pre id="c1b0b37d-f792-406a-9f00-76cd9607f009" class="code code-wrap"><code>[root@etcd-1 cfg]# kubectl get node
+NAME        STATUS     ROLES    AGE     VERSION
+k8s-node1   NotReady   &lt;none&gt;   9m50s   v1.19.8</code></pre><p id="746af806-4af4-4397-814f-40fed24c84c8" class="">
+</p><hr id="d645e450-6a16-4bc7-be53-0c3afaf20c24"/><h1 id="984d7f95-568b-4a38-9e9e-bbc416dc4941" class="">kube-proxy</h1><h3 id="8c636235-eb23-4221-b61b-438792c8518a" class="">开启IPVS</h3><p id="62cf44aa-dddc-4737-a824-2209a7c4903a" class="">ipvs 是系统内核中的一个模块，它是天然的负载均衡器，相比iptables，网络转发性更好，一般情况下我们首选 ipvs。</p><p id="8fd49857-a6cc-4281-a03e-14cc0c0756be" class="block-color-red_background">Netfilter conntrack ipv4是什么？有什么作用？在内核5.4里<code>lsmod</code>只能找到<code>nf_conntrack</code>，没有<code>nf_conntrack_ipv4</code> </p><pre id="eb034a58-3fa3-44a6-aa28-fbb7229a7cb3" class="code code-wrap"><code>yum install ipset ipvsadm conntrack conntrack-tools -y 
+
+cat &gt; /etc/sysconfig/modules/ipvs.modules &lt;&lt;EOF
+#!/bin/bash
+modprobe -- ip_vs
+modprobe -- ip_vs_rr
+modprobe -- ip_vs_wrr
+modprobe -- ip_vs_sh
+modprobe -- nf_conntrack
+EOF
+chmod 755 /etc/sysconfig/modules/ipvs.modules &amp;&amp; bash /etc/sysconfig/modules/ipvs.modules &amp;&amp; lsmod | grep -e ip_vs -e nf_conntrack</code></pre><p id="8236481c-ca00-4dec-a6bf-32f491f9c91c" class="">创建kubeproxy-kubeconfig文件</p><pre id="d201faa0-ea05-46a4-b074-a5b5b233e387" class="code code-wrap"><code>#将kubeproxy客户端的证书与密钥拷贝过来, 下一步将在kubeconfig中加入它们,本例所有证书在192.168.31.63生成.
+scp 192.168.31.63:/opt/kubernetes/pki/{kube-apiserver-client-kubeproxy-key.pem,kube-apiserver-client-kubeproxy.pem} /opt/kubernetes/pki/
+
+#生成kube-proxy的kubeconfig文件
+kubectl config set-cluster default-cluster --server=https://192.168.31.63:6443 --certificate-authority /opt/kubernetes/pki/kubeapi-ca.pem --embed-certs --kubeconfig=/opt/kubernetes/cfg/kube-proxy.kubeconfig
+kubectl config set-credentials kube-proxy --client-certificate=/opt/kubernetes/pki/kube-apiserver-client-kubeproxy.pem --client-key=/opt/kubernetes/pki/kube-apiserver-client-kubeproxy-key.pem --embed-certs --kubeconfig=/opt/kubernetes/cfg/kube-proxy.kubeconfig
+kubectl config set-context default-system --cluster default-cluster --user kube-proxy --kubeconfig=/opt/kubernetes/cfg/kube-proxy.kubeconfig
+kubectl config use-context default-system --kubeconfig=/opt/kubernetes/cfg/kube-proxy.kubeconfig</code></pre><p id="b89c8c3f-c7ec-4e3a-b54d-e24ae3c24dab" class="">service文件</p><pre id="22c1df4a-90f8-4847-9a57-7039af4df3c4" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;/usr/lib/systemd/system/kube-proxy.service
+[Unit]
+Description=Kubernetes Kube-Proxy Server
+Documentation=https://github.com/GoogleCloudPlatform/kubernetes
+After=network.target
+
+[Service]
+EnvironmentFile=/opt/kubernetes/cfg/kubeproxy.conf
+ExecStart=/opt/kubernetes/bin/kube-proxy $KUBE_PROXY_ARGS
+Restart=on-failure
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target
+EOF</code></pre><p id="a2b41319-ebcd-4795-a4c2-04f34e8f9993" class="">service引用的配置文件</p><pre id="0ed678ea-9805-46f9-a517-73ee069f3495" class="code code-wrap"><code>cat &lt;&lt;&#x27;EOF&#x27; &gt;/opt/kubernetes/cfg/kubeproxy.conf
+KUBE_PROXY_ARGS=&quot;\
+--logtostderr=true \
+--v=2 \
+--log-dir=/opt/kubernetes/logs \
+--bind-address=0.0.0.0 \
+--hostname-override=k8s-node1 \
+--kubeconfig=/opt/kubernetes/cfg/kube-proxy.kubeconfig \
+--ipvs-scheduler=wrr \
+--proxy-mode=ipvs \
+--ipvs-sync-period=5s \
+--ipvs-min-sync-period=5s \
+--cluster-cidr=10.244.0.0/16&quot;
+EOF</code></pre><ul id="e86b67d4-e216-4835-b894-40baae2e2581" class="bulleted-list"><li style="list-style-type:disc">--kube-proxy 根据 --cluster-cidr 判断集群内部和外部流量，指定 --cluster-cidr 或 --masquerade-all 选项后 kube-proxy 才会对访问 Service IP 的请求做 SNAT；</li></ul><ul id="201c7e49-bdcc-429b-8a3f-77e4ddc8d634" class="bulleted-list"><li style="list-style-type:disc">--hostname-override 参数值必须与 kubelet 的值一致，否则 kube-proxy 启动后会找不到该 Node，从而不会创建任何 iptables 规则；</li></ul><ul id="0ae7c74b-154a-4625-bca9-ec8b731aeba5" class="bulleted-list"><li style="list-style-type:disc">-kubeconfig 指定的配置文件嵌入了 kube-apiserver 的地址、用户名、证书、秘钥等请求和认证信息；预定义的 RoleBinding <code>cluster-admin</code> 将User <code>system:kube-proxy </code>与 Role <code>system:node-proxier</code> 绑定，该 Role 授予了调用 kube-apiserver Proxy 相关 API 的权限；</li></ul><ul id="d3752ee0-8829-4272-a55a-4183c0e68faa" class="bulleted-list"><li style="list-style-type:disc"><code>--ipvs-scheduler=wrr</code> 默认是rr，</li></ul><ul id="563cd811-6942-46a7-9ea5-0120c6cc9ce1" class="bulleted-list"><li style="list-style-type:disc"><code>--ipvs-min-sync-period=5s</code> 最短多久，ipvs规则会被刷新一遍。</li></ul><ul id="ab7f3263-24d7-4310-9d23-2fc053a1bb44" class="bulleted-list"><li style="list-style-type:disc"><code>--ipvs-sync-period=5s </code> 最长多久，ipvs规则会被刷新一遍。</li></ul><ul id="8b043bfe-e3fd-4f3b-9d36-15091f231b4a" class="bulleted-list"><li style="list-style-type:disc"><code>--proxy-mode=ipvs</code> 肯定采用ipvs</li></ul><p id="19badce6-24c4-40cf-b00d-53944e12065a" class="">
+</p><p id="53f33274-bd47-48fb-8961-73595a08bd69" class="">启动</p><pre id="8d963c42-dc90-4973-8565-bcf0d9087674" class="code code-wrap"><code>systemctl enable --now kube-proxy</code></pre><hr id="8b3d542e-b8c0-41ec-bb6c-855690113278"/><h1 id="78da5c05-d3c6-481c-a418-3e6f66669df2" class="">部署安装Weave</h1><h2 id="d5d3c050-10a1-4e16-8bb7-70fc4a609bad" class="">安装CNI(版本v0.9.1)</h2><p id="e5cdec72-0b47-4f66-9c1a-fe53149537ac" class="">K8S提出了网络模型和提供了一个CNI接口, 这样第三方按照规范可以开发出符合K8S网路模型的具体实现, 保证了灵活性和规范化. </p><p id="f4bbce29-7b5b-46a8-b798-45baf98e1282" class="">
+</p><figure id="abb4c3b4-05fe-4ced-b5e2-b41a950c48f9"><a href="https://github.com/containernetworking/plugins/releases" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Releases · containernetworking/plugins</div><div class="bookmark-description">This is a minor update to the CNI plugins that bumps a few dependencies and includes some small behavior tweaks. New behavior: DHCP timeout is configurable (#565). host-device: Add support for DPDK device (#490). Host-device plugin is a noop for DPDK devices Fixes: vlan: fix error message text by removing ptp references (#566).</div></div><div class="bookmark-href"><img src="https://github.com/favicon.ico" class="icon bookmark-icon"/>https://github.com/containernetworking/plugins/releases</div></div></a><figcaption>插件下载链接</figcaption></figure><p id="eb7be44b-1d83-4cf5-92fb-ca7e2386f515" class="">下载文件为cni-plugins-linux-amd64-XXX.tgz这样的格式. </p><p id="37e9f894-1648-4b8b-8f6b-92e3e2e7dbef" class="">将CNI安装在/opt/cni/bin目录, kubelet默认会在此处调用CNI插件, CNI插件将生成的结果保存在/etc/cni/net.d目录, kubelet默认在此处读取文件。</p><pre id="c35246bf-8f86-4064-b09a-ebf418986b34" class="code code-wrap"><code>mkdir /opt/cni/bin /etc/cni/net.d -p
+curl -L  https://github.com/containernetworking/plugins/releases/download/v0.9.1/cni-plugins-linux-amd64-v0.9.1.tgz -o /opt/cni/bin/cni-plugins-linux-amd64-v0.9.1.tgz
+cd /opt/cni/bin/ &amp;&amp; tar xf cni-plugins-linux-amd64-v0.9.1.tgz</code></pre><hr id="65baa343-c7b8-4724-b3ec-d38f3904ed12"/><h2 id="f3144a1c-aea3-481d-ab24-32e268e34046" class="">安装Weave</h2><p id="83896d76-fd78-4e9a-949d-1bdf0ea28f55" class="">weave插件是以pod方式部署的, 镜像在国外, 让docker服务翻墙, docker pull手动拉取weave镜像.</p><pre id="99d998ad-966e-463e-9089-977f0a5db3df" class="code code-wrap"><code>#针对k8s 1.6以上版本
+kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &#x27;\n&#x27;)&quot;</code></pre><p id="e67aee4e-c93d-44eb-a8c1-288e565fb5f2" class="">参考：</p><figure id="53a7a790-720d-4779-a2a4-9d4a63741058"><a href="https://www.weave.works/blog/weave-net-kubernetes-integration/" class="bookmark source"><div class="bookmark-info"><div class="bookmark-text"><div class="bookmark-title">Run Weave Net with Kubernetes in Just One Line</div><div class="bookmark-description">Kubernetes, the Open Source container orchestration system from Google, has very specific network requirements. Historically people have used complex Salt and Bash scripts to configure networks to meet the requirements, but now there is a much simpler way to install Weave Net: Kubernetes versions 1.6 and above: $ kubectl apply -f &quot;https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d &#x27;\n&#x27;)&quot; Kubernetes versions up to 1.5: $ kubectl apply -f https://git.io/weave-kube This one-liner will create a DaemonSet, a Kubernetes feature that runs one instance on each node.</div></div><div class="bookmark-href"><img src="https://www.weave.works/assets/favicon/favicon_300px.png" class="icon bookmark-icon"/>https://www.weave.works/blog/weave-net-kubernetes-integration/</div></div><img src="https://images.contentstack.io/v3/assets/blt300387d93dabf50e/blt73fa70c2f2ec0b39/591438c1fec25ad55f34fa1a/bryanboreham-wpcf_150x150-stretched.jpg?format=webp&amp;width=75" class="bookmark-image"/></a></figure><h3 id="b3730e1e-eac4-4e59-a808-256cbef3715a" class="">遇到的问题</h3><ol type="1" id="9f6523d6-ab1f-42b3-87cc-0f15b6553e67" class="block-color-red_background numbered-list" start="1"><li>必须确认apiserver开启了<code>--allow-privileged=true</code> , 否则报以下错误:<pre id="2b541b74-486e-46c5-97bf-57c552822608" class="code code-wrap"><code>The DaemonSet &quot;weave-net&quot; is invalid: 
+* spec.template.spec.containers[0].securityContext.privileged: Forbidden: disallowed by cluster policy
+* spec.template.spec.containers[1].securityContext.privileged: Forbidden: disallowed by cluster policy
+* spec.template.spec.initContainers[0].securityContext.privileged: Forbidden: disallowed by cluster policy</code></pre></li></ol><p id="686e9863-094f-4578-8bf4-c35744269cfc" class="">
+</p><p id="766532cf-b67a-4b85-b0be-f8d582b9881b" class="">2. 接着在node上的weave pod还是无法运行起来, 出现了以下日志信息. 怀疑是域名解析问题, 在master01的/etc/hosts中增加了一条主机映射<code>k8s-node1 192.168.31.66</code>, 重新部署weave, 没有再报这个错误.<div class="indented"><pre id="f9e5c89f-5f8a-439e-88ec-f22759d5b41e" class="code code-wrap"><code>[root@etcd-1 ~]# kubectl logs -n kube-system weave-net-vcz7q -c weave
+Error from server: Get &quot;https://k8s-node1:10250/containerLogs/kube-system/weave-net-vcz7q/weave&quot;: dial tcp: lookup k8s-node1 on 114.114.114.114:53: no such host</code></pre></div></p><p id="2f594d81-82a4-48b9-8f19-632fb10800f6" class="">3. 接着出现这样的错误, 10.0.0.1是k8s上一个名为kubernetes的SVC的地址.在apiserver的csr配置文件的hosts字段中增加了10.0.0.1, 重新签发了证书, 不再出现这样的日志了, 但是出现了下面的问题. <div class="indented"><pre id="9bba0cdd-95d3-4f17-9aaa-a9642e2031c7" class="code code-wrap"><code>[root@etcd-1 ~]# kubectl logs -n kube-system weave-net-h8zv4 weave 
+FATA: 2021/04/20 13:34:30.496648 [kube-peers] Could not get peers: Get &quot;https://10.0.0.1:443/api/v1/nodes&quot;: x509: certificate is valid for 192.168.31.63, 192.168.31.64, 192.168.31.65, not 10.0.0.1
+Failed to get peers</code></pre></div></p><p id="38a3e535-7503-4295-aa87-223edc39d3be" class="">4. 接着出现这个问题, 这个问题与apiserver没有这个配置选项有关<code>-service-account-key-file=/opt/kubernetes/pki/kubeapi-ca-key.pem</code> , 具体原因还在研究.<div class="indented"><pre id="052c64bb-887a-4dcc-8d70-c272a14db9ff" class="code code-wrap"><code>FATA: 2021/04/21 02:57:19.836437 [kube-peers] Could not get peers: Unauthorized</code></pre></div></p><p id="d431e385-4540-4360-93c2-3faea205b0b5" class="">3-4问题是weave访问apiserver的过程中出现的问题，Weave Net won&#x27;t start if it cannot contact the apiserver, and if it fails that early it doesn&#x27;t create the CNI config file <code>/etc/cni/net.d/10-weave.conf</code>.
+</p><p id="ec7787ed-561f-4249-a82c-32b1d310e7ec" class="">
+</p></div></article></body></html>
